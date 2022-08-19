@@ -1,0 +1,12 @@
+C:\Users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\DAO\bin\Release\DAO.dll
+C:\Users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\DAO\bin\Release\DAO.pdb
+C:\Users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\DAO\bin\Release\DAO.xml
+C:\Users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\DAO\bin\Release\Entidades.dll
+C:\Users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\DAO\bin\Release\Entidades.pdb
+C:\Users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\DAO\bin\Release\Entidades.xml
+C:\Users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\DAO\obj\Release\DAO.vbprojResolveAssemblyReference.cache
+C:\Users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\DAO\obj\Release\DAO.Resources.resources
+C:\Users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\DAO\obj\Release\DAO.vbproj.GenerateResource.Cache
+C:\Users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\DAO\obj\Release\DAO.dll
+C:\Users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\DAO\obj\Release\DAO.xml
+C:\Users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\DAO\obj\Release\DAO.pdb

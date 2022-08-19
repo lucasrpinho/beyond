@@ -1,0 +1,8 @@
+c:\users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\Uteis\bin\Debug\Uteis.dll
+c:\users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\Uteis\bin\Debug\Uteis.pdb
+c:\users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\Uteis\bin\Debug\Uteis.xml
+c:\users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\Uteis\obj\Debug\Uteis.Resources.resources
+c:\users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\Uteis\obj\Debug\Uteis.vbproj.GenerateResource.Cache
+c:\users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\Uteis\obj\Debug\Uteis.dll
+c:\users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\Uteis\obj\Debug\Uteis.xml
+c:\users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\Uteis\obj\Debug\Uteis.pdb
