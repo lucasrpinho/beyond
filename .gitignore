@@ -74,6 +74,7 @@ StyleCopReport.xml
 *.iobj
 *.pch
 *.pdb
+*.dll
 *.ipdb
 *.pgc
 *.pgd
@@ -121,6 +122,12 @@ $tf/
 
 # Guidance Automation Toolkit
 *.gpState
+*.bak.*
+*.bak
+*.dll
+*.pdb
+*.cache
+*.exe
 
 # ReSharper is a .NET coding add-in
 _ReSharper*/

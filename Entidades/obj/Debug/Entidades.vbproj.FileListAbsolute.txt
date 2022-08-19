@@ -6,3 +6,11 @@ c:\users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\Entidades\obj\
 c:\users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\Entidades\obj\Debug\Entidades.dll
 c:\users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\Entidades\obj\Debug\Entidades.xml
 c:\users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\Entidades\obj\Debug\Entidades.pdb
+C:\Beyond\Entidades\bin\Debug\Entidades.dll
+C:\Beyond\Entidades\bin\Debug\Entidades.pdb
+C:\Beyond\Entidades\bin\Debug\Entidades.xml
+C:\Beyond\Entidades\obj\Debug\Entidades.Resources.resources
+C:\Beyond\Entidades\obj\Debug\Entidades.vbproj.GenerateResource.Cache
+C:\Beyond\Entidades\obj\Debug\Entidades.dll
+C:\Beyond\Entidades\obj\Debug\Entidades.xml
+C:\Beyond\Entidades\obj\Debug\Entidades.pdb

@@ -6,3 +6,11 @@ c:\users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\Uteis\obj\Debu
 c:\users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\Uteis\obj\Debug\Uteis.dll
 c:\users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\Uteis\obj\Debug\Uteis.xml
 c:\users\lucas.pinho\documents\visual studio 2010\Projects\Beyond\Uteis\obj\Debug\Uteis.pdb
+C:\Beyond\Uteis\bin\Debug\Uteis.dll
+C:\Beyond\Uteis\bin\Debug\Uteis.pdb
+C:\Beyond\Uteis\bin\Debug\Uteis.xml
+C:\Beyond\Uteis\obj\Debug\Uteis.Resources.resources
+C:\Beyond\Uteis\obj\Debug\Uteis.vbproj.GenerateResource.Cache
+C:\Beyond\Uteis\obj\Debug\Uteis.dll
+C:\Beyond\Uteis\obj\Debug\Uteis.xml
+C:\Beyond\Uteis\obj\Debug\Uteis.pdb

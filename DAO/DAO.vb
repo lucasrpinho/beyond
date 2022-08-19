@@ -7,7 +7,8 @@ Public Class DAO
 
 #Region "ACESSO"
 
-    Public Shared Function AutenticaUsuario(ByVal login As String, ByVal senha As String) As Usuario
+    Public Shared Function AutenticaUsuario(ByVal login As String, ByVal senha As String,
+        ByVal resposta As String) As Usuario
         Dim ConnStr As String = ConfigurationManager.AppSettings("ConnStr")
 
         Using Con As New SqlClient.SqlConnection(ConnStr)
@@ -19,14 +20,19 @@ Public Class DAO
                     Cmd.CommandType = CommandType.StoredProcedure
                     Cmd.Parameters.AddWithValue("@LOGIN", login)
                     Cmd.Parameters.AddWithValue("@SENHA", senha)
-                    Dim DA As New SqlDataAdapter(Cmd)
-                    Dim DT As New DataTable()
-                    DA.Fill(DT)
+                    Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+                    Cmd.Parameters("@RESPONSE").Size = 255
+                    resposta = Cmd.Parameters("@RESPONSE").Value
 
-                    If DT.Rows.Count > 0 Then
-                        Return U.Carrega(DT.Rows(0))
-                    Else
+                    Dim Adp As New SqlDataAdapter(Cmd)
+                    Dim Tbl As New DataTable("Usuario")
+
+                    Adp.Fill(Tbl)
+
+                    If Not Tbl.Rows.Count > 0 Then
                         Return Nothing
+                    Else
+                        Return U.Carrega(Tbl.Rows(0))
                     End If
                 Catch Ex As Exception
                     Throw Ex
@@ -38,21 +44,19 @@ Public Class DAO
 #End Region
 
 #Region "Sobre"
-    Public Shared Sub GetSobreSistema(ByVal Lst As List(Of String))
-        Dim ConnStr As String = ConfigurationManager.ConnectionStrings("ConnStr").ConnectionString()
+    Public Shared Sub GetSobreSistema(ByVal Lst As List(Of Object))
+        Dim ConnStr = ConfigurationManager.ConnectionStrings("ConnString").ConnectionString
         Using Con As New SqlConnection(ConnStr)
             Using Cmd As New SqlCommand()
-                Con.Open()
                 Cmd.Connection = Con
                 Cmd.CommandText = "SP_SOBRE_SISTEMA"
                 Cmd.CommandType = CommandType.StoredProcedure
-                Dim Reader = Cmd.ExecuteReader
-                Dim I As Integer = 0
-                While Reader.Read
-                    Lst.Add(Reader.GetString(I))
-                    I += 1
-                End While
-                Reader.Close()
+                Dim Adp As New SqlDataAdapter(Cmd.CommandText, Con)
+                Dim Tbl As New DataTable
+                Adp.Fill(Tbl)
+                For I As Integer = 0 To 3
+                    Lst.Add(Tbl.Rows(0).Field(Of Object)(I))
+                Next
             End Using
         End Using
     End Sub

@@ -30,9 +30,12 @@ Namespace My
             Me.ShutDownStyle = Global.Microsoft.VisualBasic.ApplicationServices.ShutdownMode.AfterMainFormCloses
         End Sub
         
-        <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
+        <Global.System.Diagnostics.DebuggerStepThroughAttribute()> _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.Beyond.Frm_Sobre
+            Dim FP As New Frm_StartUp()
+            FP.WindowState = FormWindowState.Minimized
+            FP.ShowInTaskbar = False
+            Me.MainForm = FP
         End Sub
     End Class
 End Namespace

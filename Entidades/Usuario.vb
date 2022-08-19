@@ -65,7 +65,7 @@ Public Class Usuario
         U.Sobrenome = row.Field(Of String)("de_sobrenome")
         U.NomeCompleto = row.Field(Of String)("de_nome_completo")
         U.Login = row.Field(Of String)("de_login")
-        U.Senha = row.Field(Of String)("de_senha")
+        ' U.Senha = row.Field(Of String)("de_senha")
         U.IsAtivo = row.Field(Of Boolean)("ct_ativo")
         U.DatCriacao = row.Field(Of DateTime)("dat_criacao")
         U.LoginCriacao = row.Field(Of String)("de_login_criacao")

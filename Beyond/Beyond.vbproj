@@ -49,7 +49,11 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>BeyondICON.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -76,11 +80,23 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms Iniciais\Frm_StartUp.Designer.vb">
+      <DependentUpon>Frm_StartUp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms Iniciais\Frm_StartUp.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Frm_Sobre.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Frm_Sobre.Designer.vb">
       <DependentUpon>Frm_Sobre.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms Iniciais\Frm_Login.Designer.vb">
+      <DependentUpon>Frm_Login.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms Iniciais\Frm_Login.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -100,8 +116,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms Iniciais\Frm_StartUp.resx">
+      <DependentUpon>Frm_StartUp.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frm_Sobre.resx">
       <DependentUpon>Frm_Sobre.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms Iniciais\Frm_Login.resx">
+      <DependentUpon>Frm_Login.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -112,6 +135,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -123,14 +148,23 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BeyondICON.ico" />
-    <Content Include="BeyondIMG-removebg-preview.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\DAO\DAO.vbproj">
       <Project>{B55DD301-F27A-4271-A6E9-618533D0F334}</Project>
       <Name>DAO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Entidades\Entidades.vbproj">
+      <Project>{6370F997-61DD-45A7-8C69-5DFFF958A999}</Project>
+      <Name>Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Uteis\Uteis.vbproj">
+      <Project>{FB3C645B-FB5E-4FAA-96C5-457BAF93E2A7}</Project>
+      <Name>Uteis</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Imagens\BeyondICON.ico" />
+    <Content Include="Imagens\BeyondICON.png" />
+    <Content Include="Imagens\login.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
