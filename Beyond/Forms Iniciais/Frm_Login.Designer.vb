@@ -78,6 +78,7 @@ Partial Class Frm_Login
         '
         'BtnAcessa
         '
+        Me.BtnAcessa.Enabled = False
         Me.BtnAcessa.Location = New System.Drawing.Point(236, 127)
         Me.BtnAcessa.Name = "BtnAcessa"
         Me.BtnAcessa.Size = New System.Drawing.Size(94, 23)
@@ -90,12 +91,12 @@ Partial Class Frm_Login
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtSenhaInvalida.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.5!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TxtSenhaInvalida.ForeColor = System.Drawing.Color.Red
-        Me.TxtSenhaInvalida.Location = New System.Drawing.Point(12, 169)
+        Me.TxtSenhaInvalida.Location = New System.Drawing.Point(174, 153)
         Me.TxtSenhaInvalida.Name = "TxtSenhaInvalida"
-        Me.TxtSenhaInvalida.Size = New System.Drawing.Size(382, 23)
+        Me.TxtSenhaInvalida.Size = New System.Drawing.Size(220, 23)
         Me.TxtSenhaInvalida.TabIndex = 5
         Me.TxtSenhaInvalida.Text = " "
-        Me.TxtSenhaInvalida.TextAlign = System.Drawing.ContentAlignment.BottomRight
+        Me.TxtSenhaInvalida.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.TxtSenhaInvalida.Visible = False
         '
         'TxtLogin

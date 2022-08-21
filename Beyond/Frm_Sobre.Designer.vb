@@ -28,7 +28,6 @@ Partial Class Frm_Sobre
         Me.LblNumSistema = New System.Windows.Forms.Label()
         Me.LblDataVersao = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.BtnEntrar = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -92,16 +91,6 @@ Partial Class Frm_Sobre
         Me.PictureBox1.TabIndex = 4
         Me.PictureBox1.TabStop = False
         '
-        'BtnEntrar
-        '
-        Me.BtnEntrar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnEntrar.Location = New System.Drawing.Point(425, 221)
-        Me.BtnEntrar.Name = "BtnEntrar"
-        Me.BtnEntrar.Size = New System.Drawing.Size(97, 28)
-        Me.BtnEntrar.TabIndex = 5
-        Me.BtnEntrar.Text = "Entrar"
-        Me.BtnEntrar.UseVisualStyleBackColor = True
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -148,7 +137,6 @@ Partial Class Frm_Sobre
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.BtnEntrar)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.LblDataVersao)
         Me.Controls.Add(Me.LblNumSistema)
@@ -172,7 +160,6 @@ Partial Class Frm_Sobre
     Friend WithEvents LblNumSistema As System.Windows.Forms.Label
     Friend WithEvents LblDataVersao As System.Windows.Forms.Label
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
-    Friend WithEvents BtnEntrar As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label

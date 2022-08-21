@@ -6,8 +6,16 @@
         Return String.IsNullOrWhiteSpace(str)
     End Function
 
-    Public Shared Function LengthOnKeyDown(ByVal Txt As String, ByVal Max As Integer) As Boolean
+    Public Shared Function MaxLength(ByVal Txt As String, ByVal Max As Integer) As Boolean
         If Txt.Length > Max Then
+            Return False
+        Else
+            Return True
+        End If
+    End Function
+
+    Public Shared Function MinLength(ByVal Txt As String, ByVal Min As Integer) As Boolean
+        If Txt.Length < Min Then
             Return False
         Else
             Return True

@@ -8,7 +8,7 @@ Public Class DAO
 #Region "ACESSO"
 
     Public Shared Function AutenticaUsuario(ByVal login As String, ByVal senha As String,
-        ByVal resposta As String) As Usuario
+        ByRef resposta As String) As Usuario
         Dim ConnStr As String = ConfigurationManager.AppSettings("ConnStr")
 
         Using Con As New SqlClient.SqlConnection(ConnStr)
@@ -22,13 +22,12 @@ Public Class DAO
                     Cmd.Parameters.AddWithValue("@SENHA", senha)
                     Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
                     Cmd.Parameters("@RESPONSE").Size = 255
-                    resposta = Cmd.Parameters("@RESPONSE").Value
 
                     Dim Adp As New SqlDataAdapter(Cmd)
                     Dim Tbl As New DataTable("Usuario")
-
                     Adp.Fill(Tbl)
 
+                    resposta = Cmd.Parameters("@RESPONSE").Value
                     If Not Tbl.Rows.Count > 0 Then
                         Return Nothing
                     Else
