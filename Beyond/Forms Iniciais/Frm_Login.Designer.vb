@@ -89,11 +89,11 @@ Partial Class Frm_Login
         '
         Me.TxtSenhaInvalida.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TxtSenhaInvalida.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.5!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TxtSenhaInvalida.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.5!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TxtSenhaInvalida.ForeColor = System.Drawing.Color.Red
-        Me.TxtSenhaInvalida.Location = New System.Drawing.Point(174, 153)
+        Me.TxtSenhaInvalida.Location = New System.Drawing.Point(12, 173)
         Me.TxtSenhaInvalida.Name = "TxtSenhaInvalida"
-        Me.TxtSenhaInvalida.Size = New System.Drawing.Size(220, 23)
+        Me.TxtSenhaInvalida.Size = New System.Drawing.Size(377, 23)
         Me.TxtSenhaInvalida.TabIndex = 5
         Me.TxtSenhaInvalida.Text = " "
         Me.TxtSenhaInvalida.TextAlign = System.Drawing.ContentAlignment.BottomCenter

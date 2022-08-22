@@ -86,6 +86,12 @@
     <Compile Include="Forms Iniciais\Frm_StartUp.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Frm_Principal_MDI.Designer.vb">
+      <DependentUpon>Frm_Principal_MDI.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Principal_MDI.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Frm_Sobre.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +124,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Forms Iniciais\Frm_StartUp.resx">
       <DependentUpon>Frm_StartUp.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Principal_MDI.resx">
+      <DependentUpon>Frm_Principal_MDI.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_Sobre.resx">
       <DependentUpon>Frm_Sobre.vb</DependentUpon>

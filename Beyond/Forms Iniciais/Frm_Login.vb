@@ -8,36 +8,11 @@ Public Class Frm_Login
     Private Retrys As Integer = 0
     Private _ToolTip As New ToolTip()
 
-    ' TODO: Insert code to perform custom authentication using the provided username and password 
-    ' (See http://go.microsoft.com/fwlink/?LinkId=35339).  
-    ' The custom principal can then be attached to the current thread's principal as follows: 
-    '     My.User.CurrentPrincipal = CustomPrincipal
-    ' where CustomPrincipal is the IPrincipal implementation used to perform authentication. 
-    ' Subsequently, My.User will return identity information encapsulated in the CustomPrincipal object
-    ' such as the username, display name, etc.
-
     Private Sub BtnAcessa_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnAcessa.Click
         If Not ValidaCampos() Then
             Exit Sub
         End If
-        Dim User As Usuario
-        Retrys += 1
-        User = DAO.DAO.AutenticaUsuario(TxtLogin.Text.ToUpper.Trim, TxtSenha.Text, RespostaAutenticacao)
-
-        If Retrys >= 3 And IsNothing(User) Then
-            MB.Alerta("O sistema será fechado", "Tentativas de logon esgotadas")
-            System.Threading.Thread.Sleep(1500)
-            Application.Exit()
-        End If
-
-        If User Is Nothing Then
-            TxtSenhaInvalida.Text = RespostaAutenticacao
-            TxtSenhaInvalida.Visible = True
-        End If
-    End Sub
-
-    Private Sub Frm_Login_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        Application.Exit()
+        AutenticaUserAcessaSistema()
     End Sub
 
     Private Function ValidaCampos() As Boolean
@@ -74,6 +49,44 @@ Public Class Frm_Login
             BtnAcessa.Enabled = False
             TxtSenhaInvalida.Visible = True
             TxtSenhaInvalida.Text = "Login precisa ser maiúsculo e conter apenas letras"
+        End If
+    End Sub
+
+    Private Sub TxtSenha_Enter(sender As System.Object, e As System.EventArgs) Handles TxtSenha.Enter
+        TxtSenhaInvalida.Visible = False
+    End Sub
+
+    Private Sub AutenticaUserAcessaSistema()
+        Dim User As Usuario
+        Try
+            Cursor.Current = Cursors.WaitCursor
+            Retrys += 1
+            User = DAO.DAO.AutenticaUsuario(TxtLogin.Text.ToUpper.Trim, TxtSenha.Text, RespostaAutenticacao)
+
+            If Retrys >= 3 And IsNothing(User) Then
+                MB.Alerta("O sistema será fechado", "Tentativas de logon esgotadas")
+                System.Threading.Thread.Sleep(1500)
+                Application.Exit()
+            End If
+
+            If User Is Nothing Then
+                TxtSenhaInvalida.Text = RespostaAutenticacao
+                TxtSenhaInvalida.Visible = True
+            Else
+                Dim FPrincipal As New Frm_Principal_MDI(User)
+                FPrincipal.Show()
+                Me.Close()
+            End If
+        Finally
+            Cursor.Current = Cursors.Arrow
+        End Try
+    End Sub
+
+    Private Sub Frm_Login_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
+        If Application.OpenForms.OfType(Of Frm_Principal_MDI).Count > 0 Then
+            e.Cancel = False
+        Else
+            Application.Exit()
         End If
     End Sub
 End Class
