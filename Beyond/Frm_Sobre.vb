@@ -1,5 +1,5 @@
 ﻿Imports DAO
-Imports System.Configuration
+Imports Uteis
 
 Public Class Frm_Sobre
 
@@ -26,9 +26,9 @@ Public Class Frm_Sobre
     End Sub
 
     Private Sub Frm_Sobre_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-        Const QTD_APOS_INICIAR = 2
-        If Application.OpenForms.Count > QTD_APOS_INICIAR Then
-            Me.Close()
+
+        If Application.OpenForms.Count > FH.FORM_ATUAL_MAIS_FORM_STARTUP Then
+            e.Cancel = False
         Else
             Dim FLogin As New Frm_Login
             FLogin.Show()

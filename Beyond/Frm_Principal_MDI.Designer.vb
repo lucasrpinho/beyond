@@ -26,6 +26,9 @@ Partial Class Frm_Principal_MDI
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_Principal_MDI))
         Me.MnStrip_Principal = New System.Windows.Forms.MenuStrip()
         Me.AçõesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FecharAbaSelecionadaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FecharSelecionadaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FecharTodasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SairToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UsuáriosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AlterarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -69,13 +72,17 @@ Partial Class Frm_Principal_MDI
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.TSL_Login = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TSL_Data = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.TC_Principal = New System.Windows.Forms.TabControl()
         Me.TSL_Hora = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TimerClock = New System.Windows.Forms.Timer(Me.components)
+        Me.SplitC1 = New System.Windows.Forms.SplitContainer()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.LblOla = New System.Windows.Forms.Label()
         Me.MnStrip_Principal.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
+        CType(Me.SplitC1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitC1.Panel2.SuspendLayout()
+        Me.SplitC1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -90,15 +97,34 @@ Partial Class Frm_Principal_MDI
         '
         'AçõesToolStripMenuItem
         '
-        Me.AçõesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SairToolStripMenuItem})
+        Me.AçõesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FecharAbaSelecionadaToolStripMenuItem, Me.SairToolStripMenuItem})
         Me.AçõesToolStripMenuItem.Name = "AçõesToolStripMenuItem"
         Me.AçõesToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
         Me.AçõesToolStripMenuItem.Text = "Ação"
         '
+        'FecharAbaSelecionadaToolStripMenuItem
+        '
+        Me.FecharAbaSelecionadaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FecharSelecionadaToolStripMenuItem, Me.FecharTodasToolStripMenuItem})
+        Me.FecharAbaSelecionadaToolStripMenuItem.Name = "FecharAbaSelecionadaToolStripMenuItem"
+        Me.FecharAbaSelecionadaToolStripMenuItem.Size = New System.Drawing.Size(95, 22)
+        Me.FecharAbaSelecionadaToolStripMenuItem.Text = "Aba"
+        '
+        'FecharSelecionadaToolStripMenuItem
+        '
+        Me.FecharSelecionadaToolStripMenuItem.Name = "FecharSelecionadaToolStripMenuItem"
+        Me.FecharSelecionadaToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.FecharSelecionadaToolStripMenuItem.Text = "Fechar selecionada"
+        '
+        'FecharTodasToolStripMenuItem
+        '
+        Me.FecharTodasToolStripMenuItem.Name = "FecharTodasToolStripMenuItem"
+        Me.FecharTodasToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.FecharTodasToolStripMenuItem.Text = "Fechar todas"
+        '
         'SairToolStripMenuItem
         '
         Me.SairToolStripMenuItem.Name = "SairToolStripMenuItem"
-        Me.SairToolStripMenuItem.Size = New System.Drawing.Size(93, 22)
+        Me.SairToolStripMenuItem.Size = New System.Drawing.Size(95, 22)
         Me.SairToolStripMenuItem.Text = "Sair"
         '
         'UsuáriosToolStripMenuItem
@@ -311,7 +337,8 @@ Partial Class Frm_Principal_MDI
         Me.SaveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.SaveToolStripButton.Name = "SaveToolStripButton"
         Me.SaveToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.SaveToolStripButton.Text = "&Save"
+        Me.SaveToolStripButton.Text = "Salvar"
+        Me.SaveToolStripButton.ToolTipText = "Salvar"
         '
         'PrintToolStripButton
         '
@@ -390,31 +417,6 @@ Partial Class Frm_Principal_MDI
         Me.TSL_Data.Padding = New System.Windows.Forms.Padding(20, 0, 20, 0)
         Me.TSL_Data.Size = New System.Drawing.Size(40, 17)
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(0, 46)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(755, 400)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 7
-        Me.PictureBox1.TabStop = False
-        '
-        'TC_Principal
-        '
-        Me.TC_Principal.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TC_Principal.Location = New System.Drawing.Point(152, 46)
-        Me.TC_Principal.Name = "TC_Principal"
-        Me.TC_Principal.SelectedIndex = 0
-        Me.TC_Principal.Size = New System.Drawing.Size(599, 400)
-        Me.TC_Principal.TabIndex = 2
-        Me.TC_Principal.Visible = False
-        '
         'TSL_Hora
         '
         Me.TSL_Hora.Name = "TSL_Hora"
@@ -426,16 +428,60 @@ Partial Class Frm_Principal_MDI
         Me.TimerClock.Enabled = True
         Me.TimerClock.Interval = 1000
         '
+        'SplitC1
+        '
+        Me.SplitC1.BackColor = System.Drawing.Color.Transparent
+        Me.SplitC1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitC1.IsSplitterFixed = True
+        Me.SplitC1.Location = New System.Drawing.Point(0, 49)
+        Me.SplitC1.Name = "SplitC1"
+        '
+        'SplitC1.Panel1
+        '
+        Me.SplitC1.Panel1.BackgroundImage = CType(resources.GetObject("SplitC1.Panel1.BackgroundImage"), System.Drawing.Image)
+        Me.SplitC1.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        '
+        'SplitC1.Panel2
+        '
+        Me.SplitC1.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.SplitC1.Panel2.Controls.Add(Me.LblOla)
+        Me.SplitC1.Panel2.Controls.Add(Me.PictureBox1)
+        Me.SplitC1.Size = New System.Drawing.Size(755, 400)
+        Me.SplitC1.SplitterDistance = 251
+        Me.SplitC1.SplitterWidth = 10
+        Me.SplitC1.TabIndex = 10
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(171, 117)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(181, 165)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 0
+        Me.PictureBox1.TabStop = False
+        '
+        'LblOla
+        '
+        Me.LblOla.AutoSize = True
+        Me.LblOla.Font = New System.Drawing.Font("Verdana", 32.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblOla.ForeColor = System.Drawing.Color.White
+        Me.LblOla.Location = New System.Drawing.Point(16, 32)
+        Me.LblOla.Name = "LblOla"
+        Me.LblOla.Size = New System.Drawing.Size(184, 52)
+        Me.LblOla.TabIndex = 1
+        Me.LblOla.Text = "Label1"
+        '
         'Frm_Principal_MDI
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(755, 471)
-        Me.Controls.Add(Me.TC_Principal)
+        Me.Controls.Add(Me.SplitC1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.MnStrip_Principal)
-        Me.Controls.Add(Me.PictureBox1)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.IsMdiContainer = True
@@ -451,6 +497,10 @@ Partial Class Frm_Principal_MDI
         Me.ToolStrip1.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        Me.SplitC1.Panel2.ResumeLayout(False)
+        Me.SplitC1.Panel2.PerformLayout()
+        CType(Me.SplitC1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitC1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -501,8 +551,12 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents TSL_Login As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents TSL_Data As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
-    Friend WithEvents TC_Principal As System.Windows.Forms.TabControl
     Friend WithEvents TSL_Hora As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents TimerClock As System.Windows.Forms.Timer
+    Friend WithEvents FecharAbaSelecionadaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents FecharSelecionadaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents FecharTodasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents SplitC1 As System.Windows.Forms.SplitContainer
+    Friend WithEvents LblOla As System.Windows.Forms.Label
+    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
 End Class
