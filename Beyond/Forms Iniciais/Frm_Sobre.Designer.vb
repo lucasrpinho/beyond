@@ -39,7 +39,7 @@ Partial Class Frm_Sobre
         '
         Me.LblNomeSistema.AutoSize = True
         Me.LblNomeSistema.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblNomeSistema.Location = New System.Drawing.Point(325, 38)
+        Me.LblNomeSistema.Location = New System.Drawing.Point(318, 29)
         Me.LblNomeSistema.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblNomeSistema.Name = "LblNomeSistema"
         Me.LblNomeSistema.Size = New System.Drawing.Size(101, 31)
@@ -51,7 +51,7 @@ Partial Class Frm_Sobre
         '
         Me.LblNomeAutor.AutoSize = True
         Me.LblNomeAutor.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblNomeAutor.Location = New System.Drawing.Point(290, 99)
+        Me.LblNomeAutor.Location = New System.Drawing.Point(281, 99)
         Me.LblNomeAutor.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblNomeAutor.Name = "LblNomeAutor"
         Me.LblNomeAutor.Size = New System.Drawing.Size(57, 17)
@@ -62,7 +62,7 @@ Partial Class Frm_Sobre
         '
         Me.LblNumSistema.AutoSize = True
         Me.LblNumSistema.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblNumSistema.Location = New System.Drawing.Point(290, 155)
+        Me.LblNumSistema.Location = New System.Drawing.Point(297, 155)
         Me.LblNumSistema.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblNumSistema.Name = "LblNumSistema"
         Me.LblNumSistema.Size = New System.Drawing.Size(57, 17)
@@ -74,7 +74,7 @@ Partial Class Frm_Sobre
         Me.LblDataVersao.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LblDataVersao.AutoSize = True
         Me.LblDataVersao.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblDataVersao.Location = New System.Drawing.Point(134, 227)
+        Me.LblDataVersao.Location = New System.Drawing.Point(125, 227)
         Me.LblDataVersao.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblDataVersao.Name = "LblDataVersao"
         Me.LblDataVersao.Size = New System.Drawing.Size(57, 17)
@@ -94,7 +94,7 @@ Partial Class Frm_Sobre
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(345, 21)
+        Me.Label1.Location = New System.Drawing.Point(343, 12)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(58, 17)
         Me.Label1.TabIndex = 6
@@ -132,6 +132,7 @@ Partial Class Frm_Sobre
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.LightSteelBlue
         Me.ClientSize = New System.Drawing.Size(534, 261)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)

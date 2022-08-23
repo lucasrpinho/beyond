@@ -1,7 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class Frm_CadUsuario
-    Inherits System.Windows.Forms.Form
-
+    Inherits Form
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
@@ -24,10 +23,12 @@ Partial Class Frm_CadUsuario
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_CadUsuario))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.TxtNome = New System.Windows.Forms.TextBox()
+        Me.TxtEmail = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.TxtSobrenome = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.TxtNome = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.TxtLogin = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TxtSenha = New System.Windows.Forms.TextBox()
@@ -36,16 +37,17 @@ Partial Class Frm_CadUsuario
         Me.Label5 = New System.Windows.Forms.Label()
         Me.ChkBoxAtivo = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.TxtEmail = New System.Windows.Forms.TextBox()
-        Me.Label6 = New System.Windows.Forms.Label()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.PictureBox1)
         Me.GroupBox1.Controls.Add(Me.TxtEmail)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.TxtSobrenome)
@@ -53,39 +55,42 @@ Partial Class Frm_CadUsuario
         Me.GroupBox1.Controls.Add(Me.TxtNome)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Location = New System.Drawing.Point(16, 15)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Size = New System.Drawing.Size(539, 214)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Informações - Usuário"
         '
-        'Label1
+        'TxtEmail
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(8, 38)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(45, 17)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Nome"
+        Me.TxtEmail.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TxtEmail.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.TxtEmail.Location = New System.Drawing.Point(11, 175)
+        Me.TxtEmail.Margin = New System.Windows.Forms.Padding(4)
+        Me.TxtEmail.Name = "TxtEmail"
+        Me.TxtEmail.Size = New System.Drawing.Size(338, 23)
+        Me.TxtEmail.TabIndex = 5
         '
-        'TxtNome
+        'Label6
         '
-        Me.TxtNome.Location = New System.Drawing.Point(11, 59)
-        Me.TxtNome.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.TxtNome.MaxLength = 30
-        Me.TxtNome.Name = "TxtNome"
-        Me.TxtNome.Size = New System.Drawing.Size(205, 23)
-        Me.TxtNome.TabIndex = 1
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(8, 154)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(47, 17)
+        Me.Label6.TabIndex = 4
+        Me.Label6.Text = "E-mail"
         '
         'TxtSobrenome
         '
         Me.TxtSobrenome.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TxtSobrenome.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtSobrenome.Location = New System.Drawing.Point(11, 117)
-        Me.TxtSobrenome.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TxtSobrenome.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtSobrenome.Name = "TxtSobrenome"
         Me.TxtSobrenome.Size = New System.Drawing.Size(338, 23)
         Me.TxtSobrenome.TabIndex = 3
@@ -100,8 +105,29 @@ Partial Class Frm_CadUsuario
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Sobrenome"
         '
+        'TxtNome
+        '
+        Me.TxtNome.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.TxtNome.Location = New System.Drawing.Point(11, 59)
+        Me.TxtNome.Margin = New System.Windows.Forms.Padding(4)
+        Me.TxtNome.MaxLength = 30
+        Me.TxtNome.Name = "TxtNome"
+        Me.TxtNome.Size = New System.Drawing.Size(205, 23)
+        Me.TxtNome.TabIndex = 1
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(8, 38)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(45, 17)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "Nome"
+        '
         'TxtLogin
         '
+        Me.TxtLogin.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtLogin.Location = New System.Drawing.Point(8, 57)
         Me.TxtLogin.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtLogin.MaxLength = 16
@@ -164,9 +190,11 @@ Partial Class Frm_CadUsuario
         '
         'ChkBoxAtivo
         '
-        Me.ChkBoxAtivo.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ChkBoxAtivo.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ChkBoxAtivo.AutoSize = True
-        Me.ChkBoxAtivo.Location = New System.Drawing.Point(474, 177)
+        Me.ChkBoxAtivo.Checked = True
+        Me.ChkBoxAtivo.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ChkBoxAtivo.Location = New System.Drawing.Point(250, 177)
         Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
         Me.ChkBoxAtivo.Size = New System.Drawing.Size(58, 21)
         Me.ChkBoxAtivo.TabIndex = 10
@@ -193,37 +221,28 @@ Partial Class Frm_CadUsuario
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Informações - Login"
         '
-        'TxtEmail
+        'PictureBox1
         '
-        Me.TxtEmail.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TxtEmail.Location = New System.Drawing.Point(11, 175)
-        Me.TxtEmail.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtEmail.Name = "TxtEmail"
-        Me.TxtEmail.Size = New System.Drawing.Size(338, 23)
-        Me.TxtEmail.TabIndex = 5
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(8, 154)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(47, 17)
-        Me.Label6.TabIndex = 4
-        Me.Label6.Text = "E-mail"
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(400, 23)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(121, 117)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 6
+        Me.PictureBox1.TabStop = False
         '
         'Frm_CadUsuario
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.LightSteelBlue
         Me.ClientSize = New System.Drawing.Size(571, 490)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Frm_CadUsuario"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Cadastrar Usuário"
@@ -231,6 +250,7 @@ Partial Class Frm_CadUsuario
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -249,4 +269,5 @@ Partial Class Frm_CadUsuario
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents TxtEmail As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
 End Class

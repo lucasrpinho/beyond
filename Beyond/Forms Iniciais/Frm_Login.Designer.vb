@@ -112,6 +112,7 @@ Partial Class Frm_Login
         Me.AcceptButton = Me.BtnAcessa
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.Lavender
         Me.ClientSize = New System.Drawing.Size(401, 205)
         Me.Controls.Add(Me.TxtLogin)
         Me.Controls.Add(Me.TxtSenhaInvalida)

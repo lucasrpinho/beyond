@@ -58,32 +58,28 @@ Partial Class Frm_Principal_MDI
         Me.AjudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SobreToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BuscarAtualizaçãoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.NewToolStripButton = New System.Windows.Forms.ToolStripButton()
-        Me.OpenToolStripButton = New System.Windows.Forms.ToolStripButton()
-        Me.SaveToolStripButton = New System.Windows.Forms.ToolStripButton()
-        Me.PrintToolStripButton = New System.Windows.Forms.ToolStripButton()
-        Me.toolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
-        Me.CutToolStripButton = New System.Windows.Forms.ToolStripButton()
-        Me.CopyToolStripButton = New System.Windows.Forms.ToolStripButton()
-        Me.PasteToolStripButton = New System.Windows.Forms.ToolStripButton()
-        Me.toolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.HelpToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.TSL_Login = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TSL_Data = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TSL_Hora = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TimerClock = New System.Windows.Forms.Timer(Me.components)
         Me.SplitC1 = New System.Windows.Forms.SplitContainer()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.TCPrincipal = New System.Windows.Forms.TabControl()
         Me.LblOla = New System.Windows.Forms.Label()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ToolStripMenuFecharUma = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuFecharTodas = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnStrip_Principal.SuspendLayout()
-        Me.ToolStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.SplitC1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitC1.Panel1.SuspendLayout()
         Me.SplitC1.Panel2.SuspendLayout()
         Me.SplitC1.SuspendLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MnStrip_Principal
@@ -91,6 +87,7 @@ Partial Class Frm_Principal_MDI
         Me.MnStrip_Principal.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AçõesToolStripMenuItem, Me.UsuáriosToolStripMenuItem, Me.PedidoToolStripMenuItem, Me.RelatórioToolStripMenuItem, Me.AjudaToolStripMenuItem})
         Me.MnStrip_Principal.Location = New System.Drawing.Point(0, 0)
         Me.MnStrip_Principal.Name = "MnStrip_Principal"
+        Me.MnStrip_Principal.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
         Me.MnStrip_Principal.Size = New System.Drawing.Size(755, 24)
         Me.MnStrip_Principal.TabIndex = 1
         Me.MnStrip_Principal.Text = "Menu"
@@ -303,98 +300,6 @@ Partial Class Frm_Principal_MDI
         Me.BuscarAtualizaçãoToolStripMenuItem.Size = New System.Drawing.Size(173, 22)
         Me.BuscarAtualizaçãoToolStripMenuItem.Text = "Buscar Atualização"
         '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewToolStripButton, Me.OpenToolStripButton, Me.SaveToolStripButton, Me.PrintToolStripButton, Me.toolStripSeparator, Me.CutToolStripButton, Me.CopyToolStripButton, Me.PasteToolStripButton, Me.toolStripSeparator1, Me.HelpToolStripButton})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(755, 25)
-        Me.ToolStrip1.TabIndex = 5
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'NewToolStripButton
-        '
-        Me.NewToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.NewToolStripButton.Image = CType(resources.GetObject("NewToolStripButton.Image"), System.Drawing.Image)
-        Me.NewToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.NewToolStripButton.Name = "NewToolStripButton"
-        Me.NewToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.NewToolStripButton.Text = "&New"
-        '
-        'OpenToolStripButton
-        '
-        Me.OpenToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.OpenToolStripButton.Image = CType(resources.GetObject("OpenToolStripButton.Image"), System.Drawing.Image)
-        Me.OpenToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.OpenToolStripButton.Name = "OpenToolStripButton"
-        Me.OpenToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.OpenToolStripButton.Text = "&Open"
-        '
-        'SaveToolStripButton
-        '
-        Me.SaveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.SaveToolStripButton.Image = CType(resources.GetObject("SaveToolStripButton.Image"), System.Drawing.Image)
-        Me.SaveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.SaveToolStripButton.Name = "SaveToolStripButton"
-        Me.SaveToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.SaveToolStripButton.Text = "Salvar"
-        Me.SaveToolStripButton.ToolTipText = "Salvar"
-        '
-        'PrintToolStripButton
-        '
-        Me.PrintToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.PrintToolStripButton.Image = CType(resources.GetObject("PrintToolStripButton.Image"), System.Drawing.Image)
-        Me.PrintToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.PrintToolStripButton.Name = "PrintToolStripButton"
-        Me.PrintToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.PrintToolStripButton.Text = "&Print"
-        '
-        'toolStripSeparator
-        '
-        Me.toolStripSeparator.Name = "toolStripSeparator"
-        Me.toolStripSeparator.Size = New System.Drawing.Size(6, 25)
-        '
-        'CutToolStripButton
-        '
-        Me.CutToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.CutToolStripButton.Image = CType(resources.GetObject("CutToolStripButton.Image"), System.Drawing.Image)
-        Me.CutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.CutToolStripButton.Name = "CutToolStripButton"
-        Me.CutToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.CutToolStripButton.Text = "C&ut"
-        '
-        'CopyToolStripButton
-        '
-        Me.CopyToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.CopyToolStripButton.Image = CType(resources.GetObject("CopyToolStripButton.Image"), System.Drawing.Image)
-        Me.CopyToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.CopyToolStripButton.Name = "CopyToolStripButton"
-        Me.CopyToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.CopyToolStripButton.Text = "&Copy"
-        '
-        'PasteToolStripButton
-        '
-        Me.PasteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.PasteToolStripButton.Image = CType(resources.GetObject("PasteToolStripButton.Image"), System.Drawing.Image)
-        Me.PasteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.PasteToolStripButton.Name = "PasteToolStripButton"
-        Me.PasteToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.PasteToolStripButton.Text = "&Paste"
-        '
-        'toolStripSeparator1
-        '
-        Me.toolStripSeparator1.Name = "toolStripSeparator1"
-        Me.toolStripSeparator1.Size = New System.Drawing.Size(6, 25)
-        '
-        'HelpToolStripButton
-        '
-        Me.HelpToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.HelpToolStripButton.Image = CType(resources.GetObject("HelpToolStripButton.Image"), System.Drawing.Image)
-        Me.HelpToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.HelpToolStripButton.Name = "HelpToolStripButton"
-        Me.HelpToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.HelpToolStripButton.Text = "He&lp"
-        '
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSL_Login, Me.TSL_Data, Me.TSL_Hora})
@@ -406,12 +311,14 @@ Partial Class Frm_Principal_MDI
         '
         'TSL_Login
         '
+        Me.TSL_Login.BackColor = System.Drawing.Color.Transparent
         Me.TSL_Login.Name = "TSL_Login"
         Me.TSL_Login.Padding = New System.Windows.Forms.Padding(20, 0, 20, 0)
         Me.TSL_Login.Size = New System.Drawing.Size(40, 17)
         '
         'TSL_Data
         '
+        Me.TSL_Data.BackColor = System.Drawing.Color.Transparent
         Me.TSL_Data.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.TSL_Data.Name = "TSL_Data"
         Me.TSL_Data.Padding = New System.Windows.Forms.Padding(20, 0, 20, 0)
@@ -419,6 +326,7 @@ Partial Class Frm_Principal_MDI
         '
         'TSL_Hora
         '
+        Me.TSL_Hora.BackColor = System.Drawing.Color.Transparent
         Me.TSL_Hora.Name = "TSL_Hora"
         Me.TSL_Hora.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
         Me.TSL_Hora.Size = New System.Drawing.Size(20, 17)
@@ -433,34 +341,45 @@ Partial Class Frm_Principal_MDI
         Me.SplitC1.BackColor = System.Drawing.Color.Transparent
         Me.SplitC1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SplitC1.IsSplitterFixed = True
-        Me.SplitC1.Location = New System.Drawing.Point(0, 49)
+        Me.SplitC1.Location = New System.Drawing.Point(0, 24)
         Me.SplitC1.Name = "SplitC1"
         '
         'SplitC1.Panel1
         '
-        Me.SplitC1.Panel1.BackgroundImage = CType(resources.GetObject("SplitC1.Panel1.BackgroundImage"), System.Drawing.Image)
         Me.SplitC1.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.SplitC1.Panel1.Controls.Add(Me.PictureBox2)
         '
         'SplitC1.Panel2
         '
         Me.SplitC1.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.SplitC1.Panel2.Controls.Add(Me.TCPrincipal)
         Me.SplitC1.Panel2.Controls.Add(Me.LblOla)
         Me.SplitC1.Panel2.Controls.Add(Me.PictureBox1)
-        Me.SplitC1.Size = New System.Drawing.Size(755, 400)
+        Me.SplitC1.Size = New System.Drawing.Size(755, 425)
         Me.SplitC1.SplitterDistance = 251
         Me.SplitC1.SplitterWidth = 10
         Me.SplitC1.TabIndex = 10
         '
-        'PictureBox1
+        'PictureBox2
         '
-        Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(171, 117)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(181, 165)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 0
-        Me.PictureBox1.TabStop = False
+        Me.PictureBox2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
+        Me.PictureBox2.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(251, 425)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox2.TabIndex = 0
+        Me.PictureBox2.TabStop = False
+        '
+        'TCPrincipal
+        '
+        Me.TCPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TCPrincipal.Location = New System.Drawing.Point(0, 0)
+        Me.TCPrincipal.Name = "TCPrincipal"
+        Me.TCPrincipal.SelectedIndex = 0
+        Me.TCPrincipal.Size = New System.Drawing.Size(494, 425)
+        Me.TCPrincipal.TabIndex = 2
+        Me.TCPrincipal.Visible = False
         '
         'LblOla
         '
@@ -473,14 +392,44 @@ Partial Class Frm_Principal_MDI
         Me.LblOla.TabIndex = 1
         Me.LblOla.Text = "Label1"
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(156, 129)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(181, 165)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 0
+        Me.PictureBox1.TabStop = False
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuFecharUma, Me.ToolStripMenuFecharTodas})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(176, 48)
+        '
+        'ToolStripMenuFecharUma
+        '
+        Me.ToolStripMenuFecharUma.Name = "ToolStripMenuFecharUma"
+        Me.ToolStripMenuFecharUma.Size = New System.Drawing.Size(175, 22)
+        Me.ToolStripMenuFecharUma.Text = "Fechar Selecionada"
+        '
+        'ToolStripMenuFecharTodas
+        '
+        Me.ToolStripMenuFecharTodas.Name = "ToolStripMenuFecharTodas"
+        Me.ToolStripMenuFecharTodas.Size = New System.Drawing.Size(175, 22)
+        Me.ToolStripMenuFecharTodas.Text = "Fechar Todas"
+        '
         'Frm_Principal_MDI
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.LightSteelBlue
         Me.ClientSize = New System.Drawing.Size(755, 471)
         Me.Controls.Add(Me.SplitC1)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.MnStrip_Principal)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -493,15 +442,16 @@ Partial Class Frm_Principal_MDI
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.MnStrip_Principal.ResumeLayout(False)
         Me.MnStrip_Principal.PerformLayout()
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        Me.SplitC1.Panel1.ResumeLayout(False)
         Me.SplitC1.Panel2.ResumeLayout(False)
         Me.SplitC1.Panel2.PerformLayout()
         CType(Me.SplitC1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitC1.ResumeLayout(False)
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -537,17 +487,6 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents AjudaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SobreToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents BuscarAtualizaçãoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Friend WithEvents NewToolStripButton As System.Windows.Forms.ToolStripButton
-    Friend WithEvents OpenToolStripButton As System.Windows.Forms.ToolStripButton
-    Friend WithEvents SaveToolStripButton As System.Windows.Forms.ToolStripButton
-    Friend WithEvents PrintToolStripButton As System.Windows.Forms.ToolStripButton
-    Friend WithEvents toolStripSeparator As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents CutToolStripButton As System.Windows.Forms.ToolStripButton
-    Friend WithEvents CopyToolStripButton As System.Windows.Forms.ToolStripButton
-    Friend WithEvents PasteToolStripButton As System.Windows.Forms.ToolStripButton
-    Friend WithEvents toolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents HelpToolStripButton As System.Windows.Forms.ToolStripButton
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents TSL_Login As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents TSL_Data As System.Windows.Forms.ToolStripStatusLabel
@@ -559,4 +498,9 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents SplitC1 As System.Windows.Forms.SplitContainer
     Friend WithEvents LblOla As System.Windows.Forms.Label
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents TCPrincipal As System.Windows.Forms.TabControl
+    Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents ToolStripMenuFecharUma As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuFecharTodas As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
 End Class

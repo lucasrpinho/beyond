@@ -57,8 +57,51 @@ Public Class DAO
                     Lst.Add(Tbl.Rows(0).Field(Of Object)(I))
                 Next
             End Using
+            Con.Close()
         End Using
     End Sub
+#End Region
+
+#Region "Usuário"
+    Public Shared Function InsertUsuario(ByVal usuario As Usuario, ByRef response As String) As Boolean
+        Dim ConnStr As String = ConfigurationManager.ConnectionStrings("ConnString").ConnectionString
+        Using Con As New SqlClient.SqlConnection(ConnStr)
+            Using Cmd As New SqlClient.SqlCommand
+                Con.Open()
+                Cmd.Connection = Con
+                Cmd.CommandText = "SP_INSERT_USER"
+                Cmd.CommandType = CommandType.StoredProcedure
+                Cmd.Parameters.Add("@NOME", SqlDbType.VarChar).Value = usuario.Nome
+                Cmd.Parameters.Add("@SOBRENOME", SqlDbType.VarChar).Value = usuario.Sobrenome
+                Cmd.Parameters.Add("@NOMECOMPLETO", SqlDbType.VarChar).Value = usuario.NomeCompleto
+                Cmd.Parameters.Add("@EMAIL", SqlDbType.VarChar).Value = usuario.Email
+                Cmd.Parameters.Add("@LOGIN", SqlDbType.VarChar).Value = usuario.Login
+                Cmd.Parameters.Add("@SENHA", SqlDbType.VarChar).Value = usuario.Senha
+                Cmd.Parameters.Add("@LOGINCRIACAO", SqlDbType.VarChar).Value = usuario.LoginCriacao
+                Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+                Cmd.Parameters("@RESPONSE").Size = 255
+                Dim tr = Con.BeginTransaction
+                Try
+                    Cmd.Transaction = tr
+                    If Not Cmd.ExecuteNonQuery > 0 Then
+                        tr.Rollback()
+                    Else
+                        tr.Commit()
+                        Return True
+                    End If
+                Catch ex As Exception
+                    response = "O cadastro de usuário falhou"
+                    tr.Rollback()
+#If DEBUG Then
+                    response = ex.InnerException.Message + ex.Message + ex.StackTrace
+#End If
+                End Try
+                response = Cmd.Parameters("@RESPONSE").Value
+            End Using
+            Con.Close()
+        End Using
+        Return False
+    End Function
 #End Region
 
 End Class

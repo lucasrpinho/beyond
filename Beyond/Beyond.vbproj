@@ -127,6 +127,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UserControls\UC_Toolstrip.Designer.vb">
+      <DependentUpon>UC_Toolstrip.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UC_Toolstrip.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms Iniciais\Frm_StartUp.resx">
@@ -151,6 +157,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UC_Toolstrip.resx">
+      <DependentUpon>UC_Toolstrip.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

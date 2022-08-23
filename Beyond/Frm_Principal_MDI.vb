@@ -4,6 +4,15 @@ Public Class Frm_Principal_MDI
 
     Private usuario As Usuario
 
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+    End Sub
+
     Public Sub New(ByVal usuario As Usuario)
 
         ' This call is required by the designer.
@@ -48,17 +57,22 @@ Public Class Frm_Principal_MDI
 
     Private Sub CadastrarToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles CadastrarToolStripMenuItem.Click
         Dim Frm As Form
-        Frm = SplitC1.Panel2.Controls.OfType(Of Frm_CadUsuario).FirstOrDefault
+        Frm = TCPrincipal.TabPages.OfType(Of Frm_CadUsuario).FirstOrDefault
         If Not Frm Is Nothing Then
             Frm.BringToFront()
         Else
-            Frm = New Frm_CadUsuario
+            Frm = New Frm_CadUsuario(Me)
+            Dim TP As New TabPage
             Frm.TopLevel = False
-            Frm.BringToFront()
-            Frm.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
-            Frm.WindowState = FormWindowState.Maximized
-            SplitC1.Panel2.Controls.Add(Frm)
-            SplitC1.Panel2.Tag = Frm
+            Frm.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            Frm.MdiParent = Me
+            Frm.Dock = DockStyle.Fill
+            TP.Controls.Add(Frm)
+            TP.Tag = Frm
+            TP.Text = Frm.Text
+            TCPrincipal.TabPages.Add(TP)
+            TCPrincipal.BringToFront()
+            TCPrincipal.Visible = True
             Frm.Show()
         End If
     End Sub
@@ -79,6 +93,21 @@ Public Class Frm_Principal_MDI
     End Sub
 
     Private Sub FecharSelecionadaToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles FecharSelecionadaToolStripMenuItem.Click
+        If Not TCPrincipal.TabPages.Count > 0 Then
+            Exit Sub
+        Else
+            TCPrincipal.TabPages.Remove(TCPrincipal.SelectedTab)
+            If TCPrincipal.TabPages.Count = 0 Then
+                TCPrincipal.Visible = False
+            End If
+        End If
+    End Sub
 
+    Private Sub TCPrincipal_MouseClick(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles TCPrincipal.MouseClick
+        If e.Button = Windows.Forms.MouseButtons.Right Then
+            If TCPrincipal.TabPages.Count > 0 Then
+                ContextMenuStrip1.Show(TCPrincipal, e.Location)
+            End If
+        End If
     End Sub
 End Class
