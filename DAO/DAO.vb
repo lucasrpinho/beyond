@@ -5,11 +5,15 @@ Imports Entidades
 
 Public Class DAO
 
+    Private Shared Con As SqlConnection
+    Private Shared Tr As SqlTransaction
+
 #Region "ACESSO"
 
     Public Shared Function AutenticaUsuario(ByVal login As String, ByVal senha As String,
         ByRef resposta As String) As Usuario
         Dim ConnStr As String = ConfigurationManager.AppSettings("ConnStr")
+        Dim usuario As New Usuario
 
         Using Con As New SqlClient.SqlConnection(ConnStr)
             Using Cmd As New SqlCommand()
@@ -31,8 +35,10 @@ Public Class DAO
                     If Not Tbl.Rows.Count > 0 Then
                         Return Nothing
                     Else
-                        Return U.Carrega(Tbl.Rows(0))
+                        usuario.Carrega(Tbl.Rows(0))
+                        Return usuario
                     End If
+
                 Catch Ex As Exception
                     Throw Ex
                 End Try
@@ -53,7 +59,7 @@ Public Class DAO
                 Dim Adp As New SqlDataAdapter(Cmd.CommandText, Con)
                 Dim Tbl As New DataTable
                 Adp.Fill(Tbl)
-                For I As Integer = 0 To 3
+                For I As Integer = 0 To Tbl.Columns.Count - 1
                     Lst.Add(Tbl.Rows(0).Field(Of Object)(I))
                 Next
             End Using
@@ -63,35 +69,89 @@ Public Class DAO
 #End Region
 
 #Region "Usuário"
-    Public Shared Function InsertUsuario(ByVal usuario As Usuario, ByRef response As String) As Boolean
+
+    Public Shared Function InsertUsuario(usuario As Usuario, ByRef response As String) As Boolean
         Dim ConnStr As String = ConfigurationManager.ConnectionStrings("ConnString").ConnectionString
+        Con = New SqlConnection(ConnStr)
+        Con.Open()
+        Tr = Con.BeginTransaction
+        Try
+            If _InsertUsuario(Con, usuario, response) Then
+                Return True
+            Else
+                tr.Rollback()
+            End If
+        Catch ex As Exception
+            response = ex.Message
+            tr.Rollback()
+        Finally
+            If Not Con Is Nothing Then
+                Con.Close()
+                Con.Dispose()
+            End If
+        End Try
+        Return False
+    End Function
+
+    Public Shared Function _InsertUsuario(con As SqlConnection, ByVal usuario As Usuario, ByRef response As String) As Boolean
+        Using Cmd As New SqlClient.SqlCommand
+            Cmd.Connection = con
+            Cmd.CommandText = "SP_INSERT_USER"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.Add("@NOME", SqlDbType.VarChar).Value = usuario.Nome
+            Cmd.Parameters.Add("@SOBRENOME", SqlDbType.VarChar).Value = usuario.Sobrenome
+            Cmd.Parameters.Add("@NOMECOMPLETO", SqlDbType.VarChar).Value = usuario.NomeCompleto
+            Cmd.Parameters.Add("@EMAIL", SqlDbType.VarChar).Value = usuario.Email
+            Cmd.Parameters.Add("@LOGIN", SqlDbType.VarChar).Value = usuario.Login
+            Cmd.Parameters.Add("@SENHA", SqlDbType.VarChar).Value = usuario.Senha
+            Cmd.Parameters.Add("@LOGINCRIACAO", SqlDbType.VarChar).Value = usuario.LoginCriacao
+            Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+            Cmd.Parameters("@RESPONSE").Size = 255
+            If Not Cmd.ExecuteNonQuery > 0 Then
+                Throw New Exception("A inclusão falhou")
+                Return False
+            Else
+                Return True
+            End If
+            response = Cmd.Parameters("@RESPONSE").Value
+        End Using
+        Return False
+    End Function
+
+
+    Public Shared Function GetUsuarios(ativo As Boolean, ByRef response As String) As List(Of Usuario)
+        Dim ConnStr As String = ConfigurationManager.ConnectionStrings("ConnString").ConnectionString
+        Dim LstUsuario As New List(Of Usuario)
+
         Using Con As New SqlClient.SqlConnection(ConnStr)
             Using Cmd As New SqlClient.SqlCommand
-                Con.Open()
                 Cmd.Connection = Con
-                Cmd.CommandText = "SP_INSERT_USER"
+                Cmd.CommandText = "SP_GET_ALL_USERS"
                 Cmd.CommandType = CommandType.StoredProcedure
-                Cmd.Parameters.Add("@NOME", SqlDbType.VarChar).Value = usuario.Nome
-                Cmd.Parameters.Add("@SOBRENOME", SqlDbType.VarChar).Value = usuario.Sobrenome
-                Cmd.Parameters.Add("@NOMECOMPLETO", SqlDbType.VarChar).Value = usuario.NomeCompleto
-                Cmd.Parameters.Add("@EMAIL", SqlDbType.VarChar).Value = usuario.Email
-                Cmd.Parameters.Add("@LOGIN", SqlDbType.VarChar).Value = usuario.Login
-                Cmd.Parameters.Add("@SENHA", SqlDbType.VarChar).Value = usuario.Senha
-                Cmd.Parameters.Add("@LOGINCRIACAO", SqlDbType.VarChar).Value = usuario.LoginCriacao
+                Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = ativo
                 Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
                 Cmd.Parameters("@RESPONSE").Size = 255
-                Dim tr = Con.BeginTransaction
                 Try
-                    Cmd.Transaction = tr
-                    If Not Cmd.ExecuteNonQuery > 0 Then
-                        tr.Rollback()
-                    Else
-                        tr.Commit()
-                        Return True
+                    Dim Adp As New SqlDataAdapter(Cmd)
+                    Dim Tbl As New DataTable()
+                    Adp.SelectCommand = Cmd
+                    Adp.Fill(Tbl)
+                    If Tbl.Rows.Count > 0 Then
+                        For I As Integer = 0 To Tbl.Rows.Count - 1
+                            Dim usuario As New Usuario
+                            usuario.Carrega(Tbl.Rows(I))
+                            LstUsuario.Add(usuario)
+                        Next
+                    End If
+
+                    If Not Adp Is Nothing Then
+                        Adp.Dispose()
+                    End If
+                    If Not Tbl Is Nothing Then
+                        Tbl.Dispose()
                     End If
                 Catch ex As Exception
-                    response = "O cadastro de usuário falhou"
-                    tr.Rollback()
+                    response = "A busca falhou"
 #If DEBUG Then
                     response = ex.InnerException.Message + ex.Message + ex.StackTrace
 #End If
@@ -100,8 +160,62 @@ Public Class DAO
             End Using
             Con.Close()
         End Using
-        Return False
+        Return LstUsuario
     End Function
+
+    Public Shared Function GetUsuario(ByVal codusuario As String, ByRef resposta As String) As Usuario
+        Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Using Cmd As New SqlCommand()
+            Cmd.Connection = Con
+            Cmd.Parameters.Add("@CODUSUARIO", SqlDbType.Int).Value = Convert.ToInt32(codusuario)
+            Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+            Cmd.CommandText = "SP_GET_USUARIO"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters("@RESPONSE").Size = 255
+            Dim Adp As New SqlDataAdapter(Cmd)
+            Try
+                Dim Tbl As New DataTable()
+
+                Adp.Fill(Tbl)
+                resposta = Cmd.Parameters("@RESPONSE").Value
+                If Tbl.Rows.Count > 0 Then
+                    Dim usuario As New Usuario
+                    usuario.Carrega(Tbl.Rows(0))
+                    Return usuario
+                Else
+                    Return Nothing
+                End If
+            Catch Ex As Exception
+                resposta = Ex.Message
+            Finally
+                Con.Close()
+                Con.Dispose()
+                If Not Adp Is Nothing Then
+                    Adp.Dispose()
+                End If
+            End Try
+        End Using
+        ' Nunca alcançado
+        Return Nothing
+    End Function
+
+#End Region
+
+#Region "Transaction"
+    Public Shared Sub ConfirmarOuReverter(ByVal cmdTransaction As Boolean)
+        If cmdTransaction Then
+            Tr.Commit()
+        Else
+            Tr.Rollback()
+        End If
+        If Not Con Is Nothing Then
+            Con.Close()
+            Con.Dispose()
+        End If
+        If Not Tr Is Nothing Then
+            Tr.Dispose()
+        End If
+    End Sub
 #End Region
 
 End Class

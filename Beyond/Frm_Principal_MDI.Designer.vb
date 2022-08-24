@@ -31,10 +31,7 @@ Partial Class Frm_Principal_MDI
         Me.FecharTodasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SairToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UsuáriosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AlterarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CadastrarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AlterarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ConsultarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UsuarioMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CargosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CadastrarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.AlterarToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
@@ -42,19 +39,19 @@ Partial Class Frm_Principal_MDI
         Me.VendedorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CadastrarToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.AlterarToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ConsultarToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CadastrarToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
         Me.AlterarToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ConsultarToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProdutosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CadastrarToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
         Me.AlterarToolStripMenuItem5 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ConsultarToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
         Me.PedidoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.IncluirVendaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ConsultarPedidoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConsultasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RelatórioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PedidoToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.VendedorToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ProdutosToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.AjudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SobreToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BuscarAtualizaçãoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -71,6 +68,7 @@ Partial Class Frm_Principal_MDI
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ToolStripMenuFecharUma = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuFecharTodas = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UC_Toolstrip1 = New Beyond.UC_Toolstrip()
         Me.MnStrip_Principal.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.SplitC1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -84,7 +82,7 @@ Partial Class Frm_Principal_MDI
         '
         'MnStrip_Principal
         '
-        Me.MnStrip_Principal.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AçõesToolStripMenuItem, Me.UsuáriosToolStripMenuItem, Me.PedidoToolStripMenuItem, Me.RelatórioToolStripMenuItem, Me.AjudaToolStripMenuItem})
+        Me.MnStrip_Principal.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AçõesToolStripMenuItem, Me.UsuáriosToolStripMenuItem, Me.PedidoToolStripMenuItem, Me.ConsultasToolStripMenuItem, Me.RelatórioToolStripMenuItem, Me.AjudaToolStripMenuItem})
         Me.MnStrip_Principal.Location = New System.Drawing.Point(0, 0)
         Me.MnStrip_Principal.Name = "MnStrip_Principal"
         Me.MnStrip_Principal.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
@@ -126,35 +124,16 @@ Partial Class Frm_Principal_MDI
         '
         'UsuáriosToolStripMenuItem
         '
-        Me.UsuáriosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AlterarToolStripMenuItem, Me.CargosToolStripMenuItem, Me.VendedorToolStripMenuItem, Me.ClientesToolStripMenuItem, Me.ProdutosToolStripMenuItem})
+        Me.UsuáriosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UsuarioMenuItem, Me.CargosToolStripMenuItem, Me.VendedorToolStripMenuItem, Me.ClientesToolStripMenuItem, Me.ProdutosToolStripMenuItem})
         Me.UsuáriosToolStripMenuItem.Name = "UsuáriosToolStripMenuItem"
         Me.UsuáriosToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
         Me.UsuáriosToolStripMenuItem.Text = "Exibir"
         '
-        'AlterarToolStripMenuItem
+        'UsuarioMenuItem
         '
-        Me.AlterarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CadastrarToolStripMenuItem, Me.AlterarToolStripMenuItem1, Me.ConsultarToolStripMenuItem})
-        Me.AlterarToolStripMenuItem.Name = "AlterarToolStripMenuItem"
-        Me.AlterarToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
-        Me.AlterarToolStripMenuItem.Text = "Usuário"
-        '
-        'CadastrarToolStripMenuItem
-        '
-        Me.CadastrarToolStripMenuItem.Name = "CadastrarToolStripMenuItem"
-        Me.CadastrarToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
-        Me.CadastrarToolStripMenuItem.Text = "Cadastrar"
-        '
-        'AlterarToolStripMenuItem1
-        '
-        Me.AlterarToolStripMenuItem1.Name = "AlterarToolStripMenuItem1"
-        Me.AlterarToolStripMenuItem1.Size = New System.Drawing.Size(125, 22)
-        Me.AlterarToolStripMenuItem1.Text = "Alterar"
-        '
-        'ConsultarToolStripMenuItem
-        '
-        Me.ConsultarToolStripMenuItem.Name = "ConsultarToolStripMenuItem"
-        Me.ConsultarToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
-        Me.ConsultarToolStripMenuItem.Text = "Consultar"
+        Me.UsuarioMenuItem.Name = "UsuarioMenuItem"
+        Me.UsuarioMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.UsuarioMenuItem.Text = "Usuário"
         '
         'CargosToolStripMenuItem
         '
@@ -183,7 +162,7 @@ Partial Class Frm_Principal_MDI
         '
         'VendedorToolStripMenuItem
         '
-        Me.VendedorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CadastrarToolStripMenuItem2, Me.AlterarToolStripMenuItem3, Me.ConsultarToolStripMenuItem2})
+        Me.VendedorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CadastrarToolStripMenuItem2, Me.AlterarToolStripMenuItem3})
         Me.VendedorToolStripMenuItem.Name = "VendedorToolStripMenuItem"
         Me.VendedorToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.VendedorToolStripMenuItem.Text = "Vendedor"
@@ -191,24 +170,18 @@ Partial Class Frm_Principal_MDI
         'CadastrarToolStripMenuItem2
         '
         Me.CadastrarToolStripMenuItem2.Name = "CadastrarToolStripMenuItem2"
-        Me.CadastrarToolStripMenuItem2.Size = New System.Drawing.Size(125, 22)
+        Me.CadastrarToolStripMenuItem2.Size = New System.Drawing.Size(124, 22)
         Me.CadastrarToolStripMenuItem2.Text = "Cadastrar"
         '
         'AlterarToolStripMenuItem3
         '
         Me.AlterarToolStripMenuItem3.Name = "AlterarToolStripMenuItem3"
-        Me.AlterarToolStripMenuItem3.Size = New System.Drawing.Size(125, 22)
+        Me.AlterarToolStripMenuItem3.Size = New System.Drawing.Size(124, 22)
         Me.AlterarToolStripMenuItem3.Text = "Alterar"
-        '
-        'ConsultarToolStripMenuItem2
-        '
-        Me.ConsultarToolStripMenuItem2.Name = "ConsultarToolStripMenuItem2"
-        Me.ConsultarToolStripMenuItem2.Size = New System.Drawing.Size(125, 22)
-        Me.ConsultarToolStripMenuItem2.Text = "Consultar"
         '
         'ClientesToolStripMenuItem
         '
-        Me.ClientesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CadastrarToolStripMenuItem3, Me.AlterarToolStripMenuItem4, Me.ConsultarToolStripMenuItem3})
+        Me.ClientesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CadastrarToolStripMenuItem3, Me.AlterarToolStripMenuItem4})
         Me.ClientesToolStripMenuItem.Name = "ClientesToolStripMenuItem"
         Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.ClientesToolStripMenuItem.Text = "Cliente"
@@ -216,24 +189,18 @@ Partial Class Frm_Principal_MDI
         'CadastrarToolStripMenuItem3
         '
         Me.CadastrarToolStripMenuItem3.Name = "CadastrarToolStripMenuItem3"
-        Me.CadastrarToolStripMenuItem3.Size = New System.Drawing.Size(125, 22)
+        Me.CadastrarToolStripMenuItem3.Size = New System.Drawing.Size(124, 22)
         Me.CadastrarToolStripMenuItem3.Text = "Cadastrar"
         '
         'AlterarToolStripMenuItem4
         '
         Me.AlterarToolStripMenuItem4.Name = "AlterarToolStripMenuItem4"
-        Me.AlterarToolStripMenuItem4.Size = New System.Drawing.Size(125, 22)
+        Me.AlterarToolStripMenuItem4.Size = New System.Drawing.Size(124, 22)
         Me.AlterarToolStripMenuItem4.Text = "Alterar"
-        '
-        'ConsultarToolStripMenuItem3
-        '
-        Me.ConsultarToolStripMenuItem3.Name = "ConsultarToolStripMenuItem3"
-        Me.ConsultarToolStripMenuItem3.Size = New System.Drawing.Size(125, 22)
-        Me.ConsultarToolStripMenuItem3.Text = "Consultar"
         '
         'ProdutosToolStripMenuItem
         '
-        Me.ProdutosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CadastrarToolStripMenuItem4, Me.AlterarToolStripMenuItem5, Me.ConsultarToolStripMenuItem4})
+        Me.ProdutosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CadastrarToolStripMenuItem4, Me.AlterarToolStripMenuItem5})
         Me.ProdutosToolStripMenuItem.Name = "ProdutosToolStripMenuItem"
         Me.ProdutosToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.ProdutosToolStripMenuItem.Text = "Produto"
@@ -241,24 +208,18 @@ Partial Class Frm_Principal_MDI
         'CadastrarToolStripMenuItem4
         '
         Me.CadastrarToolStripMenuItem4.Name = "CadastrarToolStripMenuItem4"
-        Me.CadastrarToolStripMenuItem4.Size = New System.Drawing.Size(125, 22)
+        Me.CadastrarToolStripMenuItem4.Size = New System.Drawing.Size(124, 22)
         Me.CadastrarToolStripMenuItem4.Text = "Cadastrar"
         '
         'AlterarToolStripMenuItem5
         '
         Me.AlterarToolStripMenuItem5.Name = "AlterarToolStripMenuItem5"
-        Me.AlterarToolStripMenuItem5.Size = New System.Drawing.Size(125, 22)
+        Me.AlterarToolStripMenuItem5.Size = New System.Drawing.Size(124, 22)
         Me.AlterarToolStripMenuItem5.Text = "Alterar"
-        '
-        'ConsultarToolStripMenuItem4
-        '
-        Me.ConsultarToolStripMenuItem4.Name = "ConsultarToolStripMenuItem4"
-        Me.ConsultarToolStripMenuItem4.Size = New System.Drawing.Size(125, 22)
-        Me.ConsultarToolStripMenuItem4.Text = "Consultar"
         '
         'PedidoToolStripMenuItem
         '
-        Me.PedidoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.IncluirVendaToolStripMenuItem, Me.ConsultarPedidoToolStripMenuItem})
+        Me.PedidoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.IncluirVendaToolStripMenuItem})
         Me.PedidoToolStripMenuItem.Name = "PedidoToolStripMenuItem"
         Me.PedidoToolStripMenuItem.Size = New System.Drawing.Size(56, 20)
         Me.PedidoToolStripMenuItem.Text = "Pedido"
@@ -269,17 +230,36 @@ Partial Class Frm_Principal_MDI
         Me.IncluirVendaToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
         Me.IncluirVendaToolStripMenuItem.Text = "Incluir Venda"
         '
-        'ConsultarPedidoToolStripMenuItem
+        'ConsultasToolStripMenuItem
         '
-        Me.ConsultarPedidoToolStripMenuItem.Name = "ConsultarPedidoToolStripMenuItem"
-        Me.ConsultarPedidoToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
-        Me.ConsultarPedidoToolStripMenuItem.Text = "Consultar"
+        Me.ConsultasToolStripMenuItem.Name = "ConsultasToolStripMenuItem"
+        Me.ConsultasToolStripMenuItem.Size = New System.Drawing.Size(71, 20)
+        Me.ConsultasToolStripMenuItem.Text = "Consultas"
         '
         'RelatórioToolStripMenuItem
         '
+        Me.RelatórioToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PedidoToolStripMenuItem1, Me.VendedorToolStripMenuItem1, Me.ProdutosToolStripMenuItem1})
         Me.RelatórioToolStripMenuItem.Name = "RelatórioToolStripMenuItem"
         Me.RelatórioToolStripMenuItem.Size = New System.Drawing.Size(66, 20)
         Me.RelatórioToolStripMenuItem.Text = "Relatório"
+        '
+        'PedidoToolStripMenuItem1
+        '
+        Me.PedidoToolStripMenuItem1.Name = "PedidoToolStripMenuItem1"
+        Me.PedidoToolStripMenuItem1.Size = New System.Drawing.Size(135, 22)
+        Me.PedidoToolStripMenuItem1.Text = "Pedidos"
+        '
+        'VendedorToolStripMenuItem1
+        '
+        Me.VendedorToolStripMenuItem1.Name = "VendedorToolStripMenuItem1"
+        Me.VendedorToolStripMenuItem1.Size = New System.Drawing.Size(135, 22)
+        Me.VendedorToolStripMenuItem1.Text = "Vendedores"
+        '
+        'ProdutosToolStripMenuItem1
+        '
+        Me.ProdutosToolStripMenuItem1.Name = "ProdutosToolStripMenuItem1"
+        Me.ProdutosToolStripMenuItem1.Size = New System.Drawing.Size(135, 22)
+        Me.ProdutosToolStripMenuItem1.Text = "Produtos"
         '
         'AjudaToolStripMenuItem
         '
@@ -338,10 +318,13 @@ Partial Class Frm_Principal_MDI
         '
         'SplitC1
         '
+        Me.SplitC1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SplitC1.BackColor = System.Drawing.Color.Transparent
-        Me.SplitC1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SplitC1.IsSplitterFixed = True
-        Me.SplitC1.Location = New System.Drawing.Point(0, 24)
+        Me.SplitC1.Location = New System.Drawing.Point(0, 45)
+        Me.SplitC1.Margin = New System.Windows.Forms.Padding(10, 3, 3, 3)
         Me.SplitC1.Name = "SplitC1"
         '
         'SplitC1.Panel1
@@ -355,7 +338,7 @@ Partial Class Frm_Principal_MDI
         Me.SplitC1.Panel2.Controls.Add(Me.TCPrincipal)
         Me.SplitC1.Panel2.Controls.Add(Me.LblOla)
         Me.SplitC1.Panel2.Controls.Add(Me.PictureBox1)
-        Me.SplitC1.Size = New System.Drawing.Size(755, 425)
+        Me.SplitC1.Size = New System.Drawing.Size(755, 404)
         Me.SplitC1.SplitterDistance = 251
         Me.SplitC1.SplitterWidth = 10
         Me.SplitC1.TabIndex = 10
@@ -366,7 +349,7 @@ Partial Class Frm_Principal_MDI
         Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
         Me.PictureBox2.Location = New System.Drawing.Point(0, 0)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(251, 425)
+        Me.PictureBox2.Size = New System.Drawing.Size(251, 404)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox2.TabIndex = 0
         Me.PictureBox2.TabStop = False
@@ -377,7 +360,7 @@ Partial Class Frm_Principal_MDI
         Me.TCPrincipal.Location = New System.Drawing.Point(0, 0)
         Me.TCPrincipal.Name = "TCPrincipal"
         Me.TCPrincipal.SelectedIndex = 0
-        Me.TCPrincipal.Size = New System.Drawing.Size(494, 425)
+        Me.TCPrincipal.Size = New System.Drawing.Size(494, 404)
         Me.TCPrincipal.TabIndex = 2
         Me.TCPrincipal.Visible = False
         '
@@ -396,7 +379,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(156, 129)
+        Me.PictureBox1.Location = New System.Drawing.Point(126, 119)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(181, 165)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -422,12 +405,23 @@ Partial Class Frm_Principal_MDI
         Me.ToolStripMenuFecharTodas.Size = New System.Drawing.Size(175, 22)
         Me.ToolStripMenuFecharTodas.Text = "Fechar Todas"
         '
+        'UC_Toolstrip1
+        '
+        Me.UC_Toolstrip1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.UC_Toolstrip1.Location = New System.Drawing.Point(0, 24)
+        Me.UC_Toolstrip1.Margin = New System.Windows.Forms.Padding(4)
+        Me.UC_Toolstrip1.Name = "UC_Toolstrip1"
+        Me.UC_Toolstrip1.Size = New System.Drawing.Size(755, 24)
+        Me.UC_Toolstrip1.TabIndex = 14
+        '
         'Frm_Principal_MDI
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightSteelBlue
         Me.ClientSize = New System.Drawing.Size(755, 471)
+        Me.Controls.Add(Me.UC_Toolstrip1)
         Me.Controls.Add(Me.SplitC1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MnStrip_Principal)
@@ -460,10 +454,7 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents AçõesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SairToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents UsuáriosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents AlterarToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents CadastrarToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents AlterarToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ConsultarToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents UsuarioMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CargosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CadastrarToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AlterarToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
@@ -471,18 +462,14 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents VendedorToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CadastrarToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AlterarToolStripMenuItem3 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ConsultarToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ClientesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CadastrarToolStripMenuItem3 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AlterarToolStripMenuItem4 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ConsultarToolStripMenuItem3 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ProdutosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CadastrarToolStripMenuItem4 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AlterarToolStripMenuItem5 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ConsultarToolStripMenuItem4 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PedidoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents IncluirVendaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ConsultarPedidoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents RelatórioToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AjudaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SobreToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -498,9 +485,14 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents SplitC1 As System.Windows.Forms.SplitContainer
     Friend WithEvents LblOla As System.Windows.Forms.Label
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
-    Friend WithEvents TCPrincipal As System.Windows.Forms.TabControl
     Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ToolStripMenuFecharUma As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuFecharTodas As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
+    Friend WithEvents ConsultasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents PedidoToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents VendedorToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ProdutosToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents UC_Toolstrip1 As Beyond.UC_Toolstrip
+    Friend WithEvents TCPrincipal As System.Windows.Forms.TabControl
 End Class

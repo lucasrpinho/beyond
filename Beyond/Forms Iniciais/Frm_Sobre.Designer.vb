@@ -132,7 +132,7 @@ Partial Class Frm_Sobre
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(534, 261)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)

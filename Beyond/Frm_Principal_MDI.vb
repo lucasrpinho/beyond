@@ -3,6 +3,7 @@ Imports Uteis
 Public Class Frm_Principal_MDI
 
     Private usuario As Usuario
+    Public Modo As String
 
     Public Sub New()
 
@@ -21,6 +22,7 @@ Public Class Frm_Principal_MDI
         ' Add any initialization after the InitializeComponent() call.
         Me.usuario = usuario
         loginusuario = usuario.Login
+        UC_Toolstrip1 = New UC_Toolstrip
     End Sub
 
     Private Sub Frm_Principal_MDI_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
@@ -38,8 +40,8 @@ Public Class Frm_Principal_MDI
     End Sub
 
     Private Sub Sair()
-        If Application.OpenForms.Count <= Uteis.FH.FORM_ATUAL_MAIS_FORM_STARTUP Then
-            If Uteis.MB.MsgTemCerteza(Me) Then
+        If Application.OpenForms.Count <= Uteis.FormHelper.FORM_ATUAL_MAIS_FORM_STARTUP Then
+            If Uteis.MsgBoxHelper.MsgTemCerteza(Me) Then
                 Cursor.Current = Cursors.WaitCursor
                 System.Threading.Thread.Sleep(2000)
                 Application.Exit()
@@ -47,33 +49,11 @@ Public Class Frm_Principal_MDI
                 Exit Sub
             End If
         Else
-            If Uteis.MB.MsgTemCertezaAlertaTelasAbertas(Me) Then
+            If Uteis.MsgBoxHelper.MsgTemCertezaAlertaTelasAbertas(Me) Then
                 Application.Exit()
             Else
                 Exit Sub
             End If
-        End If
-    End Sub
-
-    Private Sub CadastrarToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles CadastrarToolStripMenuItem.Click
-        Dim Frm As Form
-        Frm = TCPrincipal.TabPages.OfType(Of Frm_CadUsuario).FirstOrDefault
-        If Not Frm Is Nothing Then
-            Frm.BringToFront()
-        Else
-            Frm = New Frm_CadUsuario(Me)
-            Dim TP As New TabPage
-            Frm.TopLevel = False
-            Frm.FormBorderStyle = Windows.Forms.FormBorderStyle.None
-            Frm.MdiParent = Me
-            Frm.Dock = DockStyle.Fill
-            TP.Controls.Add(Frm)
-            TP.Tag = Frm
-            TP.Text = Frm.Text
-            TCPrincipal.TabPages.Add(TP)
-            TCPrincipal.BringToFront()
-            TCPrincipal.Visible = True
-            Frm.Show()
         End If
     End Sub
 
@@ -108,6 +88,28 @@ Public Class Frm_Principal_MDI
             If TCPrincipal.TabPages.Count > 0 Then
                 ContextMenuStrip1.Show(TCPrincipal, e.Location)
             End If
+        End If
+    End Sub
+
+    Private Sub UsuarioMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles UsuarioMenuItem.Click
+        Dim Frm As Form
+        Frm = TCPrincipal.TabPages.OfType(Of Frm_CadUsuario).FirstOrDefault
+        If Not Frm Is Nothing Then
+            Frm.BringToFront()
+        Else
+            Frm = New Frm_CadUsuario(Me, UC_Toolstrip1.ToolStrip0)
+            Dim TP As New TabPage
+            Frm.TopLevel = False
+            Frm.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            Frm.MdiParent = Me
+            Frm.Dock = DockStyle.Fill
+            TP.Controls.Add(Frm)
+            TP.Tag = Frm
+            TP.Text = Frm.Text
+            TCPrincipal.TabPages.Add(TP)
+            TCPrincipal.BringToFront()
+            TCPrincipal.Visible = True
+            Frm.Show()
         End If
     End Sub
 End Class
