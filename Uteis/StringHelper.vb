@@ -1,8 +1,8 @@
-﻿Public Class SH
+﻿Public Class StringHelper
     ' Classe helper de string contendo métodos que serão utilizados repetidas vezes 
     ' ao longo do desenvolvimento
 
-    Public Shared Function IsNull(ByVal str As String) As String
+    Public Shared Function IsNull(ByVal str As String) As Boolean
         Return String.IsNullOrWhiteSpace(str)
     End Function
 

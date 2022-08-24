@@ -16,11 +16,11 @@ Public Class Frm_Login
     End Sub
 
     Private Function ValidaCampos() As Boolean
-        If SH.IsNull(TxtLogin.Text) Then
-            MB.Alerta("Campo de login precisa ser preenchido", "")
-        ElseIf SH.IsNull(TxtSenha.Text) Then
-            MB.Alerta("Campo de senha precisa ser preenchido", "")
-        ElseIf Not SH.MinLength(TxtLogin.Text, 5) Then
+        If StringHelper.IsNull(TxtLogin.Text) Then
+            MsgBoxHelper.Alerta("Campo de login precisa ser preenchido", "")
+        ElseIf StringHelper.IsNull(TxtSenha.Text) Then
+            MsgBoxHelper.Alerta("Campo de senha precisa ser preenchido", "")
+        ElseIf Not StringHelper.MinLength(TxtLogin.Text, 5) Then
             _ToolTip.IsBalloon = True
             _ToolTip.ToolTipTitle = "Login inválido"
             _ToolTip.ToolTipIcon = ToolTipIcon.Error
@@ -64,7 +64,7 @@ Public Class Frm_Login
             User = DAO.DAO.AutenticaUsuario(TxtLogin.Text.ToUpper.Trim, TxtSenha.Text, RespostaAutenticacao)
 
             If Retrys >= 3 And IsNothing(User) Then
-                MB.Alerta("O sistema será fechado", "Tentativas de logon esgotadas")
+                MsgBoxHelper.Alerta("O sistema será fechado", "Tentativas de logon esgotadas")
                 System.Threading.Thread.Sleep(1500)
                 Application.Exit()
             End If

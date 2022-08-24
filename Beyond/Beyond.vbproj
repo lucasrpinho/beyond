@@ -92,16 +92,22 @@
     <Compile Include="Frm_CadUsuario.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Frm_ConsUsuario.Designer.vb">
+      <DependentUpon>Frm_ConsUsuario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_ConsUsuario.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Frm_Principal_MDI.Designer.vb">
       <DependentUpon>Frm_Principal_MDI.vb</DependentUpon>
     </Compile>
     <Compile Include="Frm_Principal_MDI.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Frm_Sobre.vb">
+    <Compile Include="Forms Iniciais\Frm_Sobre.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Frm_Sobre.Designer.vb">
+    <Compile Include="Forms Iniciais\Frm_Sobre.Designer.vb">
       <DependentUpon>Frm_Sobre.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
@@ -141,10 +147,13 @@
     <EmbeddedResource Include="Frm_CadUsuario.resx">
       <DependentUpon>Frm_CadUsuario.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Frm_ConsUsuario.resx">
+      <DependentUpon>Frm_ConsUsuario.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frm_Principal_MDI.resx">
       <DependentUpon>Frm_Principal_MDI.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Frm_Sobre.resx">
+    <EmbeddedResource Include="Forms Iniciais\Frm_Sobre.resx">
       <DependentUpon>Frm_Sobre.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -164,6 +173,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Icons Toolstrip\Back.png_" />
+    <None Include="Icons Toolstrip\forward.png_" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -174,6 +185,7 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="Icons Toolstrip\search.ico_" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAO\DAO.vbproj">
@@ -190,10 +202,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Icons Toolstrip\confirm.png" />
+    <None Include="Icons Toolstrip\delete.png" />
+    <None Include="Icons Toolstrip\rollback.png" />
     <Content Include="Imagens\BeyondICON.ico" />
     <Content Include="Imagens\BeyondICON.png" />
     <Content Include="Imagens\login.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

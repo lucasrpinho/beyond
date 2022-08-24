@@ -25,21 +25,24 @@ Partial Class UC_Toolstrip
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(UC_Toolstrip))
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.BtnNovo = New System.Windows.Forms.ToolStripButton()
-        Me.OpenToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.BtnSalvar = New System.Windows.Forms.ToolStripButton()
-        Me.PrintToolStripButton = New System.Windows.Forms.ToolStripButton()
+        Me.BtnProcurar = New System.Windows.Forms.ToolStripButton()
+        Me.BtnDeletar = New System.Windows.Forms.ToolStripButton()
         Me.toolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
-        Me.CutToolStripButton = New System.Windows.Forms.ToolStripButton()
-        Me.CopyToolStripButton = New System.Windows.Forms.ToolStripButton()
+        Me.BtnVoltar = New System.Windows.Forms.ToolStripButton()
+        Me.BtnProximo = New System.Windows.Forms.ToolStripButton()
+        Me.BtnConfirmar = New System.Windows.Forms.ToolStripButton()
+        Me.BtnRollback = New System.Windows.Forms.ToolStripButton()
         Me.PasteToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.toolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.HelpToolStripButton = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnNovo, Me.OpenToolStripButton, Me.BtnSalvar, Me.PrintToolStripButton, Me.toolStripSeparator, Me.CutToolStripButton, Me.CopyToolStripButton, Me.PasteToolStripButton, Me.toolStripSeparator1, Me.HelpToolStripButton})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnNovo, Me.BtnSalvar, Me.BtnProcurar, Me.BtnDeletar, Me.toolStripSeparator, Me.BtnVoltar, Me.BtnProximo, Me.BtnConfirmar, Me.BtnRollback, Me.PasteToolStripButton, Me.toolStripSeparator1, Me.HelpToolStripButton, Me.ToolStripButton1})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(473, 25)
@@ -53,16 +56,8 @@ Partial Class UC_Toolstrip
         Me.BtnNovo.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.BtnNovo.Name = "BtnNovo"
         Me.BtnNovo.Size = New System.Drawing.Size(23, 22)
-        Me.BtnNovo.Text = "&New"
-        '
-        'OpenToolStripButton
-        '
-        Me.OpenToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.OpenToolStripButton.Image = CType(resources.GetObject("OpenToolStripButton.Image"), System.Drawing.Image)
-        Me.OpenToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.OpenToolStripButton.Name = "OpenToolStripButton"
-        Me.OpenToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.OpenToolStripButton.Text = "&Open"
+        Me.BtnNovo.Text = "&Novo cadastro"
+        Me.BtnNovo.ToolTipText = "Novo cadastro"
         '
         'BtnSalvar
         '
@@ -71,39 +66,66 @@ Partial Class UC_Toolstrip
         Me.BtnSalvar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.BtnSalvar.Name = "BtnSalvar"
         Me.BtnSalvar.Size = New System.Drawing.Size(23, 22)
-        Me.BtnSalvar.Text = "&Save"
+        Me.BtnSalvar.Text = "&Salvar"
         '
-        'PrintToolStripButton
+        'BtnProcurar
         '
-        Me.PrintToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.PrintToolStripButton.Image = CType(resources.GetObject("PrintToolStripButton.Image"), System.Drawing.Image)
-        Me.PrintToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.PrintToolStripButton.Name = "PrintToolStripButton"
-        Me.PrintToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.PrintToolStripButton.Text = "&Print"
+        Me.BtnProcurar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnProcurar.Image = Global.Beyond.My.Resources.Resources.search
+        Me.BtnProcurar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnProcurar.Name = "BtnProcurar"
+        Me.BtnProcurar.Size = New System.Drawing.Size(23, 22)
+        Me.BtnProcurar.Text = "&Procurar"
+        '
+        'BtnDeletar
+        '
+        Me.BtnDeletar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnDeletar.Image = Global.Beyond.My.Resources.Resources.delete
+        Me.BtnDeletar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnDeletar.Name = "BtnDeletar"
+        Me.BtnDeletar.Size = New System.Drawing.Size(23, 22)
+        Me.BtnDeletar.Text = "&Deletar"
         '
         'toolStripSeparator
         '
         Me.toolStripSeparator.Name = "toolStripSeparator"
         Me.toolStripSeparator.Size = New System.Drawing.Size(6, 25)
         '
-        'CutToolStripButton
+        'BtnVoltar
         '
-        Me.CutToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.CutToolStripButton.Image = CType(resources.GetObject("CutToolStripButton.Image"), System.Drawing.Image)
-        Me.CutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.CutToolStripButton.Name = "CutToolStripButton"
-        Me.CutToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.CutToolStripButton.Text = "C&ut"
+        Me.BtnVoltar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnVoltar.Image = Global.Beyond.My.Resources.Resources.Back
+        Me.BtnVoltar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnVoltar.Name = "BtnVoltar"
+        Me.BtnVoltar.Size = New System.Drawing.Size(23, 22)
+        Me.BtnVoltar.Text = "Anterior"
         '
-        'CopyToolStripButton
+        'BtnProximo
         '
-        Me.CopyToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.CopyToolStripButton.Image = CType(resources.GetObject("CopyToolStripButton.Image"), System.Drawing.Image)
-        Me.CopyToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.CopyToolStripButton.Name = "CopyToolStripButton"
-        Me.CopyToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.CopyToolStripButton.Text = "&Copy"
+        Me.BtnProximo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnProximo.Image = Global.Beyond.My.Resources.Resources.forward
+        Me.BtnProximo.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnProximo.Name = "BtnProximo"
+        Me.BtnProximo.Size = New System.Drawing.Size(23, 22)
+        Me.BtnProximo.Text = "Seguinte"
+        '
+        'BtnConfirmar
+        '
+        Me.BtnConfirmar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnConfirmar.Image = Global.Beyond.My.Resources.Resources.confirm
+        Me.BtnConfirmar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnConfirmar.Name = "BtnConfirmar"
+        Me.BtnConfirmar.Size = New System.Drawing.Size(23, 22)
+        Me.BtnConfirmar.Text = "&Confirmar"
+        '
+        'BtnRollback
+        '
+        Me.BtnRollback.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnRollback.Image = Global.Beyond.My.Resources.Resources.rollback
+        Me.BtnRollback.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnRollback.Name = "BtnRollback"
+        Me.BtnRollback.Size = New System.Drawing.Size(23, 22)
+        Me.BtnRollback.Text = "&Reverter"
         '
         'PasteToolStripButton
         '
@@ -128,6 +150,15 @@ Partial Class UC_Toolstrip
         Me.HelpToolStripButton.Size = New System.Drawing.Size(23, 22)
         Me.HelpToolStripButton.Text = "He&lp"
         '
+        'ToolStripButton1
+        '
+        Me.ToolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.ToolStripButton1.Image = CType(resources.GetObject("ToolStripButton1.Image"), System.Drawing.Image)
+        Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripButton1.Name = "ToolStripButton1"
+        Me.ToolStripButton1.Size = New System.Drawing.Size(23, 22)
+        Me.ToolStripButton1.Text = "ToolStripButton1"
+        '
         'UC_Toolstrip
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -143,14 +174,17 @@ Partial Class UC_Toolstrip
     End Sub
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents BtnNovo As System.Windows.Forms.ToolStripButton
-    Friend WithEvents OpenToolStripButton As System.Windows.Forms.ToolStripButton
+    Friend WithEvents BtnProcurar As System.Windows.Forms.ToolStripButton
     Friend WithEvents BtnSalvar As System.Windows.Forms.ToolStripButton
-    Friend WithEvents PrintToolStripButton As System.Windows.Forms.ToolStripButton
+    Friend WithEvents BtnDeletar As System.Windows.Forms.ToolStripButton
     Friend WithEvents toolStripSeparator As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents CutToolStripButton As System.Windows.Forms.ToolStripButton
-    Friend WithEvents CopyToolStripButton As System.Windows.Forms.ToolStripButton
+    Friend WithEvents BtnConfirmar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents BtnRollback As System.Windows.Forms.ToolStripButton
     Friend WithEvents PasteToolStripButton As System.Windows.Forms.ToolStripButton
     Friend WithEvents toolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents HelpToolStripButton As System.Windows.Forms.ToolStripButton
+    Friend WithEvents ToolStripButton1 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents BtnProximo As System.Windows.Forms.ToolStripButton
+    Friend WithEvents BtnVoltar As System.Windows.Forms.ToolStripButton
 
 End Class

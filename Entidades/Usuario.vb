@@ -58,18 +58,16 @@ Public Class Usuario
         Return String.IsNullOrWhiteSpace(strError)
     End Function
 
-    Public Function Carrega(ByVal row As DataRow) As Usuario
-        Dim U As New Usuario()
-        U.CodUsuario = row.Field(Of Integer)("cod_usuario")
-        U.Nome = row.Field(Of String)("de_nome")
-        U.Sobrenome = row.Field(Of String)("de_sobrenome")
-        U.NomeCompleto = row.Field(Of String)("de_nome_completo")
-        U.Login = row.Field(Of String)("de_login")
+    Public Sub Carrega(ByVal row As DataRow)
+        Me.CodUsuario = row.Field(Of Integer)("cod_usuario")
+        Me.Nome = row.Field(Of String)("de_nome")
+        Me.Sobrenome = row.Field(Of String)("de_sobrenome")
+        Me.NomeCompleto = row.Field(Of String)("de_nome_completo")
+        Me.Login = row.Field(Of String)("de_login")
         ' U.Senha = row.Field(Of String)("de_senha")
-        U.IsAtivo = row.Field(Of Boolean)("ct_ativo")
-        U.DatCriacao = row.Field(Of DateTime)("dat_criacao")
-        U.LoginCriacao = row.Field(Of String)("de_login_criacao")
+        Me.IsAtivo = row.Field(Of Boolean)("ct_ativo")
+        Me.DatCriacao = row.Field(Of DateTime)("dat_criacao")
+        Me.LoginCriacao = row.Field(Of String)("de_login_criacao")
 
-        Return U
-    End Function
+    End Sub
 End Class
