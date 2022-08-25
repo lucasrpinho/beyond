@@ -2,7 +2,6 @@
 Public Class Frm_CadUsuario
 
     Private frmPrincipal As Frm_Principal_MDI
-    Private StateTransaction As Boolean = True
     Private LstUsuario As New List(Of Usuario)
     Private WithEvents ToolStrip As ToolStrip
 
@@ -16,7 +15,7 @@ Public Class Frm_CadUsuario
     End Sub
 
     Private Sub Frm_CadUsuario_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        Uteis.Controls.SetControlsDisabled(Me)
+        Uteis.ControlsHelper.SetControlsDisabled(Me)
     End Sub
 
     Public Sub Cadastrar()
@@ -35,53 +34,65 @@ Public Class Frm_CadUsuario
             Uteis.MsgBoxHelper.Erro(Me, strError, "Preenchimento incorreto")
             Exit Sub
         End If
-        TxtSenha_Leave(Nothing, Nothing)
+
+        If Not Uteis.RegexValidation.IsEmailValid(TxtEmail.Text) Then
+            Uteis.MsgBoxHelper.CustomTooltip(Me, TxtEmail, "E-mail inválido", "Erro de preenchimento")
+            Exit Sub
+        End If
+
+        If Not ValidaSenha() Then
+            Exit Sub
+        End If
         Dim resposta As String = String.Empty
+
         If Not DAO.DAO.InsertUsuario(usuario, resposta) Then
             Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
         Else
-            StateTransaction = Uteis.Consts.PENDENTE
+            frmPrincipal.StateTransaction = Uteis.Consts.PENDENTE
             'Uteis.Controls.SetTextBoxEmpty(Me)
-            Uteis.Controls.ToolBarAfterInsert(frmPrincipal.UC_Toolstrip1.ToolStrip0)
-            Uteis.Controls.SetControlsDisabled(Me)
+            Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip0)
+            Uteis.ControlsHelper.SetControlsDisabled(Me)
         End If
     End Sub
 
     Private Sub ToolStrip_ItemClicked() Handles ToolStrip.ItemClicked
         If UC_Toolstrip.Modo = "NOVO" Then
-            Uteis.Controls.SetControlsEnabled(Me)
+            LimpaCampos_AtivaControles()
         ElseIf UC_Toolstrip.Modo = "SALVAR" Then
             Cadastrar()
         ElseIf UC_Toolstrip.Modo = "PROCURAR" Then
-            Uteis.Controls.SetTextBoxEmpty(Me)
             AlternarControle()
-            Uteis.Controls.SetControlsEnabled(Me)
+            LimpaCampos_AtivaControles()
             CarregaUsuarios()
         ElseIf UC_Toolstrip.Modo = "CONFIRMAR" Then
-            If StateTransaction = Uteis.Consts.PENDENTE Then
+            If frmPrincipal.StateTransaction = Uteis.Consts.PENDENTE Then
                 DAO.DAO.ConfirmarOuReverter(True)
-                Uteis.Controls.SetTextBoxEmpty(Me)
-                StateTransaction = Uteis.Consts.FINALIZADO
+                LimpaCampos_AtivaControles()
+                frmPrincipal.StateTransaction = Uteis.Consts.FINALIZADO
             End If
         ElseIf UC_Toolstrip.Modo = "ROLLBACK" Then
-            If StateTransaction = Uteis.Consts.PENDENTE Then
+            If frmPrincipal.StateTransaction = Uteis.Consts.PENDENTE Then
                 DAO.DAO.ConfirmarOuReverter(False)
-                Uteis.Controls.SetTextBoxEmpty(Me)
-                Uteis.Controls.SetControlsEnabled(Me)
-                StateTransaction = Uteis.Consts.FINALIZADO
+                LimpaCampos_AtivaControles()
+                frmPrincipal.StateTransaction = Uteis.Consts.FINALIZADO
+            End If
+        ElseIf UC_Toolstrip.Modo = "DELETAR" Then
+            If DAO.DAO.DeleteUsuario(LstUsuario(ComboNome.SelectedIndex - 1).CodUsuario, "") Then
+                frmPrincipal.StateTransaction = Uteis.Consts.PENDENTE
+                Uteis.ControlsHelper.SetControlsDisabled(Me)
+                Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip0)
             End If
         ElseIf UC_Toolstrip.Modo = "LIMPAR" Then
-            Uteis.Controls.SetTextBoxEmpty(Me)
-            Uteis.Controls.SetControlsEnabled(Me)
+            LimpaCampos_AtivaControles()
         End If
 
-        If StateTransaction Then
-            Uteis.Controls.EnableAllToolBarItens(frmPrincipal.UC_Toolstrip1.ToolStrip1)
+        If frmPrincipal.StateTransaction Then
+            Uteis.ControlsHelper.EnableAllToolBarItens(frmPrincipal.UC_Toolstrip1.ToolStrip0)
         End If
     End Sub
 
     Private Sub Frm_CadUsuario_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-        If StateTransaction = Uteis.Consts.PENDENTE Then
+        If frmPrincipal.StateTransaction = Uteis.Consts.PENDENTE Then
             Uteis.MsgBoxHelper.AlertaTransacao(Me, frmPrincipal.UC_Toolstrip1.ToolStrip0)
             e.Cancel = True
         End If
@@ -109,7 +120,7 @@ Public Class Frm_CadUsuario
         TxtSenhaConfirmar.Text = String.Empty
         ChkBoxAtivo.Checked = usuario.IsAtivo
 
-        Uteis.Controls.SetControlsEnabled(Me)
+        Uteis.ControlsHelper.SetControlsEnabled(Me)
     End Sub
 
     Private Sub AlternarControle()
@@ -151,30 +162,31 @@ Public Class Frm_CadUsuario
         If Not Uteis.StringHelper.IsNull(ComboNome.Text) Then
             BuscaUsuarioPorCodigo(LstUsuario(ComboNome.SelectedIndex - 1).CodUsuario)
         Else
-            Uteis.Controls.SetTextBoxEmpty(Me)
+            Uteis.ControlsHelper.SetTextBoxEmpty(Me.GroupBox1.Controls)
+            Uteis.ControlsHelper.SetTextBoxEmpty(Me.GroupBox2.Controls)
         End If
     End Sub
 
-    Private Sub TxtSenha_Leave(sender As System.Object, e As System.EventArgs) Handles TxtSenha.Leave
+    Private Function ValidaSenha() As Boolean
         If Not Uteis.StringHelper.IsNull(TxtSenha.Text) Then
             If Not Uteis.RegexValidation.IsSenhaValida(TxtSenha.Text) Then
                 Uteis.MsgBoxHelper.Erro(Me, "Senha deve conter de 5 a 16 caracteres" + vbNewLine +
                     "Uma letra maiuscula e um número", "Senha inválida")
-                TxtSenha.Focus()
+                Return False
+            ElseIf Not Uteis.StringHelper.IsNull(TxtSenhaConfirmar.Text) Then
+                If TxtSenha.Text.ToUpper <> TxtSenhaConfirmar.Text.ToUpper Then
+                    Uteis.MsgBoxHelper.Erro(Me, "Senhas diferentes", "Erro")
+                Else
+                    Return True
+                End If
             End If
         End If
-    End Sub
+        Return False
+    End Function
 
-    Private Sub TxtSenhaConfirmar_Leave(sender As System.Object, e As System.EventArgs) Handles TxtSenhaConfirmar.Leave
-        If Not Uteis.StringHelper.IsNull(TxtSenhaConfirmar.Text) And Not Uteis.StringHelper.IsNull(TxtSenha.Text) Then
-            If TxtSenha.Text.ToUpper <> TxtSenhaConfirmar.Text.ToUpper Then
-                Dim tooltip As New ToolTip
-                tooltip.IsBalloon = True
-                tooltip.ToolTipIcon = ToolTipIcon.Warning
-                tooltip.ToolTipTitle = "Aviso"
-                tooltip.SetToolTip(TxtSenhaConfirmar, "As senhas estão diferentes")
-                tooltip.Show("As senhas estão diferentes", TxtSenhaConfirmar, 5000)
-            End If
-        End If
+    Private Sub LimpaCampos_AtivaControles()
+        Uteis.ControlsHelper.SetTextBoxEmpty(Me.GroupBox1.Controls)
+        Uteis.ControlsHelper.SetTextBoxEmpty(Me.GroupBox2.Controls)
+        Uteis.ControlsHelper.SetControlsEnabled(Me)
     End Sub
 End Class

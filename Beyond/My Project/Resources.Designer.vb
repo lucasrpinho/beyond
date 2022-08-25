@@ -73,6 +73,26 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property backgroundmdi() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("backgroundmdi", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property BeyondICON() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("BeyondICON", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property confirm() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("confirm", resourceCulture)

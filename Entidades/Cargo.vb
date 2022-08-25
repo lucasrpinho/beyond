@@ -1,8 +1,10 @@
 ﻿Public Class Cargo
 
     Private _CodCargo As Integer = 0
+    Public Nome As String
     Public Descricao As String
     Public IsAtivo As Boolean
+    Public IsVendedor As Boolean
     Public LoginCriacao As String
 
     Public Property CodCargo()
@@ -14,12 +16,14 @@
         End Set
     End Property
 
-    Public Shared Function IsValid(ByVal c As Cargo, ByRef strError As String) As Boolean
+    Public Function IsValid(ByRef strError As String) As Boolean
         strError = ""
 
-        If c.CodCargo <> 0 Then
+        If Me.CodCargo <> 0 Then
             strError = "Código do cargo deve ser zero pois será gerado"
-        ElseIf c.Descricao = "" Then
+        ElseIf Me.Nome = "" Then
+            strError = "Cargo precisa ter um nome"
+        ElseIf Me.Descricao = "" Then
             strError = "Descrição do cargo precisa ser preenchida"
         End If
 

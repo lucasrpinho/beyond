@@ -90,6 +90,7 @@ Partial Class Frm_CadUsuario
         '
         Me.TxtEmail.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TxtEmail.BackColor = System.Drawing.SystemColors.Window
         Me.TxtEmail.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtEmail.Location = New System.Drawing.Point(11, 175)
         Me.TxtEmail.Margin = New System.Windows.Forms.Padding(4)
@@ -256,9 +257,12 @@ Partial Class Frm_CadUsuario
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "Frm_CadUsuario"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Cadastrar Usuário"
+        Me.Text = "Usuário"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

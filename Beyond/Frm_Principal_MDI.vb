@@ -4,6 +4,7 @@ Public Class Frm_Principal_MDI
 
     Private usuario As Usuario
     Public Modo As String
+    Public StateTransaction As Boolean = True
 
     Public Sub New()
 
@@ -22,6 +23,10 @@ Public Class Frm_Principal_MDI
         ' Add any initialization after the InitializeComponent() call.
         Me.usuario = usuario
         loginusuario = usuario.Login
+    End Sub
+
+    Private Sub Frm_Principal_MDI_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+        Application.Exit()
     End Sub
 
     Private Sub Frm_Principal_MDI_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
@@ -43,7 +48,6 @@ Public Class Frm_Principal_MDI
             Cursor.Current = Cursors.WaitCursor
             System.Threading.Thread.Sleep(2000)
             Return True
-            Application.Exit()
         Else
             Return False
         End If
@@ -58,14 +62,19 @@ Public Class Frm_Principal_MDI
     End Sub
 
     Private Sub Frm_Principal_MDI_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-        If e.CloseReason = CloseReason.ApplicationExitCall Then
+        If Uteis.MsgBoxHelper.MsgTemCerteza(Me) Then
+            Cursor.Current = Cursors.WaitCursor
+            System.Threading.Thread.Sleep(2000)
             e.Cancel = False
-            Exit Sub
-        End If
-        If Not Sair() Then
-            e.Cancel = True
-            Exit Sub
-        End If
+            Else
+                e.Cancel = True
+                Exit Sub
+            End If
+            'If e.CloseReason = CloseReason.ApplicationExitCall Then
+            '    e.Cancel = False
+            'ElseIf e.CloseReason = CloseReason.UserClosing Then
+            '    e.Cancel = False
+            'End If
     End Sub
 
     Private Sub FecharSelecionadaToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles FecharSelecionadaToolStripMenuItem.Click
@@ -109,4 +118,17 @@ Public Class Frm_Principal_MDI
         End If
     End Sub
 
+    Private Sub ToolStripMenuFecharUma_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuFecharUma.Click
+        If TCPrincipal.TabPages.Count > 0 Then
+            TCPrincipal.TabPages.Remove(TCPrincipal.SelectedTab)
+        End If
+    End Sub
+
+    Private Sub ToolStripMenuFecharTodas_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuFecharTodas.Click
+        If TCPrincipal.TabPages.Count > 0 Then
+            For I As Integer = TCPrincipal.TabPages.Count - 1 To 0
+                TCPrincipal.TabPages.RemoveAt(I)
+            Next
+        End If
+    End Sub
 End Class

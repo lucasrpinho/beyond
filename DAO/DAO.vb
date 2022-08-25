@@ -88,7 +88,8 @@ Public Class DAO
         Return False
     End Function
 
-    Public Shared Function _InsertUsuario(con As SqlConnection, ByVal usuario As Usuario, ByRef response As String) As Boolean
+    Private Shared Function _InsertUsuario(con As SqlConnection, ByVal usuario As Usuario, ByRef response As String) As Boolean
+        Dim succ As Boolean
         Using Cmd As New SqlClient.SqlCommand
             Cmd.Connection = con
             Cmd.Transaction = Tr
@@ -105,13 +106,13 @@ Public Class DAO
             Cmd.Parameters("@RESPONSE").Size = 255
             If Not Cmd.ExecuteNonQuery > 0 Then
                 Throw New Exception("A inclusão falhou")
-                Return False
+                succ = False
             Else
-                Return True
+                succ = True
             End If
             response = Cmd.Parameters("@RESPONSE").Value
         End Using
-        Return False
+        Return succ
     End Function
 
 
@@ -193,6 +194,130 @@ Public Class DAO
         End Using
         ' Nunca alcançado
         Return Nothing
+    End Function
+
+    Public Shared Function DeleteUsuario(codusuario As String, ByRef response As String) As Boolean
+        Dim ConnStr As String = ConfigurationManager.ConnectionStrings("ConnString").ConnectionString
+        Con = New SqlConnection(ConnStr)
+        Con.Open()
+        Tr = Con.BeginTransaction
+        Try
+            If _DeleteUsuario(codusuario, response) Then
+                Return True
+            Else
+                Tr.Rollback()
+            End If
+        Catch ex As Exception
+            response = ex.Message
+            Tr.Rollback()
+        End Try
+        Return False
+    End Function
+
+    Public Shared Function _DeleteUsuario(codusuario As String, ByRef resposta As String) As Boolean
+        Dim succ As Boolean
+        Using Cmd As New SqlCommand()
+            Cmd.Connection = Con
+            Cmd.Transaction = Tr
+            Cmd.CommandText = "SP_INATIVA_USUARIO"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.Add("@CODUSUARIO", SqlDbType.Int).Value = Convert.ToInt32(codusuario)
+            Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+            Cmd.Parameters("@RESPONSE").Size = 255
+
+            If Not Cmd.ExecuteNonQuery > 0 Then
+                resposta = Cmd.Parameters("@RESPONSE").Value
+                Throw New Exception(resposta)
+                succ = False
+            Else
+                resposta = Cmd.Parameters("@RESPONSE").Value
+                succ = True
+            End If
+            resposta = Cmd.Parameters("@RESPONSE").Value
+        End Using
+        Return succ
+    End Function
+
+#End Region
+
+#Region "Cargo"
+
+    Public Shared Function InsereCargo(cargo As Cargo, ByRef resposta As String) As Boolean
+        Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Con.Open()
+        Tr = Con.BeginTransaction
+        Try
+            If _InsereCargo(cargo, resposta) Then
+                Return True
+            Else
+                Tr.Rollback()
+            End If
+        Catch ex As Exception
+            resposta = ex.Message
+            Tr.Rollback()
+        End Try
+        Return False
+    End Function
+
+    Private Shared Function _InsereCargo(cargo As Cargo, ByRef resposta As String) As Boolean
+        Dim succ As Boolean
+        Using Cmd As New SqlCommand()
+            Cmd.Connection = Con
+            Cmd.Transaction = Tr
+            Cmd.CommandText = "SP_INSERE_CARGO"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.Add("@NOME", SqlDbType.VarChar).Value = cargo.Nome
+            Cmd.Parameters.Add("@DESC", SqlDbType.VarChar).Value = cargo.Descricao
+            Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = cargo.IsAtivo
+            Cmd.Parameters.Add("@VENDEDOR", SqlDbType.Bit).Value = cargo.IsVendedor
+            Cmd.Parameters.Add("@LOGINCRIACAO", SqlDbType.VarChar).Value = cargo.LoginCriacao
+            Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+            Cmd.Parameters("@RESPONSE").Size = 255
+
+            If Not Cmd.ExecuteNonQuery > 0 Then
+                succ = False
+            Else
+                succ = True
+            End If
+            resposta = Cmd.Parameters("@RESPONSE").Value
+        End Using
+        Return succ
+    End Function
+
+    Public Shared Function AtualizaCargo(cargo As Cargo, ByRef resposta As String) As Boolean
+        Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Con.Open()
+        Tr = Con.BeginTransaction
+        Try
+            If Not _AtualizaCargo(cargo) Then
+                Tr.Rollback()
+            Else
+                Return True
+            End If
+        Catch ex As Exception
+            resposta = ex.Message
+            Tr.Rollback()
+        End Try
+        Return False
+    End Function
+
+    Private Shared Function _AtualizaCargo(cargo As Cargo) As Boolean
+        Using Cmd As New SqlCommand
+            Cmd.Connection = Con
+            Cmd.Transaction = Tr
+            Cmd.CommandText = "SP_UPDATE_CARGO"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.AddWithValue("@CODCARGO", cargo.CodCargo)
+            Cmd.Parameters.AddWithValue("@DESC", cargo.Descricao)
+            Cmd.Parameters.AddWithValue("@ATIVO", cargo.IsAtivo)
+            Cmd.Parameters.AddWithValue("@VENDEDOR", cargo.IsVendedor)
+
+            If Not Cmd.ExecuteNonQuery > 0 Then
+                Return False
+            Else
+                Return True
+            End If
+        End Using
     End Function
 
 #End Region

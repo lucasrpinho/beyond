@@ -80,16 +80,22 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms Entidades\Frm_Cargo.Designer.vb">
+      <DependentUpon>Frm_Cargo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms Entidades\Frm_Cargo.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms Iniciais\Frm_StartUp.Designer.vb">
       <DependentUpon>Frm_StartUp.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms Iniciais\Frm_StartUp.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Frm_CadUsuario.Designer.vb">
+    <Compile Include="Forms Entidades\Frm_CadUsuario.Designer.vb">
       <DependentUpon>Frm_CadUsuario.vb</DependentUpon>
     </Compile>
-    <Compile Include="Frm_CadUsuario.vb">
+    <Compile Include="Forms Entidades\Frm_CadUsuario.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Frm_Principal_MDI.Designer.vb">
@@ -135,10 +141,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms Entidades\Frm_Cargo.resx">
+      <DependentUpon>Frm_Cargo.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms Iniciais\Frm_StartUp.resx">
       <DependentUpon>Frm_StartUp.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Frm_CadUsuario.resx">
+    <EmbeddedResource Include="Forms Entidades\Frm_CadUsuario.resx">
       <DependentUpon>Frm_CadUsuario.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_Principal_MDI.resx">
@@ -196,6 +205,7 @@
     <None Include="Icons Toolstrip\confirm.png" />
     <None Include="Icons Toolstrip\delete.png" />
     <None Include="Icons Toolstrip\rollback.png" />
+    <None Include="Imagens\backgroundmdi.png" />
     <Content Include="Imagens\BeyondICON.ico" />
     <Content Include="Imagens\BeyondICON.png" />
     <Content Include="Imagens\login.png" />

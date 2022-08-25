@@ -1,10 +1,14 @@
 ﻿Imports System.Windows.Forms
 
-Public Class Controls
+Public Class ControlsHelper
 
-    Public Shared Sub SetTextBoxEmpty(frm As System.Windows.Forms.Form)
-        Dim txtboxControl = frm.Controls.OfType(Of System.Windows.Forms.TextBox)()
-        For Each txtbox As Windows.Forms.TextBox In txtboxControl
+    Public Shared Sub LimpaEAtiva(frm As Form)
+        SetControlsEnabled(frm)
+        SetTextBoxEmpty(frm.Controls)
+    End Sub
+
+    Public Shared Sub SetTextBoxEmpty(controls As Control.ControlCollection)
+        For Each txtbox As TextBox In controls.OfType(Of TextBox)()
             txtbox.Text = ""
         Next
     End Sub
@@ -23,7 +27,7 @@ Public Class Controls
         Next
     End Sub
 
-    Public Shared Sub ToolBarAfterInsert(tools As ToolStrip)
+    Public Shared Sub ToolBarTransactionOpen(tools As ToolStrip)
         For Each item As ToolStripItem In tools.Items
             If Not item.Name = "BtnRollback" And Not item.Name = "BtnConfirmar" Then
                 item.Enabled = False

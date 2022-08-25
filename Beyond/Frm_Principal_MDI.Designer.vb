@@ -61,10 +61,9 @@ Partial Class Frm_Principal_MDI
         Me.TSL_Hora = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TimerClock = New System.Windows.Forms.Timer(Me.components)
         Me.SplitC1 = New System.Windows.Forms.SplitContainer()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.TCPrincipal = New System.Windows.Forms.TabControl()
-        Me.LblOla = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.LblOla = New System.Windows.Forms.Label()
+        Me.TCPrincipal = New System.Windows.Forms.TabControl()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ToolStripMenuFecharUma = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuFecharTodas = New System.Windows.Forms.ToolStripMenuItem()
@@ -75,17 +74,18 @@ Partial Class Frm_Principal_MDI
         Me.SplitC1.Panel1.SuspendLayout()
         Me.SplitC1.Panel2.SuspendLayout()
         Me.SplitC1.SuspendLayout()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MnStrip_Principal
         '
+        Me.MnStrip_Principal.BackColor = System.Drawing.Color.LightGray
         Me.MnStrip_Principal.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AçõesToolStripMenuItem, Me.UsuáriosToolStripMenuItem, Me.PedidoToolStripMenuItem, Me.ConsultasToolStripMenuItem, Me.RelatórioToolStripMenuItem, Me.AjudaToolStripMenuItem})
+        Me.MnStrip_Principal.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         Me.MnStrip_Principal.Location = New System.Drawing.Point(0, 0)
         Me.MnStrip_Principal.Name = "MnStrip_Principal"
-        Me.MnStrip_Principal.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
+        Me.MnStrip_Principal.Padding = New System.Windows.Forms.Padding(5, 2, 0, 0)
         Me.MnStrip_Principal.Size = New System.Drawing.Size(755, 24)
         Me.MnStrip_Principal.TabIndex = 1
         Me.MnStrip_Principal.Text = "Menu"
@@ -93,8 +93,9 @@ Partial Class Frm_Principal_MDI
         'AçõesToolStripMenuItem
         '
         Me.AçõesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FecharAbaSelecionadaToolStripMenuItem, Me.SairToolStripMenuItem})
+        Me.AçõesToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Silver
         Me.AçõesToolStripMenuItem.Name = "AçõesToolStripMenuItem"
-        Me.AçõesToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
+        Me.AçõesToolStripMenuItem.Size = New System.Drawing.Size(46, 22)
         Me.AçõesToolStripMenuItem.Text = "Ação"
         '
         'FecharAbaSelecionadaToolStripMenuItem
@@ -126,7 +127,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.UsuáriosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UsuarioMenuItem, Me.CargosToolStripMenuItem, Me.VendedorToolStripMenuItem, Me.ClientesToolStripMenuItem, Me.ProdutosToolStripMenuItem})
         Me.UsuáriosToolStripMenuItem.Name = "UsuáriosToolStripMenuItem"
-        Me.UsuáriosToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
+        Me.UsuáriosToolStripMenuItem.Size = New System.Drawing.Size(48, 22)
         Me.UsuáriosToolStripMenuItem.Text = "Exibir"
         '
         'UsuarioMenuItem
@@ -221,7 +222,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.PedidoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.IncluirVendaToolStripMenuItem})
         Me.PedidoToolStripMenuItem.Name = "PedidoToolStripMenuItem"
-        Me.PedidoToolStripMenuItem.Size = New System.Drawing.Size(56, 20)
+        Me.PedidoToolStripMenuItem.Size = New System.Drawing.Size(56, 22)
         Me.PedidoToolStripMenuItem.Text = "Pedido"
         '
         'IncluirVendaToolStripMenuItem
@@ -233,14 +234,14 @@ Partial Class Frm_Principal_MDI
         'ConsultasToolStripMenuItem
         '
         Me.ConsultasToolStripMenuItem.Name = "ConsultasToolStripMenuItem"
-        Me.ConsultasToolStripMenuItem.Size = New System.Drawing.Size(71, 20)
+        Me.ConsultasToolStripMenuItem.Size = New System.Drawing.Size(71, 22)
         Me.ConsultasToolStripMenuItem.Text = "Consultas"
         '
         'RelatórioToolStripMenuItem
         '
         Me.RelatórioToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PedidoToolStripMenuItem1, Me.VendedorToolStripMenuItem1, Me.ProdutosToolStripMenuItem1})
         Me.RelatórioToolStripMenuItem.Name = "RelatórioToolStripMenuItem"
-        Me.RelatórioToolStripMenuItem.Size = New System.Drawing.Size(66, 20)
+        Me.RelatórioToolStripMenuItem.Size = New System.Drawing.Size(66, 22)
         Me.RelatórioToolStripMenuItem.Text = "Relatório"
         '
         'PedidoToolStripMenuItem1
@@ -265,7 +266,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.AjudaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SobreToolStripMenuItem, Me.BuscarAtualizaçãoToolStripMenuItem})
         Me.AjudaToolStripMenuItem.Name = "AjudaToolStripMenuItem"
-        Me.AjudaToolStripMenuItem.Size = New System.Drawing.Size(50, 20)
+        Me.AjudaToolStripMenuItem.Size = New System.Drawing.Size(50, 22)
         Me.AjudaToolStripMenuItem.Text = "Ajuda"
         '
         'SobreToolStripMenuItem
@@ -330,29 +331,40 @@ Partial Class Frm_Principal_MDI
         'SplitC1.Panel1
         '
         Me.SplitC1.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.SplitC1.Panel1.Controls.Add(Me.PictureBox2)
+        Me.SplitC1.Panel1.Controls.Add(Me.PictureBox1)
+        Me.SplitC1.Panel1.Controls.Add(Me.LblOla)
         '
         'SplitC1.Panel2
         '
         Me.SplitC1.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.SplitC1.Panel2.Controls.Add(Me.TCPrincipal)
-        Me.SplitC1.Panel2.Controls.Add(Me.LblOla)
-        Me.SplitC1.Panel2.Controls.Add(Me.PictureBox1)
         Me.SplitC1.Size = New System.Drawing.Size(755, 404)
         Me.SplitC1.SplitterDistance = 251
         Me.SplitC1.SplitterWidth = 10
         Me.SplitC1.TabIndex = 10
         '
-        'PictureBox2
+        'PictureBox1
         '
-        Me.PictureBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(251, 404)
-        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox2.TabIndex = 0
-        Me.PictureBox2.TabStop = False
+        Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.BeyondICON
+        Me.PictureBox1.Location = New System.Drawing.Point(39, 151)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(163, 149)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 2
+        Me.PictureBox1.TabStop = False
+        '
+        'LblOla
+        '
+        Me.LblOla.AutoEllipsis = True
+        Me.LblOla.AutoSize = True
+        Me.LblOla.Font = New System.Drawing.Font("Verdana", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblOla.ForeColor = System.Drawing.Color.White
+        Me.LblOla.Location = New System.Drawing.Point(12, 32)
+        Me.LblOla.Name = "LblOla"
+        Me.LblOla.Size = New System.Drawing.Size(115, 32)
+        Me.LblOla.TabIndex = 1
+        Me.LblOla.Text = "Label1"
         '
         'TCPrincipal
         '
@@ -364,34 +376,12 @@ Partial Class Frm_Principal_MDI
         Me.TCPrincipal.TabIndex = 2
         Me.TCPrincipal.Visible = False
         '
-        'LblOla
-        '
-        Me.LblOla.AutoSize = True
-        Me.LblOla.Font = New System.Drawing.Font("Verdana", 32.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblOla.ForeColor = System.Drawing.Color.White
-        Me.LblOla.Location = New System.Drawing.Point(16, 32)
-        Me.LblOla.Name = "LblOla"
-        Me.LblOla.Size = New System.Drawing.Size(184, 52)
-        Me.LblOla.TabIndex = 1
-        Me.LblOla.Text = "Label1"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(120, 119)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(181, 165)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 0
-        Me.PictureBox1.TabStop = False
-        '
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuFecharUma, Me.ToolStripMenuFecharTodas})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(176, 48)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(176, 70)
         '
         'ToolStripMenuFecharUma
         '
@@ -407,8 +397,7 @@ Partial Class Frm_Principal_MDI
         '
         'UC_Toolstrip1
         '
-        Me.UC_Toolstrip1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.UC_Toolstrip1.Dock = System.Windows.Forms.DockStyle.Top
         Me.UC_Toolstrip1.Location = New System.Drawing.Point(0, 24)
         Me.UC_Toolstrip1.Margin = New System.Windows.Forms.Padding(4)
         Me.UC_Toolstrip1.Name = "UC_Toolstrip1"
@@ -439,11 +428,10 @@ Partial Class Frm_Principal_MDI
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.SplitC1.Panel1.ResumeLayout(False)
+        Me.SplitC1.Panel1.PerformLayout()
         Me.SplitC1.Panel2.ResumeLayout(False)
-        Me.SplitC1.Panel2.PerformLayout()
         CType(Me.SplitC1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitC1.ResumeLayout(False)
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -484,15 +472,14 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents FecharTodasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SplitC1 As System.Windows.Forms.SplitContainer
     Friend WithEvents LblOla As System.Windows.Forms.Label
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ToolStripMenuFecharUma As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuFecharTodas As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
     Friend WithEvents ConsultasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PedidoToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents VendedorToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ProdutosToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TCPrincipal As System.Windows.Forms.TabControl
     Public WithEvents UC_Toolstrip1 As Beyond.UC_Toolstrip
+    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
 End Class

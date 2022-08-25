@@ -33,16 +33,15 @@ Partial Class UC_Toolstrip
         Me.BtnProximo = New System.Windows.Forms.ToolStripButton()
         Me.BtnConfirmar = New System.Windows.Forms.ToolStripButton()
         Me.BtnRollback = New System.Windows.Forms.ToolStripButton()
-        Me.PasteToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.toolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.HelpToolStripButton = New System.Windows.Forms.ToolStripButton()
-        Me.BtnLimpar = New System.Windows.Forms.ToolStripTextBox()
+        Me.BtnLimpar = New System.Windows.Forms.ToolStripLabel()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnNovo, Me.BtnSalvar, Me.BtnProcurar, Me.BtnDeletar, Me.toolStripSeparator, Me.BtnVoltar, Me.BtnProximo, Me.BtnConfirmar, Me.BtnRollback, Me.PasteToolStripButton, Me.toolStripSeparator1, Me.HelpToolStripButton, Me.BtnLimpar})
+        Me.ToolStrip1.BackColor = System.Drawing.Color.LightGray
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnNovo, Me.BtnSalvar, Me.BtnProcurar, Me.BtnDeletar, Me.toolStripSeparator, Me.BtnVoltar, Me.BtnProximo, Me.BtnConfirmar, Me.BtnRollback, Me.toolStripSeparator1, Me.BtnLimpar})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(473, 25)
@@ -127,35 +126,18 @@ Partial Class UC_Toolstrip
         Me.BtnRollback.Size = New System.Drawing.Size(23, 22)
         Me.BtnRollback.Text = "&Reverter"
         '
-        'PasteToolStripButton
-        '
-        Me.PasteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.PasteToolStripButton.Image = CType(resources.GetObject("PasteToolStripButton.Image"), System.Drawing.Image)
-        Me.PasteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.PasteToolStripButton.Name = "PasteToolStripButton"
-        Me.PasteToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.PasteToolStripButton.Text = "&Paste"
-        '
         'toolStripSeparator1
         '
         Me.toolStripSeparator1.Name = "toolStripSeparator1"
         Me.toolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
-        'HelpToolStripButton
-        '
-        Me.HelpToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.HelpToolStripButton.Image = CType(resources.GetObject("HelpToolStripButton.Image"), System.Drawing.Image)
-        Me.HelpToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.HelpToolStripButton.Name = "HelpToolStripButton"
-        Me.HelpToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.HelpToolStripButton.Text = "He&lp"
-        '
         'BtnLimpar
         '
-        Me.BtnLimpar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.BtnLimpar.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.BtnLimpar.Name = "BtnLimpar"
-        Me.BtnLimpar.Size = New System.Drawing.Size(100, 25)
+        Me.BtnLimpar.Size = New System.Drawing.Size(91, 22)
         Me.BtnLimpar.Text = "Limpar Campos"
+        Me.BtnLimpar.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'UC_Toolstrip
         '
@@ -177,12 +159,10 @@ Partial Class UC_Toolstrip
     Friend WithEvents toolStripSeparator As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents BtnConfirmar As System.Windows.Forms.ToolStripButton
     Friend WithEvents BtnRollback As System.Windows.Forms.ToolStripButton
-    Friend WithEvents PasteToolStripButton As System.Windows.Forms.ToolStripButton
     Friend WithEvents toolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents HelpToolStripButton As System.Windows.Forms.ToolStripButton
     Friend WithEvents BtnProximo As System.Windows.Forms.ToolStripButton
     Friend WithEvents BtnVoltar As System.Windows.Forms.ToolStripButton
     Public WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Friend WithEvents BtnLimpar As System.Windows.Forms.ToolStripTextBox
+    Friend WithEvents BtnLimpar As System.Windows.Forms.ToolStripLabel
 
 End Class

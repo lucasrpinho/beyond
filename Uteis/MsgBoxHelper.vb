@@ -41,6 +41,15 @@ Public Class MsgBoxHelper
         tooltip.Show("Confirme a operação", itemCommit, 2000)
     End Sub
 
+    Public Shared Sub CustomTooltip(frm As Control, window As IWin32Window, msg As String, titulo As String)
+        Dim tooltip As New ToolTip
+        tooltip.ToolTipTitle = titulo
+        tooltip.ToolTipIcon = ToolTipIcon.Error
+        tooltip.IsBalloon = True
+        tooltip.SetToolTip(frm, msg)
+        tooltip.Show(msg, window, 3000)
+    End Sub
+
     Public Overloads Shared Function MsgTemCerteza(ByVal msg As String, ByVal titulo As String) As Boolean
         If MessageBox.Show(Application.OpenForms("Frm_Principal_MDI"), msg, titulo, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             Return True

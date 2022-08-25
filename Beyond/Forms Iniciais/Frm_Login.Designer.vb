@@ -101,6 +101,7 @@ Partial Class Frm_Login
         '
         'TxtLogin
         '
+        Me.TxtLogin.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtLogin.Location = New System.Drawing.Point(174, 50)
         Me.TxtLogin.MaxLength = 16
         Me.TxtLogin.Name = "TxtLogin"
