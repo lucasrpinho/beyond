@@ -28,7 +28,7 @@ Public Class DAO
                     Cmd.Parameters("@RESPONSE").Size = 255
 
                     Dim Adp As New SqlDataAdapter(Cmd)
-                    Dim Tbl As New DataTable("Usuario")
+                    Dim Tbl As New DataTable()
                     Adp.Fill(Tbl)
 
                     resposta = Cmd.Parameters("@RESPONSE").Value
@@ -84,11 +84,6 @@ Public Class DAO
         Catch ex As Exception
             response = ex.Message
             tr.Rollback()
-        Finally
-            If Not Con Is Nothing Then
-                Con.Close()
-                Con.Dispose()
-            End If
         End Try
         Return False
     End Function
@@ -96,6 +91,7 @@ Public Class DAO
     Public Shared Function _InsertUsuario(con As SqlConnection, ByVal usuario As Usuario, ByRef response As String) As Boolean
         Using Cmd As New SqlClient.SqlCommand
             Cmd.Connection = con
+            Cmd.Transaction = Tr
             Cmd.CommandText = "SP_INSERT_USER"
             Cmd.CommandType = CommandType.StoredProcedure
             Cmd.Parameters.Add("@NOME", SqlDbType.VarChar).Value = usuario.Nome

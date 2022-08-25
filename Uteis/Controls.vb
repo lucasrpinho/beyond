@@ -24,9 +24,8 @@ Public Class Controls
     End Sub
 
     Public Shared Sub ToolBarAfterInsert(tools As ToolStrip)
-        Dim itens = tools.Items
-        For Each item As ToolStripItem In itens
-            If Not item.Name = "BtnRollback" Or Not item.Name = "BtnCommit" Then
+        For Each item As ToolStripItem In tools.Items
+            If Not item.Name = "BtnRollback" And Not item.Name = "BtnConfirmar" Then
                 item.Enabled = False
             End If
         Next

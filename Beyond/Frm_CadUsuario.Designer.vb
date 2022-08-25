@@ -23,6 +23,7 @@ Partial Class Frm_CadUsuario
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_CadUsuario))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.ComboNome = New System.Windows.Forms.ComboBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.TxtEmail = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -47,6 +48,7 @@ Partial Class Frm_CadUsuario
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.ComboNome)
         Me.GroupBox1.Controls.Add(Me.PictureBox1)
         Me.GroupBox1.Controls.Add(Me.TxtEmail)
         Me.GroupBox1.Controls.Add(Me.Label6)
@@ -62,6 +64,16 @@ Partial Class Frm_CadUsuario
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Informações - Usuário"
+        '
+        'ComboNome
+        '
+        Me.ComboNome.FormattingEnabled = True
+        Me.ComboNome.Items.AddRange(New Object() {" "})
+        Me.ComboNome.Location = New System.Drawing.Point(400, 174)
+        Me.ComboNome.Name = "ComboNome"
+        Me.ComboNome.Size = New System.Drawing.Size(121, 24)
+        Me.ComboNome.TabIndex = 7
+        Me.ComboNome.Visible = False
         '
         'PictureBox1
         '
@@ -271,4 +283,5 @@ Partial Class Frm_CadUsuario
     Friend WithEvents TxtEmail As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents ComboNome As System.Windows.Forms.ComboBox
 End Class

@@ -3,7 +3,7 @@
     ' Possível que seja removido no futuro
     Public WithEvents ToolStrip0 As ToolStrip
 
-    Public Shared BtnClick As EventHandler
+    ' Public BtnClick As New EventHandler(Sub() ToolStrip1_ItemClicked(Nothing, Nothing))
 
     ' Shared pois o componente só será instanciado uma vez no form principal MDI e todas as telas
     ' devem ter acesso ao MESMO valor
@@ -39,20 +39,17 @@
         Next
     End Sub
 
-    'Public Sub AfterInsert()
-    '    Dim itens = ToolStrip0.Items
-    '    For Each item As ToolStripItem In itens
-    '        If Not item.Name = "BtnRollback" Or Not item.Name = "BtnCommit" Then
-    '            item.Enabled = False
-    '        End If
-    '    Next
-    'End Sub
-
     Public Sub ModoSelecionado(ByVal sender As System.Object, ByVal e As ToolStripItemClickedEventArgs)
         If e.ClickedItem Is BtnNovo Then
             Modo = "NOVO"
+        ElseIf e.ClickedItem Is BtnSalvar Then
+            Modo = "SALVAR"
         ElseIf e.ClickedItem Is BtnDeletar Then
-            Modo = "DELETAR"
+            If Uteis.MsgBoxHelper.MsgTemCerteza("Deseja deletar o item?", "Deletar") Then
+                Modo = "DELETAR"
+            Else
+                Modo = ""
+            End If
         ElseIf e.ClickedItem Is BtnProcurar Then
             Modo = "PROCURAR"
         ElseIf e.ClickedItem Is BtnProximo Then
@@ -62,7 +59,13 @@
         ElseIf e.ClickedItem Is BtnConfirmar Then
             Modo = "CONFIRMAR"
         ElseIf e.ClickedItem Is BtnRollback Then
-            Modo = "ROLLBACK"
+            If Uteis.MsgBoxHelper.MsgTemCerteza("Deseja reverter a operação?", "Reverter") Then
+                Modo = "ROLLBACK"
+            Else
+                Modo = ""
+            End If
+        ElseIf e.ClickedItem Is BtnLimpar Then
+            Modo = "LIMPAR"
         End If
     End Sub
 
@@ -70,6 +73,6 @@
     Public Sub ToolStrip1_ItemClicked(sender As Object, e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles ToolStrip1.ItemClicked
         ModoSelecionado(sender, e)
 
-        BtnClick(sender, e)
+        ' BtnClick(sender, e)
     End Sub
 End Class

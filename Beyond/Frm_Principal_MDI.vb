@@ -22,7 +22,6 @@ Public Class Frm_Principal_MDI
         ' Add any initialization after the InitializeComponent() call.
         Me.usuario = usuario
         loginusuario = usuario.Login
-        UC_Toolstrip1 = New UC_Toolstrip
     End Sub
 
     Private Sub Frm_Principal_MDI_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
@@ -39,23 +38,17 @@ Public Class Frm_Principal_MDI
         Sair()
     End Sub
 
-    Private Sub Sair()
-        If Application.OpenForms.Count <= Uteis.FormHelper.FORM_ATUAL_MAIS_FORM_STARTUP Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(Me) Then
-                Cursor.Current = Cursors.WaitCursor
-                System.Threading.Thread.Sleep(2000)
-                Application.Exit()
-            Else
-                Exit Sub
-            End If
+    Private Function Sair() As Boolean
+        If Uteis.MsgBoxHelper.MsgTemCerteza(Me) Then
+            Cursor.Current = Cursors.WaitCursor
+            System.Threading.Thread.Sleep(2000)
+            Return True
+            Application.Exit()
         Else
-            If Uteis.MsgBoxHelper.MsgTemCertezaAlertaTelasAbertas(Me) Then
-                Application.Exit()
-            Else
-                Exit Sub
-            End If
+            Return False
         End If
-    End Sub
+        Return False
+    End Function
 
     Private Sub SobreToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles SobreToolStripMenuItem.Click
         Dim FrmSobre As New Frm_Sobre
@@ -67,9 +60,12 @@ Public Class Frm_Principal_MDI
     Private Sub Frm_Principal_MDI_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
         If e.CloseReason = CloseReason.ApplicationExitCall Then
             e.Cancel = False
-            Return
+            Exit Sub
         End If
-        Sair()
+        If Not Sair() Then
+            e.Cancel = True
+            Exit Sub
+        End If
     End Sub
 
     Private Sub FecharSelecionadaToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles FecharSelecionadaToolStripMenuItem.Click
@@ -112,4 +108,5 @@ Public Class Frm_Principal_MDI
             Frm.Show()
         End If
     End Sub
+
 End Class

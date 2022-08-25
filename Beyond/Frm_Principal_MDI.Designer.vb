@@ -379,7 +379,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(126, 119)
+        Me.PictureBox1.Location = New System.Drawing.Point(120, 119)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(181, 165)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -493,6 +493,6 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents PedidoToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents VendedorToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ProdutosToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents UC_Toolstrip1 As Beyond.UC_Toolstrip
     Friend WithEvents TCPrincipal As System.Windows.Forms.TabControl
+    Public WithEvents UC_Toolstrip1 As Beyond.UC_Toolstrip
 End Class

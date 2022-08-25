@@ -1,7 +1,7 @@
 ﻿Imports System.Windows.Forms
 
 Public Class MsgBoxHelper
-    Public Shared Function MsgTemCerteza(ByVal Frm As Form) As Boolean
+    Public Overloads Shared Function MsgTemCerteza(ByVal Frm As Form) As Boolean
         If MessageBox.Show(Frm, "Tem certeza que deseja fechar a aplicação?", "Beyond",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes Then
             Return True
@@ -39,6 +39,13 @@ Public Class MsgBoxHelper
         tooltip.ToolTipTitle = "Confirme"
         tooltip.SetToolTip(toolbar, "Confirme a operação")
         tooltip.Show("Confirme a operação", itemCommit, 2000)
-
     End Sub
+
+    Public Overloads Shared Function MsgTemCerteza(ByVal msg As String, ByVal titulo As String) As Boolean
+        If MessageBox.Show(Application.OpenForms("Frm_Principal_MDI"), msg, titulo, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 End Class

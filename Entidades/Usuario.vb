@@ -44,15 +44,15 @@ Public Class Usuario
         End Set
     End Property
 
-    Public Shared Function IsValid(ByVal u As Usuario, ByRef strError As String) As Boolean
+    Public Function IsValid(ByRef strError As String) As Boolean
         strError = String.Empty
-        If u.CodUsuario <> 0 Then
+        If Me.CodUsuario <> 0 Then
             strError = "O código de usuário deve ser 0 pois será gerado automaticamente"
-        ElseIf u.Nome = "" Then
+        ElseIf Me.Nome = "" Then
             strError = "Nome precisa estar preenchido"
-        ElseIf u.Sobrenome = "" Then
+        ElseIf Me.Sobrenome = "" Then
             strError = "Sobrenome precisa estar preenchido"
-        ElseIf u.Senha = "" Then
+        ElseIf Me.Senha = "" Then
             strError = "Senha não pode ser vazia"
         End If
         Return String.IsNullOrWhiteSpace(strError)
@@ -63,6 +63,7 @@ Public Class Usuario
         Me.Nome = row.Field(Of String)("de_nome")
         Me.Sobrenome = row.Field(Of String)("de_sobrenome")
         Me.NomeCompleto = row.Field(Of String)("de_nome_completo")
+        Me.Email = row.Field(Of String)("de_email")
         Me.Login = row.Field(Of String)("de_login")
         ' U.Senha = row.Field(Of String)("de_senha")
         Me.IsAtivo = row.Field(Of Boolean)("ct_ativo")
