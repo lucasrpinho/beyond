@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CBItem.vb" />
-    <Compile Include="Consts.vb" />
+    <Compile Include="SYSConsts.vb" />
     <Compile Include="ControlsHelper.vb" />
     <Compile Include="FormHelper.vb" />
     <Compile Include="MsgBoxHelper.vb" />

@@ -2,9 +2,9 @@
 
 Public Class ControlsHelper
 
-    Public Shared Sub LimpaEAtiva(frm As Form)
-        SetControlsEnabled(frm)
-        SetTextBoxEmpty(frm.Controls)
+    Public Shared Sub LimpaEAtiva(controls As Control.ControlCollection)
+        SetControlsEnabled(controls)
+        SetTextBoxEmpty(controls)
     End Sub
 
     Public Shared Sub SetTextBoxEmpty(controls As Control.ControlCollection)
@@ -20,8 +20,7 @@ Public Class ControlsHelper
         Next
     End Sub
 
-    Public Shared Sub SetControlsEnabled(frm As Form)
-        Dim controls = frm.Controls
+    Public Shared Sub SetControlsEnabled(controls As Control.ControlCollection)
         For Each Control As Control In controls
             Control.Enabled = True
         Next

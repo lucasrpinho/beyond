@@ -5,6 +5,8 @@ Imports Entidades
 
 Public Class DAO
 
+    ' Deve ser feita uma operação por vez
+    ' Não pode haver instâncias diferentes pois isso abre margem para diferentes conexões e transações abertas ao mesmo tempo
     Private Shared Con As SqlConnection
     Private Shared Tr As SqlTransaction
 
@@ -93,7 +95,7 @@ Public Class DAO
         Using Cmd As New SqlClient.SqlCommand
             Cmd.Connection = con
             Cmd.Transaction = Tr
-            Cmd.CommandText = "SP_INSERT_USER"
+            Cmd.CommandText = "SP_INSERE_USUARIO"
             Cmd.CommandType = CommandType.StoredProcedure
             Cmd.Parameters.Add("@NOME", SqlDbType.VarChar).Value = usuario.Nome
             Cmd.Parameters.Add("@SOBRENOME", SqlDbType.VarChar).Value = usuario.Sobrenome
@@ -123,7 +125,7 @@ Public Class DAO
         Using Con As New SqlClient.SqlConnection(ConnStr)
             Using Cmd As New SqlClient.SqlCommand
                 Cmd.Connection = Con
-                Cmd.CommandText = "SP_GET_ALL_USERS"
+                Cmd.CommandText = "SP_GET_ALL_USUARIOS"
                 Cmd.CommandType = CommandType.StoredProcedure
                 Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = ativo
                 Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
@@ -247,7 +249,7 @@ Public Class DAO
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If _InsereCargo(cargo, resposta) Then
+            If _InsereCargo(cargo) Then
                 Return True
             Else
                 Tr.Rollback()
@@ -259,8 +261,55 @@ Public Class DAO
         Return False
     End Function
 
-    Private Shared Function _InsereCargo(cargo As Cargo, ByRef resposta As String) As Boolean
-        Dim succ As Boolean
+
+    Public Overloads Shared Function GetCargo(ByVal codcargo As String) As Cargo
+        Return _GetCargos(True, codcargo).FirstOrDefault
+    End Function
+
+    Public Overloads Shared Function GetCargo(ByVal ativos As Boolean) As List(Of Cargo)
+        Return _GetCargos(ativos, String.Empty)
+    End Function
+
+    Private Shared Function _GetCargos(ativos As Boolean, codcargo As String) As List(Of Cargo)
+        Dim lst As New List(Of Cargo)
+        Using Con As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+            Using Cmd As New SqlCommand
+                Try
+                    Cmd.Connection = Con
+                    If codcargo = String.Empty Then
+                        Cmd.CommandText = "SP_GET_ALL_CARGOS"
+                        Cmd.CommandType = CommandType.StoredProcedure
+                        Cmd.Parameters.AddWithValue("@ATIVO", ativos)
+                    Else
+                        Cmd.CommandText = "SP_GET_CARGO"
+                        Cmd.CommandType = CommandType.StoredProcedure
+                        Cmd.Parameters.AddWithValue("@CODCARGO", Convert.ToInt16(codcargo))
+                    End If
+                    Dim Adp As New SqlDataAdapter(Cmd)
+                    Dim Tbl As New DataTable
+                    Adp.Fill(Tbl)
+                    If Tbl.Rows.Count > 0 Then
+                        For I As Integer = 0 To Tbl.Rows.Count - 1
+                            Dim cargo As New Cargo
+                            cargo.Carrega(Tbl.Rows(I))
+                            lst.Add(cargo)
+                        Next
+                    End If
+                    If Not Adp Is Nothing Then
+                        Adp.Dispose()
+                    End If
+                    If Not Tbl Is Nothing Then
+                        Tbl.Dispose()
+                    End If
+                Catch ex As Exception
+                    Throw New Exception(ex.Message)
+                End Try
+            End Using
+        End Using
+        Return lst
+    End Function
+
+    Private Shared Function _InsereCargo(cargo As Cargo) As Boolean
         Using Cmd As New SqlCommand()
             Cmd.Connection = Con
             Cmd.Transaction = Tr
@@ -271,27 +320,28 @@ Public Class DAO
             Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = cargo.IsAtivo
             Cmd.Parameters.Add("@VENDEDOR", SqlDbType.Bit).Value = cargo.IsVendedor
             Cmd.Parameters.Add("@LOGINCRIACAO", SqlDbType.VarChar).Value = cargo.LoginCriacao
-            Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
-            Cmd.Parameters("@RESPONSE").Size = 255
 
             If Not Cmd.ExecuteNonQuery > 0 Then
-                succ = False
+                Return False
             Else
-                succ = True
+                Return True
             End If
-            resposta = Cmd.Parameters("@RESPONSE").Value
         End Using
-        Return succ
     End Function
 
-    Public Shared Function AtualizaCargo(cargo As Cargo, ByRef resposta As String) As Boolean
+    Public Shared Function AtualizaCargo(cargo As Cargo, ByRef resposta As String, _
+        ByVal isExclusao As Boolean, login As String) As Boolean
+
         Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If Not _AtualizaCargo(cargo) Then
+            If Not _AtualizaCargo(cargo, isExclusao, resposta, login) Then
                 Tr.Rollback()
             Else
+                If Not isExclusao Then
+                    Tr.Commit()
+                End If
                 Return True
             End If
         Catch ex As Exception
@@ -301,22 +351,72 @@ Public Class DAO
         Return False
     End Function
 
-    Private Shared Function _AtualizaCargo(cargo As Cargo) As Boolean
-        Using Cmd As New SqlCommand
-            Cmd.Connection = Con
-            Cmd.Transaction = Tr
-            Cmd.CommandText = "SP_UPDATE_CARGO"
-            Cmd.CommandType = CommandType.StoredProcedure
-            Cmd.Parameters.AddWithValue("@CODCARGO", cargo.CodCargo)
-            Cmd.Parameters.AddWithValue("@DESC", cargo.Descricao)
-            Cmd.Parameters.AddWithValue("@ATIVO", cargo.IsAtivo)
-            Cmd.Parameters.AddWithValue("@VENDEDOR", cargo.IsVendedor)
+    Private Shared Function _AtualizaCargo(cargo As Cargo, isExclusao As Boolean, _
+        ByRef resposta As String, ByVal loginupdate As String) As Boolean
 
-            If Not Cmd.ExecuteNonQuery > 0 Then
-                Return False
-            Else
+        ' Deleta se nao usado em outras rotinas e inativa se usado em outras rotinas
+        If isExclusao And Not IsCargoUsado(cargo) Then
+            Using Cmd As New SqlCommand()
+                Cmd.Connection = Con
+                Cmd.Transaction = Tr
+                Cmd.CommandText = "SP_DELETA_CARGO"
+                Cmd.CommandType = CommandType.StoredProcedure
+                Cmd.Parameters.AddWithValue("@CODCARGO", cargo.CodCargo)
+                Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+                Cmd.Parameters("@RESPONSE").Size = 255
+                Try
+                    If Not Cmd.ExecuteNonQuery > 0 Then
+                        Return False
+                    Else
+                        Return True
+                    End If
+                Catch Ex As Exception
+                    Return False
+                Finally
+                    resposta = Cmd.Parameters("@RESPONSE").Value
+                End Try
+            End Using
+        Else
+            Using Cmd As New SqlCommand
+                Cmd.Connection = Con
+                Cmd.Transaction = Tr
+                Cmd.CommandText = "SP_ATUALIZA_CARGO"
+                Cmd.CommandType = CommandType.StoredProcedure
+                Cmd.Parameters.AddWithValue("@CODCARGO", cargo.CodCargo)
+                Cmd.Parameters.AddWithValue("@DESC", cargo.Descricao)
+                If Not isExclusao Then
+                    Cmd.Parameters.AddWithValue("@ATIVO", cargo.IsAtivo)
+                Else
+                    Cmd.Parameters.AddWithValue("@ATIVO", False)
+                End If
+                Cmd.Parameters.AddWithValue("@VENDEDOR", cargo.IsVendedor)
+                Cmd.Parameters.AddWithValue("@LOGINALTERACAO", loginupdate)
+
+                If Not Cmd.ExecuteNonQuery > 0 Then
+                    Return False
+                Else
+                    Return True
+                End If
+            End Using
+        End If
+    End Function
+
+    Private Shared Function IsCargoUsado(cargo As Cargo) As Boolean
+        Using Cmd As New SqlCommand
+            Try
+                Cmd.Connection = Con
+                Cmd.CommandText = "SP_CHECA_CARGO"
+                Cmd.CommandType = CommandType.StoredProcedure
+                Cmd.Parameters.AddWithValue("@CODUSUARIO", Convert.ToInt32(cargo.CodCargo))
+                Cmd.Parameters.Add("@RESPONSE", SqlDbType.Bit).Direction = ParameterDirection.Output
+
+                Cmd.ExecuteReader()
+
+                Return Cmd.Parameters("@RESPONSE").Value
+
+            Catch Ex As Exception
                 Return True
-            End If
+            End Try
         End Using
     End Function
 

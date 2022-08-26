@@ -45,11 +45,7 @@
         ElseIf e.ClickedItem Is BtnSalvar Then
             Modo = "SALVAR"
         ElseIf e.ClickedItem Is BtnDeletar Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza("Deseja deletar o item?", "Deletar") Then
-                Modo = "DELETAR"
-            Else
-                Modo = ""
-            End If
+            Modo = "DELETAR"
         ElseIf e.ClickedItem Is BtnProcurar Then
             Modo = "PROCURAR"
         ElseIf e.ClickedItem Is BtnProximo Then
@@ -59,11 +55,7 @@
         ElseIf e.ClickedItem Is BtnConfirmar Then
             Modo = "CONFIRMAR"
         ElseIf e.ClickedItem Is BtnRollback Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza("Deseja reverter a operação?", "Reverter") Then
-                Modo = "ROLLBACK"
-            Else
-                Modo = ""
-            End If
+            Modo = "ROLLBACK"
         ElseIf e.ClickedItem Is BtnLimpar Then
             Modo = "LIMPAR"
         End If

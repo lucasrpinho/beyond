@@ -77,14 +77,11 @@ Public Class Frm_Principal_MDI
             'End If
     End Sub
 
-    Private Sub FecharSelecionadaToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles FecharSelecionadaToolStripMenuItem.Click
-        If Not TCPrincipal.TabPages.Count > 0 Then
-            Exit Sub
-        Else
+    Private Sub FecharSelecionadaToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles FecharSelecionadaMenu.Click
+        If TCPrincipal.TabPages.Count > 0 Then
+            Dim page = TCPrincipal.TabPages(TCPrincipal.SelectedIndex)
+            Application.OpenForms.Item(page.Controls.OfType(Of Form).LastOrDefault.Name).Close()
             TCPrincipal.TabPages.Remove(TCPrincipal.SelectedTab)
-            If TCPrincipal.TabPages.Count = 0 Then
-                TCPrincipal.Visible = False
-            End If
         End If
     End Sub
 
@@ -97,13 +94,13 @@ Public Class Frm_Principal_MDI
     End Sub
 
     Private Sub UsuarioMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles UsuarioMenuItem.Click
-        Dim Frm As Form
-        Frm = TCPrincipal.TabPages.OfType(Of Frm_CadUsuario).FirstOrDefault
-        If Not Frm Is Nothing Then
-            Frm.BringToFront()
+        Dim page = TCPrincipal.TabPages("Frm_CadUsuario")
+        If Not page Is Nothing Then
+            TCPrincipal.SelectTab(page)
         Else
-            Frm = New Frm_CadUsuario(Me, UC_Toolstrip1.ToolStrip0)
+            Dim Frm As New Frm_CadUsuario(Me)
             Dim TP As New TabPage
+            TP.Name = Frm.Name
             Frm.TopLevel = False
             Frm.FormBorderStyle = Windows.Forms.FormBorderStyle.None
             Frm.MdiParent = Me
@@ -115,19 +112,79 @@ Public Class Frm_Principal_MDI
             TCPrincipal.BringToFront()
             TCPrincipal.Visible = True
             Frm.Show()
+            Me.Refresh()
         End If
     End Sub
 
-    Private Sub ToolStripMenuFecharUma_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuFecharUma.Click
+    Private Sub ToolStripMenuFecharUma_Click(sender As System.Object, e As System.EventArgs) Handles FecharUmaCtxMenu.Click
         If TCPrincipal.TabPages.Count > 0 Then
+            Dim page = TCPrincipal.TabPages(TCPrincipal.SelectedIndex)
+            Application.OpenForms.Item(page.Controls.OfType(Of Form).FirstOrDefault.Name).Close()
             TCPrincipal.TabPages.Remove(TCPrincipal.SelectedTab)
         End If
     End Sub
 
-    Private Sub ToolStripMenuFecharTodas_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuFecharTodas.Click
+    Private Sub ToolStripMenuFecharTodas_Click(sender As System.Object, e As System.EventArgs) Handles FecharTodasCtxMenu.Click
         If TCPrincipal.TabPages.Count > 0 Then
-            For I As Integer = TCPrincipal.TabPages.Count - 1 To 0
+            For I As Integer = TCPrincipal.TabPages.Count - 1 To 0 Step -1
+                TCPrincipal.TabPages(I).Controls.OfType(Of Form).FirstOrDefault.Dispose()
                 TCPrincipal.TabPages.RemoveAt(I)
+            Next
+        End If
+    End Sub
+
+    Private Sub CargosToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles CargosToolStripMenuItem.Click
+        Dim page = TCPrincipal.TabPages("Frm_Cargo")
+        If Not page Is Nothing Then
+            TCPrincipal.SelectTab(page)
+        Else
+            Dim Frm As New Frm_Cargo(Me)
+            Dim TP As New TabPage
+            Frm.TopLevel = False
+            Frm.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            Frm.MdiParent = Me
+            Frm.Dock = DockStyle.Fill
+            TP.Controls.Add(Frm)
+            TP.Tag = Frm
+            TP.Text = Frm.Text
+            TP.BackColor = Frm.BackColor
+            TP.Name = Frm.Name
+            TCPrincipal.TabPages.Add(TP)
+            TCPrincipal.BringToFront()
+            TCPrincipal.Visible = True
+            Frm.Show()
+            Me.Refresh()
+        End If
+    End Sub
+
+    Private Sub FecharTodasToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles FecharTodasMenu.Click
+        If TCPrincipal.TabPages.Count > 0 Then
+            For I As Integer = TCPrincipal.TabPages.Count - 1 To 0 Step -1
+                TCPrincipal.TabPages(I).Controls.OfType(Of Form).FirstOrDefault.Dispose()
+                TCPrincipal.TabPages.RemoveAt(I)
+            Next
+        End If
+    End Sub
+
+    Private Sub TCPrincipal_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles TCPrincipal.SelectedIndexChanged
+        'If TCPrincipal.TabPages.Count > 1 Then
+        '    Dim frm = TCPrincipal.SelectedTab.Controls.OfType(Of Form).FirstOrDefault
+        '    frm.Enabled = True
+        '    For I As Integer = 0 To TCPrincipal.TabPages.Count - 1
+        '        Dim otherFrms = TCPrincipal.TabPages(I).Controls.OfType(Of Form).LastOrDefault
+        '        otherFrms.Enabled = False
+        '    Next
+        'End If
+    End Sub
+
+    Private Sub TCPrincipal_Selected(sender As System.Object, e As System.Windows.Forms.TabControlEventArgs) Handles TCPrincipal.Selected
+        If e.Action = TabControlAction.Selecting Or e.Action = TabControlAction.Selected Then
+            Dim frm = TCPrincipal.SelectedTab.Controls.OfType(Of Form).FirstOrDefault
+            frm.Enabled = True
+            For i As Integer = 0 To TCPrincipal.TabPages.Count - 1
+                If Not TCPrincipal.TabPages(i) Is TCPrincipal.SelectedTab Then
+                    TCPrincipal.TabPages(i).Controls.OfType(Of Form).FirstOrDefault.Enabled = False
+                End If
             Next
         End If
     End Sub

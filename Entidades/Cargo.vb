@@ -1,10 +1,13 @@
-﻿Public Class Cargo
+﻿Imports System.Data
 
-    Private _CodCargo As Integer = 0
+Public Class Cargo
+
+    Private _CodCargo As Int16 = 0
     Public Nome As String
     Public Descricao As String
     Public IsAtivo As Boolean
     Public IsVendedor As Boolean
+    Public DatCriacao As DateTime
     Public LoginCriacao As String
 
     Public Property CodCargo()
@@ -29,5 +32,15 @@
 
         Return String.IsNullOrWhiteSpace(strError)
     End Function
+
+    Public Sub Carrega(ByVal row As DataRow)
+        Me.CodCargo = row.Field(Of Int16)("cod_cargo")
+        Me.Descricao = row.Field(Of String)("de_descricao")
+        Me.Nome = row.Field(Of String)("de_nome")
+        Me.IsAtivo = row.Field(Of Boolean)("ct_ativo")
+        Me.LoginCriacao = row.Field(Of String)("de_login_criacao")
+        Me.IsVendedor = row.Field(Of Boolean)("ct_vendedor")
+        Me.DatCriacao = row.Field(Of DateTime)("dat_criacao")
+    End Sub
 
 End Class

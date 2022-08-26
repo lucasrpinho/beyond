@@ -5,13 +5,13 @@ Public Class Frm_CadUsuario
     Private LstUsuario As New List(Of Usuario)
     Private WithEvents ToolStrip As ToolStrip
 
-    Public Sub New(frm As Form, _toolstrip As ToolStrip)
+    Public Sub New(frm As Frm_Principal_MDI)
 
         ' This call is required by the designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
         frmPrincipal = frm
-        ToolStrip = _toolstrip
+        ToolStrip = frmPrincipal.UC_Toolstrip1.ToolStrip0
     End Sub
 
     Private Sub Frm_CadUsuario_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
@@ -48,7 +48,7 @@ Public Class Frm_CadUsuario
         If Not DAO.DAO.InsertUsuario(usuario, resposta) Then
             Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
         Else
-            frmPrincipal.StateTransaction = Uteis.Consts.PENDENTE
+            frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
             'Uteis.Controls.SetTextBoxEmpty(Me)
             Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip0)
             Uteis.ControlsHelper.SetControlsDisabled(Me)
@@ -56,6 +56,9 @@ Public Class Frm_CadUsuario
     End Sub
 
     Private Sub ToolStrip_ItemClicked() Handles ToolStrip.ItemClicked
+        If Not Me.Enabled Then
+            Exit Sub
+        End If
         If UC_Toolstrip.Modo = "NOVO" Then
             LimpaCampos_AtivaControles()
         ElseIf UC_Toolstrip.Modo = "SALVAR" Then
@@ -65,22 +68,31 @@ Public Class Frm_CadUsuario
             LimpaCampos_AtivaControles()
             CarregaUsuarios()
         ElseIf UC_Toolstrip.Modo = "CONFIRMAR" Then
-            If frmPrincipal.StateTransaction = Uteis.Consts.PENDENTE Then
+            If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
                 DAO.DAO.ConfirmarOuReverter(True)
                 LimpaCampos_AtivaControles()
-                frmPrincipal.StateTransaction = Uteis.Consts.FINALIZADO
+                frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
             End If
         ElseIf UC_Toolstrip.Modo = "ROLLBACK" Then
-            If frmPrincipal.StateTransaction = Uteis.Consts.PENDENTE Then
-                DAO.DAO.ConfirmarOuReverter(False)
-                LimpaCampos_AtivaControles()
-                frmPrincipal.StateTransaction = Uteis.Consts.FINALIZADO
+            If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
+                If Uteis.MsgBoxHelper.MsgTemCerteza("Deseja reverter a operação?", "Reverter") Then
+                    DAO.DAO.ConfirmarOuReverter(False)
+                    Uteis.ControlsHelper.SetControlsDisabled(Me)
+                    LimpaCampos_AtivaControles()
+                    frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
+                Else
+                    Exit Sub
+                End If
             End If
         ElseIf UC_Toolstrip.Modo = "DELETAR" Then
-            If DAO.DAO.DeleteUsuario(LstUsuario(ComboNome.SelectedIndex - 1).CodUsuario, "") Then
-                frmPrincipal.StateTransaction = Uteis.Consts.PENDENTE
-                Uteis.ControlsHelper.SetControlsDisabled(Me)
-                Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip0)
+            If Uteis.MsgBoxHelper.MsgTemCerteza("Deseja deletar o item?", "Deletar") Then
+                If DAO.DAO.DeleteUsuario(LstUsuario(ComboNome.SelectedIndex - 1).CodUsuario, "") Then
+                    frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
+                    Uteis.ControlsHelper.SetControlsDisabled(Me)
+                    Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip0)
+                End If
+            Else
+                Exit Sub
             End If
         ElseIf UC_Toolstrip.Modo = "LIMPAR" Then
             LimpaCampos_AtivaControles()
@@ -92,13 +104,16 @@ Public Class Frm_CadUsuario
     End Sub
 
     Private Sub Frm_CadUsuario_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-        If frmPrincipal.StateTransaction = Uteis.Consts.PENDENTE Then
+        If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
             Uteis.MsgBoxHelper.AlertaTransacao(Me, frmPrincipal.UC_Toolstrip1.ToolStrip0)
             e.Cancel = True
+            Exit Sub
         End If
+
+        Me.Dispose()
     End Sub
 
-    Public Sub BuscaUsuarioPorCodigo(ByVal codusuario As String)
+    Private Sub BuscaUsuarioPorCodigo(ByVal codusuario As String)
         Dim resposta As String = ""
         Dim usuario = DAO.DAO.GetUsuario(codusuario, resposta)
 
@@ -108,7 +123,6 @@ Public Class Frm_CadUsuario
         End If
 
         PreencheCampos(usuario)
-
     End Sub
 
     Private Sub PreencheCampos(ByVal usuario As Usuario)
@@ -120,7 +134,7 @@ Public Class Frm_CadUsuario
         TxtSenhaConfirmar.Text = String.Empty
         ChkBoxAtivo.Checked = usuario.IsAtivo
 
-        Uteis.ControlsHelper.SetControlsEnabled(Me)
+        Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
     End Sub
 
     Private Sub AlternarControle()
@@ -187,6 +201,10 @@ Public Class Frm_CadUsuario
     Private Sub LimpaCampos_AtivaControles()
         Uteis.ControlsHelper.SetTextBoxEmpty(Me.GroupBox1.Controls)
         Uteis.ControlsHelper.SetTextBoxEmpty(Me.GroupBox2.Controls)
-        Uteis.ControlsHelper.SetControlsEnabled(Me)
+        Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
+    End Sub
+
+    Protected Overrides Sub Finalize()
+        MyBase.Finalize()
     End Sub
 End Class
