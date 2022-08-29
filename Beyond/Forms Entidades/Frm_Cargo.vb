@@ -4,7 +4,6 @@ Public Class Frm_Cargo
 
     Private frmPrincipal As Frm_Principal_MDI
     Private LstCargo As New List(Of Cargo)
-    Private WithEvents ToolStrip As ToolStrip
 
     Public Sub New(frm As Frm_Principal_MDI)
 
@@ -12,23 +11,27 @@ Public Class Frm_Cargo
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
         frmPrincipal = frm
-        ToolStrip = frmPrincipal.UC_Toolstrip1.ToolStrip0
     End Sub
 
     Private Sub Frm_Cargo_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        Me.Dispose()
+        RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
+        Me.Dispose(True)
     End Sub
 
     Private Sub Frm_Cargo_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         ControlsHelper.SetControlsDisabled(Me)
+        AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
     Private Sub InsereCargo()
+        If TxtNome.Text = "" Then
+            Exit Sub
+        End If
         Dim cargo As New Cargo
-        cargo.Nome = TxtNome.Text
-        cargo.Descricao = TxtDesc.Text.ToUpper
-        cargo.IsAtivo = ChkBoxAtivo.Checked
-        cargo.IsVendedor = ChkVendedor.Checked
+        cargo.Nome = Me.TxtNome.Text
+        cargo.Descricao = Me.TxtDesc.Text.ToUpper
+        cargo.IsAtivo = Me.ChkBoxAtivo.Checked
+        cargo.IsVendedor = Me.ChkVendedor.Checked
         cargo.LoginCriacao = loginusuario
 
         Dim str As String = ""
@@ -43,7 +46,7 @@ Public Class Frm_Cargo
         Else
             frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
             'Uteis.Controls.SetTextBoxEmpty(Me)
-            Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip0)
+            Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip1)
             Uteis.ControlsHelper.SetControlsDisabled(Me)
         End If
     End Sub
@@ -74,8 +77,8 @@ Public Class Frm_Cargo
         ControlsHelper.SetControlsEnabled(Me.Controls)
     End Sub
 
-    Private Sub ToolStrip_ItemClicked() Handles ToolStrip.ItemClicked
-        If Not Me.Enabled Then
+    Private Sub ToolStrip_ItemClicked()
+        If Not Me.Enabled Or Me Is Nothing Then
             Exit Sub
         End If
         If UC_Toolstrip.Modo = "NOVO" Then
@@ -87,7 +90,6 @@ Public Class Frm_Cargo
                 DAO.DAO.AtualizaCargo(LstCargo(ComboNome.SelectedIndex - 1), "", False, loginusuario)
             End If
         ElseIf UC_Toolstrip.Modo = "PROCURAR" Then
-            AlternarControle()
             LimpaCampos_Ativa()
             CarregaCargos()
         ElseIf UC_Toolstrip.Modo = "CONFIRMAR" Then
@@ -111,7 +113,7 @@ Public Class Frm_Cargo
                 If DAO.DAO.DeleteUsuario(LstCargo(ComboNome.SelectedIndex - 1).CodCargo, "") Then
                     frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
                     Uteis.ControlsHelper.SetControlsDisabled(Me)
-                    Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip0)
+                    Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip1)
                 End If
             Else
                 Exit Sub
@@ -120,8 +122,9 @@ Public Class Frm_Cargo
             LimpaCampos()
         End If
 
+        AlternarControle()
         If frmPrincipal.StateTransaction Then
-            Uteis.ControlsHelper.EnableAllToolBarItens(frmPrincipal.UC_Toolstrip1.ToolStrip0)
+            Uteis.ControlsHelper.EnableAllToolBarItens(frmPrincipal.UC_Toolstrip1.ToolStrip1)
         End If
     End Sub
 

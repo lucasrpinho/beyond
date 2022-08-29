@@ -3,7 +3,6 @@ Public Class Frm_CadUsuario
 
     Private frmPrincipal As Frm_Principal_MDI
     Private LstUsuario As New List(Of Usuario)
-    Private WithEvents ToolStrip As ToolStrip
 
     Public Sub New(frm As Frm_Principal_MDI)
 
@@ -11,11 +10,15 @@ Public Class Frm_CadUsuario
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
         frmPrincipal = frm
-        ToolStrip = frmPrincipal.UC_Toolstrip1.ToolStrip0
+    End Sub
+
+    Private Sub Frm_CadUsuario_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+        RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
     Private Sub Frm_CadUsuario_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Uteis.ControlsHelper.SetControlsDisabled(Me)
+        AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
     Public Sub Cadastrar()
@@ -50,12 +53,12 @@ Public Class Frm_CadUsuario
         Else
             frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
             'Uteis.Controls.SetTextBoxEmpty(Me)
-            Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip0)
+            Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip1)
             Uteis.ControlsHelper.SetControlsDisabled(Me)
         End If
     End Sub
 
-    Private Sub ToolStrip_ItemClicked() Handles ToolStrip.ItemClicked
+    Private Sub ToolStrip_ItemClicked()
         If Not Me.Enabled Then
             Exit Sub
         End If
@@ -89,7 +92,7 @@ Public Class Frm_CadUsuario
                 If DAO.DAO.DeleteUsuario(LstUsuario(ComboNome.SelectedIndex - 1).CodUsuario, "") Then
                     frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
                     Uteis.ControlsHelper.SetControlsDisabled(Me)
-                    Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip0)
+                    Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip1)
                 End If
             Else
                 Exit Sub
@@ -99,13 +102,13 @@ Public Class Frm_CadUsuario
         End If
 
         If frmPrincipal.StateTransaction Then
-            Uteis.ControlsHelper.EnableAllToolBarItens(frmPrincipal.UC_Toolstrip1.ToolStrip0)
+            Uteis.ControlsHelper.EnableAllToolBarItens(frmPrincipal.UC_Toolstrip1.ToolStrip1)
         End If
     End Sub
 
     Private Sub Frm_CadUsuario_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
         If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
-            Uteis.MsgBoxHelper.AlertaTransacao(Me, frmPrincipal.UC_Toolstrip1.ToolStrip0)
+            Uteis.MsgBoxHelper.AlertaTransacao(Me, frmPrincipal.UC_Toolstrip1.ToolStrip1)
             e.Cancel = True
             Exit Sub
         End If

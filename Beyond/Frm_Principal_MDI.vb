@@ -119,7 +119,7 @@ Public Class Frm_Principal_MDI
     Private Sub ToolStripMenuFecharUma_Click(sender As System.Object, e As System.EventArgs) Handles FecharUmaCtxMenu.Click
         If TCPrincipal.TabPages.Count > 0 Then
             Dim page = TCPrincipal.TabPages(TCPrincipal.SelectedIndex)
-            Application.OpenForms.Item(page.Controls.OfType(Of Form).FirstOrDefault.Name).Close()
+            Application.OpenForms(page.Controls.OfType(Of Form).LastOrDefault.Name).Close()
             TCPrincipal.TabPages.Remove(TCPrincipal.SelectedTab)
         End If
     End Sub
@@ -138,6 +138,7 @@ Public Class Frm_Principal_MDI
         If Not page Is Nothing Then
             TCPrincipal.SelectTab(page)
         Else
+            Dim teste = Application.OpenForms.OfType(Of Frm_Cargo).Count
             Dim Frm As New Frm_Cargo(Me)
             Dim TP As New TabPage
             Frm.TopLevel = False
@@ -178,14 +179,18 @@ Public Class Frm_Principal_MDI
     End Sub
 
     Private Sub TCPrincipal_Selected(sender As System.Object, e As System.Windows.Forms.TabControlEventArgs) Handles TCPrincipal.Selected
-        If e.Action = TabControlAction.Selecting Or e.Action = TabControlAction.Selected Then
-            Dim frm = TCPrincipal.SelectedTab.Controls.OfType(Of Form).FirstOrDefault
-            frm.Enabled = True
-            For i As Integer = 0 To TCPrincipal.TabPages.Count - 1
-                If Not TCPrincipal.TabPages(i) Is TCPrincipal.SelectedTab Then
-                    TCPrincipal.TabPages(i).Controls.OfType(Of Form).FirstOrDefault.Enabled = False
-                End If
-            Next
+        If TCPrincipal.TabPages.Count > 0 Then
+            If e.Action = TabControlAction.Selecting Or e.Action = TabControlAction.Selected Then
+                Dim frm = TCPrincipal.SelectedTab.Controls.OfType(Of Form).FirstOrDefault
+                frm.Enabled = True
+                For i As Integer = 0 To TCPrincipal.TabPages.Count - 1
+                    If Not TCPrincipal.TabPages(i) Is TCPrincipal.SelectedTab Then
+                        TCPrincipal.TabPages(i).Controls.OfType(Of Form).FirstOrDefault.Enabled = False
+                    End If
+                Next
+            End If
+        Else
+            TCPrincipal.Visible = False
         End If
     End Sub
 End Class
