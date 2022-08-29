@@ -4,12 +4,15 @@ Public Class ControlsHelper
 
     Public Shared Sub LimpaEAtiva(controls As Control.ControlCollection)
         SetControlsEnabled(controls)
-        SetTextBoxEmpty(controls)
+        SetTextsEmpty(controls)
     End Sub
 
-    Public Shared Sub SetTextBoxEmpty(controls As Control.ControlCollection)
+    Public Shared Sub SetTextsEmpty(controls As Control.ControlCollection)
         For Each txtbox As TextBox In controls.OfType(Of TextBox)()
             txtbox.Text = ""
+        Next
+        For Each combotext As ComboBox In controls.OfType(Of ComboBox)()
+            combotext.Text = ""
         Next
     End Sub
 

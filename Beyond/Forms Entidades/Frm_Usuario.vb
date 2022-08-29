@@ -1,5 +1,5 @@
 ﻿Imports Entidades
-Public Class Frm_CadUsuario
+Public Class Frm_Usuario
 
     Private frmPrincipal As Frm_Principal_MDI
     Private LstUsuario As New List(Of Usuario)
@@ -12,18 +12,18 @@ Public Class Frm_CadUsuario
         frmPrincipal = frm
     End Sub
 
-    Private Sub Frm_CadUsuario_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub Frm_Usuario_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
-    Private Sub Frm_CadUsuario_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub Frm_Usuario_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Uteis.ControlsHelper.SetControlsDisabled(Me)
         AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
     Public Sub Cadastrar()
         Dim usuario As New Usuario
-        usuario.Nome = TxtNome.Text.ToUpper
+        usuario.Nome = ComboNome.Text.ToUpper
         usuario.Sobrenome = TxtSobrenome.Text.ToUpper
         usuario.NomeCompleto = usuario.Nome.ToUpper + " " + usuario.Sobrenome.ToUpper
         usuario.Email = TxtEmail.Text.ToUpper
@@ -52,7 +52,7 @@ Public Class Frm_CadUsuario
             Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
         Else
             frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
-            'Uteis.Controls.SetTextBoxEmpty(Me)
+            'Uteis.Controls.SetTextsEmpty(Me)
             Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip1)
             Uteis.ControlsHelper.SetControlsDisabled(Me)
         End If
@@ -106,14 +106,12 @@ Public Class Frm_CadUsuario
         End If
     End Sub
 
-    Private Sub Frm_CadUsuario_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
+    Private Sub Frm_Usuario_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
         If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
             Uteis.MsgBoxHelper.AlertaTransacao(Me, frmPrincipal.UC_Toolstrip1.ToolStrip1)
             e.Cancel = True
             Exit Sub
         End If
-
-        Me.Dispose()
     End Sub
 
     Private Sub BuscaUsuarioPorCodigo(ByVal codusuario As String)
@@ -129,7 +127,7 @@ Public Class Frm_CadUsuario
     End Sub
 
     Private Sub PreencheCampos(ByVal usuario As Usuario)
-        TxtNome.Text = usuario.Nome
+        ComboNome.Text = usuario.Nome
         TxtEmail.Text = usuario.Email
         TxtSobrenome.Text = usuario.Sobrenome
         TxtLogin.Text = usuario.Login
@@ -142,19 +140,13 @@ Public Class Frm_CadUsuario
 
     Private Sub AlternarControle()
         If UC_Toolstrip.Modo = "PROCURAR" Then
-            Dim pos = TxtNome.Location
-            ComboNome.Location = pos
-            ComboNome.Width = TxtNome.Width
-            ComboNome.Visible = True
-            TxtNome.Visible = False
-
-            TxtSenha.Enabled = Not ComboNome.Visible
-            TxtSenhaConfirmar.Enabled = Not ComboNome.Visible
+            ComboNome.DropDownStyle = ComboBoxStyle.DropDown
+            TxtSenha.Enabled = False
+            TxtSenhaConfirmar.Enabled = False
         ElseIf UC_Toolstrip.Modo = "NOVO" Then
-            ComboNome.Visible = False
-            TxtNome.Visible = Not ComboNome.Visible
-            TxtSenha.Enabled = Not ComboNome.Visible
-            TxtSenhaConfirmar.Enabled = Not ComboNome.Visible
+            ComboNome.DropDownStyle = ComboBoxStyle.Simple
+            TxtSenha.Enabled = True
+            TxtSenhaConfirmar.Enabled = True
         End If
     End Sub
 
@@ -179,8 +171,8 @@ Public Class Frm_CadUsuario
         If Not Uteis.StringHelper.IsNull(ComboNome.Text) Then
             BuscaUsuarioPorCodigo(LstUsuario(ComboNome.SelectedIndex - 1).CodUsuario)
         Else
-            Uteis.ControlsHelper.SetTextBoxEmpty(Me.GroupBox1.Controls)
-            Uteis.ControlsHelper.SetTextBoxEmpty(Me.GroupBox2.Controls)
+            Uteis.ControlsHelper.SetTextsEmpty(Me.GroupBox1.Controls)
+            Uteis.ControlsHelper.SetTextsEmpty(Me.GroupBox2.Controls)
         End If
     End Sub
 
@@ -202,8 +194,8 @@ Public Class Frm_CadUsuario
     End Function
 
     Private Sub LimpaCampos_AtivaControles()
-        Uteis.ControlsHelper.SetTextBoxEmpty(Me.GroupBox1.Controls)
-        Uteis.ControlsHelper.SetTextBoxEmpty(Me.GroupBox2.Controls)
+        Uteis.ControlsHelper.SetTextsEmpty(Me.GroupBox1.Controls)
+        Uteis.ControlsHelper.SetTextsEmpty(Me.GroupBox2.Controls)
         Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
     End Sub
 

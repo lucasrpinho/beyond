@@ -1,16 +1,13 @@
-﻿Public Class Vendedor
+﻿Imports System.Data
+
+Public Class Vendedor
 
     Private _CodVendedor As Integer = 0
     Private _CodCargo As Integer
     Public Nome As String
     Public Sobrenome As String
     Public NomeCompleto As String
-    Private _CEP As String
-    Private _Logradouro As String
-    Private _NumeroEndereco As Integer = 0
-    Private _Bairro As String
-    Private _Cidade As String
-    Private _Complemento As String
+    Public ObjEndereco As Endereco
     Public Estado As String
     Public Observacao As String
     Public Foto As String
@@ -36,86 +33,51 @@
         End Set
     End Property
 
-    Public Property CEP()
-        Get
-            Return _CEP
-        End Get
-        Set(value)
-            _CEP = value
-        End Set
-    End Property
-
-    Public Property Logradouro()
-        Get
-            Return _Logradouro
-        End Get
-        Set(value)
-            _Logradouro = value
-        End Set
-    End Property
-
-    Public Property NumeroEndereco()
-        Get
-            Return _NumeroEndereco
-        End Get
-        Set(value)
-            _NumeroEndereco = value
-        End Set
-    End Property
-
-    Public Property Bairro()
-        Get
-            Return _Bairro
-        End Get
-        Set(value)
-            _Bairro = value
-        End Set
-    End Property
-
-    Public Property Cidade()
-        Get
-            Return _Cidade
-        End Get
-        Set(value)
-            _Cidade = value
-        End Set
-    End Property
-
-    Public Property Complemento()
-        Get
-            Return _Complemento
-        End Get
-        Set(value)
-            _Complemento = value
-        End Set
-    End Property
-
-    Public Shared Function IsValid(ByVal v As Vendedor, ByRef strError As String)
+    Public Function IsValid(ByRef strError As String)
         strError = String.Empty
 
-        If v.CodVendedor <> 0 Then
+        If Me.CodVendedor <> 0 Then
             strError = "Código do vendedor deve ser vazio pois será gerado"
-        ElseIf v.CodCargo <= 0 Then
+        ElseIf Me.CodCargo <= 0 Then
             strError = "Código do cargo deve ser um valor acima de zero"
-        ElseIf v.Nome = "" Then
+        ElseIf Me.Nome = "" Then
             strError = "Nome precisa estar preenchido"
-        ElseIf v.Sobrenome = "" Then
+        ElseIf Me.Sobrenome = "" Then
             strError = "Sobrenome precisa estar preenchido"
-        ElseIf v.CEP = "" Or v.CEP.ToString.Length > 8 Then
+        ElseIf Me.ObjEndereco.CEP = "" Or Me.ObjEndereco.CEP.ToString.Length > 8 Then
             strError = "CEP não pode ser vazio e deve conter no máximo 8 caracteres"
-        ElseIf v.Bairro = "" Then
+        ElseIf Me.ObjEndereco.Bairro = "" Then
             strError = "Bairro precisa ser preenchido"
-        ElseIf v.Cidade = "" Then
+        ElseIf Me.ObjEndereco.Cidade = "" Then
             strError = "Cidade precisa ser preenchida"
-        ElseIf v.Estado = "" Or v.Estado.Length > 2 Then
+        ElseIf Me.ObjEndereco.UF = "" Or Me.ObjEndereco.UF.ToString.Length > 2 Then
             strError = "Estado precisa ser preenchido e deve conter no máximo dois caracteres (UF)"
-        ElseIf v.Logradouro = "" Then
+        ElseIf Me.ObjEndereco.Logradouro = "" Then
             strError = "Logradouro precisa ser preenchido"
-        ElseIf v.NumeroEndereco = 0 Then
+        ElseIf Me.ObjEndereco.NumeroEndereco = 0 Then
             strError = "Número do endereço precisa ser preenchido"
-        ElseIf v.Foto = "" Then
+        ElseIf Me.Foto = "" Then
             strError = "Vendedor precisa ter uma foto no seu cadastro"
         End If
         Return String.IsNullOrWhiteSpace(strError)
     End Function
+
+    Public Sub Carrega(row As DataRow)
+        Me.CodVendedor = row.Field(Of Integer)("cod_vendedor")
+        Me.CodCargo = row.Field(Of Int16)("cod_cargo")
+        Me.Nome = row.Field(Of String)("de_nome")
+        Me.Sobrenome = row.Field(Of String)("de_sobrenome")
+        Me.NomeCompleto = row.Field(Of String)("de_nomecompleto")
+        Me.ObjEndereco.CEP = row.Field(Of String)("nu_cep")
+        Me.ObjEndereco.Logradouro = row.Field(Of String)("de_logradouro")
+        Me.ObjEndereco.NumeroEndereco = row.Field(Of Int16)("nu_numero")
+        Me.ObjEndereco.Complemento = row.Field(Of String)("de_complemento")
+        Me.ObjEndereco.Cidade = row.Field(Of String)("de_cidade")
+        Me.ObjEndereco.UF = row.Field(Of String)("uf_estado")
+        Me.DatCriacao = row.Field(Of DateTime)("dat_criacao")
+        Me.LoginCriacao = row.Field(Of String)("de_login_criacao")
+        Me.Observacao = row.Field(Of String)("de_observacao")
+        Me.IsAtivo = row.Field(Of Boolean)("ct_ativo")
+        Me.Foto = row.Field(Of String)("fl_foto")
+    End Sub
 End Class

@@ -21,4 +21,16 @@
             Return True
         End If
     End Function
+
+    Public Shared Function CEPString(cep As String) As String
+        Dim cepvalido As String = ""
+        If cep.Length > 0 Then
+            For I As Integer = 0 To cep.Length - 1
+                If IsNumeric(cep(I)) Then
+                    cepvalido += cep(I)
+                End If
+            Next
+        End If
+        Return cepvalido
+    End Function
 End Class

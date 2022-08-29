@@ -24,11 +24,8 @@ Public Class Frm_Cargo
     End Sub
 
     Private Sub InsereCargo()
-        If TxtNome.Text = "" Then
-            Exit Sub
-        End If
         Dim cargo As New Cargo
-        cargo.Nome = Me.TxtNome.Text
+        cargo.Nome = Me.ComboNome.Text
         cargo.Descricao = Me.TxtDesc.Text.ToUpper
         cargo.IsAtivo = Me.ChkBoxAtivo.Checked
         cargo.IsVendedor = Me.ChkVendedor.Checked
@@ -45,7 +42,7 @@ Public Class Frm_Cargo
             Uteis.MsgBoxHelper.Erro(Me, str, "Erro")
         Else
             frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
-            'Uteis.Controls.SetTextBoxEmpty(Me)
+            'Uteis.Controls.SetTextsEmpty(Me)
             Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip1)
             Uteis.ControlsHelper.SetControlsDisabled(Me)
         End If
@@ -72,8 +69,8 @@ Public Class Frm_Cargo
     End Sub
 
     Private Sub LimpaCampos_Ativa()
-        ControlsHelper.SetTextBoxEmpty(GrpBoxCfg.Controls)
-        ControlsHelper.SetTextBoxEmpty(GrpBoxInfo.Controls)
+        ControlsHelper.SetTextsEmpty(GrpBoxCfg.Controls)
+        ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
         ControlsHelper.SetControlsEnabled(Me.Controls)
     End Sub
 
@@ -130,20 +127,16 @@ Public Class Frm_Cargo
 
     Private Sub AlternarControle()
         If UC_Toolstrip.Modo = "PROCURAR" Then
-            Dim pos = TxtNome.Location
-            ComboNome.Location = pos
-            ComboNome.Width = TxtNome.Width
-            ComboNome.Visible = True
-            TxtNome.Visible = False
+            ComboNome.DropDownStyle = ComboBoxStyle.DropDown
         ElseIf UC_Toolstrip.Modo = "NOVO" Then
-            ComboNome.Visible = False
-            TxtNome.Visible = Not ComboNome.Visible
+            ComboNome.Visible = True
+            ComboNome.DropDownStyle = ComboBoxStyle.Simple
         End If
     End Sub
 
     Private Sub LimpaCampos()
-        ControlsHelper.SetTextBoxEmpty(GrpBoxCfg.Controls)
-        ControlsHelper.SetTextBoxEmpty(GrpBoxInfo.Controls)
+        ControlsHelper.SetTextsEmpty(GrpBoxCfg.Controls)
+        ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
     End Sub
 
     Protected Overrides Sub Finalize()
@@ -171,7 +164,7 @@ Public Class Frm_Cargo
     End Sub
 
     Private Sub PreencheCampos(cargo As Cargo)
-        TxtNome.Text = cargo.Nome
+        ComboNome.Text = cargo.Nome
         TxtDesc.Text = cargo.Descricao
         ChkBoxAtivo.Checked = cargo.IsAtivo
         ChkVendedor.Checked = cargo.IsVendedor

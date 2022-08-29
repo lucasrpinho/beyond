@@ -94,11 +94,11 @@ Public Class Frm_Principal_MDI
     End Sub
 
     Private Sub UsuarioMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles UsuarioMenuItem.Click
-        Dim page = TCPrincipal.TabPages("Frm_CadUsuario")
+        Dim page = TCPrincipal.TabPages("Frm_Usuario")
         If Not page Is Nothing Then
             TCPrincipal.SelectTab(page)
         Else
-            Dim Frm As New Frm_CadUsuario(Me)
+            Dim Frm As New Frm_Usuario(Me)
             Dim TP As New TabPage
             TP.Name = Frm.Name
             Frm.TopLevel = False
@@ -191,6 +191,31 @@ Public Class Frm_Principal_MDI
             End If
         Else
             TCPrincipal.Visible = False
+        End If
+    End Sub
+
+    Private Sub VendedorToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles VendedorToolStripMenuItem.Click
+        Dim page = TCPrincipal.TabPages("Frm_Vendedor")
+        If Not page Is Nothing Then
+            TCPrincipal.SelectTab(page)
+        Else
+            Dim teste = Application.OpenForms.OfType(Of Frm_Vendedor).Count
+            Dim Frm As New Frm_Vendedor(Me)
+            Dim TP As New TabPage
+            Frm.TopLevel = False
+            Frm.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            Frm.MdiParent = Me
+            Frm.Dock = DockStyle.Fill
+            TP.Controls.Add(Frm)
+            TP.Tag = Frm
+            TP.Text = Frm.Text
+            TP.BackColor = Frm.BackColor
+            TP.Name = Frm.Name
+            TCPrincipal.TabPages.Add(TP)
+            TCPrincipal.BringToFront()
+            TCPrincipal.Visible = True
+            Frm.Show()
+            Me.Refresh()
         End If
     End Sub
 End Class

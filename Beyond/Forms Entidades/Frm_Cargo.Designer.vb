@@ -30,7 +30,6 @@ Partial Class Frm_Cargo
         Me.ComboNome = New System.Windows.Forms.ComboBox()
         Me.TxtDesc = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.TxtNome = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GrpBoxCfg.SuspendLayout()
         Me.GrpBoxInfo.SuspendLayout()
@@ -76,7 +75,6 @@ Partial Class Frm_Cargo
         Me.GrpBoxInfo.Controls.Add(Me.ComboNome)
         Me.GrpBoxInfo.Controls.Add(Me.TxtDesc)
         Me.GrpBoxInfo.Controls.Add(Me.Label2)
-        Me.GrpBoxInfo.Controls.Add(Me.TxtNome)
         Me.GrpBoxInfo.Controls.Add(Me.Label1)
         Me.GrpBoxInfo.Dock = System.Windows.Forms.DockStyle.Top
         Me.GrpBoxInfo.Location = New System.Drawing.Point(0, 0)
@@ -88,11 +86,13 @@ Partial Class Frm_Cargo
         '
         'ComboNome
         '
+        Me.ComboNome.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple
         Me.ComboNome.FormattingEnabled = True
         Me.ComboNome.Items.AddRange(New Object() {" "})
-        Me.ComboNome.Location = New System.Drawing.Point(451, 89)
+        Me.ComboNome.Location = New System.Drawing.Point(7, 59)
+        Me.ComboNome.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboNome.Name = "ComboNome"
-        Me.ComboNome.Size = New System.Drawing.Size(121, 24)
+        Me.ComboNome.Size = New System.Drawing.Size(566, 24)
         Me.ComboNome.TabIndex = 13
         Me.ComboNome.Visible = False
         '
@@ -117,16 +117,6 @@ Partial Class Frm_Cargo
         Me.Label2.Size = New System.Drawing.Size(71, 17)
         Me.Label2.TabIndex = 8
         Me.Label2.Text = "Descrição"
-        '
-        'TxtNome
-        '
-        Me.TxtNome.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtNome.Location = New System.Drawing.Point(6, 59)
-        Me.TxtNome.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtNome.MaxLength = 30
-        Me.TxtNome.Name = "TxtNome"
-        Me.TxtNome.Size = New System.Drawing.Size(566, 23)
-        Me.TxtNome.TabIndex = 7
         '
         'Label1
         '
@@ -169,7 +159,6 @@ Partial Class Frm_Cargo
     Friend WithEvents GrpBoxInfo As System.Windows.Forms.GroupBox
     Friend WithEvents TxtDesc As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents TxtNome As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents ComboNome As System.Windows.Forms.ComboBox
 End Class

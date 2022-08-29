@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Frm_CadUsuario
+Partial Class Frm_Usuario
     Inherits Form
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -21,7 +21,7 @@ Partial Class Frm_CadUsuario
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_CadUsuario))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_Usuario))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.ComboNome = New System.Windows.Forms.ComboBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
@@ -29,7 +29,6 @@ Partial Class Frm_CadUsuario
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TxtSobrenome = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.TxtNome = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TxtLogin = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -54,7 +53,6 @@ Partial Class Frm_CadUsuario
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.TxtSobrenome)
         Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.TxtNome)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Location = New System.Drawing.Point(16, 15)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
@@ -67,11 +65,13 @@ Partial Class Frm_CadUsuario
         '
         'ComboNome
         '
+        Me.ComboNome.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple
         Me.ComboNome.FormattingEnabled = True
         Me.ComboNome.Items.AddRange(New Object() {" "})
-        Me.ComboNome.Location = New System.Drawing.Point(400, 174)
+        Me.ComboNome.Location = New System.Drawing.Point(11, 59)
+        Me.ComboNome.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboNome.Name = "ComboNome"
-        Me.ComboNome.Size = New System.Drawing.Size(121, 24)
+        Me.ComboNome.Size = New System.Drawing.Size(205, 24)
         Me.ComboNome.TabIndex = 7
         Me.ComboNome.Visible = False
         '
@@ -128,16 +128,6 @@ Partial Class Frm_CadUsuario
         Me.Label2.Size = New System.Drawing.Size(81, 17)
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Sobrenome"
-        '
-        'TxtNome
-        '
-        Me.TxtNome.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtNome.Location = New System.Drawing.Point(11, 59)
-        Me.TxtNome.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtNome.MaxLength = 30
-        Me.TxtNome.Name = "TxtNome"
-        Me.TxtNome.Size = New System.Drawing.Size(205, 23)
-        Me.TxtNome.TabIndex = 1
         '
         'Label1
         '
@@ -245,7 +235,7 @@ Partial Class Frm_CadUsuario
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Informações - Login"
         '
-        'Frm_CadUsuario
+        'Frm_Usuario
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -259,7 +249,7 @@ Partial Class Frm_CadUsuario
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "Frm_CadUsuario"
+        Me.Name = "Frm_Usuario"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Usuário"
@@ -272,7 +262,6 @@ Partial Class Frm_CadUsuario
 
     End Sub
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents TxtNome As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents TxtSobrenome As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label

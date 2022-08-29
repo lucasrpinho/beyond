@@ -422,6 +422,159 @@ Public Class DAO
 
 #End Region
 
+
+
+
+#Region "Vendedor"
+
+    Public Shared Function InsereVendedor(vendedor As Vendedor, ByRef resposta As String) As Boolean
+        Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Con.Open()
+        Tr = Con.BeginTransaction
+        Try
+            If _InsereVendedor(vendedor) Then
+                Return True
+            Else
+                Tr.Rollback()
+            End If
+        Catch ex As Exception
+            resposta = ex.Message
+            Tr.Rollback()
+        End Try
+        Return False
+    End Function
+
+    Private Shared Function _InsereVendedor(vendedor As Vendedor) As Boolean
+        Using Cmd As New SqlCommand()
+            Cmd.Connection = Con
+            Cmd.Transaction = Tr
+            Cmd.CommandText = "SP_INSERE_VENDEDOR"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.Add("@CODCARGO", SqlDbType.SmallInt).Value = vendedor.CodCargo
+            Cmd.Parameters.Add("@NOME", SqlDbType.VarChar).Value = vendedor.Nome
+            Cmd.Parameters.AddWithValue("@SOBRENOME", vendedor.Sobrenome)
+            Cmd.Parameters.AddWithValue("@NOMECOMPLETO", vendedor.NomeCompleto)
+            ' Cmd.Parameters.AddWithValue("@CEP", vendedor.CEP)
+            'Cmd.Parameters.AddWithValue("@LOGRADOURO", vendedor.Logradouro)
+            'Cmd.Parameters.Add("@NUM", SqlDbType.SmallInt).Value = vendedor.NumeroEndereco
+            ' Cmd.Parameters.AddWithValue("@COMPLEMENTO", vendedor.Complemento)
+            'Cmd.Parameters.AddWithValue("@BAIRRO", vendedor.Bairro)
+            'Cmd.Parameters.AddWithValue("@CIDADE", vendedor.Cidade)
+            ' Cmd.Parameters.AddWithValue("@UF", vendedor.Estado)
+            Cmd.Parameters.Add("@OBS", SqlDbType.VarChar).Value = vendedor.Observacao
+            Cmd.Parameters.Add("@FOTO", SqlDbType.NVarChar).Value = vendedor.Foto
+            Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = vendedor.IsAtivo
+            Cmd.Parameters.Add("@LOGINCRIACAO", SqlDbType.VarChar).Value = vendedor.LoginCriacao
+            Cmd.Parameters.AddWithValue("@DYNAMICSQL", "")
+
+            If Not Cmd.ExecuteNonQuery > 0 Then
+                Return False
+            Else
+                Return True
+            End If
+        End Using
+    End Function
+
+    Public Overloads Shared Function GetVendedor(ByVal codvendedor As String) As Vendedor
+        Return _GetVendedor(True, codvendedor).FirstOrDefault
+    End Function
+
+    Public Overloads Shared Function GetVendedor(ByVal ativos As Boolean) As List(Of Vendedor)
+        Return _GetVendedor(ativos, String.Empty)
+    End Function
+
+    Private Shared Function _GetVendedor(ativos As Boolean, codvendedor As String) As List(Of Vendedor)
+        Dim lst As New List(Of Vendedor)
+        Using Con As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+            Using Cmd As New SqlCommand
+                Try
+                    Cmd.Connection = Con
+                    If codvendedor = String.Empty Then
+                        Cmd.CommandText = "SP_GET_ALL_VENDEDORES"
+                        Cmd.CommandType = CommandType.StoredProcedure
+                        Cmd.Parameters.AddWithValue("@ATIVO", ativos)
+                    Else
+                        Cmd.CommandText = "SP_GET_VENDEDOR"
+                        Cmd.CommandType = CommandType.StoredProcedure
+                        Cmd.Parameters.AddWithValue("@CODVENDEDOR", Convert.ToInt32(codvendedor))
+                    End If
+                    Dim Adp As New SqlDataAdapter(Cmd)
+                    Dim Tbl As New DataTable
+                    Adp.Fill(Tbl)
+                    If Tbl.Rows.Count > 0 Then
+                        For I As Integer = 0 To Tbl.Rows.Count - 1
+                            Dim vendedor As New Vendedor
+                            vendedor.Carrega(Tbl.Rows(I))
+                            lst.Add(vendedor)
+                        Next
+                    End If
+                    If Not Adp Is Nothing Then
+                        Adp.Dispose()
+                    End If
+                    If Not Tbl Is Nothing Then
+                        Tbl.Dispose()
+                    End If
+                Catch ex As Exception
+                    Throw New Exception(ex.Message)
+                End Try
+            End Using
+        End Using
+        Return lst
+    End Function
+
+    Public Shared Function AtualizaVendedor(vendedor As Vendedor, ByRef resposta As String, _
+        ByVal isExclusao As Boolean, login As String) As Boolean
+
+        Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Con.Open()
+        Tr = Con.BeginTransaction
+        Try
+            If Not _AtualizaVendedor(vendedor, isExclusao, resposta, login) Then
+                Tr.Rollback()
+            Else
+                If Not isExclusao Then
+                    Tr.Commit()
+                End If
+                Return True
+            End If
+        Catch ex As Exception
+            resposta = ex.Message
+            Tr.Rollback()
+        End Try
+        Return False
+    End Function
+
+    Private Shared Function _AtualizaVendedor(vendedor As Vendedor, isExclusao As Boolean, _
+        ByRef resposta As String, ByVal loginupdate As String) As Boolean
+        Using Cmd As New SqlCommand
+            Cmd.Connection = Con
+            Cmd.Transaction = Tr
+            Cmd.CommandText = "SP_ATUALIZA_VENDEDOR"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.AddWithValue("@CODVENDEDOR", vendedor.CodVendedor)
+            Cmd.Parameters.Add("@CODCARGO", SqlDbType.SmallInt).Value = vendedor.CodCargo
+            Cmd.Parameters.AddWithValue("@CEP", vendedor.ObjEndereco.CEP)
+            Cmd.Parameters.AddWithValue("@LOGRADOURO", vendedor.ObjEndereco.Logradouro)
+            Cmd.Parameters.Add("@NUM", SqlDbType.SmallInt).Value = vendedor.ObjEndereco.NumeroEndereco
+            Cmd.Parameters.AddWithValue("@COMPLEMENTO", vendedor.ObjEndereco.Complemento)
+            Cmd.Parameters.AddWithValue("@BAIRRO", vendedor.ObjEndereco.Bairro)
+            Cmd.Parameters.AddWithValue("@CIDADE", vendedor.ObjEndereco.Cidade)
+            Cmd.Parameters.AddWithValue("@UF", vendedor.Estado)
+            Cmd.Parameters.Add("@OBS", SqlDbType.VarChar).Value = vendedor.Observacao
+            Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = vendedor.IsAtivo
+            Cmd.Parameters.AddWithValue("@LOGINALTERACAO", loginupdate)
+            Cmd.Parameters.AddWithValue("@ISDELETE", isExclusao)
+
+            If Not Cmd.ExecuteNonQuery > 0 Then
+                Return False
+            Else
+                Return True
+            End If
+        End Using
+    End Function
+
+#End Region
+
 #Region "Transaction"
     Public Shared Sub ConfirmarOuReverter(ByVal cmdTransaction As Boolean)
         If cmdTransaction Then

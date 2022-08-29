@@ -34,8 +34,6 @@ Partial Class Frm_Principal_MDI
         Me.UsuarioMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CargosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.VendedorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CadastrarToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AlterarToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CadastrarToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
         Me.AlterarToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
@@ -130,39 +128,26 @@ Partial Class Frm_Principal_MDI
         'UsuarioMenuItem
         '
         Me.UsuarioMenuItem.Name = "UsuarioMenuItem"
-        Me.UsuarioMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.UsuarioMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.UsuarioMenuItem.Text = "Usuário"
         '
         'CargosToolStripMenuItem
         '
         Me.CargosToolStripMenuItem.Name = "CargosToolStripMenuItem"
-        Me.CargosToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.CargosToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.CargosToolStripMenuItem.Text = "Cargo"
         '
         'VendedorToolStripMenuItem
         '
-        Me.VendedorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CadastrarToolStripMenuItem2, Me.AlterarToolStripMenuItem3})
         Me.VendedorToolStripMenuItem.Name = "VendedorToolStripMenuItem"
-        Me.VendedorToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.VendedorToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.VendedorToolStripMenuItem.Text = "Vendedor"
-        '
-        'CadastrarToolStripMenuItem2
-        '
-        Me.CadastrarToolStripMenuItem2.Name = "CadastrarToolStripMenuItem2"
-        Me.CadastrarToolStripMenuItem2.Size = New System.Drawing.Size(124, 22)
-        Me.CadastrarToolStripMenuItem2.Text = "Cadastrar"
-        '
-        'AlterarToolStripMenuItem3
-        '
-        Me.AlterarToolStripMenuItem3.Name = "AlterarToolStripMenuItem3"
-        Me.AlterarToolStripMenuItem3.Size = New System.Drawing.Size(124, 22)
-        Me.AlterarToolStripMenuItem3.Text = "Alterar"
         '
         'ClientesToolStripMenuItem
         '
         Me.ClientesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CadastrarToolStripMenuItem3, Me.AlterarToolStripMenuItem4})
         Me.ClientesToolStripMenuItem.Name = "ClientesToolStripMenuItem"
-        Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ClientesToolStripMenuItem.Text = "Cliente"
         '
         'CadastrarToolStripMenuItem3
@@ -181,7 +166,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.ProdutosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CadastrarToolStripMenuItem4, Me.AlterarToolStripMenuItem5})
         Me.ProdutosToolStripMenuItem.Name = "ProdutosToolStripMenuItem"
-        Me.ProdutosToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.ProdutosToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ProdutosToolStripMenuItem.Text = "Produto"
         '
         'CadastrarToolStripMenuItem4
@@ -424,8 +409,6 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents UsuarioMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CargosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents VendedorToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents CadastrarToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents AlterarToolStripMenuItem3 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ClientesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CadastrarToolStripMenuItem3 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AlterarToolStripMenuItem4 As System.Windows.Forms.ToolStripMenuItem
