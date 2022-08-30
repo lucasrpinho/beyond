@@ -42,46 +42,51 @@ Partial Class Frm_Login
         'LogoPictureBox
         '
         Me.LogoPictureBox.Image = CType(resources.GetObject("LogoPictureBox.Image"), System.Drawing.Image)
-        Me.LogoPictureBox.Location = New System.Drawing.Point(1, 12)
+        Me.LogoPictureBox.Location = New System.Drawing.Point(1, 15)
+        Me.LogoPictureBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.LogoPictureBox.Name = "LogoPictureBox"
-        Me.LogoPictureBox.Size = New System.Drawing.Size(165, 154)
+        Me.LogoPictureBox.Size = New System.Drawing.Size(196, 190)
         Me.LogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.LogoPictureBox.TabIndex = 0
         Me.LogoPictureBox.TabStop = False
         '
         'UsernameLabel
         '
-        Me.UsernameLabel.Location = New System.Drawing.Point(172, 24)
+        Me.UsernameLabel.Location = New System.Drawing.Point(205, 30)
+        Me.UsernameLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.UsernameLabel.Name = "UsernameLabel"
-        Me.UsernameLabel.Size = New System.Drawing.Size(220, 23)
+        Me.UsernameLabel.Size = New System.Drawing.Size(330, 28)
         Me.UsernameLabel.TabIndex = 0
         Me.UsernameLabel.Text = "Login"
         Me.UsernameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'PasswordLabel
         '
-        Me.PasswordLabel.Location = New System.Drawing.Point(172, 81)
+        Me.PasswordLabel.Location = New System.Drawing.Point(202, 92)
+        Me.PasswordLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.PasswordLabel.Name = "PasswordLabel"
-        Me.PasswordLabel.Size = New System.Drawing.Size(220, 23)
+        Me.PasswordLabel.Size = New System.Drawing.Size(330, 28)
         Me.PasswordLabel.TabIndex = 2
         Me.PasswordLabel.Text = "Senha"
         Me.PasswordLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TxtSenha
         '
-        Me.TxtSenha.Location = New System.Drawing.Point(174, 101)
+        Me.TxtSenha.Location = New System.Drawing.Point(205, 124)
+        Me.TxtSenha.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TxtSenha.MaxLength = 25
         Me.TxtSenha.Name = "TxtSenha"
         Me.TxtSenha.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TxtSenha.Size = New System.Drawing.Size(220, 20)
+        Me.TxtSenha.Size = New System.Drawing.Size(328, 24)
         Me.TxtSenha.TabIndex = 2
         '
         'BtnAcessa
         '
         Me.BtnAcessa.Enabled = False
-        Me.BtnAcessa.Location = New System.Drawing.Point(236, 127)
+        Me.BtnAcessa.Location = New System.Drawing.Point(297, 156)
+        Me.BtnAcessa.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.BtnAcessa.Name = "BtnAcessa"
-        Me.BtnAcessa.Size = New System.Drawing.Size(94, 23)
+        Me.BtnAcessa.Size = New System.Drawing.Size(141, 28)
         Me.BtnAcessa.TabIndex = 3
         Me.BtnAcessa.Text = "Acessar"
         '
@@ -91,9 +96,10 @@ Partial Class Frm_Login
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtSenhaInvalida.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.5!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TxtSenhaInvalida.ForeColor = System.Drawing.Color.Red
-        Me.TxtSenhaInvalida.Location = New System.Drawing.Point(12, 173)
+        Me.TxtSenhaInvalida.Location = New System.Drawing.Point(18, 213)
+        Me.TxtSenhaInvalida.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.TxtSenhaInvalida.Name = "TxtSenhaInvalida"
-        Me.TxtSenhaInvalida.Size = New System.Drawing.Size(377, 23)
+        Me.TxtSenhaInvalida.Size = New System.Drawing.Size(566, 28)
         Me.TxtSenhaInvalida.TabIndex = 5
         Me.TxtSenhaInvalida.Text = " "
         Me.TxtSenhaInvalida.TextAlign = System.Drawing.ContentAlignment.BottomCenter
@@ -102,19 +108,20 @@ Partial Class Frm_Login
         'TxtLogin
         '
         Me.TxtLogin.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtLogin.Location = New System.Drawing.Point(174, 50)
+        Me.TxtLogin.Location = New System.Drawing.Point(206, 62)
+        Me.TxtLogin.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TxtLogin.MaxLength = 16
         Me.TxtLogin.Name = "TxtLogin"
-        Me.TxtLogin.Size = New System.Drawing.Size(219, 20)
+        Me.TxtLogin.Size = New System.Drawing.Size(327, 24)
         Me.TxtLogin.TabIndex = 1
         '
         'Frm_Login
         '
         Me.AcceptButton = Me.BtnAcessa
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Lavender
-        Me.ClientSize = New System.Drawing.Size(401, 205)
+        Me.BackColor = System.Drawing.SystemColors.Window
+        Me.ClientSize = New System.Drawing.Size(602, 252)
         Me.Controls.Add(Me.TxtLogin)
         Me.Controls.Add(Me.TxtSenhaInvalida)
         Me.Controls.Add(Me.BtnAcessa)
@@ -122,8 +129,10 @@ Partial Class Frm_Login
         Me.Controls.Add(Me.PasswordLabel)
         Me.Controls.Add(Me.UsernameLabel)
         Me.Controls.Add(Me.LogoPictureBox)
+        Me.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Frm_Login"

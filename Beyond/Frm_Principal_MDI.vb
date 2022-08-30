@@ -109,6 +109,7 @@ Public Class Frm_Principal_MDI
             TP.Tag = Frm
             TP.Text = Frm.Text
             TCPrincipal.TabPages.Add(TP)
+            TCPrincipal.SelectTab(TP)
             TCPrincipal.BringToFront()
             TCPrincipal.Visible = True
             Frm.Show()
@@ -151,6 +152,7 @@ Public Class Frm_Principal_MDI
             TP.BackColor = Frm.BackColor
             TP.Name = Frm.Name
             TCPrincipal.TabPages.Add(TP)
+            TCPrincipal.SelectedTab = TP
             TCPrincipal.BringToFront()
             TCPrincipal.Visible = True
             Frm.Show()
@@ -212,6 +214,7 @@ Public Class Frm_Principal_MDI
             TP.BackColor = Frm.BackColor
             TP.Name = Frm.Name
             TCPrincipal.TabPages.Add(TP)
+            TCPrincipal.SelectTab(TP)
             TCPrincipal.BringToFront()
             TCPrincipal.Visible = True
             Frm.Show()

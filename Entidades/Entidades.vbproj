@@ -68,7 +68,7 @@
     <Compile Include="Cargo.vb" />
     <Compile Include="Cliente.vb" />
     <Compile Include="Endereco.vb" />
-    <Compile Include="EnderecoJson.vb" />
+    <Compile Include="EstadoUF.vb" />
     <Compile Include="Pedido.vb" />
     <Compile Include="PedidoItem.vb" />
     <Compile Include="Produto.vb" />

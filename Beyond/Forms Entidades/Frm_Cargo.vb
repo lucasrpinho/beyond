@@ -13,9 +13,8 @@ Public Class Frm_Cargo
         frmPrincipal = frm
     End Sub
 
-    Private Sub Frm_Cargo_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub Frm_Cargo_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
-        Me.Dispose(True)
     End Sub
 
     Private Sub Frm_Cargo_Load(sender As Object, e As System.EventArgs) Handles Me.Load
@@ -75,7 +74,7 @@ Public Class Frm_Cargo
     End Sub
 
     Private Sub ToolStrip_ItemClicked()
-        If Not Me.Enabled Or Me Is Nothing Then
+        If Not Me.Enabled Then
             Exit Sub
         End If
         If UC_Toolstrip.Modo = "NOVO" Then

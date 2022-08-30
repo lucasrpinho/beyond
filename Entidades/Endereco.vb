@@ -1,4 +1,5 @@
-﻿Public Class Endereco
+﻿Imports Entidades
+Public Class Endereco
     Private _CEP As String
     Private _Numero As Int16
     Private _Bairro As String
@@ -7,6 +8,13 @@
     Private _Logradouro As String
     Private _Complemento As String
     Public ObjEnderecoJson As EnderecoJson
+
+    Public Class EnderecoJson
+        Public logradouro As String
+        Public bairro As String
+        Public localidade As String
+        Public uf As String
+    End Class
 
     Public Property CEP()
         Get
@@ -71,4 +79,15 @@
         End Set
     End Property
 
+    Public Sub New(ByVal objFromJson As EnderecoJson)
+        Me.ObjEnderecoJson = objFromJson
+        Me.Cidade = ObjEnderecoJson.localidade
+        Me.Bairro = ObjEnderecoJson.bairro
+        Me.UF = ObjEnderecoJson.uf
+        Me.Logradouro = ObjEnderecoJson.logradouro
+    End Sub
+
+    Public Sub New()
+
+    End Sub
 End Class

@@ -12,11 +12,7 @@ Public Class Frm_Usuario
         frmPrincipal = frm
     End Sub
 
-    Private Sub Frm_Usuario_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
-    End Sub
-
-    Private Sub Frm_Usuario_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub Frm_Usuario_Load(sender As System.Object, e As System.EventArgs) Handles Me.Load
         Uteis.ControlsHelper.SetControlsDisabled(Me)
         AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
@@ -62,14 +58,12 @@ Public Class Frm_Usuario
         If Not Me.Enabled Then
             Exit Sub
         End If
-        If UC_Toolstrip.Modo = "NOVO" Then
-            LimpaCampos_AtivaControles()
-        ElseIf UC_Toolstrip.Modo = "SALVAR" Then
+        If UC_Toolstrip.Modo = "SALVAR" Then
             Cadastrar()
-        ElseIf UC_Toolstrip.Modo = "PROCURAR" Then
-            AlternarControle()
+        ElseIf UC_Toolstrip.Modo = "PROCURAR" Or UC_Toolstrip.Modo = "NOVO" Then
             LimpaCampos_AtivaControles()
             CarregaUsuarios()
+            AlternarControle()
         ElseIf UC_Toolstrip.Modo = "CONFIRMAR" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
                 DAO.DAO.ConfirmarOuReverter(True)
@@ -112,6 +106,7 @@ Public Class Frm_Usuario
             e.Cancel = True
             Exit Sub
         End If
+        RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
     Private Sub BuscaUsuarioPorCodigo(ByVal codusuario As String)
@@ -151,6 +146,11 @@ Public Class Frm_Usuario
     End Sub
 
     Private Sub CarregaUsuarios()
+        If UC_Toolstrip.Modo = "NOVO" Then
+            Exit Sub
+        End If
+
+        LstUsuario.Clear()
         ComboNome.Items.Clear()
         Dim resposta As String = ""
 

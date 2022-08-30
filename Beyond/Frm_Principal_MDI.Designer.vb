@@ -128,26 +128,26 @@ Partial Class Frm_Principal_MDI
         'UsuarioMenuItem
         '
         Me.UsuarioMenuItem.Name = "UsuarioMenuItem"
-        Me.UsuarioMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.UsuarioMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.UsuarioMenuItem.Text = "Usuário"
         '
         'CargosToolStripMenuItem
         '
         Me.CargosToolStripMenuItem.Name = "CargosToolStripMenuItem"
-        Me.CargosToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.CargosToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.CargosToolStripMenuItem.Text = "Cargo"
         '
         'VendedorToolStripMenuItem
         '
         Me.VendedorToolStripMenuItem.Name = "VendedorToolStripMenuItem"
-        Me.VendedorToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.VendedorToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.VendedorToolStripMenuItem.Text = "Vendedor"
         '
         'ClientesToolStripMenuItem
         '
         Me.ClientesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CadastrarToolStripMenuItem3, Me.AlterarToolStripMenuItem4})
         Me.ClientesToolStripMenuItem.Name = "ClientesToolStripMenuItem"
-        Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.ClientesToolStripMenuItem.Text = "Cliente"
         '
         'CadastrarToolStripMenuItem3
@@ -166,7 +166,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.ProdutosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CadastrarToolStripMenuItem4, Me.AlterarToolStripMenuItem5})
         Me.ProdutosToolStripMenuItem.Name = "ProdutosToolStripMenuItem"
-        Me.ProdutosToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ProdutosToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.ProdutosToolStripMenuItem.Text = "Produto"
         '
         'CadastrarToolStripMenuItem4
@@ -285,7 +285,7 @@ Partial Class Frm_Principal_MDI
         Me.SplitC1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SplitC1.BackColor = System.Drawing.Color.Transparent
+        Me.SplitC1.BackColor = System.Drawing.SystemColors.Desktop
         Me.SplitC1.IsSplitterFixed = True
         Me.SplitC1.Location = New System.Drawing.Point(0, 45)
         Me.SplitC1.Margin = New System.Windows.Forms.Padding(10, 3, 3, 3)
@@ -293,17 +293,18 @@ Partial Class Frm_Principal_MDI
         '
         'SplitC1.Panel1
         '
+        Me.SplitC1.Panel1.BackColor = System.Drawing.Color.LightGray
         Me.SplitC1.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.SplitC1.Panel1.Controls.Add(Me.PictureBox1)
         Me.SplitC1.Panel1.Controls.Add(Me.LblOla)
         '
         'SplitC1.Panel2
         '
-        Me.SplitC1.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.SplitC1.Panel2.BackColor = System.Drawing.Color.DimGray
         Me.SplitC1.Panel2.Controls.Add(Me.TCPrincipal)
         Me.SplitC1.Size = New System.Drawing.Size(755, 404)
         Me.SplitC1.SplitterDistance = 200
-        Me.SplitC1.SplitterWidth = 2
+        Me.SplitC1.SplitterWidth = 3
         Me.SplitC1.TabIndex = 10
         '
         'PictureBox1
@@ -322,7 +323,7 @@ Partial Class Frm_Principal_MDI
         Me.LblOla.AutoEllipsis = True
         Me.LblOla.AutoSize = True
         Me.LblOla.Font = New System.Drawing.Font("Verdana", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblOla.ForeColor = System.Drawing.Color.White
+        Me.LblOla.ForeColor = System.Drawing.SystemColors.WindowText
         Me.LblOla.Location = New System.Drawing.Point(12, 32)
         Me.LblOla.Name = "LblOla"
         Me.LblOla.Size = New System.Drawing.Size(95, 26)
@@ -336,7 +337,7 @@ Partial Class Frm_Principal_MDI
         Me.TCPrincipal.Location = New System.Drawing.Point(0, 0)
         Me.TCPrincipal.Name = "TCPrincipal"
         Me.TCPrincipal.SelectedIndex = 0
-        Me.TCPrincipal.Size = New System.Drawing.Size(553, 404)
+        Me.TCPrincipal.Size = New System.Drawing.Size(552, 404)
         Me.TCPrincipal.TabIndex = 2
         Me.TCPrincipal.Visible = False
         '
@@ -378,7 +379,7 @@ Partial Class Frm_Principal_MDI
         Me.Controls.Add(Me.SplitC1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MnStrip_Principal)
-        Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.IsMdiContainer = True
         Me.MainMenuStrip = Me.MnStrip_Principal

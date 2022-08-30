@@ -52,7 +52,7 @@ Partial Class Frm_Cargo
         Me.ChkVendedor.AutoSize = True
         Me.ChkVendedor.Location = New System.Drawing.Point(6, 58)
         Me.ChkVendedor.Name = "ChkVendedor"
-        Me.ChkVendedor.Size = New System.Drawing.Size(89, 21)
+        Me.ChkVendedor.Size = New System.Drawing.Size(94, 21)
         Me.ChkVendedor.TabIndex = 12
         Me.ChkVendedor.Text = "Vendedor"
         Me.ChkVendedor.UseVisualStyleBackColor = True
@@ -65,13 +65,14 @@ Partial Class Frm_Cargo
         Me.ChkBoxAtivo.CheckState = System.Windows.Forms.CheckState.Checked
         Me.ChkBoxAtivo.Location = New System.Drawing.Point(6, 22)
         Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
-        Me.ChkBoxAtivo.Size = New System.Drawing.Size(58, 21)
+        Me.ChkBoxAtivo.Size = New System.Drawing.Size(63, 21)
         Me.ChkBoxAtivo.TabIndex = 11
         Me.ChkBoxAtivo.Text = "Ativo"
         Me.ChkBoxAtivo.UseVisualStyleBackColor = True
         '
         'GrpBoxInfo
         '
+        Me.GrpBoxInfo.BackColor = System.Drawing.SystemColors.Window
         Me.GrpBoxInfo.Controls.Add(Me.ComboNome)
         Me.GrpBoxInfo.Controls.Add(Me.TxtDesc)
         Me.GrpBoxInfo.Controls.Add(Me.Label2)
@@ -114,7 +115,7 @@ Partial Class Frm_Cargo
         Me.Label2.Location = New System.Drawing.Point(7, 111)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(71, 17)
+        Me.Label2.Size = New System.Drawing.Size(75, 17)
         Me.Label2.TabIndex = 8
         Me.Label2.Text = "Descrição"
         '
@@ -124,7 +125,7 @@ Partial Class Frm_Cargo
         Me.Label1.Location = New System.Drawing.Point(7, 38)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(105, 17)
+        Me.Label1.Size = New System.Drawing.Size(115, 17)
         Me.Label1.TabIndex = 6
         Me.Label1.Text = "Nome do cargo"
         '
@@ -132,11 +133,11 @@ Partial Class Frm_Cargo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.BackColor = System.Drawing.SystemColors.Window
         Me.ClientSize = New System.Drawing.Size(585, 338)
         Me.Controls.Add(Me.GrpBoxInfo)
         Me.Controls.Add(Me.GrpBoxCfg)
-        Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)

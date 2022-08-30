@@ -8,7 +8,6 @@ Public Class Vendedor
     Public Sobrenome As String
     Public NomeCompleto As String
     Public ObjEndereco As Endereco
-    Public Estado As String
     Public Observacao As String
     Public Foto As String
     Public IsAtivo As Boolean
@@ -39,13 +38,13 @@ Public Class Vendedor
         If Me.CodVendedor <> 0 Then
             strError = "Código do vendedor deve ser vazio pois será gerado"
         ElseIf Me.CodCargo <= 0 Then
-            strError = "Código do cargo deve ser um valor acima de zero"
+            strError = "Cargo precisa ser preenchido"
         ElseIf Me.Nome = "" Then
             strError = "Nome precisa estar preenchido"
         ElseIf Me.Sobrenome = "" Then
             strError = "Sobrenome precisa estar preenchido"
         ElseIf Me.ObjEndereco.CEP = "" Or Me.ObjEndereco.CEP.ToString.Length > 8 Then
-            strError = "CEP não pode ser vazio e deve conter no máximo 8 caracteres"
+            strError = "CEP não pode ser vazio"
         ElseIf Me.ObjEndereco.Bairro = "" Then
             strError = "Bairro precisa ser preenchido"
         ElseIf Me.ObjEndereco.Cidade = "" Then

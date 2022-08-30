@@ -454,13 +454,13 @@ Public Class DAO
             Cmd.Parameters.Add("@NOME", SqlDbType.VarChar).Value = vendedor.Nome
             Cmd.Parameters.AddWithValue("@SOBRENOME", vendedor.Sobrenome)
             Cmd.Parameters.AddWithValue("@NOMECOMPLETO", vendedor.NomeCompleto)
-            ' Cmd.Parameters.AddWithValue("@CEP", vendedor.CEP)
-            'Cmd.Parameters.AddWithValue("@LOGRADOURO", vendedor.Logradouro)
-            'Cmd.Parameters.Add("@NUM", SqlDbType.SmallInt).Value = vendedor.NumeroEndereco
-            ' Cmd.Parameters.AddWithValue("@COMPLEMENTO", vendedor.Complemento)
-            'Cmd.Parameters.AddWithValue("@BAIRRO", vendedor.Bairro)
-            'Cmd.Parameters.AddWithValue("@CIDADE", vendedor.Cidade)
-            ' Cmd.Parameters.AddWithValue("@UF", vendedor.Estado)
+            Cmd.Parameters.AddWithValue("@CEP", vendedor.ObjEndereco.CEP)
+            Cmd.Parameters.AddWithValue("@LOGRADOURO", vendedor.ObjEndereco.Logradouro)
+            Cmd.Parameters.Add("@NUM", SqlDbType.SmallInt).Value = vendedor.ObjEndereco.NumeroEndereco
+            Cmd.Parameters.AddWithValue("@COMPLEMENTO", vendedor.ObjEndereco.Complemento)
+            Cmd.Parameters.AddWithValue("@BAIRRO", vendedor.ObjEndereco.Bairro)
+            Cmd.Parameters.AddWithValue("@CIDADE", vendedor.ObjEndereco.Cidade)
+            Cmd.Parameters.AddWithValue("@UF", vendedor.ObjEndereco.UF)
             Cmd.Parameters.Add("@OBS", SqlDbType.VarChar).Value = vendedor.Observacao
             Cmd.Parameters.Add("@FOTO", SqlDbType.NVarChar).Value = vendedor.Foto
             Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = vendedor.IsAtivo
@@ -475,15 +475,15 @@ Public Class DAO
         End Using
     End Function
 
-    Public Overloads Shared Function GetVendedor(ByVal codvendedor As String) As Vendedor
-        Return _GetVendedor(True, codvendedor).FirstOrDefault
+    Public Overloads Shared Function GetVendedor(ByVal codvendedor As String, ByRef resposta As String) As Vendedor
+        Return _GetVendedor(True, codvendedor, resposta).FirstOrDefault
     End Function
 
-    Public Overloads Shared Function GetVendedor(ByVal ativos As Boolean) As List(Of Vendedor)
-        Return _GetVendedor(ativos, String.Empty)
+    Public Overloads Shared Function GetVendedor(ByVal ativos As Boolean, ByRef resposta As String) As List(Of Vendedor)
+        Return _GetVendedor(ativos, String.Empty, resposta)
     End Function
 
-    Private Shared Function _GetVendedor(ativos As Boolean, codvendedor As String) As List(Of Vendedor)
+    Private Shared Function _GetVendedor(ativos As Boolean, codvendedor As String, ByRef resposta As String) As List(Of Vendedor)
         Dim lst As New List(Of Vendedor)
         Using Con As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
             Using Cmd As New SqlCommand
@@ -515,7 +515,7 @@ Public Class DAO
                         Tbl.Dispose()
                     End If
                 Catch ex As Exception
-                    Throw New Exception(ex.Message)
+                    resposta = ex.Message
                 End Try
             End Using
         End Using
@@ -559,7 +559,7 @@ Public Class DAO
             Cmd.Parameters.AddWithValue("@COMPLEMENTO", vendedor.ObjEndereco.Complemento)
             Cmd.Parameters.AddWithValue("@BAIRRO", vendedor.ObjEndereco.Bairro)
             Cmd.Parameters.AddWithValue("@CIDADE", vendedor.ObjEndereco.Cidade)
-            Cmd.Parameters.AddWithValue("@UF", vendedor.Estado)
+            Cmd.Parameters.AddWithValue("@UF", vendedor.ObjEndereco.UF)
             Cmd.Parameters.Add("@OBS", SqlDbType.VarChar).Value = vendedor.Observacao
             Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = vendedor.IsAtivo
             Cmd.Parameters.AddWithValue("@LOGINALTERACAO", loginupdate)
@@ -571,6 +571,45 @@ Public Class DAO
                 Return True
             End If
         End Using
+    End Function
+
+#End Region
+
+#Region "Estados"
+    Public Shared Function GetEstados(ByRef resposta As String) As List(Of EstadoUF)
+        Dim Lst As New List(Of EstadoUF)
+        Using Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+            Using Cmd As New SqlCommand
+                Dim Adp As New SqlDataAdapter
+                Dim Tbl As New DataTable
+                Try
+                    Cmd.Connection = Con
+                    Cmd.CommandText = "SP_GET_ESTADOS"
+                    Cmd.CommandType = CommandType.StoredProcedure
+                    Adp.SelectCommand = Cmd
+                    Adp.Fill(Tbl)
+
+                    If Tbl.Rows.Count > 0 Then
+                        For I As Integer = 0 To Tbl.Rows.Count - 1
+                            Dim estado As New EstadoUF
+                            estado.Carrega(Tbl.Rows(I))
+                            Lst.Add(estado)
+                        Next
+                    End If
+
+                Catch ex As Exception
+                    resposta = ex.Message
+                Finally
+                    If Not Adp Is Nothing Then
+                        Adp.Dispose()
+                    End If
+                    If Not Tbl Is Nothing Then
+                        Tbl.Dispose()
+                    End If
+                End Try
+            End Using
+        End Using
+        Return Lst
     End Function
 
 #End Region

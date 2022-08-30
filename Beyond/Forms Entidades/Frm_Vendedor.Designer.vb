@@ -22,12 +22,13 @@ Partial Class Frm_Vendedor
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_Vendedor))
         Me.GrpBoxInfo = New System.Windows.Forms.GroupBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.PicBoxFoto = New System.Windows.Forms.PictureBox()
         Me.ComboNome = New System.Windows.Forms.ComboBox()
         Me.BtnFoto = New System.Windows.Forms.Button()
-        Me.Label10 = New System.Windows.Forms.Label()
         Me.TxtNum = New System.Windows.Forms.TextBox()
-        Me.PicBoxFoto = New System.Windows.Forms.PictureBox()
         Me.TxtCEP = New System.Windows.Forms.MaskedTextBox()
         Me.ComboEstado = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -52,17 +53,17 @@ Partial Class Frm_Vendedor
         Me.Label17 = New System.Windows.Forms.Label()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.GrpBoxInfo.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         CType(Me.PicBoxFoto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GrpBoxAdd.SuspendLayout()
         Me.SuspendLayout()
         '
         'GrpBoxInfo
         '
+        Me.GrpBoxInfo.Controls.Add(Me.GroupBox1)
         Me.GrpBoxInfo.Controls.Add(Me.ComboNome)
         Me.GrpBoxInfo.Controls.Add(Me.BtnFoto)
-        Me.GrpBoxInfo.Controls.Add(Me.Label10)
         Me.GrpBoxInfo.Controls.Add(Me.TxtNum)
-        Me.GrpBoxInfo.Controls.Add(Me.PicBoxFoto)
         Me.GrpBoxInfo.Controls.Add(Me.TxtCEP)
         Me.GrpBoxInfo.Controls.Add(Me.ComboEstado)
         Me.GrpBoxInfo.Controls.Add(Me.Label8)
@@ -79,7 +80,6 @@ Partial Class Frm_Vendedor
         Me.GrpBoxInfo.Controls.Add(Me.TxtSobrenome)
         Me.GrpBoxInfo.Controls.Add(Me.Label2)
         Me.GrpBoxInfo.Controls.Add(Me.Label1)
-        Me.GrpBoxInfo.Dock = System.Windows.Forms.DockStyle.Top
         Me.GrpBoxInfo.Location = New System.Drawing.Point(0, 0)
         Me.GrpBoxInfo.Margin = New System.Windows.Forms.Padding(4)
         Me.GrpBoxInfo.Name = "GrpBoxInfo"
@@ -88,6 +88,30 @@ Partial Class Frm_Vendedor
         Me.GrpBoxInfo.TabIndex = 0
         Me.GrpBoxInfo.TabStop = False
         Me.GrpBoxInfo.Text = "Informações"
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.PicBoxFoto)
+        Me.GroupBox1.Location = New System.Drawing.Point(507, 15)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(225, 220)
+        Me.GroupBox1.TabIndex = 40
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Foto do Vendedor"
+        '
+        'PicBoxFoto
+        '
+        Me.PicBoxFoto.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PicBoxFoto.Location = New System.Drawing.Point(2, 24)
+        Me.PicBoxFoto.Name = "PicBoxFoto"
+        Me.PicBoxFoto.Size = New System.Drawing.Size(222, 190)
+        Me.PicBoxFoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PicBoxFoto.TabIndex = 36
+        Me.PicBoxFoto.TabStop = False
         '
         'ComboNome
         '
@@ -100,41 +124,22 @@ Partial Class Frm_Vendedor
         '
         'BtnFoto
         '
-        Me.BtnFoto.Location = New System.Drawing.Point(629, 218)
+        Me.BtnFoto.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnFoto.Location = New System.Drawing.Point(628, 239)
         Me.BtnFoto.Name = "BtnFoto"
         Me.BtnFoto.Size = New System.Drawing.Size(103, 31)
         Me.BtnFoto.TabIndex = 37
         Me.BtnFoto.Text = "Inserir Foto"
         Me.BtnFoto.UseVisualStyleBackColor = True
         '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(504, 19)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(122, 17)
-        Me.Label10.TabIndex = 38
-        Me.Label10.Text = "Foto do Vendedor"
-        '
         'TxtNum
         '
-        Me.TxtNum.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtNum.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtNum.Location = New System.Drawing.Point(88, 182)
         Me.TxtNum.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtNum.Name = "TxtNum"
         Me.TxtNum.Size = New System.Drawing.Size(100, 23)
         Me.TxtNum.TabIndex = 35
-        '
-        'PicBoxFoto
-        '
-        Me.PicBoxFoto.Location = New System.Drawing.Point(507, 39)
-        Me.PicBoxFoto.Name = "PicBoxFoto"
-        Me.PicBoxFoto.Size = New System.Drawing.Size(225, 166)
-        Me.PicBoxFoto.TabIndex = 36
-        Me.PicBoxFoto.TabStop = False
         '
         'TxtCEP
         '
@@ -153,7 +158,6 @@ Partial Class Frm_Vendedor
         Me.ComboEstado.Name = "ComboEstado"
         Me.ComboEstado.Size = New System.Drawing.Size(212, 24)
         Me.ComboEstado.TabIndex = 33
-        Me.ComboEstado.Visible = False
         '
         'Label8
         '
@@ -161,14 +165,12 @@ Partial Class Frm_Vendedor
         Me.Label8.Location = New System.Drawing.Point(10, 266)
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(52, 17)
+        Me.Label8.Size = New System.Drawing.Size(53, 16)
         Me.Label8.TabIndex = 32
         Me.Label8.Text = "Estado"
         '
         'TxtLogradouro
         '
-        Me.TxtLogradouro.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtLogradouro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtLogradouro.Location = New System.Drawing.Point(9, 122)
         Me.TxtLogradouro.Margin = New System.Windows.Forms.Padding(4)
@@ -178,8 +180,6 @@ Partial Class Frm_Vendedor
         '
         'TxtBairro
         '
-        Me.TxtBairro.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtBairro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtBairro.Location = New System.Drawing.Point(8, 239)
         Me.TxtBairro.Margin = New System.Windows.Forms.Padding(4)
@@ -189,8 +189,6 @@ Partial Class Frm_Vendedor
         '
         'TxtCidade
         '
-        Me.TxtCidade.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtCidade.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtCidade.Location = New System.Drawing.Point(234, 239)
         Me.TxtCidade.Margin = New System.Windows.Forms.Padding(4)
@@ -200,8 +198,6 @@ Partial Class Frm_Vendedor
         '
         'TxtComplemento
         '
-        Me.TxtComplemento.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtComplemento.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtComplemento.Location = New System.Drawing.Point(196, 182)
         Me.TxtComplemento.Margin = New System.Windows.Forms.Padding(4)
@@ -215,7 +211,7 @@ Partial Class Frm_Vendedor
         Me.Label3.Location = New System.Drawing.Point(231, 218)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(52, 17)
+        Me.Label3.Size = New System.Drawing.Size(52, 16)
         Me.Label3.TabIndex = 24
         Me.Label3.Text = "Cidade"
         '
@@ -225,7 +221,7 @@ Partial Class Frm_Vendedor
         Me.Label7.Location = New System.Drawing.Point(10, 218)
         Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(46, 17)
+        Me.Label7.Size = New System.Drawing.Size(45, 16)
         Me.Label7.TabIndex = 22
         Me.Label7.Text = "Bairro"
         '
@@ -235,7 +231,7 @@ Partial Class Frm_Vendedor
         Me.Label6.Location = New System.Drawing.Point(193, 161)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(94, 17)
+        Me.Label6.Size = New System.Drawing.Size(96, 16)
         Me.Label6.TabIndex = 20
         Me.Label6.Text = "Complemento"
         '
@@ -245,7 +241,7 @@ Partial Class Frm_Vendedor
         Me.Label5.Location = New System.Drawing.Point(85, 161)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(58, 17)
+        Me.Label5.Size = New System.Drawing.Size(57, 16)
         Me.Label5.TabIndex = 18
         Me.Label5.Text = "Número"
         '
@@ -255,7 +251,7 @@ Partial Class Frm_Vendedor
         Me.Label4.Location = New System.Drawing.Point(10, 102)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(82, 17)
+        Me.Label4.Size = New System.Drawing.Size(81, 16)
         Me.Label4.TabIndex = 16
         Me.Label4.Text = "Logradouro"
         '
@@ -265,14 +261,12 @@ Partial Class Frm_Vendedor
         Me.LblCep.Location = New System.Drawing.Point(10, 161)
         Me.LblCep.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblCep.Name = "LblCep"
-        Me.LblCep.Size = New System.Drawing.Size(35, 17)
+        Me.LblCep.Size = New System.Drawing.Size(33, 16)
         Me.LblCep.TabIndex = 14
         Me.LblCep.Text = "CEP"
         '
         'TxtSobrenome
         '
-        Me.TxtSobrenome.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtSobrenome.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtSobrenome.Location = New System.Drawing.Point(222, 60)
         Me.TxtSobrenome.Margin = New System.Windows.Forms.Padding(4)
@@ -286,7 +280,7 @@ Partial Class Frm_Vendedor
         Me.Label2.Location = New System.Drawing.Point(219, 39)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(81, 17)
+        Me.Label2.Size = New System.Drawing.Size(81, 16)
         Me.Label2.TabIndex = 9
         Me.Label2.Text = "Sobrenome"
         '
@@ -296,7 +290,7 @@ Partial Class Frm_Vendedor
         Me.Label1.Location = New System.Drawing.Point(10, 39)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(45, 17)
+        Me.Label1.Size = New System.Drawing.Size(44, 16)
         Me.Label1.TabIndex = 8
         Me.Label1.Text = "Nome"
         '
@@ -307,7 +301,6 @@ Partial Class Frm_Vendedor
         Me.GrpBoxAdd.Controls.Add(Me.ChkBoxAtivo)
         Me.GrpBoxAdd.Controls.Add(Me.TxtObs)
         Me.GrpBoxAdd.Controls.Add(Me.Label17)
-        Me.GrpBoxAdd.Dock = System.Windows.Forms.DockStyle.Top
         Me.GrpBoxAdd.Location = New System.Drawing.Point(0, 325)
         Me.GrpBoxAdd.Margin = New System.Windows.Forms.Padding(4)
         Me.GrpBoxAdd.Name = "GrpBoxAdd"
@@ -319,6 +312,7 @@ Partial Class Frm_Vendedor
         '
         'ComboCargo
         '
+        Me.ComboCargo.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ComboCargo.FormattingEnabled = True
         Me.ComboCargo.Items.AddRange(New Object() {" "})
         Me.ComboCargo.Location = New System.Drawing.Point(526, 56)
@@ -326,34 +320,35 @@ Partial Class Frm_Vendedor
         Me.ComboCargo.Name = "ComboCargo"
         Me.ComboCargo.Size = New System.Drawing.Size(205, 24)
         Me.ComboCargo.TabIndex = 35
-        Me.ComboCargo.Visible = False
         '
         'Label9
         '
+        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label9.AutoSize = True
         Me.Label9.Location = New System.Drawing.Point(523, 35)
         Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(46, 17)
+        Me.Label9.Size = New System.Drawing.Size(46, 16)
         Me.Label9.TabIndex = 34
         Me.Label9.Text = "Cargo"
         '
         'ChkBoxAtivo
         '
-        Me.ChkBoxAtivo.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.ChkBoxAtivo.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ChkBoxAtivo.AutoSize = True
         Me.ChkBoxAtivo.Checked = True
         Me.ChkBoxAtivo.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ChkBoxAtivo.Location = New System.Drawing.Point(526, 97)
+        Me.ChkBoxAtivo.Location = New System.Drawing.Point(523, 97)
         Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
-        Me.ChkBoxAtivo.Size = New System.Drawing.Size(58, 21)
+        Me.ChkBoxAtivo.Size = New System.Drawing.Size(61, 20)
         Me.ChkBoxAtivo.TabIndex = 31
         Me.ChkBoxAtivo.Text = "Ativo"
         Me.ChkBoxAtivo.UseVisualStyleBackColor = True
         '
         'TxtObs
         '
-        Me.TxtObs.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.TxtObs.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtObs.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtObs.Location = New System.Drawing.Point(6, 56)
@@ -370,7 +365,7 @@ Partial Class Frm_Vendedor
         Me.Label17.Location = New System.Drawing.Point(8, 35)
         Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(85, 17)
+        Me.Label17.Size = New System.Drawing.Size(86, 16)
         Me.Label17.TabIndex = 8
         Me.Label17.Text = "Observação"
         '
@@ -386,12 +381,14 @@ Partial Class Frm_Vendedor
         Me.ClientSize = New System.Drawing.Size(739, 488)
         Me.Controls.Add(Me.GrpBoxAdd)
         Me.Controls.Add(Me.GrpBoxInfo)
-        Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Frm_Vendedor"
-        Me.Text = "Frm_Vendedor"
+        Me.Text = "Vendedor"
         Me.GrpBoxInfo.ResumeLayout(False)
         Me.GrpBoxInfo.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
         CType(Me.PicBoxFoto, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GrpBoxAdd.ResumeLayout(False)
         Me.GrpBoxAdd.PerformLayout()
@@ -419,7 +416,6 @@ Partial Class Frm_Vendedor
     Friend WithEvents GrpBoxAdd As System.Windows.Forms.GroupBox
     Friend WithEvents TxtObs As System.Windows.Forms.TextBox
     Friend WithEvents Label17 As System.Windows.Forms.Label
-    Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents BtnFoto As System.Windows.Forms.Button
     Friend WithEvents PicBoxFoto As System.Windows.Forms.PictureBox
     Friend WithEvents ComboCargo As System.Windows.Forms.ComboBox
@@ -427,4 +423,5 @@ Partial Class Frm_Vendedor
     Friend WithEvents ChkBoxAtivo As System.Windows.Forms.CheckBox
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents ComboNome As System.Windows.Forms.ComboBox
+    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
 End Class

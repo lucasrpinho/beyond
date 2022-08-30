@@ -73,11 +73,11 @@ Partial Class Frm_Usuario
         Me.ComboNome.Name = "ComboNome"
         Me.ComboNome.Size = New System.Drawing.Size(205, 24)
         Me.ComboNome.TabIndex = 7
-        Me.ComboNome.Visible = False
         '
         'PictureBox1
         '
         Me.PictureBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox1.BackColor = System.Drawing.SystemColors.MenuHighlight
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
         Me.PictureBox1.Location = New System.Drawing.Point(400, 23)
         Me.PictureBox1.Name = "PictureBox1"
@@ -95,7 +95,7 @@ Partial Class Frm_Usuario
         Me.TxtEmail.Location = New System.Drawing.Point(11, 175)
         Me.TxtEmail.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtEmail.Name = "TxtEmail"
-        Me.TxtEmail.Size = New System.Drawing.Size(338, 23)
+        Me.TxtEmail.Size = New System.Drawing.Size(338, 24)
         Me.TxtEmail.TabIndex = 5
         '
         'Label6
@@ -104,7 +104,7 @@ Partial Class Frm_Usuario
         Me.Label6.Location = New System.Drawing.Point(8, 154)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(47, 17)
+        Me.Label6.Size = New System.Drawing.Size(51, 17)
         Me.Label6.TabIndex = 4
         Me.Label6.Text = "E-mail"
         '
@@ -116,7 +116,7 @@ Partial Class Frm_Usuario
         Me.TxtSobrenome.Location = New System.Drawing.Point(11, 117)
         Me.TxtSobrenome.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtSobrenome.Name = "TxtSobrenome"
-        Me.TxtSobrenome.Size = New System.Drawing.Size(338, 23)
+        Me.TxtSobrenome.Size = New System.Drawing.Size(338, 24)
         Me.TxtSobrenome.TabIndex = 3
         '
         'Label2
@@ -125,7 +125,7 @@ Partial Class Frm_Usuario
         Me.Label2.Location = New System.Drawing.Point(8, 96)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(81, 17)
+        Me.Label2.Size = New System.Drawing.Size(89, 17)
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Sobrenome"
         '
@@ -135,7 +135,7 @@ Partial Class Frm_Usuario
         Me.Label1.Location = New System.Drawing.Point(8, 38)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(45, 17)
+        Me.Label1.Size = New System.Drawing.Size(48, 17)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Nome"
         '
@@ -146,7 +146,7 @@ Partial Class Frm_Usuario
         Me.TxtLogin.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtLogin.MaxLength = 16
         Me.TxtLogin.Name = "TxtLogin"
-        Me.TxtLogin.Size = New System.Drawing.Size(205, 23)
+        Me.TxtLogin.Size = New System.Drawing.Size(205, 24)
         Me.TxtLogin.TabIndex = 5
         '
         'Label3
@@ -155,7 +155,7 @@ Partial Class Frm_Usuario
         Me.Label3.Location = New System.Drawing.Point(8, 36)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(43, 17)
+        Me.Label3.Size = New System.Drawing.Size(46, 17)
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "Login"
         '
@@ -166,7 +166,7 @@ Partial Class Frm_Usuario
         Me.TxtSenha.MaxLength = 20
         Me.TxtSenha.Name = "TxtSenha"
         Me.TxtSenha.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TxtSenha.Size = New System.Drawing.Size(205, 23)
+        Me.TxtSenha.Size = New System.Drawing.Size(205, 24)
         Me.TxtSenha.TabIndex = 7
         Me.TxtSenha.UseSystemPasswordChar = True
         '
@@ -176,7 +176,7 @@ Partial Class Frm_Usuario
         Me.Label4.Location = New System.Drawing.Point(8, 98)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(49, 17)
+        Me.Label4.Size = New System.Drawing.Size(52, 17)
         Me.Label4.TabIndex = 6
         Me.Label4.Text = "Senha"
         '
@@ -188,7 +188,7 @@ Partial Class Frm_Usuario
         Me.TxtSenhaConfirmar.MaxLength = 20
         Me.TxtSenhaConfirmar.Name = "TxtSenhaConfirmar"
         Me.TxtSenhaConfirmar.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TxtSenhaConfirmar.Size = New System.Drawing.Size(205, 23)
+        Me.TxtSenhaConfirmar.Size = New System.Drawing.Size(205, 24)
         Me.TxtSenhaConfirmar.TabIndex = 9
         Me.TxtSenhaConfirmar.UseSystemPasswordChar = True
         '
@@ -198,7 +198,7 @@ Partial Class Frm_Usuario
         Me.Label5.Location = New System.Drawing.Point(8, 152)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(119, 17)
+        Me.Label5.Size = New System.Drawing.Size(131, 17)
         Me.Label5.TabIndex = 8
         Me.Label5.Text = "Confirme a senha"
         '
@@ -210,7 +210,7 @@ Partial Class Frm_Usuario
         Me.ChkBoxAtivo.CheckState = System.Windows.Forms.CheckState.Checked
         Me.ChkBoxAtivo.Location = New System.Drawing.Point(250, 177)
         Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
-        Me.ChkBoxAtivo.Size = New System.Drawing.Size(58, 21)
+        Me.ChkBoxAtivo.Size = New System.Drawing.Size(63, 21)
         Me.ChkBoxAtivo.TabIndex = 10
         Me.ChkBoxAtivo.Text = "Ativo"
         Me.ChkBoxAtivo.UseVisualStyleBackColor = True
@@ -239,11 +239,11 @@ Partial Class Frm_Usuario
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.BackColor = System.Drawing.SystemColors.Window
         Me.ClientSize = New System.Drawing.Size(571, 490)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
