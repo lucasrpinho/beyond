@@ -4,6 +4,7 @@ Imports Uteis
 Public Class Frm_Sobre
 
     Private LstSobre As New List(Of Object)
+    Private Const APENAS_FORM_PRINCIPAL_E_FORM_STARTUP = 2
 
     Public Sub New()
         ' This call is required by the designer.
@@ -27,7 +28,7 @@ Public Class Frm_Sobre
 
     Private Sub Frm_Sobre_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
-        If Application.OpenForms.Count > FormHelper.FORM_ATUAL_MAIS_FORM_STARTUP Then
+        If Application.OpenForms.Count > APENAS_FORM_PRINCIPAL_E_FORM_STARTUP Then
             e.Cancel = False
         Else
             Dim FLogin As New Frm_Login

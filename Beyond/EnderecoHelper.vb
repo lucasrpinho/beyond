@@ -1,7 +1,6 @@
 ﻿Imports Entidades
 Imports System.Net
 Imports Newtonsoft.Json
-Imports System.IO
 
 
 Public Class EnderecoHelper

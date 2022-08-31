@@ -8,15 +8,21 @@ Public Class ControlsHelper
     End Sub
 
     Public Shared Sub SetTextsEmpty(controls As Control.ControlCollection)
-        For Each txtbox As TextBox In controls.OfType(Of TextBox)()
-            txtbox.Text = ""
-        Next
-        For Each combotext As ComboBox In controls.OfType(Of ComboBox)()
-            combotext.Text = ""
-        Next
-        For Each mask As MaskedTextBox In controls.OfType(Of MaskedTextBox)()
-            mask.Text = ""
-        Next
+        If controls.OfType(Of TextBox).Count > 0 Then
+            For Each txtbox As TextBox In controls.OfType(Of TextBox)()
+                txtbox.Text = ""
+            Next
+        End If
+        If controls.OfType(Of ComboBox).Count > 0 Then
+            For Each combotext As ComboBox In controls.OfType(Of ComboBox)()
+                combotext.Text = ""
+            Next
+        End If
+        If controls.OfType(Of MaskedTextBox).Count > 0 Then
+            For Each mask As MaskedTextBox In controls.OfType(Of MaskedTextBox)()
+                mask.Text = ""
+            Next
+        End If
     End Sub
 
     Public Shared Sub SetControlsDisabled(frm As System.Windows.Forms.Form)
@@ -48,13 +54,13 @@ Public Class ControlsHelper
         Next
     End Sub
 
-    Public Shared Function WasTransactionFinalized(tool As ToolStrip) As Boolean
-        For Each item As ToolStripItem In tool.Items
-            If Not item.Enabled Then
-                Return False
-            End If
-        Next
-        Return True
-    End Function
+    'Public Shared Function WasTransactionFinalized(tool As ToolStrip) As Boolean
+    '    For Each item As ToolStripItem In tool.Items
+    '        If Not item.Enabled Then
+    '            Return False
+    '        End If
+    '    Next
+    '    Return True
+    'End Function
 
 End Class
