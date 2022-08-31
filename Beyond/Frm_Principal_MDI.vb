@@ -90,31 +90,16 @@ Public Class Frm_Principal_MDI
             If TCPrincipal.TabPages.Count > 0 Then
                 ContextMenuStrip1.Show(TCPrincipal, e.Location)
             End If
+            For I As Integer = 0 To TCPrincipal.TabPages.Count - 1
+                If TCPrincipal.GetTabRect(I).Contains(e.Location) Then
+                    TCPrincipal.SelectTab(TCPrincipal.TabPages(I))
+                End If
+            Next
         End If
     End Sub
 
     Private Sub UsuarioMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles UsuarioMenuItem.Click
-        Dim page = TCPrincipal.TabPages("Frm_Usuario")
-        If Not page Is Nothing Then
-            TCPrincipal.SelectTab(page)
-        Else
-            Dim Frm As New Frm_Usuario(Me)
-            Dim TP As New TabPage
-            TP.Name = Frm.Name
-            Frm.TopLevel = False
-            Frm.FormBorderStyle = Windows.Forms.FormBorderStyle.None
-            Frm.MdiParent = Me
-            Frm.Dock = DockStyle.Fill
-            TP.Controls.Add(Frm)
-            TP.Tag = Frm
-            TP.Text = Frm.Text
-            TCPrincipal.TabPages.Add(TP)
-            TCPrincipal.SelectTab(TP)
-            TCPrincipal.BringToFront()
-            TCPrincipal.Visible = True
-            Frm.Show()
-            Me.Refresh()
-        End If
+        AbreUsuarioPag()
     End Sub
 
     Private Sub ToolStripMenuFecharUma_Click(sender As System.Object, e As System.EventArgs) Handles FecharUmaCtxMenu.Click
@@ -135,29 +120,7 @@ Public Class Frm_Principal_MDI
     End Sub
 
     Private Sub CargosToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles CargosToolStripMenuItem.Click
-        Dim page = TCPrincipal.TabPages("Frm_Cargo")
-        If Not page Is Nothing Then
-            TCPrincipal.SelectTab(page)
-        Else
-            Dim teste = Application.OpenForms.OfType(Of Frm_Cargo).Count
-            Dim Frm As New Frm_Cargo(Me)
-            Dim TP As New TabPage
-            Frm.TopLevel = False
-            Frm.FormBorderStyle = Windows.Forms.FormBorderStyle.None
-            Frm.MdiParent = Me
-            Frm.Dock = DockStyle.Fill
-            TP.Controls.Add(Frm)
-            TP.Tag = Frm
-            TP.Text = Frm.Text
-            TP.BackColor = Frm.BackColor
-            TP.Name = Frm.Name
-            TCPrincipal.TabPages.Add(TP)
-            TCPrincipal.SelectedTab = TP
-            TCPrincipal.BringToFront()
-            TCPrincipal.Visible = True
-            Frm.Show()
-            Me.Refresh()
-        End If
+        AbreCargoPag()
     End Sub
 
     Private Sub FecharTodasToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles FecharTodasMenu.Click
@@ -197,11 +160,71 @@ Public Class Frm_Principal_MDI
     End Sub
 
     Private Sub VendedorToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles VendedorToolStripMenuItem.Click
+        AbreVendedorPag()
+    End Sub
+
+    Private Sub BtnUsuario_Click(sender As System.Object, e As System.EventArgs) Handles BtnUsuario.Click
+        AbreUsuarioPag()
+    End Sub
+
+    Private Sub AbreUsuarioPag()
+        Dim page = TCPrincipal.TabPages("Frm_Usuario")
+        If Not page Is Nothing Then
+            TCPrincipal.SelectTab(page)
+        Else
+            Dim Frm As New Frm_Usuario(Me)
+            Dim TP As New TabPage
+            TP.Name = Frm.Name
+            Frm.TopLevel = False
+            Frm.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            Frm.MdiParent = Me
+            Frm.Dock = DockStyle.Fill
+            TP.Controls.Add(Frm)
+            TP.Tag = Frm
+            TP.Text = Frm.Text
+            TCPrincipal.TabPages.Add(TP)
+            TCPrincipal.SelectTab(TP)
+            TCPrincipal.BringToFront()
+            TCPrincipal.Visible = True
+            Frm.Show()
+            Me.Refresh()
+        End If
+    End Sub
+
+    Private Sub Button2_Click(sender As System.Object, e As System.EventArgs) Handles BtnCargo.Click
+        AbreCargoPag()
+    End Sub
+
+    Private Sub AbreCargoPag()
+        Dim page = TCPrincipal.TabPages("Frm_Cargo")
+        If Not page Is Nothing Then
+            TCPrincipal.SelectTab(page)
+        Else
+            Dim Frm As New Frm_Cargo(Me)
+            Dim TP As New TabPage
+            Frm.TopLevel = False
+            Frm.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            Frm.MdiParent = Me
+            Frm.Dock = DockStyle.Fill
+            TP.Controls.Add(Frm)
+            TP.Tag = Frm
+            TP.Text = Frm.Text
+            TP.BackColor = Frm.BackColor
+            TP.Name = Frm.Name
+            TCPrincipal.TabPages.Add(TP)
+            TCPrincipal.SelectedTab = TP
+            TCPrincipal.BringToFront()
+            TCPrincipal.Visible = True
+            Frm.Show()
+            Me.Refresh()
+        End If
+    End Sub
+
+    Private Sub AbreVendedorPag()
         Dim page = TCPrincipal.TabPages("Frm_Vendedor")
         If Not page Is Nothing Then
             TCPrincipal.SelectTab(page)
         Else
-            Dim teste = Application.OpenForms.OfType(Of Frm_Vendedor).Count
             Dim Frm As New Frm_Vendedor(Me)
             Dim TP As New TabPage
             Frm.TopLevel = False
@@ -221,4 +244,72 @@ Public Class Frm_Principal_MDI
             Me.Refresh()
         End If
     End Sub
+
+    Private Sub BtnVendedor_Click(sender As System.Object, e As System.EventArgs) Handles BtnVendedor.Click
+        AbreVendedorPag()
+    End Sub
+
+    Private Sub BtnUsuario_MouseEnter(sender As System.Object, e As System.EventArgs) Handles BtnUsuario.MouseEnter
+        BtnUsuario.BackColor = Color.WhiteSmoke
+        BtnUsuario.Focus()
+    End Sub
+
+    Private Sub BtnUsuario_MouseLeave(sender As System.Object, e As System.EventArgs) Handles BtnUsuario.MouseLeave
+        BtnUsuario.BackColor = Color.LightGray
+    End Sub
+
+    Private Sub BtnCargo_MouseLeave(sender As System.Object, e As System.EventArgs) Handles BtnCargo.MouseLeave
+        BtnCargo.BackColor = Color.LightGray
+    End Sub
+
+    Private Sub BtnCargo_MouseEnter(sender As System.Object, e As System.EventArgs) Handles BtnCargo.MouseEnter
+        BtnCargo.BackColor = Color.WhiteSmoke
+        BtnCargo.Focus()
+    End Sub
+
+    Private Sub BtnVendedor_MouseEnter(sender As System.Object, e As System.EventArgs) Handles BtnVendedor.MouseEnter
+        BtnVendedor.BackColor = Color.WhiteSmoke
+        BtnVendedor.Focus()
+    End Sub
+
+    Private Sub BtnVendedor_MouseLeave(sender As System.Object, e As System.EventArgs) Handles BtnVendedor.MouseLeave
+        BtnVendedor.BackColor = Color.LightGray
+    End Sub
+
+    Private Sub Button5_MouseEnter(sender As System.Object, e As System.EventArgs) Handles BtnProduto.MouseEnter
+        BtnProduto.BackColor = Color.WhiteSmoke
+        BtnProduto.Focus()
+    End Sub
+
+    Private Sub Button4_MouseLeave(sender As System.Object, e As System.EventArgs) Handles BtnCliente.MouseLeave
+        BtnCliente.BackColor = Color.LightGray
+    End Sub
+
+    Private Sub BtnCliente_MouseEnter(sender As System.Object, e As System.EventArgs) Handles BtnCliente.MouseEnter
+        BtnCliente.BackColor = Color.WhiteSmoke
+        BtnCliente.Focus()
+    End Sub
+
+    Private Sub BtnProduto_MouseLeave(sender As System.Object, e As System.EventArgs) Handles BtnProduto.MouseLeave
+        BtnProduto.BackColor = Color.LightGray
+    End Sub
+
+    Private Sub BtnPedido_MouseLeave(sender As System.Object, e As System.EventArgs) Handles BtnPedido.MouseLeave
+        BtnPedido.BackColor = Color.LightGray
+    End Sub
+
+    Private Sub BtnPedido_MouseEnter(sender As System.Object, e As System.EventArgs) Handles BtnPedido.MouseEnter
+        BtnPedido.BackColor = Color.WhiteSmoke
+        BtnPedido.Focus()
+    End Sub
+
+    Private Sub BtnRelatorio_MouseLeave(sender As System.Object, e As System.EventArgs) Handles BtnRelatorio.MouseLeave
+        BtnRelatorio.BackColor = Color.LightGray
+    End Sub
+
+    Private Sub BtnRelatorio_MouseEnter(sender As System.Object, e As System.EventArgs) Handles BtnRelatorio.MouseEnter
+        BtnRelatorio.BackColor = Color.WhiteSmoke
+        BtnRelatorio.Focus()
+    End Sub
+
 End Class

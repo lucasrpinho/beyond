@@ -80,7 +80,7 @@ Public Class Frm_Cargo
         If UC_Toolstrip.Modo = "NOVO" Then
             LimpaCampos_Ativa()
         ElseIf UC_Toolstrip.Modo = "SALVAR" Then
-            If ComboNome.Visible = False Then
+            If ComboNome.DropDownStyle = ComboBoxStyle.Simple Then
                 InsereCargo()
             Else
                 DAO.DAO.AtualizaCargo(LstCargo(ComboNome.SelectedIndex - 1), "", False, loginusuario)
@@ -167,5 +167,11 @@ Public Class Frm_Cargo
         TxtDesc.Text = cargo.Descricao
         ChkBoxAtivo.Checked = cargo.IsAtivo
         ChkVendedor.Checked = cargo.IsVendedor
+    End Sub
+
+    Private Sub ComboNome_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboNome.KeyPress
+        If Char.IsLetter(e.KeyChar) Then
+            e.KeyChar = Char.ToUpper(e.KeyChar)
+        End If
     End Sub
 End Class

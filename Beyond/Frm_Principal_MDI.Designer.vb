@@ -62,6 +62,13 @@ Partial Class Frm_Principal_MDI
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.FecharUmaCtxMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.FecharTodasCtxMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BtnUsuario = New System.Windows.Forms.Button()
+        Me.BtnCargo = New System.Windows.Forms.Button()
+        Me.BtnVendedor = New System.Windows.Forms.Button()
+        Me.BtnCliente = New System.Windows.Forms.Button()
+        Me.BtnProduto = New System.Windows.Forms.Button()
+        Me.BtnPedido = New System.Windows.Forms.Button()
+        Me.BtnRelatorio = New System.Windows.Forms.Button()
         Me.UC_Toolstrip1 = New Beyond.UC_Toolstrip()
         Me.MnStrip_Principal.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -293,15 +300,22 @@ Partial Class Frm_Principal_MDI
         '
         'SplitC1.Panel1
         '
-        Me.SplitC1.Panel1.BackColor = System.Drawing.Color.LightGray
+        Me.SplitC1.Panel1.BackColor = System.Drawing.SystemColors.Window
         Me.SplitC1.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.SplitC1.Panel1.Controls.Add(Me.PictureBox1)
-        Me.SplitC1.Panel1.Controls.Add(Me.LblOla)
+        Me.SplitC1.Panel1.Controls.Add(Me.BtnRelatorio)
+        Me.SplitC1.Panel1.Controls.Add(Me.BtnPedido)
+        Me.SplitC1.Panel1.Controls.Add(Me.BtnProduto)
+        Me.SplitC1.Panel1.Controls.Add(Me.BtnCliente)
+        Me.SplitC1.Panel1.Controls.Add(Me.BtnVendedor)
+        Me.SplitC1.Panel1.Controls.Add(Me.BtnCargo)
+        Me.SplitC1.Panel1.Controls.Add(Me.BtnUsuario)
         '
         'SplitC1.Panel2
         '
         Me.SplitC1.Panel2.BackColor = System.Drawing.Color.DimGray
         Me.SplitC1.Panel2.Controls.Add(Me.TCPrincipal)
+        Me.SplitC1.Panel2.Controls.Add(Me.LblOla)
+        Me.SplitC1.Panel2.Controls.Add(Me.PictureBox1)
         Me.SplitC1.Size = New System.Drawing.Size(755, 404)
         Me.SplitC1.SplitterDistance = 200
         Me.SplitC1.SplitterWidth = 3
@@ -311,7 +325,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.BeyondICON
-        Me.PictureBox1.Location = New System.Drawing.Point(14, 151)
+        Me.PictureBox1.Location = New System.Drawing.Point(198, 153)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(163, 149)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -324,7 +338,7 @@ Partial Class Frm_Principal_MDI
         Me.LblOla.AutoSize = True
         Me.LblOla.Font = New System.Drawing.Font("Verdana", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblOla.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.LblOla.Location = New System.Drawing.Point(12, 32)
+        Me.LblOla.Location = New System.Drawing.Point(20, 41)
         Me.LblOla.Name = "LblOla"
         Me.LblOla.Size = New System.Drawing.Size(95, 26)
         Me.LblOla.TabIndex = 1
@@ -346,7 +360,7 @@ Partial Class Frm_Principal_MDI
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FecharUmaCtxMenu, Me.FecharTodasCtxMenu})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(176, 48)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(176, 70)
         '
         'FecharUmaCtxMenu
         '
@@ -359,6 +373,90 @@ Partial Class Frm_Principal_MDI
         Me.FecharTodasCtxMenu.Name = "FecharTodasCtxMenu"
         Me.FecharTodasCtxMenu.Size = New System.Drawing.Size(175, 22)
         Me.FecharTodasCtxMenu.Text = "Fechar Todas"
+        '
+        'BtnUsuario
+        '
+        Me.BtnUsuario.BackColor = System.Drawing.Color.LightGray
+        Me.BtnUsuario.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BtnUsuario.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnUsuario.Location = New System.Drawing.Point(0, 0)
+        Me.BtnUsuario.Name = "BtnUsuario"
+        Me.BtnUsuario.Size = New System.Drawing.Size(200, 57)
+        Me.BtnUsuario.TabIndex = 0
+        Me.BtnUsuario.Text = "Usuário"
+        Me.BtnUsuario.UseVisualStyleBackColor = False
+        '
+        'BtnCargo
+        '
+        Me.BtnCargo.BackColor = System.Drawing.Color.LightGray
+        Me.BtnCargo.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BtnCargo.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnCargo.Location = New System.Drawing.Point(0, 57)
+        Me.BtnCargo.Name = "BtnCargo"
+        Me.BtnCargo.Size = New System.Drawing.Size(200, 57)
+        Me.BtnCargo.TabIndex = 1
+        Me.BtnCargo.Text = "Cargo"
+        Me.BtnCargo.UseVisualStyleBackColor = False
+        '
+        'BtnVendedor
+        '
+        Me.BtnVendedor.BackColor = System.Drawing.Color.LightGray
+        Me.BtnVendedor.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BtnVendedor.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnVendedor.Location = New System.Drawing.Point(0, 114)
+        Me.BtnVendedor.Name = "BtnVendedor"
+        Me.BtnVendedor.Size = New System.Drawing.Size(200, 57)
+        Me.BtnVendedor.TabIndex = 2
+        Me.BtnVendedor.Text = "Vendedor"
+        Me.BtnVendedor.UseVisualStyleBackColor = False
+        '
+        'BtnCliente
+        '
+        Me.BtnCliente.BackColor = System.Drawing.Color.LightGray
+        Me.BtnCliente.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BtnCliente.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnCliente.Location = New System.Drawing.Point(0, 171)
+        Me.BtnCliente.Name = "BtnCliente"
+        Me.BtnCliente.Size = New System.Drawing.Size(200, 57)
+        Me.BtnCliente.TabIndex = 3
+        Me.BtnCliente.Text = "Cliente"
+        Me.BtnCliente.UseVisualStyleBackColor = False
+        '
+        'BtnProduto
+        '
+        Me.BtnProduto.BackColor = System.Drawing.Color.LightGray
+        Me.BtnProduto.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BtnProduto.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnProduto.Location = New System.Drawing.Point(0, 228)
+        Me.BtnProduto.Name = "BtnProduto"
+        Me.BtnProduto.Size = New System.Drawing.Size(200, 57)
+        Me.BtnProduto.TabIndex = 4
+        Me.BtnProduto.Text = "Produto"
+        Me.BtnProduto.UseVisualStyleBackColor = False
+        '
+        'BtnPedido
+        '
+        Me.BtnPedido.BackColor = System.Drawing.Color.LightGray
+        Me.BtnPedido.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BtnPedido.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnPedido.Location = New System.Drawing.Point(0, 285)
+        Me.BtnPedido.Name = "BtnPedido"
+        Me.BtnPedido.Size = New System.Drawing.Size(200, 57)
+        Me.BtnPedido.TabIndex = 5
+        Me.BtnPedido.Text = "Pedido"
+        Me.BtnPedido.UseVisualStyleBackColor = False
+        '
+        'BtnRelatorio
+        '
+        Me.BtnRelatorio.BackColor = System.Drawing.Color.LightGray
+        Me.BtnRelatorio.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BtnRelatorio.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnRelatorio.Location = New System.Drawing.Point(0, 342)
+        Me.BtnRelatorio.Name = "BtnRelatorio"
+        Me.BtnRelatorio.Size = New System.Drawing.Size(200, 59)
+        Me.BtnRelatorio.TabIndex = 6
+        Me.BtnRelatorio.Text = "Relatório"
+        Me.BtnRelatorio.UseVisualStyleBackColor = False
         '
         'UC_Toolstrip1
         '
@@ -393,8 +491,8 @@ Partial Class Frm_Principal_MDI
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.SplitC1.Panel1.ResumeLayout(False)
-        Me.SplitC1.Panel1.PerformLayout()
         Me.SplitC1.Panel2.ResumeLayout(False)
+        Me.SplitC1.Panel2.PerformLayout()
         CType(Me.SplitC1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitC1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -442,4 +540,11 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents TCPrincipal As System.Windows.Forms.TabControl
     Public WithEvents UC_Toolstrip1 As Beyond.UC_Toolstrip
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents BtnRelatorio As System.Windows.Forms.Button
+    Friend WithEvents BtnPedido As System.Windows.Forms.Button
+    Friend WithEvents BtnProduto As System.Windows.Forms.Button
+    Friend WithEvents BtnCliente As System.Windows.Forms.Button
+    Friend WithEvents BtnVendedor As System.Windows.Forms.Button
+    Friend WithEvents BtnCargo As System.Windows.Forms.Button
+    Friend WithEvents BtnUsuario As System.Windows.Forms.Button
 End Class

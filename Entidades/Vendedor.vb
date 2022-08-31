@@ -32,6 +32,10 @@ Public Class Vendedor
         End Set
     End Property
 
+    Public Sub New()
+        Me.ObjEndereco = New Endereco
+    End Sub
+
     Public Function IsValid(ByRef strError As String)
         strError = String.Empty
 
@@ -66,17 +70,18 @@ Public Class Vendedor
         Me.CodCargo = row.Field(Of Int16)("cod_cargo")
         Me.Nome = row.Field(Of String)("de_nome")
         Me.Sobrenome = row.Field(Of String)("de_sobrenome")
-        Me.NomeCompleto = row.Field(Of String)("de_nomecompleto")
+        Me.NomeCompleto = row.Field(Of String)("de_nome_completo")
         Me.ObjEndereco.CEP = row.Field(Of String)("nu_cep")
         Me.ObjEndereco.Logradouro = row.Field(Of String)("de_logradouro")
         Me.ObjEndereco.NumeroEndereco = row.Field(Of Int16)("nu_numero")
         Me.ObjEndereco.Complemento = row.Field(Of String)("de_complemento")
+        Me.ObjEndereco.Bairro = row.Field(Of String)("de_bairro")
         Me.ObjEndereco.Cidade = row.Field(Of String)("de_cidade")
         Me.ObjEndereco.UF = row.Field(Of String)("uf_estado")
         Me.DatCriacao = row.Field(Of DateTime)("dat_criacao")
         Me.LoginCriacao = row.Field(Of String)("de_login_criacao")
         Me.Observacao = row.Field(Of String)("de_observacao")
         Me.IsAtivo = row.Field(Of Boolean)("ct_ativo")
-        Me.Foto = row.Field(Of String)("fl_foto")
+        Me.Foto = System.Text.Encoding.UTF8.GetString(row.Field(Of Byte())("fl_foto"))
     End Sub
 End Class

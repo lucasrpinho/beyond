@@ -1,20 +1,20 @@
-﻿Public Class Cliente
+﻿Imports System.Data
+
+Public Class Cliente
 
     Private _CodCliente As Integer = 0
     Public Nome As String
+    Public CPF As String
     Public Sobrenome As String
     Public NomeCompleto As String
     Public Empresa As String
-    Public Cargo As String
-    Private _CEP As String
-    Private _Logradouro As String
-    Private _NumeroEndereco As Integer = 0
-    Private _Complemento As String
-    Private _Bairro As String
-    Private _Cidade As String
-    Public Estado As String
+    Public CodCargo As Int16
+    Public ObjEndereco As Endereco
     Public Telefone As String
     Public Email As String
+    Public Descricao As String
+    Public DatCriacao As DateTime
+    Public LoginCriacao As String
     Public IsAtivo As Boolean
 
     Public Property CodCliente()
@@ -26,76 +26,50 @@
         End Set
     End Property
 
-    Public Property CEP()
-        Get
-            Return _CEP
-        End Get
-        Set(value)
-            _CEP = value
-        End Set
-    End Property
+    Public Sub New()
 
-    Public Property Logradouro()
-        Get
-            Return _Logradouro
-        End Get
-        Set(value)
-            _Logradouro = value
-        End Set
-    End Property
+    End Sub
 
-    Public Property NumeroEndereco()
-        Get
-            Return _NumeroEndereco
-        End Get
-        Set(value)
-            _NumeroEndereco = value
-        End Set
-    End Property
+    Public Sub New(ByVal obj As Endereco)
+        Me.ObjEndereco = obj
+    End Sub
 
-    Public Property Bairro()
-        Get
-            Return _Bairro
-        End Get
-        Set(value)
-            _Bairro = value
-        End Set
-    End Property
-
-    Public Property Cidade()
-        Get
-            Return _Cidade
-        End Get
-        Set(value)
-            _Cidade = value
-        End Set
-    End Property
-
-    Public Property Complemento()
-        Get
-            Return _Complemento
-        End Get
-        Set(value)
-            _Complemento = value
-        End Set
-    End Property
-
-    Public Shared Function IsValid(ByVal c As Cliente, ByRef strError As String) As Boolean
+    Public Function IsValid(ByRef strError As String) As Boolean
         strError = ""
-        If c.CodCliente <> 0 Then
+        If Me.CodCliente <> 0 Then
             strError = "Código do cliente deve ser zero pois será gerado"
-        ElseIf c.CEP = "" Then
+        ElseIf Me.ObjEndereco.CEP = "" Then
             strError = "CEP precisa ser preenchido"
-        ElseIf c.Logradouro = "" Or c.Bairro = "" Or c.Cidade = "" Or c.Estado = "" Or
-            c.NumeroEndereco = 0 Then
+        ElseIf Me.ObjEndereco.Logradouro = "" Or Me.ObjEndereco.Bairro = "" Or Me.ObjEndereco.Cidade = "" _
+            Or Me.ObjEndereco.UF = "" Or Me.ObjEndereco.NumeroEndereco = 0 Then
             strError = "Informações incompletas no endereço"
-        ElseIf c.Telefone = "" Then
+        ElseIf Me.Telefone = "" Then
             strError = "Telefone precisa ser preenchido"
-        ElseIf Not c.IsAtivo Then
-            strError = "Precisa ser marcado como ativo para cadastrar o cliente"
+        ElseIf Me.LoginCriacao = "" Then
+            strError = "O login de quem está fazendo a inclusão precisa ser informado"
         End If
 
         Return String.IsNullOrWhiteSpace(strError)
     End Function
+
+    Public Sub Carrega(ByVal row As DataRow)
+        Me.CodCliente = row.Field(Of Integer)("cod_cliente")
+        Me.CodCargo = row.Field(Of Int16)("cod_cargo")
+        Me.Nome = row.Field(Of String)("de_nome_completo")
+        Me.CPF = row.Field(Of String)("nu_cpf")
+        Me.Empresa = row.Field(Of String)("de_empresa")
+        Me.ObjEndereco.CEP = row.Field(Of String)("nu_cep")
+        Me.ObjEndereco.Logradouro = row.Field(Of String)("de_logradouro")
+        Me.ObjEndereco.Bairro = row.Field(Of String)("de_bairro")
+        Me.ObjEndereco.NumeroEndereco = row.Field(Of Int16)("nu_numero")
+        Me.ObjEndereco.Complemento = row.Field(Of String)("de_complemento")
+        Me.ObjEndereco.UF = row.Field(Of String)("uf_estado")
+        Me.Telefone = row.Field(Of String)("nu_telefone")
+        Me.Email = row.Field(Of String)("de_email")
+        Me.Descricao = row.Field(Of String)("de_observacao")
+        Me.IsAtivo = row.Field(Of Boolean)("ct_ativo")
+        Me.DatCriacao = row.Field(Of DateTime)("dat_criacao")
+        Me.LoginCriacao = row.Field(Of String)("de_login_criacao")
+    End Sub
 
 End Class

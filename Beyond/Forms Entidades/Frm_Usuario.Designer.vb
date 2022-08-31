@@ -72,7 +72,7 @@ Partial Class Frm_Usuario
         Me.ComboNome.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboNome.Name = "ComboNome"
         Me.ComboNome.Size = New System.Drawing.Size(205, 24)
-        Me.ComboNome.TabIndex = 7
+        Me.ComboNome.TabIndex = 1
         '
         'PictureBox1
         '
@@ -96,7 +96,7 @@ Partial Class Frm_Usuario
         Me.TxtEmail.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtEmail.Name = "TxtEmail"
         Me.TxtEmail.Size = New System.Drawing.Size(338, 24)
-        Me.TxtEmail.TabIndex = 5
+        Me.TxtEmail.TabIndex = 3
         '
         'Label6
         '
@@ -117,7 +117,7 @@ Partial Class Frm_Usuario
         Me.TxtSobrenome.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtSobrenome.Name = "TxtSobrenome"
         Me.TxtSobrenome.Size = New System.Drawing.Size(338, 24)
-        Me.TxtSobrenome.TabIndex = 3
+        Me.TxtSobrenome.TabIndex = 2
         '
         'Label2
         '
@@ -147,7 +147,7 @@ Partial Class Frm_Usuario
         Me.TxtLogin.MaxLength = 16
         Me.TxtLogin.Name = "TxtLogin"
         Me.TxtLogin.Size = New System.Drawing.Size(205, 24)
-        Me.TxtLogin.TabIndex = 5
+        Me.TxtLogin.TabIndex = 4
         '
         'Label3
         '
@@ -167,7 +167,7 @@ Partial Class Frm_Usuario
         Me.TxtSenha.Name = "TxtSenha"
         Me.TxtSenha.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TxtSenha.Size = New System.Drawing.Size(205, 24)
-        Me.TxtSenha.TabIndex = 7
+        Me.TxtSenha.TabIndex = 5
         Me.TxtSenha.UseSystemPasswordChar = True
         '
         'Label4
@@ -189,7 +189,7 @@ Partial Class Frm_Usuario
         Me.TxtSenhaConfirmar.Name = "TxtSenhaConfirmar"
         Me.TxtSenhaConfirmar.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TxtSenhaConfirmar.Size = New System.Drawing.Size(205, 24)
-        Me.TxtSenhaConfirmar.TabIndex = 9
+        Me.TxtSenhaConfirmar.TabIndex = 6
         Me.TxtSenhaConfirmar.UseSystemPasswordChar = True
         '
         'Label5

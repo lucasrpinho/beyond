@@ -43,7 +43,7 @@ Partial Class Frm_Login
         '
         Me.LogoPictureBox.Image = CType(resources.GetObject("LogoPictureBox.Image"), System.Drawing.Image)
         Me.LogoPictureBox.Location = New System.Drawing.Point(1, 15)
-        Me.LogoPictureBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.LogoPictureBox.Margin = New System.Windows.Forms.Padding(4)
         Me.LogoPictureBox.Name = "LogoPictureBox"
         Me.LogoPictureBox.Size = New System.Drawing.Size(196, 190)
         Me.LogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -73,7 +73,7 @@ Partial Class Frm_Login
         'TxtSenha
         '
         Me.TxtSenha.Location = New System.Drawing.Point(205, 124)
-        Me.TxtSenha.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TxtSenha.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtSenha.MaxLength = 25
         Me.TxtSenha.Name = "TxtSenha"
         Me.TxtSenha.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -84,7 +84,7 @@ Partial Class Frm_Login
         '
         Me.BtnAcessa.Enabled = False
         Me.BtnAcessa.Location = New System.Drawing.Point(297, 156)
-        Me.BtnAcessa.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BtnAcessa.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnAcessa.Name = "BtnAcessa"
         Me.BtnAcessa.Size = New System.Drawing.Size(141, 28)
         Me.BtnAcessa.TabIndex = 3
@@ -94,12 +94,12 @@ Partial Class Frm_Login
         '
         Me.TxtSenhaInvalida.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TxtSenhaInvalida.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.5!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TxtSenhaInvalida.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TxtSenhaInvalida.ForeColor = System.Drawing.Color.Red
         Me.TxtSenhaInvalida.Location = New System.Drawing.Point(18, 213)
         Me.TxtSenhaInvalida.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.TxtSenhaInvalida.Name = "TxtSenhaInvalida"
-        Me.TxtSenhaInvalida.Size = New System.Drawing.Size(566, 28)
+        Me.TxtSenhaInvalida.Size = New System.Drawing.Size(513, 28)
         Me.TxtSenhaInvalida.TabIndex = 5
         Me.TxtSenhaInvalida.Text = " "
         Me.TxtSenhaInvalida.TextAlign = System.Drawing.ContentAlignment.BottomCenter
@@ -109,7 +109,7 @@ Partial Class Frm_Login
         '
         Me.TxtLogin.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtLogin.Location = New System.Drawing.Point(206, 62)
-        Me.TxtLogin.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TxtLogin.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtLogin.MaxLength = 16
         Me.TxtLogin.Name = "TxtLogin"
         Me.TxtLogin.Size = New System.Drawing.Size(327, 24)
@@ -121,7 +121,7 @@ Partial Class Frm_Login
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Window
-        Me.ClientSize = New System.Drawing.Size(602, 252)
+        Me.ClientSize = New System.Drawing.Size(549, 252)
         Me.Controls.Add(Me.TxtLogin)
         Me.Controls.Add(Me.TxtSenhaInvalida)
         Me.Controls.Add(Me.BtnAcessa)
@@ -132,7 +132,7 @@ Partial Class Frm_Login
         Me.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Frm_Login"

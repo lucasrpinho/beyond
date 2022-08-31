@@ -48,7 +48,7 @@ Public Class Frm_Login
         Else
             BtnAcessa.Enabled = False
             TxtSenhaInvalida.Visible = True
-            TxtSenhaInvalida.Text = "Login precisa ser maiúsculo e conter apenas letras"
+            TxtSenhaInvalida.Text = "Login deve conter apenas letras"
         End If
     End Sub
 

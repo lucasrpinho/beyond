@@ -446,6 +446,8 @@ Public Class DAO
 
     Private Shared Function _InsereVendedor(vendedor As Vendedor) As Boolean
         Using Cmd As New SqlCommand()
+            Dim fotoByte = System.Text.Encoding.UTF8.GetBytes(vendedor.Foto)
+
             Cmd.Connection = Con
             Cmd.Transaction = Tr
             Cmd.CommandText = "SP_INSERE_VENDEDOR"
@@ -462,10 +464,9 @@ Public Class DAO
             Cmd.Parameters.AddWithValue("@CIDADE", vendedor.ObjEndereco.Cidade)
             Cmd.Parameters.AddWithValue("@UF", vendedor.ObjEndereco.UF)
             Cmd.Parameters.Add("@OBS", SqlDbType.VarChar).Value = vendedor.Observacao
-            Cmd.Parameters.Add("@FOTO", SqlDbType.NVarChar).Value = vendedor.Foto
+            Cmd.Parameters.Add("@FOTO", SqlDbType.VarBinary).Value = fotoByte
             Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = vendedor.IsAtivo
             Cmd.Parameters.Add("@LOGINCRIACAO", SqlDbType.VarChar).Value = vendedor.LoginCriacao
-            Cmd.Parameters.AddWithValue("@DYNAMICSQL", "")
 
             If Not Cmd.ExecuteNonQuery > 0 Then
                 Return False
@@ -571,6 +572,52 @@ Public Class DAO
                 Return True
             End If
         End Using
+    End Function
+
+#End Region
+
+#Region "Cliente"
+    Public Overloads Shared Function GetCliente(ByVal ativos As Boolean) As List(Of Cliente)
+        Return _GetCliente(0, ativos)
+    End Function
+
+    Public Overloads Shared Function GetCliente(ByVal codcliente As Integer, ByVal ativos As Boolean) As Cliente
+        Return _GetCliente(codcliente, ativos).FirstOrDefault
+    End Function
+
+    Private Shared Function _GetCliente(ByVal codcliente As Integer, ByVal ativos As Boolean) As List(Of Cliente)
+        Dim Lst As New List(Of Cliente)
+        Using Con As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+            Using Cmd As New SqlCommand()
+                Try
+                    Cmd.Connection = Con
+                    Cmd.CommandText = "SP_GET_CLIENTES"
+                    Cmd.CommandType = CommandType.StoredProcedure
+                    Cmd.Parameters.AddWithValue("@CODCLIENTE", codcliente)
+                    Cmd.Parameters.AddWithValue("@ATIVOS", ativos)
+                    Dim Adp As New SqlDataAdapter(Cmd)
+                    Dim Tbl As New DataTable
+                    Adp.Fill(Tbl)
+
+                    If Tbl.Rows.Count Then
+                        For I As Integer = 0 To Tbl.Rows.Count - 1
+                            Dim cliente As New Cliente()
+                            cliente.Carrega(Tbl.Rows(I))
+                            Lst.Add(cliente)
+                        Next
+                    End If
+                    If Not Adp Is Nothing Then
+                        Adp.Dispose()
+                    End If
+                    If Not Tbl Is Nothing Then
+                        Tbl.Dispose()
+                    End If
+                Catch ex As Exception
+                    Throw ex
+                End Try
+            End Using
+        End Using
+        Return Lst
     End Function
 
 #End Region

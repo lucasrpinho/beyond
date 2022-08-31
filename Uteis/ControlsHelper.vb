@@ -14,6 +14,9 @@ Public Class ControlsHelper
         For Each combotext As ComboBox In controls.OfType(Of ComboBox)()
             combotext.Text = ""
         Next
+        For Each mask As MaskedTextBox In controls.OfType(Of MaskedTextBox)()
+            mask.Text = ""
+        Next
     End Sub
 
     Public Shared Sub SetControlsDisabled(frm As System.Windows.Forms.Form)

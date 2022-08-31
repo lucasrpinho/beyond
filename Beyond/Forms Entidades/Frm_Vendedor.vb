@@ -51,7 +51,7 @@ Public Class Frm_Vendedor
 
     Private Sub ComboNome_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboNome.SelectedIndexChanged
         If Not Uteis.StringHelper.IsNull(ComboNome.Text) Then
-            'BuscaUsuarioPorCodigo(LstUsuario(ComboNome.SelectedIndex - 1).CodUsuario)
+            BuscaVendedorPorCodigo(LstVendedor(ComboNome.SelectedIndex - 1).CodVendedor)
         Else
             Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxAdd.Controls)
             Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
@@ -60,8 +60,9 @@ Public Class Frm_Vendedor
 
     Private Sub LimpaCampos_AtivaControles()
         Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxAdd.Controls)
-        Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxAdd.Controls)
+        Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
         Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
+        ClearImage()
     End Sub
 
     Private Sub Insere()
@@ -73,6 +74,7 @@ Public Class Frm_Vendedor
         vendedor.NomeCompleto = vendedor.Nome + " " + vendedor.Sobrenome
 
         vendedor.ObjEndereco = New Endereco()
+        vendedor.ObjEndereco.CEP = StringHelper.CEPString(TxtCEP.Text)
         vendedor.ObjEndereco.Logradouro = TxtLogradouro.Text.ToUpper
         vendedor.ObjEndereco.Bairro = TxtBairro.Text.ToUpper
         vendedor.ObjEndereco.Cidade = TxtCidade.Text.ToUpper
@@ -152,6 +154,7 @@ Public Class Frm_Vendedor
             MsgBoxHelper.Erro(Me, resposta, "UF vazio")
         Else
             ComboEstado.BeginUpdate()
+            ComboEstado.Items.Add("")
             For Each estado As EstadoUF In LstEstados
                 ComboEstado.Items.Add(estado.Nome)
             Next
@@ -172,6 +175,7 @@ Public Class Frm_Vendedor
             If Not PicBoxFoto.Image Is Nothing Then PicBoxFoto.Image.Dispose()
             PicBoxFoto.SizeMode = PictureBoxSizeMode.StretchImage
             PicBoxFoto.Image = bmp
+            StrFotoPath = OpenFileDialog1.FileName
         Catch ex As Exception
             MsgBoxHelper.Erro(Me, ex.Message, "Erro")
         End Try
@@ -219,8 +223,38 @@ Public Class Frm_Vendedor
             LimpaCampos_AtivaControles()
         End If
 
+        AlternarControle()
         If frmPrincipal.StateTransaction Then
             Uteis.ControlsHelper.EnableAllToolBarItens(frmPrincipal.UC_Toolstrip1.ToolStrip1)
+        End If
+    End Sub
+
+    Private Sub BuscaVendedorPorCodigo(ByVal codvendedor As String)
+        Dim resposta As String = ""
+        Dim vendedor = DAO.DAO.GetVendedor(codvendedor, resposta)
+
+        If IsNothing(vendedor) Then
+            Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
+            Exit Sub
+        End If
+
+        PreencheCampos(vendedor)
+    End Sub
+
+    Private Sub PreencheCampos(ByVal vendedor As Vendedor)
+        ComboNome.SelectedIndex = LstVendedor.FindIndex(Function(v) v.CodVendedor = vendedor.CodVendedor) + 1
+        TxtSobrenome.Text = vendedor.Sobrenome
+        TxtCEP.Text = vendedor.ObjEndereco.CEP
+        TxtCidade.Text = vendedor.ObjEndereco.Cidade
+        TxtComplemento.Text = vendedor.ObjEndereco.Complemento
+        TxtLogradouro.Text = vendedor.ObjEndereco.Logradouro
+        TxtNum.Text = vendedor.ObjEndereco.NumeroEndereco
+        TxtObs.Text = vendedor.Observacao
+        ComboEstado.SelectedIndex = LstEstados.FindIndex(Function(e) e.UF = vendedor.ObjEndereco.UF) + 1
+        ComboCargo.SelectedIndex = LstCargos.FindIndex(Function(c) c.CodCargo = vendedor.CodCargo)
+        PicBoxFoto.ImageLocation = vendedor.Foto
+        If PicBoxFoto.Image Is PicBoxFoto.ErrorImage Then
+            ClearImage()
         End If
     End Sub
 
@@ -249,5 +283,17 @@ Public Class Frm_Vendedor
 
     Protected Overrides Sub Finalize()
         MyBase.Finalize()
+    End Sub
+
+    Private Sub ComboNome_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboNome.KeyPress
+        If Char.IsLetter(e.KeyChar) Then
+            e.KeyChar = Char.ToUpper(e.KeyChar)
+        End If
+    End Sub
+
+    Private Sub ClearImage()
+        If Not PicBoxFoto.Image Is Nothing Then
+            PicBoxFoto.Image.Dispose()
+        End If
     End Sub
 End Class
