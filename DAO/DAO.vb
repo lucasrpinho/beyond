@@ -244,6 +244,24 @@ Public Class DAO
 
 #Region "Cargo"
 
+    Public Shared Function ChecaCargoCliente(ByVal codcargo As Int16, ByVal resposta As Boolean) As Boolean
+        Using Con As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+            Using Cmd As New SqlCommand
+                Con.Open()
+                Cmd.Connection = Con
+                Cmd.CommandText = "SP_CHECA_CARGO_CLIENTE"
+                Cmd.CommandType = CommandType.StoredProcedure
+                Cmd.Parameters.AddWithValue("@CODCARGO", codcargo)
+                Cmd.Parameters.Add("@RESPONSE", SqlDbType.Bit).Direction = ParameterDirection.Output
+
+                Cmd.ExecuteReader()
+
+                resposta = Cmd.Parameters("@RESPONSE").Value
+                Return resposta
+            End Using
+        End Using
+    End Function
+
     Public Shared Function InsereCargo(cargo As Cargo, ByRef resposta As String) As Boolean
         Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
         Con.Open()
@@ -577,16 +595,21 @@ Public Class DAO
 #End Region
 
 #Region "Cliente"
-    Public Overloads Shared Function GetCliente(ByVal ativos As Boolean) As List(Of Cliente)
-        Return _GetCliente(0, ativos)
+
+    Public Overloads Shared Function GetCliente(ByVal ativos As Boolean, ByRef resposta As String) As List(Of Cliente)
+        Return _GetCliente(0, ativos, resposta)
     End Function
 
-    Public Overloads Shared Function GetCliente(ByVal codcliente As Integer, ByVal ativos As Boolean) As Cliente
-        Return _GetCliente(codcliente, ativos).FirstOrDefault
+    Public Overloads Shared Function GetCliente(ByVal codcliente As Integer, ByVal ativos As Boolean, _
+        ByRef resposta As String) As Cliente
+
+        Return _GetCliente(codcliente, ativos, resposta).FirstOrDefault
     End Function
 
-    Private Shared Function _GetCliente(ByVal codcliente As Integer, ByVal ativos As Boolean) As List(Of Cliente)
+    Private Shared Function _GetCliente(ByVal codcliente As Integer, ByVal ativos As Boolean, _
+        ByRef resposta As String) As List(Of Cliente)
         Dim Lst As New List(Of Cliente)
+
         Using Con As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
             Using Cmd As New SqlCommand()
                 Try
@@ -599,7 +622,7 @@ Public Class DAO
                     Dim Tbl As New DataTable
                     Adp.Fill(Tbl)
 
-                    If Tbl.Rows.Count Then
+                    If Tbl.Rows.Count > 0 Then
                         For I As Integer = 0 To Tbl.Rows.Count - 1
                             Dim cliente As New Cliente()
                             cliente.Carrega(Tbl.Rows(I))
@@ -613,11 +636,182 @@ Public Class DAO
                         Tbl.Dispose()
                     End If
                 Catch ex As Exception
-                    Throw ex
+                    resposta = ex.Message
                 End Try
             End Using
         End Using
         Return Lst
+    End Function
+
+    Public Shared Function GetClientePorCargo(ByVal codcargo As Int16) As Cliente
+        Dim cliente As New Cliente
+        Using Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+            Using Cmd As New SqlCommand
+                Cmd.Connection = Con
+                Cmd.CommandText = "SP_BUSCA_CLIENTE_PELO_CARGO"
+                Cmd.CommandType = CommandType.StoredProcedure
+                Cmd.Parameters.AddWithValue("@CODCARGO", codcargo)
+                Dim Tbl As New DataTable
+                Dim Adp As New SqlDataAdapter(Cmd)
+
+                Adp.Fill(Tbl)
+                If Tbl.Rows.Count > 0 Then
+                    cliente.Carrega(Tbl.Rows(0))
+                End If
+
+                If Not Adp Is Nothing Then
+                    Adp.Dispose()
+                End If
+                If Not Tbl Is Nothing Then
+                    Tbl.Dispose()
+                End If
+            End Using
+        End Using
+        Return cliente
+    End Function
+
+    Public Shared Function RemoveCargoCliente(ByVal codcliente As Int32, ByRef resposta As String) As Boolean
+        Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Con.Open()
+        Tr = Con.BeginTransaction
+        Try
+            If Not _RemoveCargoCliente(codcliente) Then
+                Tr.Rollback()
+            Else
+                Tr.Commit()
+                Return True
+            End If
+        Catch ex As Exception
+            resposta = ex.Message
+            Tr.Rollback()
+        Finally
+            If Not Con Is Nothing Then
+                Con.Dispose()
+            End If
+            If Not Tr Is Nothing Then
+                Tr.Dispose()
+            End If
+        End Try
+        Return False
+    End Function
+
+
+    Private Shared Function _RemoveCargoCliente(ByVal codcliente As Int32) As Boolean
+        Using Cmd As New SqlCommand
+            Cmd.Connection = Con
+            Cmd.Transaction = Tr
+            Cmd.CommandText = "SP_REMOVE_CARGO_CLIENTE"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.AddWithValue("@CODCLIENTE", codcliente)
+            Return Cmd.ExecuteNonQuery > 0
+        End Using
+    End Function
+
+    Public Shared Function InsereCliente(ByVal cliente As Cliente, ByRef resposta As String) As Boolean
+        Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Con.Open()
+        Tr = Con.BeginTransaction
+        Try
+            If _InsereCliente(cliente, resposta) Then
+                Return True
+            Else
+                Tr.Rollback()
+            End If
+        Catch ex As Exception
+            resposta = ex.Message
+            Tr.Rollback()
+        End Try
+        Return False
+    End Function
+
+    Private Shared Function _InsereCliente(cliente As Cliente, ByRef resposta As String) As Boolean
+        Using Cmd As New SqlCommand()
+            Cmd.Connection = Con
+            Cmd.Transaction = Tr
+            Cmd.CommandText = "SP_INSERE_CLIENTE"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.Add("@CODCARGO", SqlDbType.SmallInt).Value = cliente.CodCargo
+            Cmd.Parameters.Add("@NOME", SqlDbType.VarChar).Value = cliente.Nome
+            Cmd.Parameters.Add("@CPF", SqlDbType.Char).Value = cliente.CPF
+            Cmd.Parameters.Add("@EMPRESA", SqlDbType.VarChar).Value = cliente.Empresa
+            Cmd.Parameters.AddWithValue("@CEP", cliente.ObjEndereco.CEP)
+            Cmd.Parameters.AddWithValue("@LOGRADOURO", cliente.ObjEndereco.Logradouro)
+            Cmd.Parameters.Add("@NUMCASA", SqlDbType.SmallInt).Value = cliente.ObjEndereco.NumeroEndereco
+            Cmd.Parameters.AddWithValue("@COMPLEMENTO", cliente.ObjEndereco.Complemento)
+            Cmd.Parameters.AddWithValue("@BAIRRO", cliente.ObjEndereco.Bairro)
+            Cmd.Parameters.AddWithValue("@CIDADE", cliente.ObjEndereco.Cidade)
+            Cmd.Parameters.AddWithValue("@UF", cliente.ObjEndereco.UF)
+            Cmd.Parameters.AddWithValue("@TEL", cliente.Telefone)
+            Cmd.Parameters.AddWithValue("@EMAIL", cliente.Email)
+            Cmd.Parameters.Add("@OBS", SqlDbType.VarChar).Value = cliente.Descricao
+            Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = cliente.IsAtivo
+            Cmd.Parameters.Add("@LOGINCRIACAO", SqlDbType.VarChar).Value = cliente.LoginCriacao
+            Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+            Cmd.Parameters("@RESPONSE").Size = 255
+
+            If Not Cmd.ExecuteNonQuery > 0 Then
+                resposta = Cmd.Parameters("@RESPONSE").Value
+                Return False
+            Else
+                Return True
+            End If
+        End Using
+    End Function
+
+    Public Shared Function AtualizaCliente(cliente As Cliente, ByRef resposta As String, _
+        ByVal isExclusao As Boolean, login As String) As Boolean
+
+        Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Con.Open()
+        Tr = Con.BeginTransaction
+        Try
+            If Not _AtualizaCliente(cliente, isExclusao, resposta, login) Then
+                Tr.Rollback()
+            Else
+                If Not isExclusao Then
+                    Tr.Commit()
+                End If
+                Return True
+            End If
+        Catch ex As Exception
+            resposta = ex.Message
+            Tr.Rollback()
+        End Try
+        Return False
+    End Function
+
+    Private Shared Function _AtualizaCliente(cliente As Cliente, isExclusao As Boolean, _
+        ByRef resposta As String, ByVal loginupdate As String) As Boolean
+        Using Cmd As New SqlCommand
+            Cmd.Connection = Con
+            Cmd.Transaction = Tr
+            Cmd.CommandText = "SP_ATUALIZA_CLIENTE"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.AddWithValue("@CODCLIENTE", cliente.CodCliente)
+            Cmd.Parameters.Add("@CODCARGO", SqlDbType.SmallInt).Value = cliente.CodCargo
+            Cmd.Parameters.AddWithValue("@EMPRESA", cliente.Empresa)
+            Cmd.Parameters.AddWithValue("@CEP", cliente.ObjEndereco.CEP)
+            Cmd.Parameters.AddWithValue("@LOGRADOURO", cliente.ObjEndereco.Logradouro)
+            Cmd.Parameters.AddWithValue("@NUMCASA", cliente.ObjEndereco.NumeroEndereco)
+            Cmd.Parameters.AddWithValue("@BAIRRO", cliente.ObjEndereco.Bairro)
+            Cmd.Parameters.AddWithValue("@CIDADE", cliente.ObjEndereco.Cidade)
+            Cmd.Parameters.AddWithValue("@COMPLEMENTO", cliente.ObjEndereco.Complemento)
+            Cmd.Parameters.AddWithValue("@UF", cliente.ObjEndereco.UF)
+            Cmd.Parameters.AddWithValue("@TEL", cliente.Telefone)
+            Cmd.Parameters.AddWithValue("@EMAIL", cliente.Email)
+            Cmd.Parameters.Add("@OBS", SqlDbType.VarChar).Value = cliente.Descricao
+            Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = cliente.IsAtivo
+            Cmd.Parameters.AddWithValue("@LOGINALTERACAO", loginupdate)
+            Cmd.Parameters.AddWithValue("@ISEXCLUSAO", isExclusao)
+            Cmd.Parameters.AddWithValue("@RESPONSE", resposta).Direction = ParameterDirection.Output
+            Cmd.Parameters("@RESPONSE").Size = 255
+
+            If Not Cmd.ExecuteNonQuery > 0 Then
+                Return False
+            Else
+                Return True
+            End If
+        End Using
     End Function
 
 #End Region

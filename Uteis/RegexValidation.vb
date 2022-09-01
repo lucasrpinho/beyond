@@ -15,4 +15,9 @@ Public Class RegexValidation
         Dim Reg As New Regex("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
         Return Reg.IsMatch(email)
     End Function
+
+    Public Shared Function IsTelefoneValid(ByVal telefone As String) As Boolean
+        Dim Reg As New Regex("^([0-9]{2})([9])([0-9]{4})([0-9]{4})$")
+        Return Reg.IsMatch(telefone)
+    End Function
 End Class

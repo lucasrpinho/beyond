@@ -38,6 +38,8 @@
             Modo = "NOVO"
         ElseIf e.ClickedItem Is BtnSalvar Then
             Modo = "SALVAR"
+        ElseIf e.ClickedItem Is BtnAtualizar Then
+            Modo = "ATUALIZAR"
         ElseIf e.ClickedItem Is BtnDeletar Then
             Modo = "DELETAR"
         ElseIf e.ClickedItem Is BtnProcurar Then

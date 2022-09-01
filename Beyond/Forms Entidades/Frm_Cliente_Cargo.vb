@@ -1,0 +1,51 @@
+﻿Imports Entidades
+Public Class Frm_Cliente_Cargo
+
+    Private Cliente As Cliente
+    Private CodCargo As String
+    Private Cargo As Cargo
+
+    Private frmPrincipal As Frm_Principal_MDI
+
+    Public Sub New(ByVal frm As Frm_Principal_MDI, ByVal codcargo As Int16)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Me.CodCargo = codcargo.ToString
+        Me.frmPrincipal = frm
+    End Sub
+
+    Private Sub Frm_Cliente_Cargo_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+        Cursor.Current = Cursors.Default
+    End Sub
+
+    Private Sub Frm_Cliente_Cargo_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+        Cargo = DAO.DAO.GetCargo(CodCargo)
+        TxtCargo.Text = Cargo.Nome
+
+        Cliente = DAO.DAO.GetClientePorCargo(Cargo.CodCargo)
+
+        TxtCliente.Text = Cliente.Nome
+        TxtCPF.Text = Cliente.CPF
+    End Sub
+
+    Private Sub BtnDesvincular_Click(sender As System.Object, e As System.EventArgs) Handles BtnDesvincular.Click
+        If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Ao confirmar, o cliente " + Cliente.Nome + _
+            " perderá a informação de cargo " + Cargo.Nome, "Confirmar") Then
+            Dim resposta As String = ""
+            If DAO.DAO.RemoveCargoCliente(Cliente.CodCliente, resposta) Then
+                Uteis.MsgBoxHelper.Msg(Me, "O Cliente " + Cliente.Nome + " não possui mais o cargo " + _
+                    Cargo.Nome, "Sucesso")
+                Cargo = Nothing
+                Cliente = Nothing
+                Cursor.Current = Cursors.WaitCursor
+                System.Threading.Thread.Sleep(2000)
+                Me.Close()
+            Else
+                Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
+            End If
+        End If
+    End Sub
+End Class

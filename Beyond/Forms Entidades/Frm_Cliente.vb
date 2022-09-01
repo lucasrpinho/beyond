@@ -1,20 +1,14 @@
 ﻿Imports Entidades
 Imports Uteis
 
-Public Class Frm_Vendedor
+Public Class Frm_Cliente
 
     Private frmPrincipal As Frm_Principal_MDI
     Private LstCargos As New List(Of Cargo)
     Private LstEstados As New List(Of EstadoUF)
-    Private LstVendedor As New List(Of Vendedor)
+    Private LstCliente As New List(Of Cliente)
     Private Endereco As Endereco
-    Private StrFotoPath As String
 
-    ' Note: os combos possuem um item a mais que as respectivas listas
-    ' Determinar o item do combo pelo index do item da lista: index + 1
-    ' Determinar o item da lista pelo index do combo: index - 1
-
-    ' Possivelmente será alterado
 
     Public Sub New(frm As Frm_Principal_MDI)
 
@@ -25,7 +19,7 @@ Public Class Frm_Vendedor
         frmPrincipal = frm
     End Sub
 
-    Private Sub Frm_Vendedor_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+    Private Sub Frm_Cliente_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
             Uteis.MsgBoxHelper.AlertaTransacao(Me, frmPrincipal.UC_Toolstrip1.ToolStrip1)
             e.Cancel = True
@@ -34,7 +28,7 @@ Public Class Frm_Vendedor
         RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
-    Private Sub Frm_Vendedor_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+    Private Sub Frm_Cliente_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         Uteis.ControlsHelper.SetControlsDisabled(Me)
         AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
         CarregaCargos()
@@ -51,11 +45,10 @@ Public Class Frm_Vendedor
 
     Private Sub ComboNome_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboNome.SelectedIndexChanged
         If Not Uteis.StringHelper.IsNull(ComboNome.Text) Then
-            BuscaVendedorPorCodigo(LstVendedor(ComboNome.SelectedIndex - 1).CodVendedor)
+            BuscaClientePorCodigo(LstCliente(ComboNome.SelectedIndex - 1).CodCliente)
         Else
             Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxEndereco.Controls)
             Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
-            PicBoxFoto.Image = Nothing
         End If
     End Sub
 
@@ -63,41 +56,56 @@ Public Class Frm_Vendedor
         Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxEndereco.Controls)
         Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
         Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
-        ClearImage()
     End Sub
 
     Private Sub Insere()
-        Dim vendedor As New Vendedor
+        Dim cliente As New Cliente
 
-        vendedor.CodCargo = LstCargos(ComboCargo.SelectedIndex).CodCargo
-        vendedor.Nome = ComboNome.Text.ToUpper
-        vendedor.Sobrenome = TxtSobrenome.Text.ToUpper
-        vendedor.NomeCompleto = vendedor.Nome + " " + vendedor.Sobrenome
+        cliente.CodCargo = LstCargos(ComboCargo.SelectedIndex).CodCargo
+        cliente.Nome = ComboNome.Text.ToUpper
+        cliente.CPF = StringHelper.NumericOnly(TxtCPF.Text)
+        cliente.Empresa = TxtEmpresa.Text.ToUpper
+        cliente.Telefone = StringHelper.NumericOnly(TxtCelular.Text)
+        cliente.Email = TxtEmail.Text.ToUpper
 
-        vendedor.ObjEndereco = New Endereco()
-        vendedor.ObjEndereco.CEP = StringHelper.NumericOnly(TxtCEP.Text)
-        vendedor.ObjEndereco.Logradouro = TxtLogradouro.Text.ToUpper
-        vendedor.ObjEndereco.Bairro = TxtBairro.Text.ToUpper
-        vendedor.ObjEndereco.Cidade = TxtCidade.Text.ToUpper
-        vendedor.ObjEndereco.UF = LstEstados.Item(ComboEstado.SelectedIndex - 1).UF
-        vendedor.ObjEndereco.Complemento = TxtComplemento.Text.ToUpper
-        vendedor.ObjEndereco.NumeroEndereco = Convert.ToInt16(TxtNum.Text)
+        cliente.ObjEndereco = New Endereco()
+        cliente.ObjEndereco.CEP = StringHelper.NumericOnly(TxtCEP.Text)
+        cliente.ObjEndereco.Logradouro = TxtLogradouro.Text.ToUpper
+        cliente.ObjEndereco.Bairro = TxtBairro.Text.ToUpper
+        cliente.ObjEndereco.Cidade = TxtCidade.Text.ToUpper
+        cliente.ObjEndereco.UF = LstEstados.Item(ComboEstado.SelectedIndex - 1).UF
+        cliente.ObjEndereco.Complemento = TxtComplemento.Text.ToUpper
+        cliente.ObjEndereco.NumeroEndereco = Convert.ToInt16(TxtNum.Text)
 
-        vendedor.Observacao = TxtObs.Text.ToUpper
-        vendedor.LoginCriacao = loginusuario
-        vendedor.Foto = StrFotoPath
-        vendedor.IsAtivo = ChkBoxAtivo.Checked
+        cliente.Descricao = TxtObs.Text.ToUpper
+        cliente.LoginCriacao = loginusuario
+        cliente.IsAtivo = ChkBoxAtivo.Checked
 
         Dim strError As String = ""
 
-        If Not vendedor.IsValid(strError) Then
+        If Not cliente.IsValid(strError) Then
             MsgBoxHelper.Erro(Me, strError, "Erro de preenchimento")
+            Exit Sub
+        End If
+
+        If Not StringHelper.IsCpf(cliente.CPF) Then
+            MsgBoxHelper.Erro(Me, "CPF inválido", "Erro de preenchimento")
+            Exit Sub
+        End If
+
+        If Not Uteis.RegexValidation.IsEmailValid(cliente.Email) Then
+            Uteis.MsgBoxHelper.CustomTooltip(Me, TxtEmail, "E-mail inválido", "Erro de preenchimento")
+            Exit Sub
+        End If
+
+        If Not Uteis.RegexValidation.IsTelefoneValid(cliente.Telefone) Then
+            Uteis.MsgBoxHelper.CustomTooltip(Me, TxtCelular, "Telefone inválido", "Erro de preenchimento")
             Exit Sub
         End If
 
         Dim resposta As String = ""
 
-        If Not DAO.DAO.InsereVendedor(vendedor, resposta) Then
+        If Not DAO.DAO.InsereCliente(cliente, resposta) Then
             Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
         Else
             frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
@@ -168,44 +176,29 @@ Public Class Frm_Vendedor
         End If
     End Sub
 
-    Private Sub BtnFoto_Click(sender As System.Object, e As System.EventArgs) Handles BtnFoto.Click
-        CarregaImagem()
-    End Sub
-
-    Private Sub CarregaImagem()
-        OpenFileDialog1.Title = "Selecione uma imagem"
-        OpenFileDialog1.InitialDirectory = "C:"
-        If OpenFileDialog1.ShowDialog = Windows.Forms.DialogResult.Cancel Then Exit Sub
-        Try
-            Dim bmp As New Bitmap(OpenFileDialog1.FileName)
-            If Not PicBoxFoto.Image Is Nothing Then PicBoxFoto.Image.Dispose()
-            PicBoxFoto.SizeMode = PictureBoxSizeMode.StretchImage
-            PicBoxFoto.Image = bmp
-            StrFotoPath = OpenFileDialog1.FileName
-        Catch ex As Exception
-            MsgBoxHelper.Erro(Me, ex.Message, "Erro")
-        End Try
-    End Sub
-
     Private Sub ToolStrip_ItemClicked()
         If Not Me.Enabled Then
             Exit Sub
         End If
 
+
         If UC_Toolstrip.Modo = "SALVAR" Then
             Insere()
 
-        ElseIf UC_Toolstrip.Modo = "PROCURAR" Or UC_Toolstrip.Modo = "NOVO" Then
-            ParaPesquisaEConfirmacao()
 
         ElseIf UC_Toolstrip.Modo = "ATUALIZAR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "O registro será modificado. Deseja continuar?", "Atualizar") Then
-                If DAO.DAO.AtualizaVendedor(LstVendedor(ComboNome.SelectedIndex - 1), "", False, loginusuario) Then
+                If DAO.DAO.AtualizaCliente(LstCliente(ComboNome.SelectedIndex - 1), "", False, loginusuario) Then
                     ParaRemocaoEAlteracao()
                 End If
             Else
                 Exit Sub
             End If
+
+
+        ElseIf UC_Toolstrip.Modo = "PROCURAR" Or UC_Toolstrip.Modo = "NOVO" Then
+            ParaPesquisaEConfirmacao()
+
 
         ElseIf UC_Toolstrip.Modo = "CONFIRMAR" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
@@ -213,6 +206,7 @@ Public Class Frm_Vendedor
                 ParaPesquisaEConfirmacao()
                 frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
             End If
+
 
         ElseIf UC_Toolstrip.Modo = "ROLLBACK" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
@@ -226,18 +220,20 @@ Public Class Frm_Vendedor
                 End If
             End If
 
+
         ElseIf UC_Toolstrip.Modo = "DELETAR" Then
             If ComboNome.DropDownStyle = ComboBoxStyle.Simple Then
                 Exit Sub
             End If
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja deletar o item?", "Deletar") Then
-                If DAO.DAO.AtualizaVendedor(LstVendedor(ComboNome.SelectedIndex - 1).CodVendedor, _
-                    "", True, loginusuario) Then
+                If DAO.DAO.AtualizaCliente(LstCliente(ComboNome.SelectedIndex - 1), _
+                        "", True, loginusuario) Then
                     ParaRemocaoEAlteracao()
                 End If
             Else
                 Exit Sub
             End If
+
 
         ElseIf UC_Toolstrip.Modo = "LIMPAR" Then
             LimpaCampos_AtivaControles()
@@ -249,54 +245,52 @@ Public Class Frm_Vendedor
         End If
     End Sub
 
-    Private Sub BuscaVendedorPorCodigo(ByVal codvendedor As String)
+    Private Sub BuscaClientePorCodigo(ByVal codcliente As String)
         Dim resposta As String = ""
-        Dim vendedor = DAO.DAO.GetVendedor(codvendedor, resposta)
+        Dim cliente = DAO.DAO.GetCliente(codcliente, True, resposta)
 
-        If IsNothing(vendedor) Then
+        If IsNothing(cliente) Then
             Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
             Exit Sub
         End If
 
-        PreencheCampos(vendedor)
+        PreencheCampos(cliente)
     End Sub
 
-    Private Sub PreencheCampos(ByVal vendedor As Vendedor)
-        ComboNome.SelectedIndex = LstVendedor.FindIndex(Function(v) v.CodVendedor = vendedor.CodVendedor) + 1
-        TxtSobrenome.Text = vendedor.Sobrenome
-        TxtCEP.Text = vendedor.ObjEndereco.CEP
-        TxtBairro.Text = vendedor.ObjEndereco.Bairro
-        TxtCidade.Text = vendedor.ObjEndereco.Cidade
-        TxtComplemento.Text = vendedor.ObjEndereco.Complemento
-        TxtLogradouro.Text = vendedor.ObjEndereco.Logradouro
-        TxtNum.Text = vendedor.ObjEndereco.NumeroEndereco
-        TxtObs.Text = vendedor.Observacao
-        ComboEstado.SelectedIndex = LstEstados.FindIndex(Function(e) e.UF = vendedor.ObjEndereco.UF) + 1
-        ComboCargo.SelectedIndex = LstCargos.FindIndex(Function(c) c.CodCargo = vendedor.CodCargo)
-        If IO.File.Exists(vendedor.Foto) Then
-            PicBoxFoto.ImageLocation = vendedor.Foto
-        Else
-            PicBoxFoto.Image = Nothing
-        End If
+    Private Sub PreencheCampos(ByVal cliente As Cliente)
+        ComboNome.SelectedIndex = LstCliente.FindIndex(Function(v) v.CodCliente = cliente.CodCliente) + 1
+        TxtCEP.Text = cliente.ObjEndereco.CEP
+        TxtCidade.Text = cliente.ObjEndereco.Cidade
+        TxtComplemento.Text = cliente.ObjEndereco.Complemento
+        TxtLogradouro.Text = cliente.ObjEndereco.Logradouro
+        TxtNum.Text = cliente.ObjEndereco.NumeroEndereco
+        TxtObs.Text = cliente.Descricao
+        ComboEstado.SelectedIndex = LstEstados.FindIndex(Function(e) e.UF = cliente.ObjEndereco.UF) + 1
+        ComboCargo.SelectedIndex = LstCargos.FindIndex(Function(c) c.CodCargo = cliente.CodCargo)
+        TxtEmail.Text = cliente.Email
+        TxtEmpresa.Text = cliente.Empresa
+        TxtCelular.Text = cliente.Telefone
+        TxtCPF.Text = cliente.CPF
     End Sub
 
-    Private Sub CarregaVendedores()
+    Private Sub CarregaClientes()
         If Not UC_Toolstrip.Modo = "PROCURAR" Then
             Exit Sub
         End If
-        LstVendedor.Clear()
+        LstCliente.Clear()
         ComboNome.Items.Clear()
 
         Dim resposta As String = ""
-        LstVendedor = DAO.DAO.GetVendedor(True, resposta)
 
-        If Not LstVendedor.Count > 0 Then
+        LstCliente = DAO.DAO.GetCliente(True, resposta)
+
+        If Not LstCliente.Count > 0 Then
             MsgBoxHelper.Erro(Me, resposta, "Erro")
         Else
             ComboNome.BeginUpdate()
             ComboNome.Items.Add(String.Empty)
-            For Each vendedor As Vendedor In LstVendedor
-                ComboNome.Items.Add(vendedor.NomeCompleto)
+            For Each cliente As Cliente In LstCliente
+                ComboNome.Items.Add(cliente.Nome)
             Next
             ComboNome.SelectedIndex = 0
             ComboNome.EndUpdate()
@@ -313,22 +307,36 @@ Public Class Frm_Vendedor
         End If
     End Sub
 
-    Private Sub ClearImage()
-        If Not PicBoxFoto.Image Is Nothing Then
-            PicBoxFoto.Image = Nothing
+    Private Sub TxtNum_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtNum.KeyPress
+        If Char.IsLetter(e.KeyChar) Then
+            e.KeyChar = ""
         End If
     End Sub
 
     Private Sub ParaPesquisaEConfirmacao()
         AlternarControle()
-        ClearImage()
         LimpaCampos_AtivaControles()
-        CarregaVendedores()
+        CarregaClientes()
     End Sub
 
     Private Sub ParaRemocaoEAlteracao()
         frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
         Uteis.ControlsHelper.SetControlsDisabled(Me)
         Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip1)
+    End Sub
+
+    Private Sub BtnConsCargo_Click(sender As System.Object, e As System.EventArgs) Handles BtnConsCargo.Click
+        Dim frm As New Frm_Cliente_Cargo(frmPrincipal, LstCargos(ComboCargo.SelectedIndex).CodCargo)
+        frm.ShowDialog()
+    End Sub
+
+    Private Sub ComboCargo_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboCargo.SelectedIndexChanged
+        Dim existe As Boolean
+        If ComboCargo.Text <> String.Empty Then
+            If DAO.DAO.ChecaCargoCliente(LstCargos(ComboCargo.SelectedIndex).CodCargo, existe) Then
+                MsgBoxHelper.CustomTooltip(GrpBoxInfo, ComboCargo, "Outro cliente já possui esse cargo", "Alerta")
+                BtnConsCargo.Enabled = True
+            End If
+        End If
     End Sub
 End Class

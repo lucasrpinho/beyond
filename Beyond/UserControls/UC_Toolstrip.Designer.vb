@@ -27,6 +27,7 @@ Partial Class UC_Toolstrip
         Me.BtnNovo = New System.Windows.Forms.ToolStripButton()
         Me.BtnSalvar = New System.Windows.Forms.ToolStripButton()
         Me.BtnProcurar = New System.Windows.Forms.ToolStripButton()
+        Me.BtnAtualizar = New System.Windows.Forms.ToolStripButton()
         Me.BtnDeletar = New System.Windows.Forms.ToolStripButton()
         Me.toolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnVoltar = New System.Windows.Forms.ToolStripButton()
@@ -41,7 +42,7 @@ Partial Class UC_Toolstrip
         'ToolStrip1
         '
         Me.ToolStrip1.BackColor = System.Drawing.Color.LightGray
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnNovo, Me.BtnSalvar, Me.BtnProcurar, Me.BtnDeletar, Me.toolStripSeparator, Me.BtnVoltar, Me.BtnProximo, Me.BtnConfirmar, Me.BtnRollback, Me.toolStripSeparator1, Me.BtnLimpar})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnNovo, Me.BtnSalvar, Me.BtnProcurar, Me.BtnAtualizar, Me.BtnDeletar, Me.toolStripSeparator, Me.BtnVoltar, Me.BtnProximo, Me.BtnConfirmar, Me.BtnRollback, Me.toolStripSeparator1, Me.BtnLimpar})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(473, 25)
@@ -75,6 +76,15 @@ Partial Class UC_Toolstrip
         Me.BtnProcurar.Name = "BtnProcurar"
         Me.BtnProcurar.Size = New System.Drawing.Size(23, 22)
         Me.BtnProcurar.Text = "&Procurar"
+        '
+        'BtnAtualizar
+        '
+        Me.BtnAtualizar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnAtualizar.Image = Global.Beyond.My.Resources.Resources.update
+        Me.BtnAtualizar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnAtualizar.Name = "BtnAtualizar"
+        Me.BtnAtualizar.Size = New System.Drawing.Size(23, 22)
+        Me.BtnAtualizar.Text = "Atualizar"
         '
         'BtnDeletar
         '
@@ -164,5 +174,6 @@ Partial Class UC_Toolstrip
     Friend WithEvents BtnVoltar As System.Windows.Forms.ToolStripButton
     Public WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents BtnLimpar As System.Windows.Forms.ToolStripLabel
+    Friend WithEvents BtnAtualizar As System.Windows.Forms.ToolStripButton
 
 End Class

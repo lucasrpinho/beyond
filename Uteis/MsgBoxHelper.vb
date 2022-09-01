@@ -1,6 +1,8 @@
 ﻿Imports System.Windows.Forms
 
 Public Class MsgBoxHelper
+
+    'Tem certeza Fechar Aplicação Msg
     Public Overloads Shared Function MsgTemCerteza(ByVal Frm As Form) As Boolean
         If MessageBox.Show(Frm, "Tem certeza que deseja fechar a aplicação?", "Beyond",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes Then
@@ -10,6 +12,8 @@ Public Class MsgBoxHelper
         End If
     End Function
 
+
+    'Ainda existe telas abertas Alerta
     Public Shared Function MsgTemCertezaAlertaTelasAbertas(ByVal Frm As Form) As Boolean
         If MessageBox.Show(Frm, "Qualquer alteração não salva poderá ser perdida" + vbNewLine +
                 vbNewLine + "Tem certeza que deseja sair?", "Beyond",
@@ -20,14 +24,20 @@ Public Class MsgBoxHelper
         End If
     End Function
 
-    Public Shared Sub Alerta(ByVal Msg As String, ByVal Titulo As String)
-        MsgBox(Msg, MsgBoxStyle.Exclamation, Titulo)
+
+    ' Alerta Msg
+    Public Shared Sub Alerta(ByVal frm As Form, ByVal Msg As String, ByVal Titulo As String)
+        MessageBox.Show(frm, Msg, Titulo, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
     End Sub
 
+
+    ' Error Msg
     Public Shared Sub Erro(Frm As Form, ByVal Msg As String, ByVal Titulo As String)
         MessageBox.Show(Frm, Msg, Titulo, MessageBoxButtons.OK, MessageBoxIcon.Error)
     End Sub
 
+
+    ' Transação ainda aberta
     Public Shared Sub AlertaTransacao(Frm As Form, toolbar As ToolStrip)
         MessageBox.Show(Frm, "Confirme ou cancele a mudança feita", "Operação não confirmada",
                              MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -41,20 +51,29 @@ Public Class MsgBoxHelper
         tooltip.Show("Confirme a operação", itemCommit, 2000)
     End Sub
 
-    Public Shared Sub CustomTooltip(frm As Control, window As IWin32Window, msg As String, titulo As String)
+
+    ' Msg de erro em balão (Tooltip)
+    Public Shared Sub CustomTooltip(control As Control, window As IWin32Window, msg As String, titulo As String)
         Dim tooltip As New ToolTip
         tooltip.ToolTipTitle = titulo
         tooltip.ToolTipIcon = ToolTipIcon.Error
         tooltip.IsBalloon = True
-        tooltip.SetToolTip(frm, msg)
+        tooltip.SetToolTip(control, msg)
         tooltip.Show(msg, window, 3000)
     End Sub
 
-    Public Overloads Shared Function MsgTemCerteza(ByVal msg As String, ByVal titulo As String) As Boolean
-        If MessageBox.Show(Application.OpenForms("Frm_Principal_MDI"), msg, titulo, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+
+    ' Tem certeza Deseja prosseguir Msg
+    Public Overloads Shared Function MsgTemCerteza(ByVal frm As Form, ByVal msg As String, ByVal titulo As String) As Boolean
+        If MessageBox.Show(frm, msg, titulo, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             Return True
         Else
             Return False
         End If
     End Function
+
+    ' Sucesso
+    Public Shared Sub Msg(ByVal frm As Form, msg As String, titulo As String)
+        MessageBox.Show(frm, msg, titulo, MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
 End Class

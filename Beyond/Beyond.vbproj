@@ -106,6 +106,18 @@
     <Compile Include="Forms Entidades\Frm_Cargo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms Entidades\Frm_Cliente.Designer.vb">
+      <DependentUpon>Frm_Cliente.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms Entidades\Frm_Cliente.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms Entidades\Frm_Cliente_Cargo.Designer.vb">
+      <DependentUpon>Frm_Cliente_Cargo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms Entidades\Frm_Cliente_Cargo.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms Entidades\Frm_Vendedor.Designer.vb">
       <DependentUpon>Frm_Vendedor.vb</DependentUpon>
     </Compile>
@@ -169,6 +181,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Forms Entidades\Frm_Cargo.resx">
       <DependentUpon>Frm_Cargo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms Entidades\Frm_Cliente.resx">
+      <DependentUpon>Frm_Cliente.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms Entidades\Frm_Cliente_Cargo.resx">
+      <DependentUpon>Frm_Cliente_Cargo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms Entidades\Frm_Vendedor.resx">
       <DependentUpon>Frm_Vendedor.vb</DependentUpon>
@@ -237,6 +255,7 @@
     <None Include="Icons Toolstrip\delete.png" />
     <None Include="Icons Toolstrip\rollback.png" />
     <None Include="Imagens\backgroundmdi.png" />
+    <None Include="Icons Toolstrip\update.png" />
     <Content Include="Imagens\BeyondICON.ico" />
     <Content Include="Imagens\BeyondICON.png" />
     <Content Include="Imagens\login.png" />

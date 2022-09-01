@@ -58,21 +58,26 @@ Public Class Frm_Usuario
         If Not Me.Enabled Then
             Exit Sub
         End If
+
         If UC_Toolstrip.Modo = "SALVAR" Then
             Cadastrar()
         ElseIf UC_Toolstrip.Modo = "PROCURAR" Or UC_Toolstrip.Modo = "NOVO" Then
             LimpaCampos_AtivaControles()
             CarregaUsuarios()
             AlternarControle()
+
+
         ElseIf UC_Toolstrip.Modo = "CONFIRMAR" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
                 DAO.DAO.ConfirmarOuReverter(True)
                 LimpaCampos_AtivaControles()
                 frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
             End If
+
+
         ElseIf UC_Toolstrip.Modo = "ROLLBACK" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza("Deseja reverter a operação?", "Reverter") Then
+                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja reverter a operação?", "Reverter") Then
                     DAO.DAO.ConfirmarOuReverter(False)
                     Uteis.ControlsHelper.SetControlsDisabled(Me)
                     LimpaCampos_AtivaControles()
@@ -81,9 +86,11 @@ Public Class Frm_Usuario
                     Exit Sub
                 End If
             End If
+
+
         ElseIf UC_Toolstrip.Modo = "DELETAR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza("Deseja deletar o item?", "Deletar") Then
-                If DAO.DAO.DeleteUsuario(LstUsuario(ComboNome.SelectedIndex - 1).CodUsuario, "") Then
+            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja deletar o item?", "Deletar") Then
+                If DAO.DAO.AtualizaCliente(LstUsuario(ComboNome.SelectedIndex - 1).CodUsuario, "", True, loginusuario) Then
                     frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
                     Uteis.ControlsHelper.SetControlsDisabled(Me)
                     Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip1)
@@ -91,6 +98,8 @@ Public Class Frm_Usuario
             Else
                 Exit Sub
             End If
+
+
         ElseIf UC_Toolstrip.Modo = "LIMPAR" Then
             LimpaCampos_AtivaControles()
         End If

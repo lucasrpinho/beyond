@@ -35,8 +35,6 @@ Partial Class Frm_Principal_MDI
         Me.CargosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.VendedorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CadastrarToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AlterarToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProdutosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CadastrarToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
         Me.AlterarToolStripMenuItem5 = New System.Windows.Forms.ToolStripMenuItem()
@@ -56,19 +54,19 @@ Partial Class Frm_Principal_MDI
         Me.TSL_Hora = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TimerClock = New System.Windows.Forms.Timer(Me.components)
         Me.SplitC1 = New System.Windows.Forms.SplitContainer()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.LblOla = New System.Windows.Forms.Label()
+        Me.BtnRelatorio = New System.Windows.Forms.Button()
+        Me.BtnPedido = New System.Windows.Forms.Button()
+        Me.BtnProduto = New System.Windows.Forms.Button()
+        Me.BtnCliente = New System.Windows.Forms.Button()
+        Me.BtnVendedor = New System.Windows.Forms.Button()
+        Me.BtnCargo = New System.Windows.Forms.Button()
+        Me.BtnUsuario = New System.Windows.Forms.Button()
         Me.TCPrincipal = New System.Windows.Forms.TabControl()
+        Me.LblOla = New System.Windows.Forms.Label()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.FecharUmaCtxMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.FecharTodasCtxMenu = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BtnUsuario = New System.Windows.Forms.Button()
-        Me.BtnCargo = New System.Windows.Forms.Button()
-        Me.BtnVendedor = New System.Windows.Forms.Button()
-        Me.BtnCliente = New System.Windows.Forms.Button()
-        Me.BtnProduto = New System.Windows.Forms.Button()
-        Me.BtnPedido = New System.Windows.Forms.Button()
-        Me.BtnRelatorio = New System.Windows.Forms.Button()
         Me.UC_Toolstrip1 = New Beyond.UC_Toolstrip()
         Me.MnStrip_Principal.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -135,45 +133,32 @@ Partial Class Frm_Principal_MDI
         'UsuarioMenuItem
         '
         Me.UsuarioMenuItem.Name = "UsuarioMenuItem"
-        Me.UsuarioMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.UsuarioMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.UsuarioMenuItem.Text = "Usuário"
         '
         'CargosToolStripMenuItem
         '
         Me.CargosToolStripMenuItem.Name = "CargosToolStripMenuItem"
-        Me.CargosToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.CargosToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.CargosToolStripMenuItem.Text = "Cargo"
         '
         'VendedorToolStripMenuItem
         '
         Me.VendedorToolStripMenuItem.Name = "VendedorToolStripMenuItem"
-        Me.VendedorToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.VendedorToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.VendedorToolStripMenuItem.Text = "Vendedor"
         '
         'ClientesToolStripMenuItem
         '
-        Me.ClientesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CadastrarToolStripMenuItem3, Me.AlterarToolStripMenuItem4})
         Me.ClientesToolStripMenuItem.Name = "ClientesToolStripMenuItem"
-        Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ClientesToolStripMenuItem.Text = "Cliente"
-        '
-        'CadastrarToolStripMenuItem3
-        '
-        Me.CadastrarToolStripMenuItem3.Name = "CadastrarToolStripMenuItem3"
-        Me.CadastrarToolStripMenuItem3.Size = New System.Drawing.Size(124, 22)
-        Me.CadastrarToolStripMenuItem3.Text = "Cadastrar"
-        '
-        'AlterarToolStripMenuItem4
-        '
-        Me.AlterarToolStripMenuItem4.Name = "AlterarToolStripMenuItem4"
-        Me.AlterarToolStripMenuItem4.Size = New System.Drawing.Size(124, 22)
-        Me.AlterarToolStripMenuItem4.Text = "Alterar"
         '
         'ProdutosToolStripMenuItem
         '
         Me.ProdutosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CadastrarToolStripMenuItem4, Me.AlterarToolStripMenuItem5})
         Me.ProdutosToolStripMenuItem.Name = "ProdutosToolStripMenuItem"
-        Me.ProdutosToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.ProdutosToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ProdutosToolStripMenuItem.Text = "Produto"
         '
         'CadastrarToolStripMenuItem4
@@ -321,118 +306,17 @@ Partial Class Frm_Principal_MDI
         Me.SplitC1.SplitterWidth = 3
         Me.SplitC1.TabIndex = 10
         '
-        'PictureBox1
+        'BtnRelatorio
         '
-        Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.BeyondICON
-        Me.PictureBox1.Location = New System.Drawing.Point(198, 153)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(163, 149)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 2
-        Me.PictureBox1.TabStop = False
-        '
-        'LblOla
-        '
-        Me.LblOla.AutoEllipsis = True
-        Me.LblOla.AutoSize = True
-        Me.LblOla.Font = New System.Drawing.Font("Verdana", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblOla.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.LblOla.Location = New System.Drawing.Point(20, 41)
-        Me.LblOla.Name = "LblOla"
-        Me.LblOla.Size = New System.Drawing.Size(95, 26)
-        Me.LblOla.TabIndex = 1
-        Me.LblOla.Text = "Label1"
-        '
-        'TCPrincipal
-        '
-        Me.TCPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCPrincipal.ItemSize = New System.Drawing.Size(30, 30)
-        Me.TCPrincipal.Location = New System.Drawing.Point(0, 0)
-        Me.TCPrincipal.Name = "TCPrincipal"
-        Me.TCPrincipal.SelectedIndex = 0
-        Me.TCPrincipal.Size = New System.Drawing.Size(552, 404)
-        Me.TCPrincipal.TabIndex = 2
-        Me.TCPrincipal.Visible = False
-        '
-        'ContextMenuStrip1
-        '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FecharUmaCtxMenu, Me.FecharTodasCtxMenu})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(176, 70)
-        '
-        'FecharUmaCtxMenu
-        '
-        Me.FecharUmaCtxMenu.Name = "FecharUmaCtxMenu"
-        Me.FecharUmaCtxMenu.Size = New System.Drawing.Size(175, 22)
-        Me.FecharUmaCtxMenu.Text = "Fechar Selecionada"
-        '
-        'FecharTodasCtxMenu
-        '
-        Me.FecharTodasCtxMenu.Name = "FecharTodasCtxMenu"
-        Me.FecharTodasCtxMenu.Size = New System.Drawing.Size(175, 22)
-        Me.FecharTodasCtxMenu.Text = "Fechar Todas"
-        '
-        'BtnUsuario
-        '
-        Me.BtnUsuario.BackColor = System.Drawing.Color.LightGray
-        Me.BtnUsuario.Dock = System.Windows.Forms.DockStyle.Top
-        Me.BtnUsuario.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnUsuario.Location = New System.Drawing.Point(0, 0)
-        Me.BtnUsuario.Name = "BtnUsuario"
-        Me.BtnUsuario.Size = New System.Drawing.Size(200, 57)
-        Me.BtnUsuario.TabIndex = 0
-        Me.BtnUsuario.Text = "Usuário"
-        Me.BtnUsuario.UseVisualStyleBackColor = False
-        '
-        'BtnCargo
-        '
-        Me.BtnCargo.BackColor = System.Drawing.Color.LightGray
-        Me.BtnCargo.Dock = System.Windows.Forms.DockStyle.Top
-        Me.BtnCargo.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnCargo.Location = New System.Drawing.Point(0, 57)
-        Me.BtnCargo.Name = "BtnCargo"
-        Me.BtnCargo.Size = New System.Drawing.Size(200, 57)
-        Me.BtnCargo.TabIndex = 1
-        Me.BtnCargo.Text = "Cargo"
-        Me.BtnCargo.UseVisualStyleBackColor = False
-        '
-        'BtnVendedor
-        '
-        Me.BtnVendedor.BackColor = System.Drawing.Color.LightGray
-        Me.BtnVendedor.Dock = System.Windows.Forms.DockStyle.Top
-        Me.BtnVendedor.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnVendedor.Location = New System.Drawing.Point(0, 114)
-        Me.BtnVendedor.Name = "BtnVendedor"
-        Me.BtnVendedor.Size = New System.Drawing.Size(200, 57)
-        Me.BtnVendedor.TabIndex = 2
-        Me.BtnVendedor.Text = "Vendedor"
-        Me.BtnVendedor.UseVisualStyleBackColor = False
-        '
-        'BtnCliente
-        '
-        Me.BtnCliente.BackColor = System.Drawing.Color.LightGray
-        Me.BtnCliente.Dock = System.Windows.Forms.DockStyle.Top
-        Me.BtnCliente.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnCliente.Location = New System.Drawing.Point(0, 171)
-        Me.BtnCliente.Name = "BtnCliente"
-        Me.BtnCliente.Size = New System.Drawing.Size(200, 57)
-        Me.BtnCliente.TabIndex = 3
-        Me.BtnCliente.Text = "Cliente"
-        Me.BtnCliente.UseVisualStyleBackColor = False
-        '
-        'BtnProduto
-        '
-        Me.BtnProduto.BackColor = System.Drawing.Color.LightGray
-        Me.BtnProduto.Dock = System.Windows.Forms.DockStyle.Top
-        Me.BtnProduto.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnProduto.Location = New System.Drawing.Point(0, 228)
-        Me.BtnProduto.Name = "BtnProduto"
-        Me.BtnProduto.Size = New System.Drawing.Size(200, 57)
-        Me.BtnProduto.TabIndex = 4
-        Me.BtnProduto.Text = "Produto"
-        Me.BtnProduto.UseVisualStyleBackColor = False
+        Me.BtnRelatorio.BackColor = System.Drawing.Color.LightGray
+        Me.BtnRelatorio.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BtnRelatorio.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnRelatorio.Location = New System.Drawing.Point(0, 342)
+        Me.BtnRelatorio.Name = "BtnRelatorio"
+        Me.BtnRelatorio.Size = New System.Drawing.Size(200, 59)
+        Me.BtnRelatorio.TabIndex = 6
+        Me.BtnRelatorio.Text = "Relatório"
+        Me.BtnRelatorio.UseVisualStyleBackColor = False
         '
         'BtnPedido
         '
@@ -446,17 +330,118 @@ Partial Class Frm_Principal_MDI
         Me.BtnPedido.Text = "Pedido"
         Me.BtnPedido.UseVisualStyleBackColor = False
         '
-        'BtnRelatorio
+        'BtnProduto
         '
-        Me.BtnRelatorio.BackColor = System.Drawing.Color.LightGray
-        Me.BtnRelatorio.Dock = System.Windows.Forms.DockStyle.Top
-        Me.BtnRelatorio.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnRelatorio.Location = New System.Drawing.Point(0, 342)
-        Me.BtnRelatorio.Name = "BtnRelatorio"
-        Me.BtnRelatorio.Size = New System.Drawing.Size(200, 59)
-        Me.BtnRelatorio.TabIndex = 6
-        Me.BtnRelatorio.Text = "Relatório"
-        Me.BtnRelatorio.UseVisualStyleBackColor = False
+        Me.BtnProduto.BackColor = System.Drawing.Color.LightGray
+        Me.BtnProduto.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BtnProduto.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnProduto.Location = New System.Drawing.Point(0, 228)
+        Me.BtnProduto.Name = "BtnProduto"
+        Me.BtnProduto.Size = New System.Drawing.Size(200, 57)
+        Me.BtnProduto.TabIndex = 4
+        Me.BtnProduto.Text = "Produto"
+        Me.BtnProduto.UseVisualStyleBackColor = False
+        '
+        'BtnCliente
+        '
+        Me.BtnCliente.BackColor = System.Drawing.Color.LightGray
+        Me.BtnCliente.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BtnCliente.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnCliente.Location = New System.Drawing.Point(0, 171)
+        Me.BtnCliente.Name = "BtnCliente"
+        Me.BtnCliente.Size = New System.Drawing.Size(200, 57)
+        Me.BtnCliente.TabIndex = 3
+        Me.BtnCliente.Text = "Cliente"
+        Me.BtnCliente.UseVisualStyleBackColor = False
+        '
+        'BtnVendedor
+        '
+        Me.BtnVendedor.BackColor = System.Drawing.Color.LightGray
+        Me.BtnVendedor.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BtnVendedor.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnVendedor.Location = New System.Drawing.Point(0, 114)
+        Me.BtnVendedor.Name = "BtnVendedor"
+        Me.BtnVendedor.Size = New System.Drawing.Size(200, 57)
+        Me.BtnVendedor.TabIndex = 2
+        Me.BtnVendedor.Text = "Vendedor"
+        Me.BtnVendedor.UseVisualStyleBackColor = False
+        '
+        'BtnCargo
+        '
+        Me.BtnCargo.BackColor = System.Drawing.Color.LightGray
+        Me.BtnCargo.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BtnCargo.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnCargo.Location = New System.Drawing.Point(0, 57)
+        Me.BtnCargo.Name = "BtnCargo"
+        Me.BtnCargo.Size = New System.Drawing.Size(200, 57)
+        Me.BtnCargo.TabIndex = 1
+        Me.BtnCargo.Text = "Cargo"
+        Me.BtnCargo.UseVisualStyleBackColor = False
+        '
+        'BtnUsuario
+        '
+        Me.BtnUsuario.BackColor = System.Drawing.Color.LightGray
+        Me.BtnUsuario.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BtnUsuario.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnUsuario.Location = New System.Drawing.Point(0, 0)
+        Me.BtnUsuario.Name = "BtnUsuario"
+        Me.BtnUsuario.Size = New System.Drawing.Size(200, 57)
+        Me.BtnUsuario.TabIndex = 0
+        Me.BtnUsuario.Text = "Usuário"
+        Me.BtnUsuario.UseVisualStyleBackColor = False
+        '
+        'TCPrincipal
+        '
+        Me.TCPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TCPrincipal.ItemSize = New System.Drawing.Size(30, 30)
+        Me.TCPrincipal.Location = New System.Drawing.Point(0, 0)
+        Me.TCPrincipal.Name = "TCPrincipal"
+        Me.TCPrincipal.SelectedIndex = 0
+        Me.TCPrincipal.Size = New System.Drawing.Size(552, 404)
+        Me.TCPrincipal.TabIndex = 2
+        Me.TCPrincipal.Visible = False
+        '
+        'LblOla
+        '
+        Me.LblOla.AutoEllipsis = True
+        Me.LblOla.AutoSize = True
+        Me.LblOla.Font = New System.Drawing.Font("Verdana", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblOla.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.LblOla.Location = New System.Drawing.Point(20, 41)
+        Me.LblOla.Name = "LblOla"
+        Me.LblOla.Size = New System.Drawing.Size(95, 26)
+        Me.LblOla.TabIndex = 1
+        Me.LblOla.Text = "Label1"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.BeyondICON
+        Me.PictureBox1.Location = New System.Drawing.Point(199, 153)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(163, 149)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 2
+        Me.PictureBox1.TabStop = False
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FecharUmaCtxMenu, Me.FecharTodasCtxMenu})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(176, 48)
+        '
+        'FecharUmaCtxMenu
+        '
+        Me.FecharUmaCtxMenu.Name = "FecharUmaCtxMenu"
+        Me.FecharUmaCtxMenu.Size = New System.Drawing.Size(175, 22)
+        Me.FecharUmaCtxMenu.Text = "Fechar Selecionada"
+        '
+        'FecharTodasCtxMenu
+        '
+        Me.FecharTodasCtxMenu.Name = "FecharTodasCtxMenu"
+        Me.FecharTodasCtxMenu.Size = New System.Drawing.Size(175, 22)
+        Me.FecharTodasCtxMenu.Text = "Fechar Todas"
         '
         'UC_Toolstrip1
         '
@@ -509,8 +494,6 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents CargosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents VendedorToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ClientesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents CadastrarToolStripMenuItem3 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents AlterarToolStripMenuItem4 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ProdutosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CadastrarToolStripMenuItem4 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AlterarToolStripMenuItem5 As System.Windows.Forms.ToolStripMenuItem

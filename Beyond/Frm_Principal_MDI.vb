@@ -312,4 +312,36 @@ Public Class Frm_Principal_MDI
         BtnRelatorio.Focus()
     End Sub
 
+    Private Sub BtnCliente_Click(sender As System.Object, e As System.EventArgs) Handles BtnCliente.Click
+        AbreClientePag()
+    End Sub
+
+    Private Sub AbreClientePag()
+        Dim page = TCPrincipal.TabPages("Frm_Cliente")
+        If Not page Is Nothing Then
+            TCPrincipal.SelectTab(page)
+        Else
+            Dim Frm As New Frm_Cliente(Me)
+            Dim TP As New TabPage
+            Frm.TopLevel = False
+            Frm.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            Frm.MdiParent = Me
+            Frm.Dock = DockStyle.Fill
+            TP.Controls.Add(Frm)
+            TP.Tag = Frm
+            TP.Text = Frm.Text
+            TP.BackColor = Frm.BackColor
+            TP.Name = Frm.Name
+            TCPrincipal.TabPages.Add(TP)
+            TCPrincipal.SelectTab(TP)
+            TCPrincipal.BringToFront()
+            TCPrincipal.Visible = True
+            Frm.Show()
+            Me.Refresh()
+        End If
+    End Sub
+
+    Private Sub ClientesToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ClientesToolStripMenuItem.Click
+        AbreClientePag()
+    End Sub
 End Class

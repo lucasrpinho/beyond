@@ -22,15 +22,63 @@
         End If
     End Function
 
-    Public Shared Function CEPString(cep As String) As String
-        Dim cepvalido As String = ""
-        If cep.Length > 0 Then
-            For I As Integer = 0 To cep.Length - 1
-                If IsNumeric(cep(I)) Then
-                    cepvalido += cep(I)
+    Public Shared Function NumericOnly(txt As String) As String
+        Dim txtvalido As String = ""
+        If txt.Length > 0 Then
+            For I As Integer = 0 To txt.Length - 1
+                If IsNumeric(txt(I)) Then
+                    txtvalido += txt(I)
                 End If
             Next
         End If
-        Return cepvalido
+        Return txtvalido
     End Function
+
+    ' REFERÊNCIA: www.macoratti.net/11/09/c_val1.htm
+    Public Shared Function IsCpf(ByVal cpf As String) As Boolean
+        Dim multiplicador1 = New Integer() {10, 9, 8, 7, 6, 5, 4, 3, 2}
+        Dim multiplicador2 = New Integer() {11, 10, 9, 8, 7, 6, 5, 4, 3, 2}
+        Dim tempCpf As String
+        Dim digito As String
+
+        Dim soma As Integer
+        Dim resto As Integer
+        cpf = cpf.Trim()
+        cpf = cpf.Replace(".", "").Replace("-", "")
+        If (cpf.Length <> 11) Then
+            Return False
+        End If
+
+        tempCpf = cpf.Substring(0, 9)
+        soma = 0
+
+        For i As Integer = 0 To 8
+            soma += Convert.ToInt32(tempCpf(i).ToString()) * multiplicador1(i)
+        Next
+
+        resto = soma Mod 11
+        If (resto < 2) Then
+            resto = 0
+        Else
+            resto = 11 - resto
+        End If
+
+        digito = resto.ToString()
+        tempCpf = tempCpf + digito
+        soma = 0
+        For i As Integer = 0 To 9
+            soma += Convert.ToInt32(tempCpf(i).ToString()) * multiplicador2(i)
+        Next
+
+        resto = soma Mod 11
+        If (resto < 2) Then
+            resto = 0
+        Else
+            resto = 11 - resto
+        End If
+
+        digito = digito + resto.ToString()
+        Return cpf.EndsWith(digito)
+    End Function
+
 End Class

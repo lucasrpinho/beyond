@@ -80,14 +80,26 @@ Public Class Endereco
     End Property
 
     Public Sub New(ByVal objFromJson As EnderecoJson)
-        Me.ObjEnderecoJson = objFromJson
-        Me.Cidade = ObjEnderecoJson.localidade
-        Me.Bairro = ObjEnderecoJson.bairro
-        Me.UF = ObjEnderecoJson.uf
-        Me.Logradouro = ObjEnderecoJson.logradouro
+        If Not String.IsNullOrWhiteSpace(objFromJson.logradouro) Then
+            Me.ObjEnderecoJson = objFromJson
+            Me.Cidade = ObjEnderecoJson.localidade
+            Me.Bairro = ObjEnderecoJson.bairro
+            Me.UF = ObjEnderecoJson.uf
+            Me.Logradouro = ObjEnderecoJson.logradouro
+        End If
     End Sub
 
     Public Sub New()
 
+    End Sub
+
+    Public Sub Carrega(row As Data.DataRow)
+        Me.UF = row.Field(Of String)("uf_estado")
+        Me.Bairro = row.Field(Of String)("de_bairro")
+        Me.Cidade = row.Field(Of String)("de_cidade")
+        Me.NumeroEndereco = row.Field(Of Int16)("nu_numero")
+        Me.CEP = row.Field(Of String)("nu_cep")
+        Me.Complemento = row.Field(Of String)("de_complemento")
+        Me.Logradouro = row.Field(Of String)("de_logradouro")
     End Sub
 End Class

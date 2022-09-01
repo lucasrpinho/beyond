@@ -77,26 +77,36 @@ Public Class Frm_Cargo
         If Not Me.Enabled Then
             Exit Sub
         End If
+
+
         If UC_Toolstrip.Modo = "NOVO" Then
             LimpaCampos_Ativa()
+
+
         ElseIf UC_Toolstrip.Modo = "SALVAR" Then
             If ComboNome.DropDownStyle = ComboBoxStyle.Simple Then
                 InsereCargo()
             Else
                 DAO.DAO.AtualizaCargo(LstCargo(ComboNome.SelectedIndex - 1), "", False, loginusuario)
             End If
+
+
         ElseIf UC_Toolstrip.Modo = "PROCURAR" Then
             LimpaCampos_Ativa()
             CarregaCargos()
+
+
         ElseIf UC_Toolstrip.Modo = "CONFIRMAR" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
                 DAO.DAO.ConfirmarOuReverter(True)
                 LimpaCampos_Ativa()
                 frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
             End If
+
+
         ElseIf UC_Toolstrip.Modo = "ROLLBACK" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza("Deseja reverter a operação?", "Reverter") Then
+                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja reverter a operação?", "Reverter") Then
                     DAO.DAO.ConfirmarOuReverter(False)
                     LimpaCampos_Ativa()
                     frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
@@ -104,8 +114,10 @@ Public Class Frm_Cargo
                     Exit Sub
                 End If
             End If
+
+
         ElseIf UC_Toolstrip.Modo = "DELETAR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza("Deseja deletar o item?", "Deletar") Then
+            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja deletar o item?", "Deletar") Then
                 If DAO.DAO.DeleteUsuario(LstCargo(ComboNome.SelectedIndex - 1).CodCargo, "") Then
                     frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
                     Uteis.ControlsHelper.SetControlsDisabled(Me)
@@ -114,6 +126,8 @@ Public Class Frm_Cargo
             Else
                 Exit Sub
             End If
+
+
         ElseIf UC_Toolstrip.Modo = "LIMPAR" Then
             LimpaCampos()
         End If

@@ -5,8 +5,6 @@ Public Class Cliente
     Private _CodCliente As Integer = 0
     Public Nome As String
     Public CPF As String
-    Public Sobrenome As String
-    Public NomeCompleto As String
     Public Empresa As String
     Public CodCargo As Int16
     Public ObjEndereco As Endereco
@@ -27,7 +25,7 @@ Public Class Cliente
     End Property
 
     Public Sub New()
-
+        Me.ObjEndereco = New Endereco
     End Sub
 
     Public Sub New(ByVal obj As Endereco)
@@ -45,8 +43,12 @@ Public Class Cliente
             strError = "Informações incompletas no endereço"
         ElseIf Me.Telefone = "" Then
             strError = "Telefone precisa ser preenchido"
-        ElseIf Me.LoginCriacao = "" Then
-            strError = "O login de quem está fazendo a inclusão precisa ser informado"
+        ElseIf Me.Telefone.Length <> 11 Then
+            strError = "Telefone precisa conter DDD e 9 dígitos"
+        ElseIf Me.CPF <> String.Empty AndAlso Me.CPF.Length <> 11 Then
+            strError = "CPF precisa conter 11 dígitos"
+        ElseIf Me.LoginCriacao = String.Empty Then
+            strError = "O sistema não encontrou o login de quem está inserindo o cliente"
         End If
 
         Return String.IsNullOrWhiteSpace(strError)
@@ -58,18 +60,20 @@ Public Class Cliente
         Me.Nome = row.Field(Of String)("de_nome_completo")
         Me.CPF = row.Field(Of String)("nu_cpf")
         Me.Empresa = row.Field(Of String)("de_empresa")
-        Me.ObjEndereco.CEP = row.Field(Of String)("nu_cep")
-        Me.ObjEndereco.Logradouro = row.Field(Of String)("de_logradouro")
-        Me.ObjEndereco.Bairro = row.Field(Of String)("de_bairro")
-        Me.ObjEndereco.NumeroEndereco = row.Field(Of Int16)("nu_numero")
-        Me.ObjEndereco.Complemento = row.Field(Of String)("de_complemento")
-        Me.ObjEndereco.UF = row.Field(Of String)("uf_estado")
+        'Me.ObjEndereco.CEP = row.Field(Of String)("nu_cep")
+        'Me.ObjEndereco.Logradouro = row.Field(Of String)("de_logradouro")
+        'Me.ObjEndereco.Bairro = row.Field(Of String)("de_bairro")
+        'Me.ObjEndereco.NumeroEndereco = row.Field(Of Int16)("nu_numero")
+        'Me.ObjEndereco.Complemento = row.Field(Of String)("de_complemento")
+        'Me.ObjEndereco.UF = row.Field(Of String)("uf_estado")
         Me.Telefone = row.Field(Of String)("nu_telefone")
         Me.Email = row.Field(Of String)("de_email")
         Me.Descricao = row.Field(Of String)("de_observacao")
         Me.IsAtivo = row.Field(Of Boolean)("ct_ativo")
         Me.DatCriacao = row.Field(Of DateTime)("dat_criacao")
         Me.LoginCriacao = row.Field(Of String)("de_login_criacao")
+
+        Me.ObjEndereco.Carrega(row)
     End Sub
 
 End Class
