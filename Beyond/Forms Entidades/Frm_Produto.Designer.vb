@@ -77,12 +77,13 @@ Partial Class Frm_Produto
         Me.BtnInsereImg.Location = New System.Drawing.Point(544, 228)
         Me.BtnInsereImg.Name = "BtnInsereImg"
         Me.BtnInsereImg.Size = New System.Drawing.Size(174, 29)
-        Me.BtnInsereImg.TabIndex = 10
+        Me.BtnInsereImg.TabIndex = 5
         Me.BtnInsereImg.Text = "Inserir imagem"
         Me.BtnInsereImg.UseVisualStyleBackColor = True
         '
         'PicBoxFoto
         '
+        Me.PicBoxFoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PicBoxFoto.Location = New System.Drawing.Point(544, 67)
         Me.PicBoxFoto.Name = "PicBoxFoto"
         Me.PicBoxFoto.Size = New System.Drawing.Size(174, 155)
@@ -107,7 +108,7 @@ Partial Class Frm_Produto
         Me.TxtQtd.Location = New System.Drawing.Point(15, 225)
         Me.TxtQtd.Name = "TxtQtd"
         Me.TxtQtd.Size = New System.Drawing.Size(78, 23)
-        Me.TxtQtd.TabIndex = 7
+        Me.TxtQtd.TabIndex = 4
         Me.TxtQtd.Text = "0"
         '
         'TxtDesc
@@ -118,7 +119,7 @@ Partial Class Frm_Produto
         Me.TxtDesc.Multiline = True
         Me.TxtDesc.Name = "TxtDesc"
         Me.TxtDesc.Size = New System.Drawing.Size(240, 53)
-        Me.TxtDesc.TabIndex = 6
+        Me.TxtDesc.TabIndex = 2
         '
         'TxtCategoria
         '
@@ -128,14 +129,14 @@ Partial Class Frm_Produto
         Me.TxtCategoria.Multiline = True
         Me.TxtCategoria.Name = "TxtCategoria"
         Me.TxtCategoria.Size = New System.Drawing.Size(240, 53)
-        Me.TxtCategoria.TabIndex = 5
+        Me.TxtCategoria.TabIndex = 1
         '
         'TxtPreco
         '
         Me.TxtPreco.Location = New System.Drawing.Point(15, 175)
         Me.TxtPreco.Name = "TxtPreco"
         Me.TxtPreco.Size = New System.Drawing.Size(162, 23)
-        Me.TxtPreco.TabIndex = 4
+        Me.TxtPreco.TabIndex = 3
         Me.TxtPreco.Text = "0,00"
         '
         'Label4
@@ -152,9 +153,9 @@ Partial Class Frm_Produto
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(12, 156)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(78, 16)
+        Me.Label3.Size = New System.Drawing.Size(45, 16)
         Me.Label3.TabIndex = 2
-        Me.Label3.Text = "Preço (R$)"
+        Me.Label3.Text = "Preço"
         '
         'Label2
         '
@@ -176,7 +177,7 @@ Partial Class Frm_Produto
         '
         'OpenFileDialog1
         '
-        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
+        Me.OpenFileDialog1.Filter = "PNG|*.png"
         '
         'Frm_Produto
         '

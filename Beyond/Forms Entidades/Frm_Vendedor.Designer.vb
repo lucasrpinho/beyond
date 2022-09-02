@@ -380,7 +380,6 @@ Partial Class Frm_Vendedor
         '
         'OpenFileDialog1
         '
-        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         Me.OpenFileDialog1.Filter = "PNG|*.png"
         '
         'Frm_Vendedor

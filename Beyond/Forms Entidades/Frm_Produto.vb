@@ -18,17 +18,17 @@ Public Class Frm_Produto
     End Sub
 
     Private Sub Frm_Produto_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        'RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
+        RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
     Private Sub Frm_Produto_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         Uteis.ControlsHelper.SetControlsDisabled(Me)
-        'AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
+        AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
     Private Sub LimpaCampos_AtivaControles()
         Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
-        Uteis.ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
+        Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
         ClearImg()
     End Sub
 
@@ -144,7 +144,7 @@ Public Class Frm_Produto
     End Sub
 
     Private Sub TxtPreco_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtPreco.KeyPress
-        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then
+        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) AndAlso Not e.KeyChar = "," Then
             e.Handled = True
         End If
     End Sub
@@ -187,8 +187,24 @@ Public Class Frm_Produto
     End Sub
 
     Private Sub TxtPreco_TextChanged(sender As System.Object, e As System.EventArgs) Handles TxtPreco.TextChanged
-        If TxtPreco.Text <> String.Empty Then
-            TxtPreco.Text = String.Format("{0:#,##0.00}", Decimal.Parse(TxtPreco.Text))
+        'If TxtPreco.Text.Contains("R$") Then
+        '    TxtPreco.Text += TxtPreco.Text.Replace("R$", "")
+        'End If
+        'If TxtPreco.Text = String.Empty Then
+        '    Exit Sub
+        'End If
+        'Dim val = Convert.ToDecimal(TxtPreco.Text)
+        'TxtPreco.Text = String.Format("{0:N}", val)
+    End Sub
+
+    Private Sub TxtPreco_Leave(sender As System.Object, e As System.EventArgs) Handles TxtPreco.Leave
+        Dim val = TxtPreco.Text
+        TxtPreco.Text = Decimal.Parse(val).ToString("C")
+    End Sub
+
+    Private Sub TxtPreco_Enter(sender As System.Object, e As System.EventArgs) Handles TxtPreco.Enter
+        If TxtPreco.Text.Contains("R$") Then
+            TxtPreco.Text = TxtPreco.Text.Replace("R$", "").Trim
         End If
     End Sub
 End Class

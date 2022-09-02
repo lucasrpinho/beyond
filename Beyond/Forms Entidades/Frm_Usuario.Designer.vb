@@ -72,7 +72,7 @@ Partial Class Frm_Usuario
         Me.ComboNome.Location = New System.Drawing.Point(11, 59)
         Me.ComboNome.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboNome.Name = "ComboNome"
-        Me.ComboNome.Size = New System.Drawing.Size(205, 24)
+        Me.ComboNome.Size = New System.Drawing.Size(338, 24)
         Me.ComboNome.TabIndex = 1
         '
         'PictureBox1
