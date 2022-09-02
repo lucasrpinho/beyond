@@ -732,7 +732,7 @@ Public Class DAO
             Cmd.CommandType = CommandType.StoredProcedure
             Cmd.Parameters.Add("@CODCARGO", SqlDbType.SmallInt).Value = cliente.CodCargo
             Cmd.Parameters.Add("@NOME", SqlDbType.VarChar).Value = cliente.Nome
-            Cmd.Parameters.Add("@CPF", SqlDbType.Char).Value = cliente.CPF
+            Cmd.Parameters.Add("@DATNASC", SqlDbType.Date).Value = cliente.DatNasc
             Cmd.Parameters.Add("@EMPRESA", SqlDbType.VarChar).Value = cliente.Empresa
             Cmd.Parameters.AddWithValue("@CEP", cliente.ObjEndereco.CEP)
             Cmd.Parameters.AddWithValue("@LOGRADOURO", cliente.ObjEndereco.Logradouro)
@@ -812,6 +812,138 @@ Public Class DAO
                 Return True
             End If
         End Using
+    End Function
+
+#End Region
+
+#Region "Produto"
+    Public Overloads Shared Function GetProdutos(ByVal cod As Int32, ByRef resposta As String) As Produto
+        Return _GetProdutos(cod, resposta).FirstOrDefault
+    End Function
+
+    Public Overloads Shared Function GetProdutos(ByRef resposta As String) As List(Of Produto)
+        Return _GetProdutos(0, resposta)
+    End Function
+
+    Public Shared Function _GetProdutos(ByVal cod As Int32, ByRef resposta As String) As List(Of Produto)
+        Dim Lst As New List(Of Produto)
+        Using Con As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+            Using Cmd As New SqlCommand
+                Try
+                    Cmd.Connection = Con
+                    Cmd.CommandText = "SP_GET_PRODUTOS"
+                    Cmd.CommandType = CommandType.StoredProcedure
+                    Cmd.Parameters.AddWithValue("@CODPRODUTO", cod)
+
+                    Dim Adp As New SqlDataAdapter(Cmd)
+                    Dim Tbl As New DataTable
+
+                    Adp.Fill(Tbl)
+
+                    If Tbl.Rows.Count > 0 Then
+                        For I As Integer = 0 To Tbl.Rows.Count - 1
+                            Dim prod As New Produto
+                            prod.Carrega(Tbl.Rows(I))
+                            Lst.Add(prod)
+                        Next
+                    End If
+
+                    If Not Adp Is Nothing Then
+                        Adp.Dispose()
+                    End If
+                    If Not Tbl Is Nothing Then
+                        Tbl.Dispose()
+                    End If
+                Catch ex As Exception
+                    resposta = ex.Message
+                End Try
+            End Using
+        End Using
+
+        Return Lst
+    End Function
+
+    Public Shared Function InsereProduto(ByVal obj As Produto, ByRef resposta As String) As Boolean
+        Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Con.Open()
+        Tr = Con.BeginTransaction
+        Try
+            If _InsereProduto(obj) Then
+                Return True
+            Else
+                Tr.Rollback()
+            End If
+        Catch ex As Exception
+            Tr.Rollback()
+            resposta = ex.Message
+        End Try
+        Return False
+    End Function
+
+    Private Shared Function _InsereProduto(produto As Produto) As Boolean
+        Using Cmd As New SqlCommand
+            Dim imgByte = System.Text.Encoding.UTF8.GetBytes(produto.Imagem)
+            Cmd.Connection = Con
+            Cmd.Transaction = Tr
+            Cmd.CommandText = "SP_INSERE_PRODUTO"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.AddWithValue("@CATEG", produto.Categoria)
+            Cmd.Parameters.AddWithValue("@DESC", produto.Descricao)
+            Cmd.Parameters.Add("@PRECO", SqlDbType.Decimal).Value = produto.Preco
+            Cmd.Parameters.AddWithValue("@QTD", produto.Quantidade)
+            Cmd.Parameters.Add("@IMAGEM", SqlDbType.VarBinary).Value = imgByte
+            Cmd.Parameters.AddWithValue("@ATIVO", produto.IsAtivo)
+            Cmd.Parameters.AddWithValue("@LOGINCRIACAO", produto.LoginCriacao)
+
+            If Cmd.ExecuteNonQuery > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+        End Using
+    End Function
+
+    Public Shared Function AtualizaProduto(ByVal obj As Produto, ByRef resposta As String, _
+                                          ByVal login As String, Optional isDelete As Boolean = False)
+        Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Con.Open()
+        Tr = Con.BeginTransaction
+        Try
+            If _AtualizaProduto(obj, isDelete, login) Then
+                Return True
+            Else
+                Tr.Rollback()
+            End If
+        Catch ex As Exception
+            Tr.Rollback()
+            resposta = ex.Message
+        End Try
+        Return False
+    End Function
+
+    Private Shared Function _AtualizaProduto(produto As Produto, isDelete As Boolean, _
+                                             login As String) As Boolean
+
+        Dim succ As Boolean = False
+        Using Cmd As New SqlCommand
+            Cmd.Connection = Con
+            Cmd.Transaction = Tr
+            Cmd.CommandText = "SP_ATUALIZA_PRODUTO"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.AddWithValue("@CODPRODUTO", produto.CodProduto)
+            Cmd.Parameters.AddWithValue("@PRECO", produto.Preco)
+            Cmd.Parameters.AddWithValue("@QTD", produto.Quantidade)
+            Cmd.Parameters.AddWithValue("@ATIVO", produto.IsAtivo)
+            Cmd.Parameters.AddWithValue("@LOGINALTERACAO", login)
+            Cmd.Parameters.AddWithValue("@ISEXCLUSAO", isDelete)
+
+            If Cmd.ExecuteNonQuery > 0 Then
+                succ = True
+            Else
+                succ = False
+            End If
+        End Using
+        Return succ
     End Function
 
 #End Region

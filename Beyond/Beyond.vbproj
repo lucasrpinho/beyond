@@ -118,6 +118,12 @@
     <Compile Include="Forms Entidades\Frm_Cliente_Cargo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms Entidades\Frm_Produto.Designer.vb">
+      <DependentUpon>Frm_Produto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms Entidades\Frm_Produto.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms Entidades\Frm_Vendedor.Designer.vb">
       <DependentUpon>Frm_Vendedor.vb</DependentUpon>
     </Compile>
@@ -187,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms Entidades\Frm_Cliente_Cargo.resx">
       <DependentUpon>Frm_Cliente_Cargo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms Entidades\Frm_Produto.resx">
+      <DependentUpon>Frm_Produto.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms Entidades\Frm_Vendedor.resx">
       <DependentUpon>Frm_Vendedor.vb</DependentUpon>

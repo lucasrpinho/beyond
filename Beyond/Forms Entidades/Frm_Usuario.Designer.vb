@@ -25,6 +25,7 @@ Partial Class Frm_Usuario
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.ComboNome = New System.Windows.Forms.ComboBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.ChkBoxAtivo = New System.Windows.Forms.CheckBox()
         Me.TxtEmail = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TxtSobrenome = New System.Windows.Forms.TextBox()
@@ -36,7 +37,6 @@ Partial Class Frm_Usuario
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TxtSenhaConfirmar = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.ChkBoxAtivo = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -49,6 +49,7 @@ Partial Class Frm_Usuario
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.ComboNome)
         Me.GroupBox1.Controls.Add(Me.PictureBox1)
+        Me.GroupBox1.Controls.Add(Me.ChkBoxAtivo)
         Me.GroupBox1.Controls.Add(Me.TxtEmail)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.TxtSobrenome)
@@ -77,14 +78,28 @@ Partial Class Frm_Usuario
         'PictureBox1
         '
         Me.PictureBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox1.BackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.PictureBox1.BackColor = System.Drawing.Color.DodgerBlue
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(400, 23)
+        Me.PictureBox1.Location = New System.Drawing.Point(400, 38)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(121, 117)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 6
         Me.PictureBox1.TabStop = False
+        '
+        'ChkBoxAtivo
+        '
+        Me.ChkBoxAtivo.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ChkBoxAtivo.AutoSize = True
+        Me.ChkBoxAtivo.Checked = True
+        Me.ChkBoxAtivo.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ChkBoxAtivo.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChkBoxAtivo.Location = New System.Drawing.Point(454, 178)
+        Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
+        Me.ChkBoxAtivo.Size = New System.Drawing.Size(67, 21)
+        Me.ChkBoxAtivo.TabIndex = 10
+        Me.ChkBoxAtivo.Text = "Ativo"
+        Me.ChkBoxAtivo.UseVisualStyleBackColor = True
         '
         'TxtEmail
         '
@@ -202,26 +217,12 @@ Partial Class Frm_Usuario
         Me.Label5.TabIndex = 8
         Me.Label5.Text = "Confirme a senha"
         '
-        'ChkBoxAtivo
-        '
-        Me.ChkBoxAtivo.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ChkBoxAtivo.AutoSize = True
-        Me.ChkBoxAtivo.Checked = True
-        Me.ChkBoxAtivo.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ChkBoxAtivo.Location = New System.Drawing.Point(250, 177)
-        Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
-        Me.ChkBoxAtivo.Size = New System.Drawing.Size(63, 21)
-        Me.ChkBoxAtivo.TabIndex = 10
-        Me.ChkBoxAtivo.Text = "Ativo"
-        Me.ChkBoxAtivo.UseVisualStyleBackColor = True
-        '
         'GroupBox2
         '
         Me.GroupBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.Controls.Add(Me.TxtLogin)
         Me.GroupBox2.Controls.Add(Me.Label4)
-        Me.GroupBox2.Controls.Add(Me.ChkBoxAtivo)
         Me.GroupBox2.Controls.Add(Me.Label5)
         Me.GroupBox2.Controls.Add(Me.TxtSenhaConfirmar)
         Me.GroupBox2.Controls.Add(Me.Label3)

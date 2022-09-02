@@ -29,10 +29,10 @@ Partial Class Frm_Cliente
         Me.TxtObs = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.GrpBoxInfo = New System.Windows.Forms.GroupBox()
+        Me.BtnConsCargo = New System.Windows.Forms.Button()
         Me.TxtCelular = New System.Windows.Forms.MaskedTextBox()
         Me.TxtEmpresa = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.TxtCPF = New System.Windows.Forms.MaskedTextBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TxtEmail = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -54,7 +54,7 @@ Partial Class Frm_Cliente
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.LblCep = New System.Windows.Forms.Label()
-        Me.BtnConsCargo = New System.Windows.Forms.Button()
+        Me.DtPckNasc = New System.Windows.Forms.DateTimePicker()
         Me.GrpBoxInfo.SuspendLayout()
         Me.GrpBoxEndereco.SuspendLayout()
         Me.SuspendLayout()
@@ -120,6 +120,7 @@ Partial Class Frm_Cliente
         '
         Me.GrpBoxInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GrpBoxInfo.Controls.Add(Me.DtPckNasc)
         Me.GrpBoxInfo.Controls.Add(Me.BtnConsCargo)
         Me.GrpBoxInfo.Controls.Add(Me.TxtCelular)
         Me.GrpBoxInfo.Controls.Add(Me.Label17)
@@ -127,7 +128,6 @@ Partial Class Frm_Cliente
         Me.GrpBoxInfo.Controls.Add(Me.TxtEmpresa)
         Me.GrpBoxInfo.Controls.Add(Me.Label3)
         Me.GrpBoxInfo.Controls.Add(Me.ComboCargo)
-        Me.GrpBoxInfo.Controls.Add(Me.TxtCPF)
         Me.GrpBoxInfo.Controls.Add(Me.Label9)
         Me.GrpBoxInfo.Controls.Add(Me.ChkBoxAtivo)
         Me.GrpBoxInfo.Controls.Add(Me.Label11)
@@ -144,6 +144,16 @@ Partial Class Frm_Cliente
         Me.GrpBoxInfo.TabIndex = 1
         Me.GrpBoxInfo.TabStop = False
         Me.GrpBoxInfo.Text = "Informações"
+        '
+        'BtnConsCargo
+        '
+        Me.BtnConsCargo.Enabled = False
+        Me.BtnConsCargo.Location = New System.Drawing.Point(596, 202)
+        Me.BtnConsCargo.Name = "BtnConsCargo"
+        Me.BtnConsCargo.Size = New System.Drawing.Size(139, 34)
+        Me.BtnConsCargo.TabIndex = 42
+        Me.BtnConsCargo.Text = "Consultar Cargo"
+        Me.BtnConsCargo.UseVisualStyleBackColor = True
         '
         'TxtCelular
         '
@@ -173,23 +183,15 @@ Partial Class Frm_Cliente
         Me.Label3.TabIndex = 41
         Me.Label3.Text = "Empresa"
         '
-        'TxtCPF
-        '
-        Me.TxtCPF.Location = New System.Drawing.Point(615, 52)
-        Me.TxtCPF.Mask = "000,000,000-00"
-        Me.TxtCPF.Name = "TxtCPF"
-        Me.TxtCPF.Size = New System.Drawing.Size(120, 24)
-        Me.TxtCPF.TabIndex = 2
-        '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(612, 31)
+        Me.Label11.Location = New System.Drawing.Point(608, 31)
         Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(34, 17)
+        Me.Label11.Size = New System.Drawing.Size(127, 17)
         Me.Label11.TabIndex = 38
-        Me.Label11.Text = "CPF"
+        Me.Label11.Text = "Data Nascimento"
         '
         'TxtEmail
         '
@@ -228,7 +230,7 @@ Partial Class Frm_Cliente
         Me.ComboNome.Location = New System.Drawing.Point(9, 52)
         Me.ComboNome.MaxLength = 90
         Me.ComboNome.Name = "ComboNome"
-        Me.ComboNome.Size = New System.Drawing.Size(580, 24)
+        Me.ComboNome.Size = New System.Drawing.Size(584, 24)
         Me.ComboNome.TabIndex = 1
         '
         'Label1
@@ -405,15 +407,15 @@ Partial Class Frm_Cliente
         Me.LblCep.TabIndex = 48
         Me.LblCep.Text = "CEP"
         '
-        'BtnConsCargo
+        'DtPckNasc
         '
-        Me.BtnConsCargo.Enabled = False
-        Me.BtnConsCargo.Location = New System.Drawing.Point(596, 202)
-        Me.BtnConsCargo.Name = "BtnConsCargo"
-        Me.BtnConsCargo.Size = New System.Drawing.Size(139, 34)
-        Me.BtnConsCargo.TabIndex = 42
-        Me.BtnConsCargo.Text = "Consultar Cargo"
-        Me.BtnConsCargo.UseVisualStyleBackColor = True
+        Me.DtPckNasc.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DtPckNasc.Location = New System.Drawing.Point(617, 52)
+        Me.DtPckNasc.MaxDate = New Date(2200, 12, 31, 0, 0, 0, 0)
+        Me.DtPckNasc.MinDate = New Date(1922, 1, 1, 0, 0, 0, 0)
+        Me.DtPckNasc.Name = "DtPckNasc"
+        Me.DtPckNasc.Size = New System.Drawing.Size(118, 24)
+        Me.DtPckNasc.TabIndex = 2
         '
         'Frm_Cliente
         '
@@ -448,7 +450,6 @@ Partial Class Frm_Cliente
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents TxtEmpresa As System.Windows.Forms.TextBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents TxtCPF As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents TxtEmail As System.Windows.Forms.TextBox
     Friend WithEvents Label10 As System.Windows.Forms.Label
@@ -470,4 +471,5 @@ Partial Class Frm_Cliente
     Friend WithEvents LblCep As System.Windows.Forms.Label
     Friend WithEvents TxtCelular As System.Windows.Forms.MaskedTextBox
     Friend WithEvents BtnConsCargo As System.Windows.Forms.Button
+    Friend WithEvents DtPckNasc As System.Windows.Forms.DateTimePicker
 End Class

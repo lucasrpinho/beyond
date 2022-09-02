@@ -36,8 +36,6 @@ Partial Class Frm_Principal_MDI
         Me.VendedorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProdutosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CadastrarToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AlterarToolStripMenuItem5 = New System.Windows.Forms.ToolStripMenuItem()
         Me.PedidoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.IncluirVendaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConsultasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -156,22 +154,9 @@ Partial Class Frm_Principal_MDI
         '
         'ProdutosToolStripMenuItem
         '
-        Me.ProdutosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CadastrarToolStripMenuItem4, Me.AlterarToolStripMenuItem5})
         Me.ProdutosToolStripMenuItem.Name = "ProdutosToolStripMenuItem"
         Me.ProdutosToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ProdutosToolStripMenuItem.Text = "Produto"
-        '
-        'CadastrarToolStripMenuItem4
-        '
-        Me.CadastrarToolStripMenuItem4.Name = "CadastrarToolStripMenuItem4"
-        Me.CadastrarToolStripMenuItem4.Size = New System.Drawing.Size(124, 22)
-        Me.CadastrarToolStripMenuItem4.Text = "Cadastrar"
-        '
-        'AlterarToolStripMenuItem5
-        '
-        Me.AlterarToolStripMenuItem5.Name = "AlterarToolStripMenuItem5"
-        Me.AlterarToolStripMenuItem5.Size = New System.Drawing.Size(124, 22)
-        Me.AlterarToolStripMenuItem5.Text = "Alterar"
         '
         'PedidoToolStripMenuItem
         '
@@ -417,7 +402,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.BeyondICON
-        Me.PictureBox1.Location = New System.Drawing.Point(199, 153)
+        Me.PictureBox1.Location = New System.Drawing.Point(200, 153)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(163, 149)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -495,8 +480,6 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents VendedorToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ClientesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ProdutosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents CadastrarToolStripMenuItem4 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents AlterarToolStripMenuItem5 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PedidoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents IncluirVendaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents RelatórioToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem

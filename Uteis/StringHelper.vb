@@ -34,6 +34,18 @@
         Return txtvalido
     End Function
 
+    Public Shared Function CurrencyType(txt As String) As String
+        Dim txtdinheiro As String = ""
+        If txt.Length > 0 Then
+            For I As Integer = 0 To txt.Length - 1
+                If IsNumeric(txt(I)) Or txt(I) = "." Or txt(I) = "," Then
+                    txtdinheiro += txt(I)
+                End If
+            Next
+        End If
+        Return txtdinheiro
+    End Function
+
     ' REFERÊNCIA: www.macoratti.net/11/09/c_val1.htm
     Public Shared Function IsCpf(ByVal cpf As String) As Boolean
         Dim multiplicador1 = New Integer() {10, 9, 8, 7, 6, 5, 4, 3, 2}

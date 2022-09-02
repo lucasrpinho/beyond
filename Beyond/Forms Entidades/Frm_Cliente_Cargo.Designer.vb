@@ -25,20 +25,18 @@ Partial Class Frm_Cliente_Cargo
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_Cliente_Cargo))
         Me.GrpInfo = New System.Windows.Forms.GroupBox()
         Me.BtnDesvincular = New System.Windows.Forms.Button()
-        Me.TxtCPF = New System.Windows.Forms.MaskedTextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.TxtCargo = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TxtCliente = New System.Windows.Forms.TextBox()
         Me.Label999 = New System.Windows.Forms.Label()
+        Me.ChkAtivo = New System.Windows.Forms.CheckBox()
         Me.GrpInfo.SuspendLayout()
         Me.SuspendLayout()
         '
         'GrpInfo
         '
+        Me.GrpInfo.Controls.Add(Me.ChkAtivo)
         Me.GrpInfo.Controls.Add(Me.BtnDesvincular)
-        Me.GrpInfo.Controls.Add(Me.TxtCPF)
-        Me.GrpInfo.Controls.Add(Me.Label2)
         Me.GrpInfo.Controls.Add(Me.TxtCargo)
         Me.GrpInfo.Controls.Add(Me.Label1)
         Me.GrpInfo.Controls.Add(Me.TxtCliente)
@@ -61,24 +59,6 @@ Partial Class Frm_Cliente_Cargo
         Me.BtnDesvincular.TabIndex = 6
         Me.BtnDesvincular.Text = "Desvincular"
         Me.BtnDesvincular.UseVisualStyleBackColor = True
-        '
-        'TxtCPF
-        '
-        Me.TxtCPF.Location = New System.Drawing.Point(434, 53)
-        Me.TxtCPF.Mask = "000,000,000-00"
-        Me.TxtCPF.Name = "TxtCPF"
-        Me.TxtCPF.ReadOnly = True
-        Me.TxtCPF.Size = New System.Drawing.Size(116, 23)
-        Me.TxtCPF.TabIndex = 5
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(431, 34)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(33, 16)
-        Me.Label2.TabIndex = 4
-        Me.Label2.Text = "CPF"
         '
         'TxtCargo
         '
@@ -114,6 +94,17 @@ Partial Class Frm_Cliente_Cargo
         Me.Label999.TabIndex = 0
         Me.Label999.Text = "Cliente"
         '
+        'ChkAtivo
+        '
+        Me.ChkAtivo.AutoSize = True
+        Me.ChkAtivo.Enabled = False
+        Me.ChkAtivo.Location = New System.Drawing.Point(434, 56)
+        Me.ChkAtivo.Name = "ChkAtivo"
+        Me.ChkAtivo.Size = New System.Drawing.Size(61, 20)
+        Me.ChkAtivo.TabIndex = 7
+        Me.ChkAtivo.Text = "Ativo"
+        Me.ChkAtivo.UseVisualStyleBackColor = True
+        '
         'Frm_Cliente_Cargo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -135,10 +126,9 @@ Partial Class Frm_Cliente_Cargo
     End Sub
     Friend WithEvents GrpInfo As System.Windows.Forms.GroupBox
     Friend WithEvents BtnDesvincular As System.Windows.Forms.Button
-    Friend WithEvents TxtCPF As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents TxtCargo As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents TxtCliente As System.Windows.Forms.TextBox
     Friend WithEvents Label999 As System.Windows.Forms.Label
+    Friend WithEvents ChkAtivo As System.Windows.Forms.CheckBox
 End Class

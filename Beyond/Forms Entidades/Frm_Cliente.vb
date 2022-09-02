@@ -63,7 +63,7 @@ Public Class Frm_Cliente
 
         cliente.CodCargo = LstCargos(ComboCargo.SelectedIndex).CodCargo
         cliente.Nome = ComboNome.Text.ToUpper
-        cliente.CPF = StringHelper.NumericOnly(TxtCPF.Text)
+        cliente.DatNasc = DtPckNasc.Value
         cliente.Empresa = TxtEmpresa.Text.ToUpper
         cliente.Telefone = StringHelper.NumericOnly(TxtCelular.Text)
         cliente.Email = TxtEmail.Text.ToUpper
@@ -85,11 +85,6 @@ Public Class Frm_Cliente
 
         If Not cliente.IsValid(strError) Then
             MsgBoxHelper.Erro(Me, strError, "Erro de preenchimento")
-            Exit Sub
-        End If
-
-        If Not StringHelper.IsCpf(cliente.CPF) Then
-            MsgBoxHelper.Erro(Me, "CPF inválido", "Erro de preenchimento")
             Exit Sub
         End If
 
@@ -270,7 +265,7 @@ Public Class Frm_Cliente
         TxtEmail.Text = cliente.Email
         TxtEmpresa.Text = cliente.Empresa
         TxtCelular.Text = cliente.Telefone
-        TxtCPF.Text = cliente.CPF
+        DtPckNasc.Value = cliente.DatNasc
     End Sub
 
     Private Sub CarregaClientes()

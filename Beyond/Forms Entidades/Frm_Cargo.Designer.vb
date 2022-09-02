@@ -95,7 +95,6 @@ Partial Class Frm_Cargo
         Me.ComboNome.Name = "ComboNome"
         Me.ComboNome.Size = New System.Drawing.Size(566, 24)
         Me.ComboNome.TabIndex = 13
-        Me.ComboNome.Visible = False
         '
         'TxtDesc
         '

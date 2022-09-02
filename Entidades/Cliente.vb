@@ -4,7 +4,7 @@ Public Class Cliente
 
     Private _CodCliente As Integer = 0
     Public Nome As String
-    Public CPF As String
+    Public DatNasc As Date
     Public Empresa As String
     Public CodCargo As Int16
     Public ObjEndereco As Endereco
@@ -45,8 +45,8 @@ Public Class Cliente
             strError = "Telefone precisa ser preenchido"
         ElseIf Me.Telefone.Length <> 11 Then
             strError = "Telefone precisa conter DDD e 9 dígitos"
-        ElseIf Me.CPF <> String.Empty AndAlso Me.CPF.Length <> 11 Then
-            strError = "CPF precisa conter 11 dígitos"
+        ElseIf Me.DatNasc = Nothing Then
+            strError = "Data de nascimento precisa ser preenchida"
         ElseIf Me.LoginCriacao = String.Empty Then
             strError = "O sistema não encontrou o login de quem está inserindo o cliente"
         End If
@@ -58,7 +58,7 @@ Public Class Cliente
         Me.CodCliente = row.Field(Of Integer)("cod_cliente")
         Me.CodCargo = row.Field(Of Int16)("cod_cargo")
         Me.Nome = row.Field(Of String)("de_nome_completo")
-        Me.CPF = row.Field(Of String)("nu_cpf")
+        Me.DatNasc = row.Field(Of Date)("dat_nasc")
         Me.Empresa = row.Field(Of String)("de_empresa")
         'Me.ObjEndereco.CEP = row.Field(Of String)("nu_cep")
         'Me.ObjEndereco.Logradouro = row.Field(Of String)("de_logradouro")

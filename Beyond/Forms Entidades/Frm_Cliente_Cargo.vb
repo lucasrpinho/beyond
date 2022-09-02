@@ -28,7 +28,7 @@ Public Class Frm_Cliente_Cargo
         Cliente = DAO.DAO.GetClientePorCargo(Cargo.CodCargo)
 
         TxtCliente.Text = Cliente.Nome
-        TxtCPF.Text = Cliente.CPF
+        ChkAtivo.Checked = Cliente.IsAtivo
     End Sub
 
     Private Sub BtnDesvincular_Click(sender As System.Object, e As System.EventArgs) Handles BtnDesvincular.Click
