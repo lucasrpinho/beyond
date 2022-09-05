@@ -117,6 +117,7 @@ Public Class Frm_Principal_MDI
                 TCPrincipal.TabPages.RemoveAt(I)
             Next
         End If
+        Me.UC_Toolstrip1.DesabilitarItens()
     End Sub
 
     Private Sub CargosToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles CargosToolStripMenuItem.Click
@@ -130,6 +131,7 @@ Public Class Frm_Principal_MDI
                 TCPrincipal.TabPages.RemoveAt(I)
             Next
         End If
+        Me.UC_Toolstrip1.DesabilitarItens()
     End Sub
 
     Private Sub TCPrincipal_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles TCPrincipal.SelectedIndexChanged
@@ -156,6 +158,7 @@ Public Class Frm_Principal_MDI
             End If
         Else
             TCPrincipal.Visible = False
+            UC_Toolstrip1.DesabilitarItens()
         End If
     End Sub
 
@@ -182,11 +185,13 @@ Public Class Frm_Principal_MDI
             TP.Controls.Add(Frm)
             TP.Tag = Frm
             TP.Text = Frm.Text
+            TP.ImageIndex = 0
             TCPrincipal.TabPages.Add(TP)
             TCPrincipal.SelectTab(TP)
             TCPrincipal.BringToFront()
             TCPrincipal.Visible = True
             Frm.Show()
+            UC_Toolstrip1.PagAberta_HabilitarBotoes()
             Me.Refresh()
         End If
     End Sub
@@ -211,6 +216,7 @@ Public Class Frm_Principal_MDI
             TP.Text = Frm.Text
             TP.BackColor = Frm.BackColor
             TP.Name = Frm.Name
+            TP.ImageIndex = 0
             TCPrincipal.TabPages.Add(TP)
             TCPrincipal.SelectedTab = TP
             TCPrincipal.BringToFront()
@@ -236,6 +242,7 @@ Public Class Frm_Principal_MDI
             TP.Text = Frm.Text
             TP.BackColor = Frm.BackColor
             TP.Name = Frm.Name
+            TP.ImageIndex = 0
             TCPrincipal.TabPages.Add(TP)
             TCPrincipal.SelectTab(TP)
             TCPrincipal.BringToFront()
@@ -330,6 +337,7 @@ Public Class Frm_Principal_MDI
             TP.Controls.Add(Frm)
             TP.Tag = Frm
             TP.Text = Frm.Text
+            TP.ImageIndex = 0
             TP.BackColor = Frm.BackColor
             TP.Name = Frm.Name
             TCPrincipal.TabPages.Add(TP)
@@ -365,6 +373,7 @@ Public Class Frm_Principal_MDI
             TP.Text = Frm.Text
             TP.BackColor = Frm.BackColor
             TP.Name = Frm.Name
+            TP.ImageIndex = 0
             TCPrincipal.TabPages.Add(TP)
             TCPrincipal.SelectTab(TP)
             TCPrincipal.BringToFront()
@@ -377,4 +386,5 @@ Public Class Frm_Principal_MDI
     Private Sub ProdutosToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ProdutosToolStripMenuItem.Click
         AbreProdutoPag()
     End Sub
+
 End Class

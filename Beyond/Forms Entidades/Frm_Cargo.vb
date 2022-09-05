@@ -4,6 +4,7 @@ Public Class Frm_Cargo
 
     Private frmPrincipal As Frm_Principal_MDI
     Private LstCargo As New List(Of Cargo)
+    Private Modo As String = ""
 
     Public Sub New(frm As Frm_Principal_MDI)
 
@@ -13,6 +14,12 @@ Public Class Frm_Cargo
         frmPrincipal = frm
     End Sub
 
+    Private Sub Frm_Cargo_EnabledChanged(sender As System.Object, e As System.EventArgs) Handles Me.EnabledChanged
+        If Me.Enabled Then
+            frmPrincipal.UC_Toolstrip1.ToolbarItemsState(Modo)
+        End If
+    End Sub
+
     Private Sub Frm_Cargo_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
@@ -20,6 +27,7 @@ Public Class Frm_Cargo
     Private Sub Frm_Cargo_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         ControlsHelper.SetControlsDisabled(Me)
         AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
+        Modo = UC_Toolstrip.Modo
     End Sub
 
     Private Sub InsereCargo()
@@ -91,23 +99,23 @@ Public Class Frm_Cargo
             End If
 
 
-        ElseIf UC_Toolstrip.Modo = "PROCURAR" Then
+        ElseIf UC_Toolstrip.Modo = "PESQUISAR" Then
             LimpaCampos_Ativa()
             CarregaCargos()
 
 
         ElseIf UC_Toolstrip.Modo = "CONFIRMAR" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
-                DAO.DAO.ConfirmarOuReverter(True)
+                DAO.DAO.ReverterOuCommitar(True)
                 LimpaCampos_Ativa()
                 frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
             End If
 
 
-        ElseIf UC_Toolstrip.Modo = "ROLLBACK" Then
+        ElseIf UC_Toolstrip.Modo = "REVERTER" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
                 If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja reverter a operação?", "Reverter") Then
-                    DAO.DAO.ConfirmarOuReverter(False)
+                    DAO.DAO.ReverterOuCommitar(False)
                     LimpaCampos_Ativa()
                     frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
                 Else
@@ -116,9 +124,9 @@ Public Class Frm_Cargo
             End If
 
 
-        ElseIf UC_Toolstrip.Modo = "DELETAR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja deletar o item?", "Deletar") Then
-                If DAO.DAO.DeleteUsuario(LstCargo(ComboNome.SelectedIndex - 1).CodCargo, "") Then
+        ElseIf UC_Toolstrip.Modo = "EXCLUIR" Then
+            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
+                If DAO.DAO.AtualizaCargo(LstCargo(ComboNome.SelectedIndex - 1), "", True, loginusuario) Then
                     frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
                     Uteis.ControlsHelper.SetControlsDisabled(Me)
                     Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip1)
@@ -133,13 +141,11 @@ Public Class Frm_Cargo
         End If
 
         AlternarControle()
-        If frmPrincipal.StateTransaction Then
-            Uteis.ControlsHelper.EnableAllToolBarItens(frmPrincipal.UC_Toolstrip1.ToolStrip1)
-        End If
+        Me.Modo = UC_Toolstrip.Modo
     End Sub
 
     Private Sub AlternarControle()
-        If UC_Toolstrip.Modo = "PROCURAR" Then
+        If UC_Toolstrip.Modo = "PESQUISAR" Then
             ComboNome.DropDownStyle = ComboBoxStyle.DropDown
         ElseIf UC_Toolstrip.Modo = "NOVO" Then
             ComboNome.Visible = True

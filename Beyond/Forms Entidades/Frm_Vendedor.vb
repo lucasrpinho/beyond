@@ -42,7 +42,7 @@ Public Class Frm_Vendedor
     End Sub
 
     Private Sub AlternarControle()
-        If UC_Toolstrip.Modo = "PROCURAR" Then
+        If UC_Toolstrip.Modo = "PESQUISAR" Then
             ComboNome.DropDownStyle = ComboBoxStyle.DropDown
         ElseIf UC_Toolstrip.Modo = "NOVO" Then
             ComboNome.DropDownStyle = ComboBoxStyle.Simple
@@ -195,11 +195,11 @@ Public Class Frm_Vendedor
         If UC_Toolstrip.Modo = "SALVAR" Then
             Insere()
 
-        ElseIf UC_Toolstrip.Modo = "PROCURAR" Or UC_Toolstrip.Modo = "NOVO" Then
+        ElseIf UC_Toolstrip.Modo = "PESQUISAR" Or UC_Toolstrip.Modo = "NOVO" Then
             ParaPesquisaEConfirmacao()
 
-        ElseIf UC_Toolstrip.Modo = "ATUALIZAR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "O registro será modificado. Deseja continuar?", "Atualizar") Then
+        ElseIf UC_Toolstrip.Modo = "ALTERAR" Then
+            If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "O registro será modificado. Deseja continuar?", "ALTERAR") Then
                 If DAO.DAO.AtualizaVendedor(LstVendedor(ComboNome.SelectedIndex - 1), "", False, loginusuario) Then
                     ParaRemocaoEAlteracao()
                 End If
@@ -209,15 +209,15 @@ Public Class Frm_Vendedor
 
         ElseIf UC_Toolstrip.Modo = "CONFIRMAR" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
-                DAO.DAO.ConfirmarOuReverter(True)
+                DAO.DAO.ReverterOuCommitar(True)
                 ParaPesquisaEConfirmacao()
                 frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
             End If
 
-        ElseIf UC_Toolstrip.Modo = "ROLLBACK" Then
+        ElseIf UC_Toolstrip.Modo = "REVERTER" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja reverter a operação?", "Reverter") Then
-                    DAO.DAO.ConfirmarOuReverter(False)
+                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja REVERTER a operação?", "REVERTER") Then
+                    DAO.DAO.ReverterOuCommitar(False)
                     Uteis.ControlsHelper.SetControlsDisabled(Me)
                     LimpaCampos_AtivaControles()
                     frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
@@ -226,11 +226,11 @@ Public Class Frm_Vendedor
                 End If
             End If
 
-        ElseIf UC_Toolstrip.Modo = "DELETAR" Then
+        ElseIf UC_Toolstrip.Modo = "EXCLUIR" Then
             If ComboNome.DropDownStyle = ComboBoxStyle.Simple Then
                 Exit Sub
             End If
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja deletar o item?", "Deletar") Then
+            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja EXCLUIR o item?", "EXCLUIR") Then
                 If DAO.DAO.AtualizaVendedor(LstVendedor(ComboNome.SelectedIndex - 1).CodVendedor, _
                     "", True, loginusuario) Then
                     ParaRemocaoEAlteracao()
@@ -281,7 +281,7 @@ Public Class Frm_Vendedor
     End Sub
 
     Private Sub CarregaVendedores()
-        If Not UC_Toolstrip.Modo = "PROCURAR" Then
+        If Not UC_Toolstrip.Modo = "PESQUISAR" Then
             Exit Sub
         End If
         LstVendedor.Clear()

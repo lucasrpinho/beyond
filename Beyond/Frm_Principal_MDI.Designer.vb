@@ -60,6 +60,7 @@ Partial Class Frm_Principal_MDI
         Me.BtnCargo = New System.Windows.Forms.Button()
         Me.BtnUsuario = New System.Windows.Forms.Button()
         Me.TCPrincipal = New System.Windows.Forms.TabControl()
+        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.LblOla = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -131,31 +132,31 @@ Partial Class Frm_Principal_MDI
         'UsuarioMenuItem
         '
         Me.UsuarioMenuItem.Name = "UsuarioMenuItem"
-        Me.UsuarioMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.UsuarioMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.UsuarioMenuItem.Text = "Usuário"
         '
         'CargosToolStripMenuItem
         '
         Me.CargosToolStripMenuItem.Name = "CargosToolStripMenuItem"
-        Me.CargosToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.CargosToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.CargosToolStripMenuItem.Text = "Cargo"
         '
         'VendedorToolStripMenuItem
         '
         Me.VendedorToolStripMenuItem.Name = "VendedorToolStripMenuItem"
-        Me.VendedorToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.VendedorToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.VendedorToolStripMenuItem.Text = "Vendedor"
         '
         'ClientesToolStripMenuItem
         '
         Me.ClientesToolStripMenuItem.Name = "ClientesToolStripMenuItem"
-        Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.ClientesToolStripMenuItem.Text = "Cliente"
         '
         'ProdutosToolStripMenuItem
         '
         Me.ProdutosToolStripMenuItem.Name = "ProdutosToolStripMenuItem"
-        Me.ProdutosToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ProdutosToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.ProdutosToolStripMenuItem.Text = "Produto"
         '
         'PedidoToolStripMenuItem
@@ -288,7 +289,7 @@ Partial Class Frm_Principal_MDI
         Me.SplitC1.Panel2.Controls.Add(Me.PictureBox1)
         Me.SplitC1.Size = New System.Drawing.Size(755, 404)
         Me.SplitC1.SplitterDistance = 200
-        Me.SplitC1.SplitterWidth = 3
+        Me.SplitC1.SplitterWidth = 1
         Me.SplitC1.TabIndex = 10
         '
         'BtnRelatorio
@@ -378,13 +379,20 @@ Partial Class Frm_Principal_MDI
         'TCPrincipal
         '
         Me.TCPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TCPrincipal.ImageList = Me.ImageList1
         Me.TCPrincipal.ItemSize = New System.Drawing.Size(30, 30)
         Me.TCPrincipal.Location = New System.Drawing.Point(0, 0)
         Me.TCPrincipal.Name = "TCPrincipal"
         Me.TCPrincipal.SelectedIndex = 0
-        Me.TCPrincipal.Size = New System.Drawing.Size(552, 404)
+        Me.TCPrincipal.Size = New System.Drawing.Size(554, 404)
         Me.TCPrincipal.TabIndex = 2
         Me.TCPrincipal.Visible = False
+        '
+        'ImageList1
+        '
+        Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
+        Me.ImageList1.Images.SetKeyName(0, "BeyondICON")
         '
         'LblOla
         '
@@ -402,7 +410,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.BeyondICON
-        Me.PictureBox1.Location = New System.Drawing.Point(200, 153)
+        Me.PictureBox1.Location = New System.Drawing.Point(205, 153)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(163, 149)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -513,4 +521,5 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents BtnVendedor As System.Windows.Forms.Button
     Friend WithEvents BtnCargo As System.Windows.Forms.Button
     Friend WithEvents BtnUsuario As System.Windows.Forms.Button
+    Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
 End Class

@@ -70,8 +70,8 @@ Public Class Frm_Produto
             Insere()
 
 
-        ElseIf UC_Toolstrip.Modo = "ATUALIZAR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "O produto será alterado. Deseja continuar?", "Atualizar") Then
+        ElseIf UC_Toolstrip.Modo = "ALTERAR" Then
+            If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "O produto será alterado. Deseja continuar?", "ALTERAR") Then
                 If DAO.DAO.AtualizaProduto(objProduto, resposta, loginusuario) Then
                     ParaRemocaoEAlteracao()
                 Else
@@ -83,22 +83,22 @@ Public Class Frm_Produto
             End If
 
 
-        ElseIf UC_Toolstrip.Modo = "PROCURAR" Or UC_Toolstrip.Modo = "NOVO" Then
+        ElseIf UC_Toolstrip.Modo = "PESQUISAR" Or UC_Toolstrip.Modo = "NOVO" Then
             LimpaCampos_AtivaControles()
 
 
         ElseIf UC_Toolstrip.Modo = "CONFIRMAR" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
-                DAO.DAO.ConfirmarOuReverter(True)
+                DAO.DAO.ReverterOuCommitar(True)
                 LimpaCampos_AtivaControles()
                 frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
             End If
 
 
-        ElseIf UC_Toolstrip.Modo = "ROLLBACK" Then
+        ElseIf UC_Toolstrip.Modo = "REVERTER" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja reverter a operação?", "Reverter") Then
-                    DAO.DAO.ConfirmarOuReverter(False)
+                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja REVERTER a operação?", "REVERTER") Then
+                    DAO.DAO.ReverterOuCommitar(False)
                     Uteis.ControlsHelper.SetControlsDisabled(Me)
                     LimpaCampos_AtivaControles()
                     frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
@@ -108,8 +108,8 @@ Public Class Frm_Produto
             End If
 
 
-        ElseIf UC_Toolstrip.Modo = "DELETAR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja deletar o item?", "Deletar") Then
+        ElseIf UC_Toolstrip.Modo = "EXCLUIR" Then
+            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja EXCLUIR o item?", "EXCLUIR") Then
                 If DAO.DAO.AtualizaProduto(objProduto, resposta, loginusuario, True) Then
                     ParaRemocaoEAlteracao()
                 Else

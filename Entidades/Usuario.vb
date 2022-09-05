@@ -47,13 +47,13 @@ Public Class Usuario
     Public Function IsValid(ByRef strError As String) As Boolean
         strError = String.Empty
         If Me.CodUsuario <> 0 Then
-            strError = "O código de usuário deve ser 0 pois será gerado automaticamente"
+            strError = "O código de usuário deve ser 0 pois será gerado automaticamente."
         ElseIf Me.Nome = "" Then
-            strError = "Nome precisa estar preenchido"
+            strError = "Nome precisa ser preenchido."
         ElseIf Me.Sobrenome = "" Then
-            strError = "Sobrenome precisa estar preenchido"
+            strError = "Sobrenome precisa ser preenchido."
         ElseIf Me.Senha = "" Then
-            strError = "Senha não pode ser vazia"
+            strError = "Senha não pode ser vazia."
         End If
         Return String.IsNullOrWhiteSpace(strError)
     End Function

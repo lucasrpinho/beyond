@@ -26,23 +26,22 @@ Partial Class UC_Toolstrip
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.BtnNovo = New System.Windows.Forms.ToolStripButton()
         Me.BtnSalvar = New System.Windows.Forms.ToolStripButton()
-        Me.BtnProcurar = New System.Windows.Forms.ToolStripButton()
-        Me.BtnAtualizar = New System.Windows.Forms.ToolStripButton()
-        Me.BtnDeletar = New System.Windows.Forms.ToolStripButton()
+        Me.BtnPesquisar = New System.Windows.Forms.ToolStripButton()
+        Me.BtnAlterar = New System.Windows.Forms.ToolStripButton()
+        Me.BtnExcluir = New System.Windows.Forms.ToolStripButton()
         Me.toolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
-        Me.BtnVoltar = New System.Windows.Forms.ToolStripButton()
-        Me.BtnProximo = New System.Windows.Forms.ToolStripButton()
-        Me.BtnConfirmar = New System.Windows.Forms.ToolStripButton()
-        Me.BtnRollback = New System.Windows.Forms.ToolStripButton()
+        Me.BtnAnterior = New System.Windows.Forms.ToolStripButton()
+        Me.BtnSeguinte = New System.Windows.Forms.ToolStripButton()
+        Me.BtnReverter = New System.Windows.Forms.ToolStripButton()
         Me.toolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.BtnLimpar = New System.Windows.Forms.ToolStripLabel()
+        Me.BtnFecharPag = New System.Windows.Forms.ToolStripButton()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolStrip1
         '
         Me.ToolStrip1.BackColor = System.Drawing.Color.LightGray
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnNovo, Me.BtnSalvar, Me.BtnProcurar, Me.BtnAtualizar, Me.BtnDeletar, Me.toolStripSeparator, Me.BtnVoltar, Me.BtnProximo, Me.BtnConfirmar, Me.BtnRollback, Me.toolStripSeparator1, Me.BtnLimpar})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnNovo, Me.BtnSalvar, Me.BtnPesquisar, Me.BtnAlterar, Me.BtnExcluir, Me.toolStripSeparator, Me.BtnAnterior, Me.BtnSeguinte, Me.BtnReverter, Me.toolStripSeparator1, Me.BtnFecharPag})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(473, 25)
@@ -68,86 +67,80 @@ Partial Class UC_Toolstrip
         Me.BtnSalvar.Size = New System.Drawing.Size(23, 22)
         Me.BtnSalvar.Text = "&Salvar"
         '
-        'BtnProcurar
+        'BtnPesquisar
         '
-        Me.BtnProcurar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnProcurar.Image = Global.Beyond.My.Resources.Resources.search
-        Me.BtnProcurar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnProcurar.Name = "BtnProcurar"
-        Me.BtnProcurar.Size = New System.Drawing.Size(23, 22)
-        Me.BtnProcurar.Text = "&Procurar"
+        Me.BtnPesquisar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnPesquisar.Image = Global.Beyond.My.Resources.Resources.search
+        Me.BtnPesquisar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnPesquisar.Name = "BtnPesquisar"
+        Me.BtnPesquisar.Size = New System.Drawing.Size(23, 22)
+        Me.BtnPesquisar.Text = "&Pesquisar"
         '
-        'BtnAtualizar
+        'BtnAlterar
         '
-        Me.BtnAtualizar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnAtualizar.Image = Global.Beyond.My.Resources.Resources.update
-        Me.BtnAtualizar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnAtualizar.Name = "BtnAtualizar"
-        Me.BtnAtualizar.Size = New System.Drawing.Size(23, 22)
-        Me.BtnAtualizar.Text = "Atualizar"
+        Me.BtnAlterar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnAlterar.Image = Global.Beyond.My.Resources.Resources.update
+        Me.BtnAlterar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnAlterar.Name = "BtnAlterar"
+        Me.BtnAlterar.Size = New System.Drawing.Size(23, 22)
+        Me.BtnAlterar.Text = "Alterar"
         '
-        'BtnDeletar
+        'BtnExcluir
         '
-        Me.BtnDeletar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnDeletar.Image = Global.Beyond.My.Resources.Resources.delete
-        Me.BtnDeletar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnDeletar.Name = "BtnDeletar"
-        Me.BtnDeletar.Size = New System.Drawing.Size(23, 22)
-        Me.BtnDeletar.Text = "&Deletar"
+        Me.BtnExcluir.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnExcluir.Image = Global.Beyond.My.Resources.Resources.delete
+        Me.BtnExcluir.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnExcluir.Name = "BtnExcluir"
+        Me.BtnExcluir.Size = New System.Drawing.Size(23, 22)
+        Me.BtnExcluir.Text = "&Excluir"
+        Me.BtnExcluir.ToolTipText = "Excluir"
         '
         'toolStripSeparator
         '
         Me.toolStripSeparator.Name = "toolStripSeparator"
         Me.toolStripSeparator.Size = New System.Drawing.Size(6, 25)
         '
-        'BtnVoltar
+        'BtnAnterior
         '
-        Me.BtnVoltar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnVoltar.Image = Global.Beyond.My.Resources.Resources.Back
-        Me.BtnVoltar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnVoltar.Name = "BtnVoltar"
-        Me.BtnVoltar.Size = New System.Drawing.Size(23, 22)
-        Me.BtnVoltar.Text = "Anterior"
+        Me.BtnAnterior.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnAnterior.Image = Global.Beyond.My.Resources.Resources.Back
+        Me.BtnAnterior.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnAnterior.Name = "BtnAnterior"
+        Me.BtnAnterior.Size = New System.Drawing.Size(23, 22)
+        Me.BtnAnterior.Text = "Anterior"
         '
-        'BtnProximo
+        'BtnSeguinte
         '
-        Me.BtnProximo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnProximo.Image = Global.Beyond.My.Resources.Resources.forward
-        Me.BtnProximo.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnProximo.Name = "BtnProximo"
-        Me.BtnProximo.Size = New System.Drawing.Size(23, 22)
-        Me.BtnProximo.Text = "Seguinte"
+        Me.BtnSeguinte.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnSeguinte.Image = Global.Beyond.My.Resources.Resources.forward
+        Me.BtnSeguinte.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnSeguinte.Name = "BtnSeguinte"
+        Me.BtnSeguinte.Size = New System.Drawing.Size(23, 22)
+        Me.BtnSeguinte.Text = "Seguinte"
         '
-        'BtnConfirmar
+        'BtnReverter
         '
-        Me.BtnConfirmar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnConfirmar.Image = Global.Beyond.My.Resources.Resources.confirm
-        Me.BtnConfirmar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnConfirmar.Name = "BtnConfirmar"
-        Me.BtnConfirmar.Size = New System.Drawing.Size(23, 22)
-        Me.BtnConfirmar.Text = "&Confirmar"
-        '
-        'BtnRollback
-        '
-        Me.BtnRollback.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnRollback.Image = Global.Beyond.My.Resources.Resources.rollback
-        Me.BtnRollback.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnRollback.Name = "BtnRollback"
-        Me.BtnRollback.Size = New System.Drawing.Size(23, 22)
-        Me.BtnRollback.Text = "&Reverter"
+        Me.BtnReverter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnReverter.Image = Global.Beyond.My.Resources.Resources.rollback
+        Me.BtnReverter.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnReverter.Name = "BtnReverter"
+        Me.BtnReverter.Size = New System.Drawing.Size(23, 22)
+        Me.BtnReverter.Text = "&REVERTER"
         '
         'toolStripSeparator1
         '
         Me.toolStripSeparator1.Name = "toolStripSeparator1"
         Me.toolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
-        'BtnLimpar
+        'BtnFecharPag
         '
-        Me.BtnLimpar.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.BtnLimpar.Name = "BtnLimpar"
-        Me.BtnLimpar.Size = New System.Drawing.Size(91, 22)
-        Me.BtnLimpar.Text = "Limpar Campos"
-        Me.BtnLimpar.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BtnFecharPag.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnFecharPag.Image = Global.Beyond.My.Resources.Resources.close
+        Me.BtnFecharPag.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnFecharPag.Name = "BtnFecharPag"
+        Me.BtnFecharPag.Size = New System.Drawing.Size(23, 22)
+        Me.BtnFecharPag.Text = "Fechar tela"
+        Me.BtnFecharPag.ToolTipText = "Fechar tela"
         '
         'UC_Toolstrip
         '
@@ -163,17 +156,16 @@ Partial Class UC_Toolstrip
 
     End Sub
     Friend WithEvents BtnNovo As System.Windows.Forms.ToolStripButton
-    Friend WithEvents BtnProcurar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents BtnPesquisar As System.Windows.Forms.ToolStripButton
     Friend WithEvents BtnSalvar As System.Windows.Forms.ToolStripButton
-    Friend WithEvents BtnDeletar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents BtnExcluir As System.Windows.Forms.ToolStripButton
     Friend WithEvents toolStripSeparator As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents BtnConfirmar As System.Windows.Forms.ToolStripButton
-    Friend WithEvents BtnRollback As System.Windows.Forms.ToolStripButton
+    Friend WithEvents BtnReverter As System.Windows.Forms.ToolStripButton
     Friend WithEvents toolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents BtnProximo As System.Windows.Forms.ToolStripButton
-    Friend WithEvents BtnVoltar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents BtnSeguinte As System.Windows.Forms.ToolStripButton
+    Friend WithEvents BtnAnterior As System.Windows.Forms.ToolStripButton
     Public WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Friend WithEvents BtnLimpar As System.Windows.Forms.ToolStripLabel
-    Friend WithEvents BtnAtualizar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents BtnAlterar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents BtnFecharPag As System.Windows.Forms.ToolStripButton
 
 End Class

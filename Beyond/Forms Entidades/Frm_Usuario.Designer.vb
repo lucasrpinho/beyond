@@ -24,7 +24,6 @@ Partial Class Frm_Usuario
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_Usuario))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.ComboNome = New System.Windows.Forms.ComboBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ChkBoxAtivo = New System.Windows.Forms.CheckBox()
         Me.TxtEmail = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -39,7 +38,6 @@ Partial Class Frm_Usuario
         Me.Label5 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -48,7 +46,6 @@ Partial Class Frm_Usuario
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.ComboNome)
-        Me.GroupBox1.Controls.Add(Me.PictureBox1)
         Me.GroupBox1.Controls.Add(Me.ChkBoxAtivo)
         Me.GroupBox1.Controls.Add(Me.TxtEmail)
         Me.GroupBox1.Controls.Add(Me.Label6)
@@ -71,21 +68,10 @@ Partial Class Frm_Usuario
         Me.ComboNome.Items.AddRange(New Object() {" "})
         Me.ComboNome.Location = New System.Drawing.Point(11, 59)
         Me.ComboNome.Margin = New System.Windows.Forms.Padding(4)
+        Me.ComboNome.MaxLength = 30
         Me.ComboNome.Name = "ComboNome"
         Me.ComboNome.Size = New System.Drawing.Size(338, 24)
         Me.ComboNome.TabIndex = 1
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox1.BackColor = System.Drawing.Color.DodgerBlue
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(400, 38)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(121, 117)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 6
-        Me.PictureBox1.TabStop = False
         '
         'ChkBoxAtivo
         '
@@ -109,6 +95,7 @@ Partial Class Frm_Usuario
         Me.TxtEmail.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtEmail.Location = New System.Drawing.Point(11, 175)
         Me.TxtEmail.Margin = New System.Windows.Forms.Padding(4)
+        Me.TxtEmail.MaxLength = 254
         Me.TxtEmail.Name = "TxtEmail"
         Me.TxtEmail.Size = New System.Drawing.Size(338, 24)
         Me.TxtEmail.TabIndex = 3
@@ -130,6 +117,7 @@ Partial Class Frm_Usuario
         Me.TxtSobrenome.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtSobrenome.Location = New System.Drawing.Point(11, 117)
         Me.TxtSobrenome.Margin = New System.Windows.Forms.Padding(4)
+        Me.TxtSobrenome.MaxLength = 50
         Me.TxtSobrenome.Name = "TxtSobrenome"
         Me.TxtSobrenome.Size = New System.Drawing.Size(338, 24)
         Me.TxtSobrenome.TabIndex = 2
@@ -256,7 +244,6 @@ Partial Class Frm_Usuario
         Me.Text = "Usuário"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
@@ -276,6 +263,5 @@ Partial Class Frm_Usuario
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents TxtEmail As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents ComboNome As System.Windows.Forms.ComboBox
 End Class

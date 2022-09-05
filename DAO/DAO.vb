@@ -5,8 +5,6 @@ Imports Entidades
 
 Public Class DAO
 
-    ' Deve ser feita uma operação por vez
-    ' Não pode haver instâncias diferentes pois isso abre margem para diferentes conexões e transações abertas ao mesmo tempo
     Private Shared Con As SqlConnection
     Private Shared Tr As SqlTransaction
 
@@ -74,6 +72,7 @@ Public Class DAO
 
     Public Shared Function InsertUsuario(usuario As Usuario, ByRef response As String) As Boolean
         Dim ConnStr As String = ConfigurationManager.ConnectionStrings("ConnString").ConnectionString
+        ReverterOuCommitar()
         Con = New SqlConnection(ConnStr)
         Con.Open()
         Tr = Con.BeginTransaction
@@ -81,11 +80,13 @@ Public Class DAO
             If _InsertUsuario(Con, usuario, response) Then
                 Return True
             Else
-                tr.Rollback()
+                Tr.Rollback()
+                Tr.Dispose()
             End If
         Catch ex As Exception
             response = ex.Message
-            tr.Rollback()
+            Tr.Rollback()
+            Tr.Dispose()
         End Try
         Return False
     End Function
@@ -198,13 +199,14 @@ Public Class DAO
         Return Nothing
     End Function
 
-    Public Shared Function DeleteUsuario(codusuario As String, ByRef response As String) As Boolean
+    Public Shared Function AtualizaUsuario(usuario As Usuario, ByRef response As String) As Boolean
         Dim ConnStr As String = ConfigurationManager.ConnectionStrings("ConnString").ConnectionString
+        ReverterOuCommitar()
         Con = New SqlConnection(ConnStr)
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If _DeleteUsuario(codusuario, response) Then
+            If _AtualizaUsuario(usuario, response) Then
                 Return True
             Else
                 Tr.Rollback()
@@ -216,14 +218,17 @@ Public Class DAO
         Return False
     End Function
 
-    Public Shared Function _DeleteUsuario(codusuario As String, ByRef resposta As String) As Boolean
+    Public Shared Function _AtualizaUsuario(usuario As Usuario, ByRef resposta As String) As Boolean
         Dim succ As Boolean
         Using Cmd As New SqlCommand()
             Cmd.Connection = Con
             Cmd.Transaction = Tr
-            Cmd.CommandText = "SP_INATIVA_USUARIO"
+            Cmd.CommandText = "SP_ATUALIZA_USUARIO"
             Cmd.CommandType = CommandType.StoredProcedure
-            Cmd.Parameters.Add("@CODUSUARIO", SqlDbType.Int).Value = Convert.ToInt32(codusuario)
+            Cmd.Parameters.Add("@CODUSUARIO", SqlDbType.Int).Value = usuario.CodUsuario
+            Cmd.Parameters.Add("@EMAIL", SqlDbType.VarChar).Value = usuario.Email
+            Cmd.Parameters.Add("@SENHA", SqlDbType.VarChar).Value = usuario.Senha
+            Cmd.Parameters.Add("@ISATIVO", SqlDbType.Bit).Value = usuario.IsAtivo
             Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
             Cmd.Parameters("@RESPONSE").Size = 255
 
@@ -239,6 +244,8 @@ Public Class DAO
         End Using
         Return succ
     End Function
+
+
 
 #End Region
 
@@ -263,6 +270,7 @@ Public Class DAO
     End Function
 
     Public Shared Function InsereCargo(cargo As Cargo, ByRef resposta As String) As Boolean
+        ReverterOuCommitar()
         Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
         Con.Open()
         Tr = Con.BeginTransaction
@@ -349,7 +357,7 @@ Public Class DAO
 
     Public Shared Function AtualizaCargo(cargo As Cargo, ByRef resposta As String, _
         ByVal isExclusao As Boolean, login As String) As Boolean
-
+        ReverterOuCommitar()
         Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
         Con.Open()
         Tr = Con.BeginTransaction
@@ -446,6 +454,7 @@ Public Class DAO
 #Region "Vendedor"
 
     Public Shared Function InsereVendedor(vendedor As Vendedor, ByRef resposta As String) As Boolean
+        ReverterOuCommitar()
         Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
         Con.Open()
         Tr = Con.BeginTransaction
@@ -544,6 +553,7 @@ Public Class DAO
     Public Shared Function AtualizaVendedor(vendedor As Vendedor, ByRef resposta As String, _
         ByVal isExclusao As Boolean, login As String) As Boolean
 
+        ReverterOuCommitar()
         Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
         Con.Open()
         Tr = Con.BeginTransaction
@@ -827,6 +837,8 @@ Public Class DAO
 
     Public Shared Function _GetProdutos(ByVal cod As Int32, ByRef resposta As String) As List(Of Produto)
         Dim Lst As New List(Of Produto)
+
+        ReverterOuCommitar()
         Using Con As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
             Using Cmd As New SqlCommand
                 Try
@@ -864,6 +876,7 @@ Public Class DAO
     End Function
 
     Public Shared Function InsereProduto(ByVal obj As Produto, ByRef resposta As String) As Boolean
+        ReverterOuCommitar()
         Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
         Con.Open()
         Tr = Con.BeginTransaction
@@ -988,20 +1001,24 @@ Public Class DAO
 #End Region
 
 #Region "Transaction"
-    Public Shared Sub ConfirmarOuReverter(ByVal cmdTransaction As Boolean)
-        If cmdTransaction Then
-            Tr.Commit()
-        Else
+    Public Shared Sub ReverterOuCommitar(Optional reverter As Boolean = False)
+
+        If reverter AndAlso Tr IsNot Nothing AndAlso Con IsNot Nothing Then
             Tr.Rollback()
+        ElseIf Tr IsNot Nothing Then
+            Tr.Commit()
         End If
-        If Not Con Is Nothing Then
+
+        If Con IsNot Nothing Then
             Con.Close()
             Con.Dispose()
         End If
-        If Not Tr Is Nothing Then
+
+        If Tr IsNot Nothing Then
             Tr.Dispose()
         End If
     End Sub
+
 #End Region
 
 End Class

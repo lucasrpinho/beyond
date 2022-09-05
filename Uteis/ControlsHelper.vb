@@ -40,7 +40,7 @@ Public Class ControlsHelper
 
     Public Shared Sub ToolBarTransactionOpen(tools As ToolStrip)
         For Each item As ToolStripItem In tools.Items
-            If Not item.Name = "BtnRollback" And Not item.Name = "BtnConfirmar" Then
+            If Not item.Name = "BtnROLLBACK" And Not item.Name = "BtnConfirmar" Then
                 item.Enabled = False
             End If
         Next

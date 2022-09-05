@@ -15,7 +15,7 @@ Public Class MsgBoxHelper
 
     'Ainda existe telas abertas Alerta
     Public Shared Function MsgTemCertezaAlertaTelasAbertas(ByVal Frm As Form) As Boolean
-        If MessageBox.Show(Frm, "Qualquer alteração não salva poderá ser perdida" + vbNewLine +
+        If MessageBox.Show(Frm, "Qualquer alteração não salva será perdida." + vbNewLine +
                 vbNewLine + "Tem certeza que deseja sair?", "Beyond",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes Then
             Return True
@@ -27,7 +27,7 @@ Public Class MsgBoxHelper
 
     ' Alerta Msg
     Public Shared Sub Alerta(ByVal frm As Form, ByVal Msg As String, ByVal Titulo As String)
-        MessageBox.Show(frm, Msg, Titulo, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        MessageBox.Show(frm, Msg, Titulo, MessageBoxButtons.OK, MessageBoxIcon.Warning)
     End Sub
 
 
@@ -39,7 +39,7 @@ Public Class MsgBoxHelper
 
     ' Transação ainda aberta
     Public Shared Sub AlertaTransacao(Frm As Form, toolbar As ToolStrip)
-        MessageBox.Show(Frm, "Confirme ou cancele a mudança feita", "Operação não confirmada",
+        MessageBox.Show(Frm, "Confirme ou cancele a mudança feita.", "Operação não confirmada",
                              MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
         Dim itemCommit = toolbar.Items("BtnCommit")
@@ -47,7 +47,7 @@ Public Class MsgBoxHelper
         tooltip.IsBalloon = True
         tooltip.ToolTipIcon = ToolTipIcon.Warning
         tooltip.ToolTipTitle = "Confirme"
-        tooltip.SetToolTip(toolbar, "Confirme a operação")
+        tooltip.SetToolTip(toolbar, "Confirme a operação.")
         tooltip.Show("Confirme a operação", itemCommit, 2000)
     End Sub
 

@@ -17,15 +17,15 @@ Public Class Frm_Login
 
     Private Function ValidaCampos() As Boolean
         If StringHelper.IsNull(TxtLogin.Text) Then
-            MsgBoxHelper.Alerta(Me, "Campo de login precisa ser preenchido", "")
+            MsgBoxHelper.Alerta(Me, "Campo de login precisa ser preenchido.", "Login")
         ElseIf StringHelper.IsNull(TxtSenha.Text) Then
-            MsgBoxHelper.Alerta(Me, "Campo de senha precisa ser preenchido", "")
+            MsgBoxHelper.Alerta(Me, "Campo de senha precisa ser preenchido.", "Login")
         ElseIf Not StringHelper.MinLength(TxtLogin.Text, 5) Then
             _ToolTip.IsBalloon = True
             _ToolTip.ToolTipTitle = "Login inválido"
             _ToolTip.ToolTipIcon = ToolTipIcon.Error
-            _ToolTip.SetToolTip(TxtLogin, "Login muito curto")
-            _ToolTip.Show("Login muito curto", TxtLogin, 3000)
+            _ToolTip.SetToolTip(TxtLogin, "Login muito curto.")
+            _ToolTip.Show("Login muito curto.", TxtLogin, 3000)
         Else
             Return True
         End If
@@ -48,7 +48,7 @@ Public Class Frm_Login
         Else
             BtnAcessa.Enabled = False
             TxtSenhaInvalida.Visible = True
-            TxtSenhaInvalida.Text = "Login deve conter apenas letras"
+            TxtSenhaInvalida.Text = "Formato de login inválido."
         End If
     End Sub
 
@@ -64,7 +64,7 @@ Public Class Frm_Login
             User = DAO.DAO.AutenticaUsuario(TxtLogin.Text.ToUpper.Trim, TxtSenha.Text, RespostaAutenticacao)
 
             If Retrys >= 3 And IsNothing(User) Then
-                MsgBoxHelper.Alerta(Me, "O sistema será fechado", "Tentativas de logon esgotadas")
+                MsgBoxHelper.Alerta(Me, "O sistema será fechado.", "Tentativas de login esgotadas")
                 System.Threading.Thread.Sleep(1500)
                 Application.Exit()
             End If

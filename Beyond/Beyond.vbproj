@@ -219,9 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UC_Toolstrip.resx">
       <DependentUpon>UC_Toolstrip.vb</DependentUpon>
@@ -265,6 +265,7 @@
     <None Include="Icons Toolstrip\rollback.png" />
     <None Include="Imagens\backgroundmdi.png" />
     <None Include="Icons Toolstrip\update.png" />
+    <None Include="Icons Toolstrip\close.png" />
     <Content Include="Imagens\BeyondICON.ico" />
     <Content Include="Imagens\BeyondICON.png" />
     <Content Include="Imagens\login.png" />
