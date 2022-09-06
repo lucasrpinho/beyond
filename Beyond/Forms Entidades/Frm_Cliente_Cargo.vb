@@ -4,6 +4,7 @@ Public Class Frm_Cliente_Cargo
     Private Cliente As Cliente
     Private CodCargo As String
     Private Cargo As Cargo
+    Private DAO As New DAO.DAO
 
     Private frmPrincipal As Frm_Principal_MDI
 
@@ -22,10 +23,10 @@ Public Class Frm_Cliente_Cargo
     End Sub
 
     Private Sub Frm_Cliente_Cargo_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        Cargo = DAO.DAO.GetCargo(CodCargo)
+        Cargo = DAO.GetCargo(CodCargo)
         TxtCargo.Text = Cargo.Nome
 
-        Cliente = DAO.DAO.GetClientePorCargo(Cargo.CodCargo)
+        Cliente = DAO.GetClientePorCargo(Cargo.CodCargo)
 
         TxtCliente.Text = Cliente.Nome
         ChkAtivo.Checked = Cliente.IsAtivo
@@ -35,7 +36,7 @@ Public Class Frm_Cliente_Cargo
         If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Ao confirmar, o cliente " + Cliente.Nome + _
             " perderá a informação de cargo " + Cargo.Nome, "Confirmar") Then
             Dim resposta As String = ""
-            If DAO.DAO.RemoveCargoCliente(Cliente.CodCliente, resposta) Then
+            If DAO.RemoveCargoCliente(Cliente.CodCliente, resposta) Then
                 Uteis.MsgBoxHelper.Msg(Me, "O Cliente " + Cliente.Nome + " não possui mais o cargo " + _
                     Cargo.Nome, "Sucesso")
                 Cargo = Nothing

@@ -6,6 +6,7 @@ Public Class Frm_Produto
     Private frmPrincipal As Frm_Principal_MDI
     Private objProduto As Produto
     Private StrImgPath As String = ""
+    Private DAOProd As New DAO.DAO
 
     Public Sub New(ByVal frm As Frm_Principal_MDI)
 
@@ -49,12 +50,12 @@ Public Class Frm_Produto
             Exit Sub
         End If
 
-        If Not DAO.DAO.InsereProduto(prod, resposta) Then
+        If Not DAOProd.InsereProduto(prod, resposta) Then
             Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
         Else
             frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
             'Uteis.Controls.SetTextsEmpty(Me)
-            Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip1)
+
             Uteis.ControlsHelper.SetControlsDisabled(Me)
         End If
     End Sub
@@ -72,7 +73,7 @@ Public Class Frm_Produto
 
         ElseIf UC_Toolstrip.Modo = "ALTERAR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "O produto será alterado. Deseja continuar?", "ALTERAR") Then
-                If DAO.DAO.AtualizaProduto(objProduto, resposta, loginusuario) Then
+                If DAOProd.AtualizaProduto(objProduto, resposta, loginusuario) Then
                     ParaRemocaoEAlteracao()
                 Else
                     MsgBoxHelper.Erro(Me, resposta, "Erro")
@@ -89,7 +90,7 @@ Public Class Frm_Produto
 
         ElseIf UC_Toolstrip.Modo = "CONFIRMAR" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
-                DAO.DAO.ReverterOuCommitar(True)
+                DAOProd.ReverterOuCommitar(True)
                 LimpaCampos_AtivaControles()
                 frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
             End If
@@ -98,7 +99,7 @@ Public Class Frm_Produto
         ElseIf UC_Toolstrip.Modo = "REVERTER" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
                 If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja REVERTER a operação?", "REVERTER") Then
-                    DAO.DAO.ReverterOuCommitar(False)
+                    DAOProd.ReverterOuCommitar(False)
                     Uteis.ControlsHelper.SetControlsDisabled(Me)
                     LimpaCampos_AtivaControles()
                     frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
@@ -110,7 +111,7 @@ Public Class Frm_Produto
 
         ElseIf UC_Toolstrip.Modo = "EXCLUIR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja EXCLUIR o item?", "EXCLUIR") Then
-                If DAO.DAO.AtualizaProduto(objProduto, resposta, loginusuario, True) Then
+                If DAOProd.AtualizaProduto(objProduto, resposta, loginusuario, True) Then
                     ParaRemocaoEAlteracao()
                 Else
                     MsgBoxHelper.Erro(Me, resposta, "Erro")
@@ -158,7 +159,7 @@ Public Class Frm_Produto
     Private Sub ParaRemocaoEAlteracao()
         frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
         Uteis.ControlsHelper.SetControlsDisabled(Me)
-        Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip1)
+
     End Sub
 
     Private Sub BtnInsereImg_Click(sender As System.Object, e As System.EventArgs) Handles BtnInsereImg.Click

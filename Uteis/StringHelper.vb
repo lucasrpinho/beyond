@@ -23,7 +23,7 @@
     End Function
 
     Public Shared Function NumericOnly(txt As String) As String
-        Dim txtvalido As String = txt
+        Dim txtvalido As String = ""
         If txt.Length > 0 Then
             For I As Integer = 0 To txt.Length - 1
                 If IsNumeric(txt(I)) Then

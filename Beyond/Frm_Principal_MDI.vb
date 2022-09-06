@@ -185,7 +185,7 @@ Public Class Frm_Principal_MDI
             TP.Controls.Add(Frm)
             TP.Tag = Frm
             TP.Text = Frm.Text
-            TP.ImageIndex = 0
+            TP.ImageIndex = 1
             TCPrincipal.TabPages.Add(TP)
             TCPrincipal.SelectTab(TP)
             TCPrincipal.BringToFront()
@@ -216,11 +216,12 @@ Public Class Frm_Principal_MDI
             TP.Text = Frm.Text
             TP.BackColor = Frm.BackColor
             TP.Name = Frm.Name
-            TP.ImageIndex = 0
+            TP.ImageIndex = 2
             TCPrincipal.TabPages.Add(TP)
             TCPrincipal.SelectedTab = TP
             TCPrincipal.BringToFront()
             TCPrincipal.Visible = True
+            UC_Toolstrip1.PagAberta_HabilitarBotoes()
             Frm.Show()
             Me.Refresh()
         End If
@@ -242,11 +243,12 @@ Public Class Frm_Principal_MDI
             TP.Text = Frm.Text
             TP.BackColor = Frm.BackColor
             TP.Name = Frm.Name
-            TP.ImageIndex = 0
+            TP.ImageIndex = 3
             TCPrincipal.TabPages.Add(TP)
             TCPrincipal.SelectTab(TP)
             TCPrincipal.BringToFront()
             TCPrincipal.Visible = True
+            Me.UC_Toolstrip1.PagAberta_HabilitarBotoes()
             Frm.Show()
             Me.Refresh()
         End If

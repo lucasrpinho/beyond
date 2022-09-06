@@ -87,10 +87,10 @@ Partial Class Frm_Vendedor
         Me.ChkBoxAtivo.AutoSize = True
         Me.ChkBoxAtivo.Checked = True
         Me.ChkBoxAtivo.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ChkBoxAtivo.Font = New System.Drawing.Font("Verdana", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChkBoxAtivo.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ChkBoxAtivo.Location = New System.Drawing.Point(6, 236)
         Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
-        Me.ChkBoxAtivo.Size = New System.Drawing.Size(71, 22)
+        Me.ChkBoxAtivo.Size = New System.Drawing.Size(60, 18)
         Me.ChkBoxAtivo.TabIndex = 4
         Me.ChkBoxAtivo.Text = "Ativo"
         Me.ChkBoxAtivo.UseVisualStyleBackColor = True

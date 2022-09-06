@@ -25,8 +25,14 @@ Public Class ControlsHelper
         End If
     End Sub
 
-    Public Shared Sub SetControlsDisabled(frm As System.Windows.Forms.Form)
-        Dim controls = frm.Controls
+    Public Overloads Shared Sub SetControlsDisabled(frm As Form)
+        Dim Controls = frm.Controls
+        For Each Control As Control In controls
+        Control.Enabled = False
+        Next
+    End Sub
+
+    Public Overloads Shared Sub SetControlsDisabled(controls As Control.ControlCollection)
         For Each Control As Control In controls
             Control.Enabled = False
         Next
@@ -35,14 +41,6 @@ Public Class ControlsHelper
     Public Shared Sub SetControlsEnabled(controls As Control.ControlCollection)
         For Each Control As Control In controls
             Control.Enabled = True
-        Next
-    End Sub
-
-    Public Shared Sub ToolBarTransactionOpen(tools As ToolStrip)
-        For Each item As ToolStripItem In tools.Items
-            If Not item.Name = "BtnROLLBACK" And Not item.Name = "BtnConfirmar" Then
-                item.Enabled = False
-            End If
         Next
     End Sub
 

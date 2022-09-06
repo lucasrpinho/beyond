@@ -125,7 +125,7 @@ Partial Class UC_Toolstrip
         Me.BtnReverter.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.BtnReverter.Name = "BtnReverter"
         Me.BtnReverter.Size = New System.Drawing.Size(23, 22)
-        Me.BtnReverter.Text = "&REVERTER"
+        Me.BtnReverter.Text = "&Reverter"
         '
         'toolStripSeparator1
         '

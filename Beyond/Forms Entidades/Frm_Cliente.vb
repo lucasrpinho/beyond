@@ -8,6 +8,7 @@ Public Class Frm_Cliente
     Private LstEstados As New List(Of EstadoUF)
     Private LstCliente As New List(Of Cliente)
     Private Endereco As Endereco
+    Private DAOCliente As New DAO.DAO
 
 
     Public Sub New(frm As Frm_Principal_MDI)
@@ -100,12 +101,12 @@ Public Class Frm_Cliente
 
         Dim resposta As String = ""
 
-        If Not DAO.DAO.InsereCliente(cliente, resposta) Then
+        If Not DAOCliente.InsereCliente(cliente, resposta) Then
             Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
         Else
             frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
             'Uteis.Controls.SetTextsEmpty(Me)
-            Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip1)
+
             Uteis.ControlsHelper.SetControlsDisabled(Me)
         End If
     End Sub
@@ -114,7 +115,7 @@ Public Class Frm_Cliente
         LstCargos.Clear()
         ComboCargo.Items.Clear()
 
-        LstCargos = DAO.DAO.GetCargo(True)
+        LstCargos = DAOCliente.GetCargo(True)
 
         If Not LstCargos.Count > 0 Then
             MsgBoxHelper.Erro(Me, "O sistema não conseguiu buscar os cargos", "Erro")
@@ -157,7 +158,7 @@ Public Class Frm_Cliente
         LstEstados.Clear()
         ComboEstado.Items.Clear()
 
-        LstEstados = DAO.DAO.GetEstados(resposta)
+        LstEstados = DAOCliente.GetEstados(resposta)
 
         If Not LstEstados.Count > 0 Then
             MsgBoxHelper.Erro(Me, resposta, "UF vazio")
@@ -183,7 +184,7 @@ Public Class Frm_Cliente
 
         ElseIf UC_Toolstrip.Modo = "ALTERAR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "O registro será modificado. Deseja continuar?", "ALTERAR") Then
-                If DAO.DAO.AtualizaCliente(LstCliente(ComboNome.SelectedIndex - 1), "", False, loginusuario) Then
+                If DAOCliente.AtualizaCliente(LstCliente(ComboNome.SelectedIndex - 1), "", False, loginusuario) Then
                     ParaRemocaoEAlteracao()
                 End If
             Else
@@ -197,7 +198,7 @@ Public Class Frm_Cliente
 
         ElseIf UC_Toolstrip.Modo = "CONFIRMAR" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
-                DAO.DAO.ReverterOuCommitar(True)
+                DAOCliente.ReverterOuCommitar(True)
                 ParaPesquisaEConfirmacao()
                 frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
             End If
@@ -206,7 +207,7 @@ Public Class Frm_Cliente
         ElseIf UC_Toolstrip.Modo = "REVERTER" Then
             If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
                 If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja REVERTER a operação?", "REVERTER") Then
-                    DAO.DAO.ReverterOuCommitar(False)
+                    DAOCliente.ReverterOuCommitar(False)
                     Uteis.ControlsHelper.SetControlsDisabled(Me)
                     LimpaCampos_AtivaControles()
                     frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
@@ -221,7 +222,7 @@ Public Class Frm_Cliente
                 Exit Sub
             End If
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja EXCLUIR o item?", "EXCLUIR") Then
-                If DAO.DAO.AtualizaCliente(LstCliente(ComboNome.SelectedIndex - 1), _
+                If DAOCliente.AtualizaCliente(LstCliente(ComboNome.SelectedIndex - 1), _
                         "", True, loginusuario) Then
                     ParaRemocaoEAlteracao()
                 End If
@@ -242,7 +243,7 @@ Public Class Frm_Cliente
 
     Private Sub BuscaClientePorCodigo(ByVal codcliente As String)
         Dim resposta As String = ""
-        Dim cliente = DAO.DAO.GetCliente(codcliente, True, resposta)
+        Dim cliente = DAOCliente.GetCliente(codcliente, True, resposta)
 
         If IsNothing(cliente) Then
             Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
@@ -277,7 +278,7 @@ Public Class Frm_Cliente
 
         Dim resposta As String = ""
 
-        LstCliente = DAO.DAO.GetCliente(True, resposta)
+        LstCliente = DAOCliente.GetCliente(True, resposta)
 
         If Not LstCliente.Count > 0 Then
             MsgBoxHelper.Erro(Me, resposta, "Erro")
@@ -317,7 +318,7 @@ Public Class Frm_Cliente
     Private Sub ParaRemocaoEAlteracao()
         frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
         Uteis.ControlsHelper.SetControlsDisabled(Me)
-        Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip1)
+
     End Sub
 
     Private Sub BtnConsCargo_Click(sender As System.Object, e As System.EventArgs) Handles BtnConsCargo.Click
@@ -328,7 +329,7 @@ Public Class Frm_Cliente
     Private Sub ComboCargo_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboCargo.SelectedIndexChanged
         Dim existe As Boolean
         If ComboCargo.Text <> String.Empty Then
-            If DAO.DAO.ChecaCargoCliente(LstCargos(ComboCargo.SelectedIndex).CodCargo, existe) Then
+            If DAOCliente.ChecaCargoCliente(LstCargos(ComboCargo.SelectedIndex).CodCargo, existe) Then
                 MsgBoxHelper.CustomTooltip(GrpBoxInfo, ComboCargo, "Outro cliente já possui esse cargo", "Alerta")
                 BtnConsCargo.Enabled = True
             End If

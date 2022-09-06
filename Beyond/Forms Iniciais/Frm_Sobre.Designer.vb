@@ -38,12 +38,12 @@ Partial Class Frm_Sobre
         '
         Me.LblNomeSistema.AutoSize = True
         Me.LblNomeSistema.BackColor = System.Drawing.SystemColors.Window
-        Me.LblNomeSistema.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblNomeSistema.Font = New System.Drawing.Font("Verdana", 22.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblNomeSistema.ForeColor = System.Drawing.SystemColors.InfoText
-        Me.LblNomeSistema.Location = New System.Drawing.Point(348, 12)
+        Me.LblNomeSistema.Location = New System.Drawing.Point(15, 9)
         Me.LblNomeSistema.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblNomeSistema.Name = "LblNomeSistema"
-        Me.LblNomeSistema.Size = New System.Drawing.Size(135, 38)
+        Me.LblNomeSistema.Size = New System.Drawing.Size(126, 36)
         Me.LblNomeSistema.TabIndex = 0
         Me.LblNomeSistema.Text = "Label1"
         Me.LblNomeSistema.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -51,22 +51,22 @@ Partial Class Frm_Sobre
         'LblNomeAutor
         '
         Me.LblNomeAutor.AutoSize = True
-        Me.LblNomeAutor.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblNomeAutor.Location = New System.Drawing.Point(316, 99)
+        Me.LblNomeAutor.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblNomeAutor.Location = New System.Drawing.Point(88, 101)
         Me.LblNomeAutor.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblNomeAutor.Name = "LblNomeAutor"
-        Me.LblNomeAutor.Size = New System.Drawing.Size(59, 17)
+        Me.LblNomeAutor.Size = New System.Drawing.Size(53, 17)
         Me.LblNomeAutor.TabIndex = 1
         Me.LblNomeAutor.Text = "Label2"
         '
         'LblNumSistema
         '
         Me.LblNumSistema.AutoSize = True
-        Me.LblNumSistema.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblNumSistema.Location = New System.Drawing.Point(334, 155)
+        Me.LblNumSistema.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblNumSistema.Location = New System.Drawing.Point(88, 140)
         Me.LblNumSistema.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblNumSistema.Name = "LblNumSistema"
-        Me.LblNumSistema.Size = New System.Drawing.Size(59, 17)
+        Me.LblNumSistema.Size = New System.Drawing.Size(53, 17)
         Me.LblNumSistema.TabIndex = 2
         Me.LblNumSistema.Text = "Label3"
         '
@@ -74,18 +74,19 @@ Partial Class Frm_Sobre
         '
         Me.LblDataVersao.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LblDataVersao.AutoSize = True
-        Me.LblDataVersao.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblDataVersao.Location = New System.Drawing.Point(141, 227)
+        Me.LblDataVersao.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblDataVersao.Location = New System.Drawing.Point(140, 182)
         Me.LblDataVersao.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblDataVersao.Name = "LblDataVersao"
-        Me.LblDataVersao.Size = New System.Drawing.Size(59, 17)
+        Me.LblDataVersao.Size = New System.Drawing.Size(53, 17)
         Me.LblDataVersao.TabIndex = 3
         Me.LblDataVersao.Text = "Label4"
         '
         'PictureBox1
         '
+        Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(14, 12)
+        Me.PictureBox1.Location = New System.Drawing.Point(363, 12)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(226, 187)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -95,27 +96,30 @@ Partial Class Frm_Sobre
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(256, 99)
+        Me.Label2.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(12, 101)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(58, 17)
+        Me.Label2.Size = New System.Drawing.Size(54, 17)
         Me.Label2.TabIndex = 7
         Me.Label2.Text = "Autor:"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(256, 155)
+        Me.Label3.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(12, 140)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(75, 17)
+        Me.Label3.Size = New System.Drawing.Size(69, 17)
         Me.Label3.TabIndex = 8
         Me.Label3.Text = "Número:"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(10, 227)
+        Me.Label4.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(12, 182)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(130, 17)
+        Me.Label4.Size = New System.Drawing.Size(121, 17)
         Me.Label4.TabIndex = 9
         Me.Label4.Text = "Data da versão:"
         '
@@ -124,7 +128,7 @@ Partial Class Frm_Sobre
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Window
-        Me.ClientSize = New System.Drawing.Size(601, 261)
+        Me.ClientSize = New System.Drawing.Size(601, 209)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)

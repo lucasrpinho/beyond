@@ -4,7 +4,10 @@ Public Class Frm_Cargo
 
     Private frmPrincipal As Frm_Principal_MDI
     Private LstCargo As New List(Of Cargo)
-    Private Modo As String = ""
+    Private cargoCombo As Cargo
+    Private MyModo As New UC_Toolstrip.UniqueModo
+    Private DAOCargo As New DAO.DAO
+    Private IsOperacaoPendente As Boolean
 
     Public Sub New(frm As Frm_Principal_MDI)
 
@@ -16,21 +19,22 @@ Public Class Frm_Cargo
 
     Private Sub Frm_Cargo_EnabledChanged(sender As System.Object, e As System.EventArgs) Handles Me.EnabledChanged
         If Me.Enabled Then
-            frmPrincipal.UC_Toolstrip1.ToolbarItemsState(Modo)
+            frmPrincipal.UC_Toolstrip1.ToolbarItemsState(MyModo.UniqueModo)
         End If
     End Sub
 
     Private Sub Frm_Cargo_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        DAOCargo.ReverterOuCommitar()
         RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
     Private Sub Frm_Cargo_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        ControlsHelper.SetControlsDisabled(Me)
+        ControlsHelper.SetControlsDisabled(Me.Controls)
         AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
-        Modo = UC_Toolstrip.Modo
+        MyModo.UniqueModo = "PADRÃO"
     End Sub
 
-    Private Sub InsereCargo()
+    Private Function InsereCargo() As Boolean
         Dim cargo As New Cargo
         cargo.Nome = Me.ComboNome.Text
         cargo.Descricao = Me.TxtDesc.Text.ToUpper
@@ -42,27 +46,27 @@ Public Class Frm_Cargo
 
         If Not cargo.IsValid(str) Then
             MsgBoxHelper.Erro(Me, str, "Erro de preenchimento")
-            Exit Sub
+            Return False
         End If
 
-        If Not DAO.DAO.InsereCargo(cargo, str) Then
+        If Not DAOCargo.InsereCargo(cargo, str) Then
             Uteis.MsgBoxHelper.Erro(Me, str, "Erro")
-        Else
-            frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
-            'Uteis.Controls.SetTextsEmpty(Me)
-            Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip1)
-            Uteis.ControlsHelper.SetControlsDisabled(Me)
+            Return False
         End If
-    End Sub
+
+        IsOperacaoPendente = True
+        Return True
+
+    End Function
 
     Private Sub CarregaCargos()
         ComboNome.Items.Clear()
         Dim resposta As String = ""
 
-        LstCargo = DAO.DAO.GetCargo(True)
+        LstCargo = DAOCargo.GetCargo(True)
 
         If Not LstCargo.Count > 0 Then
-            MsgBoxHelper.Erro(Me, "O sistema não conseguiu buscar os cargos", "Erro")
+            MsgBoxHelper.Erro(Me, "O sistema não conseguiu buscar os cargos.", "Erro")
             Exit Sub
         Else
             ComboNome.Items.Add("")
@@ -71,7 +75,9 @@ Public Class Frm_Cargo
                 ComboNome.Items.Add(cargo.Nome)
                 ComboNome.EndUpdate()
             Next
-            ComboNome.SelectedIndex = 0
+            If MyModo.UniqueModo = "PESQUISAR" Then
+                ComboNome.SelectedIndex = 0
+            End If
         End If
     End Sub
 
@@ -86,69 +92,72 @@ Public Class Frm_Cargo
             Exit Sub
         End If
 
+        Dim resposta As String = ""
 
-        If UC_Toolstrip.Modo = "NOVO" Then
+        MyModo.UniqueModo = UC_Toolstrip.Modo
+
+        If MyModo.UniqueModo = "NOVO" Then
             LimpaCampos_Ativa()
 
 
-        ElseIf UC_Toolstrip.Modo = "SALVAR" Then
-            If ComboNome.DropDownStyle = ComboBoxStyle.Simple Then
-                InsereCargo()
-            Else
-                DAO.DAO.AtualizaCargo(LstCargo(ComboNome.SelectedIndex - 1), "", False, loginusuario)
-            End If
-
-
-        ElseIf UC_Toolstrip.Modo = "PESQUISAR" Then
-            LimpaCampos_Ativa()
-            CarregaCargos()
-
-
-        ElseIf UC_Toolstrip.Modo = "CONFIRMAR" Then
-            If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
-                DAO.DAO.ReverterOuCommitar(True)
-                LimpaCampos_Ativa()
-                frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
-            End If
-
-
-        ElseIf UC_Toolstrip.Modo = "REVERTER" Then
-            If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja reverter a operação?", "Reverter") Then
-                    DAO.DAO.ReverterOuCommitar(False)
-                    LimpaCampos_Ativa()
-                    frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
+        ElseIf MyModo.UniqueModo = "SALVAR" Then
+            If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso Not IsOperacaoPendente Then
+                If InsereCargo() Then
+                    Uteis.ControlsHelper.SetControlsDisabled(Me)
+                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
                 Else
-                    Exit Sub
+                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                End If
+            Else
+                CarregaCargos()
+                If Not DAOCargo.AtualizaCargo(CargoObjForUpdate, resposta, False, loginusuario) Then
+                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                Else
+                    Uteis.ControlsHelper.SetControlsDisabled(Me)
+                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
+                    IsOperacaoPendente = True
                 End If
             End If
 
 
-        ElseIf UC_Toolstrip.Modo = "EXCLUIR" Then
+        ElseIf MyModo.UniqueModo = "PESQUISAR" Then
+            ModoPesquisar()
+            CarregaCargos()
+            AlternarControle()
+
+        ElseIf MyModo.UniqueModo = "ALTERAR" Then
+            Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
+            ModoAlterar()
+
+
+        ElseIf MyModo.UniqueModo = "REVERTER" Then
+            If IsOperacaoPendente Then
+                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja reverter a operação?", "Reverter") Then
+                    DAOCargo.ReverterOuCommitar(True)
+                    IsOperacaoPendente = False
+                End If
+            End If
+            LimpaCampos_Ativa()
+            Uteis.ControlsHelper.SetControlsDisabled(Me)
+
+        ElseIf MyModo.UniqueModo = "EXCLUIR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
-                If DAO.DAO.AtualizaCargo(LstCargo(ComboNome.SelectedIndex - 1), "", True, loginusuario) Then
-                    frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
+                If DAOCargo.AtualizaCargo(LstCargo(ComboNome.SelectedIndex - 1), "", True, loginusuario) Then
+                    IsOperacaoPendente = True
+                    LimpaCampos()
                     Uteis.ControlsHelper.SetControlsDisabled(Me)
-                    Uteis.ControlsHelper.ToolBarTransactionOpen(frmPrincipal.UC_Toolstrip1.ToolStrip1)
+                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
                 End If
             Else
                 Exit Sub
             End If
-
-
-        ElseIf UC_Toolstrip.Modo = "LIMPAR" Then
-            LimpaCampos()
         End If
-
-        AlternarControle()
-        Me.Modo = UC_Toolstrip.Modo
     End Sub
 
     Private Sub AlternarControle()
-        If UC_Toolstrip.Modo = "PESQUISAR" Then
+        If MyModo.UniqueModo = "PESQUISAR" Then
             ComboNome.DropDownStyle = ComboBoxStyle.DropDown
-        ElseIf UC_Toolstrip.Modo = "NOVO" Then
-            ComboNome.Visible = True
+        ElseIf MyModo.UniqueModo = "NOVO" Then
             ComboNome.DropDownStyle = ComboBoxStyle.Simple
         End If
     End Sub
@@ -166,19 +175,22 @@ Public Class Frm_Cargo
         If Not Uteis.StringHelper.IsNull(ComboNome.Text) Then
             BuscaCargoPorCodigo(LstCargo(ComboNome.SelectedIndex - 1).CodCargo)
         Else
+            frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(False)
             LimpaCampos()
         End If
     End Sub
 
     Private Sub BuscaCargoPorCodigo(ByVal codcargo As String)
         Dim resposta As String = ""
-        Dim cargo = DAO.DAO.GetCargo(codcargo)
+        Dim cargo = DAOCargo.GetCargo(codcargo)
 
         If IsNothing(cargo) Then
             Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
             Exit Sub
         End If
 
+        frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
+        cargoCombo = cargo
         PreencheCampos(cargo)
     End Sub
 
@@ -194,4 +206,33 @@ Public Class Frm_Cargo
             e.KeyChar = Char.ToUpper(e.KeyChar)
         End If
     End Sub
+
+    Private Function CargoObjForUpdate() As Cargo
+        Dim cargo As New Cargo
+        If ComboNome.Text <> String.Empty Then
+            cargo = cargoCombo
+        End If
+
+        cargo.Descricao = TxtDesc.Text
+        cargo.IsAtivo = ChkBoxAtivo.Checked
+        Return cargo
+    End Function
+
+    Private Sub ModoAlterar()
+        ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
+        ControlsHelper.SetControlsEnabled(GrpBoxCfg.Controls)
+
+        ComboNome.Enabled = False
+        ChkVendedor.Enabled = False
+    End Sub
+
+    Private Sub ModoPesquisar()
+        ControlsHelper.SetControlsEnabled(Me.Controls)
+
+        TxtDesc.Enabled = False
+        ChkVendedor.Enabled = False
+        ChkBoxAtivo.Enabled = False
+        Uteis.ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
+    End Sub
+
 End Class

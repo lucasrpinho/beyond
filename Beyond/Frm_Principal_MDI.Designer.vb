@@ -393,6 +393,9 @@ Partial Class Frm_Principal_MDI
         Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "BeyondICON")
+        Me.ImageList1.Images.SetKeyName(1, "user")
+        Me.ImageList1.Images.SetKeyName(2, "cargo")
+        Me.ImageList1.Images.SetKeyName(3, "vendedor")
         '
         'LblOla
         '
@@ -410,7 +413,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.BeyondICON
-        Me.PictureBox1.Location = New System.Drawing.Point(205, 153)
+        Me.PictureBox1.Location = New System.Drawing.Point(209, 153)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(163, 149)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
