@@ -71,6 +71,7 @@ Public Class DAO
 #Region "Usuário"
 
     Public Function InsertUsuario(usuario As Usuario, ByRef response As String) As Boolean
+        ReverterOuCommitar()
         Con.Open()
         Tr = Con.BeginTransaction
         Try
@@ -254,6 +255,9 @@ Public Class DAO
             Cmd.ExecuteReader()
 
             resposta = Cmd.Parameters("@RESPONSE").Value
+            If Con.State = ConnectionState.Open Then
+                Con.Close()
+            End If
             Return resposta
         End Using
     End Function
@@ -628,73 +632,85 @@ Public Class DAO
         ByRef resposta As String) As List(Of Cliente)
         Dim Lst As New List(Of Cliente)
 
-        Using Con As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
-            Using Cmd As New SqlCommand()
-                Try
-                    Cmd.Connection = Con
-                    Cmd.CommandText = "SP_GET_CLIENTES"
-                    Cmd.CommandType = CommandType.StoredProcedure
-                    Cmd.Parameters.AddWithValue("@CODCLIENTE", codcliente)
-                    Cmd.Parameters.AddWithValue("@ATIVOS", ativos)
-                    Dim Adp As New SqlDataAdapter(Cmd)
-                    Dim Tbl As New DataTable
-                    Adp.Fill(Tbl)
-
-                    If Tbl.Rows.Count > 0 Then
-                        For I As Integer = 0 To Tbl.Rows.Count - 1
-                            Dim cliente As New Cliente()
-                            cliente.Carrega(Tbl.Rows(I))
-                            Lst.Add(cliente)
-                        Next
-                    End If
-                    If Not Adp Is Nothing Then
-                        Adp.Dispose()
-                    End If
-                    If Not Tbl Is Nothing Then
-                        Tbl.Dispose()
-                    End If
-                Catch ex As Exception
-                    resposta = ex.Message
-                End Try
-            End Using
-        End Using
-        Return Lst
-    End Function
-
-    Public Function GetClientePorCargo(ByVal codcargo As Int16) As Cliente
-        Dim cliente As New Cliente
-        Using Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
-            Using Cmd As New SqlCommand
-                Cmd.Connection = Con
-                Cmd.CommandText = "SP_BUSCA_CLIENTE_PELO_CARGO"
+        Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Using Cmd As New SqlCommand()
+            Try
+                Cmd.Connection = Connection
+                Cmd.CommandText = "SP_GET_CLIENTES"
                 Cmd.CommandType = CommandType.StoredProcedure
-                Cmd.Parameters.AddWithValue("@CODCARGO", codcargo)
-                Dim Tbl As New DataTable
+                Cmd.Parameters.AddWithValue("@CODCLIENTE", codcliente)
+                Cmd.Parameters.AddWithValue("@ATIVOS", ativos)
                 Dim Adp As New SqlDataAdapter(Cmd)
-
+                Dim Tbl As New DataTable
                 Adp.Fill(Tbl)
-                If Tbl.Rows.Count > 0 Then
-                    cliente.Carrega(Tbl.Rows(0))
-                End If
 
+                If Tbl.Rows.Count > 0 Then
+                    For I As Integer = 0 To Tbl.Rows.Count - 1
+                        Dim cliente As New Cliente()
+                        cliente.Carrega(Tbl.Rows(I))
+                        Lst.Add(cliente)
+                    Next
+                End If
                 If Not Adp Is Nothing Then
                     Adp.Dispose()
                 End If
                 If Not Tbl Is Nothing Then
                     Tbl.Dispose()
                 End If
-            End Using
+            Catch ex As Exception
+                resposta = ex.Message
+            Finally
+                If Connection.State = ConnectionState.Open Then
+                    Connection.Close()
+                    Connection.Dispose()
+                    Connection = Nothing
+                End If
+            End Try
         End Using
+        Return Lst
+    End Function
+
+    Public Function GetClientePorCargo(ByVal codcargo As Int16) As Cliente
+        Dim cliente As New Cliente
+        Dim Connection = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Using Cmd As New SqlCommand
+            Cmd.Connection = Connection
+            Cmd.CommandText = "SP_BUSCA_CLIENTE_PELO_CARGO"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.AddWithValue("@CODCARGO", codcargo)
+            Dim Tbl As New DataTable
+            Dim Adp As New SqlDataAdapter(Cmd)
+
+            Adp.Fill(Tbl)
+            If Tbl.Rows.Count > 0 Then
+                cliente.Carrega(Tbl.Rows(0))
+            End If
+
+            If Not Adp Is Nothing Then
+                Adp.Dispose()
+            End If
+            If Not Tbl Is Nothing Then
+                Tbl.Dispose()
+            End If
+        End Using
+
+        If Connection.State = ConnectionState.Open Then
+            Connection.Close()
+            Connection.Dispose()
+            Connection = Nothing
+        End If
         Return cliente
     End Function
 
     Public Function RemoveCargoCliente(ByVal codcliente As Int32, ByRef resposta As String) As Boolean
-        Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        ReverterOuCommitar()
         Con.Open()
         Tr = Con.BeginTransaction
         Try
             If Not _RemoveCargoCliente(codcliente) Then
                 Tr.Rollback()
+                Tr.Dispose()
+                Tr = Nothing
             Else
                 Tr.Commit()
                 Return True
@@ -702,13 +718,8 @@ Public Class DAO
         Catch ex As Exception
             resposta = ex.Message
             Tr.Rollback()
-        Finally
-            If Not Con Is Nothing Then
-                Con.Dispose()
-            End If
-            If Not Tr Is Nothing Then
-                Tr.Dispose()
-            End If
+            Tr.Dispose()
+            Tr = Nothing
         End Try
         Return False
     End Function
@@ -726,7 +737,7 @@ Public Class DAO
     End Function
 
     Public Function InsereCliente(ByVal cliente As Cliente, ByRef resposta As String) As Boolean
-        Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        ReverterOuCommitar()
         Con.Open()
         Tr = Con.BeginTransaction
         Try
@@ -734,6 +745,8 @@ Public Class DAO
                 Return True
             Else
                 Tr.Rollback()
+                Tr.Dispose()
+                Tr = Nothing
             End If
         Catch ex As Exception
             resposta = ex.Message
@@ -779,21 +792,22 @@ Public Class DAO
     Public Function AtualizaCliente(cliente As Cliente, ByRef resposta As String, _
         ByVal isExclusao As Boolean, login As String) As Boolean
 
-        Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        ReverterOuCommitar()
         Con.Open()
         Tr = Con.BeginTransaction
         Try
             If Not _AtualizaCliente(cliente, isExclusao, resposta, login) Then
                 Tr.Rollback()
+                Tr.Dispose()
+                Tr = Nothing
             Else
-                If Not isExclusao Then
-                    Tr.Commit()
-                End If
                 Return True
             End If
         Catch ex As Exception
             resposta = ex.Message
             Tr.Rollback()
+            Tr.Dispose()
+            Tr = Nothing
         End Try
         Return False
     End Function
@@ -885,25 +899,33 @@ Public Class DAO
 
     Public Function InsereProduto(ByVal obj As Produto, ByRef resposta As String) As Boolean
         ReverterOuCommitar()
-        Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If _InsereProduto(obj) Then
+            If _InsereProduto(obj, resposta) Then
                 Return True
             Else
                 Tr.Rollback()
+                Tr.Dispose()
+                Tr = Nothing
             End If
         Catch ex As Exception
             Tr.Rollback()
+            Tr.Dispose()
+            Tr = Nothing
             resposta = ex.Message
         End Try
         Return False
     End Function
 
-    Private Function _InsereProduto(produto As Produto) As Boolean
+    Private Function _InsereProduto(produto As Produto, ByRef resposta As String) As Boolean
         Using Cmd As New SqlCommand
-            Dim imgByte = System.Text.Encoding.UTF8.GetBytes(produto.Imagem)
+            Dim imgByte As Byte()
+            If produto.Imagem <> String.Empty Then
+                imgByte = System.Text.Encoding.UTF8.GetBytes(produto.Imagem)
+            Else
+                imgByte = Nothing
+            End If
             Cmd.Connection = Con
             Cmd.Transaction = Tr
             Cmd.CommandText = "SP_INSERE_PRODUTO"
@@ -915,18 +937,21 @@ Public Class DAO
             Cmd.Parameters.Add("@IMAGEM", SqlDbType.VarBinary).Value = imgByte
             Cmd.Parameters.AddWithValue("@ATIVO", produto.IsAtivo)
             Cmd.Parameters.AddWithValue("@LOGINCRIACAO", produto.LoginCriacao)
+            Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+            Cmd.Parameters("@RESPONSE").Size = 255
 
             If Cmd.ExecuteNonQuery > 0 Then
                 Return True
             Else
                 Return False
             End If
+            resposta = Cmd.Parameters("@RESPONSE").Value
         End Using
     End Function
 
     Public Function AtualizaProduto(ByVal obj As Produto, ByRef resposta As String, _
                                           ByVal login As String, Optional isDelete As Boolean = False)
-        Con = New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        ReverterOuCommitar()
         Con.Open()
         Tr = Con.BeginTransaction
         Try
@@ -934,9 +959,13 @@ Public Class DAO
                 Return True
             Else
                 Tr.Rollback()
+                Tr.Dispose()
+                Tr = Nothing
             End If
         Catch ex As Exception
             Tr.Rollback()
+            Tr.Dispose()
+            Tr = Nothing
             resposta = ex.Message
         End Try
         Return False
@@ -965,6 +994,83 @@ Public Class DAO
             End If
         End Using
         Return succ
+    End Function
+
+    Public Function GetCategoriasProduto(ByRef resposta As String) As List(Of String)
+        Dim lst As New List(Of String)
+        Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Using Cmd As New SqlCommand()
+            Connection.Open()
+            Cmd.Connection = Connection
+            Cmd.CommandText = "SP_GET_CATEGORIAS_PRODUTOS"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+            Cmd.Parameters("@RESPONSE").Size = 255
+
+            Dim reader = Cmd.ExecuteReader
+
+            If reader.HasRows Then
+                While reader.Read
+                    lst.Add(reader.GetValue(0))
+                End While
+            End If
+
+            resposta = Cmd.Parameters("@RESPONSE").Value
+
+            If Connection.State = ConnectionState.Open Then
+                Connection.Close()
+                Connection.Dispose()
+                Connection = Nothing
+            End If
+        End Using
+
+        Return lst
+    End Function
+
+    Public Function GetProdutosPorCategoria(ByVal categ As String, ByRef resposta As String) As List(Of Produto)
+        Dim lst As New List(Of Produto)
+        Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Using Cmd As New SqlCommand
+            Cmd.Connection = Connection
+            Cmd.CommandText = "SP_GET_PRODUTOS_POR_CATEGORIA"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.AddWithValue("@CATEGORIA", categ)
+            Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+            Cmd.Parameters("@RESPONSE").Size = 255
+
+            Dim Adp As New SqlDataAdapter(Cmd)
+            Dim Tbl As New DataTable
+
+            Adp.Fill(Tbl)
+
+            If Tbl.Rows.Count > 0 Then
+                For I As Integer = 0 To Tbl.Rows.Count - 1
+                    Dim prod As New Produto
+                    prod.Carrega(Tbl.Rows(I))
+                    lst.Add(prod)
+                Next
+            End If
+
+            resposta = Cmd.Parameters("@RESPONSE").Value
+
+            If Adp IsNot Nothing Then
+                Adp.Dispose()
+                Adp = Nothing
+            End If
+
+            If Tbl IsNot Nothing Then
+                Tbl.Dispose()
+                Tbl = Nothing
+            End If
+        End Using
+        If Connection.State = ConnectionState.Open Then
+            Connection.Close()
+            Connection.Dispose()
+            Connection = Nothing
+        End If
+
+        Return lst
+
     End Function
 
 #End Region

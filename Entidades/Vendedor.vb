@@ -4,7 +4,7 @@ Public Class Vendedor
 
     Private _CodVendedor As Integer = 0
     Private _CodCargo As Integer
-    Public Nome As String
+    Private _Nome As String
     Public Sobrenome As String
     Public NomeCompleto As String
     Public ObjEndereco As Endereco
@@ -29,6 +29,15 @@ Public Class Vendedor
         End Get
         Set(value)
             _CodCargo = value
+        End Set
+    End Property
+
+    Public Property Nome As String
+        Get
+            Return _Nome
+        End Get
+        Set(value As String)
+            _Nome = value
         End Set
     End Property
 

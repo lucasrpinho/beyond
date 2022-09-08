@@ -29,6 +29,7 @@ Partial Class Frm_Cliente
         Me.TxtObs = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.GrpBoxInfo = New System.Windows.Forms.GroupBox()
+        Me.DtPckNasc = New System.Windows.Forms.DateTimePicker()
         Me.BtnConsCargo = New System.Windows.Forms.Button()
         Me.TxtCelular = New System.Windows.Forms.MaskedTextBox()
         Me.TxtEmpresa = New System.Windows.Forms.TextBox()
@@ -54,7 +55,6 @@ Partial Class Frm_Cliente
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.LblCep = New System.Windows.Forms.Label()
-        Me.DtPckNasc = New System.Windows.Forms.DateTimePicker()
         Me.GrpBoxInfo.SuspendLayout()
         Me.GrpBoxEndereco.SuspendLayout()
         Me.SuspendLayout()
@@ -85,10 +85,10 @@ Partial Class Frm_Cliente
         Me.ChkBoxAtivo.AutoSize = True
         Me.ChkBoxAtivo.Checked = True
         Me.ChkBoxAtivo.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ChkBoxAtivo.Font = New System.Drawing.Font("Verdana", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChkBoxAtivo.Location = New System.Drawing.Point(667, 290)
+        Me.ChkBoxAtivo.Font = New System.Drawing.Font("Verdana", 8.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChkBoxAtivo.Location = New System.Drawing.Point(667, 294)
         Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
-        Me.ChkBoxAtivo.Size = New System.Drawing.Size(71, 22)
+        Me.ChkBoxAtivo.Size = New System.Drawing.Size(60, 18)
         Me.ChkBoxAtivo.TabIndex = 8
         Me.ChkBoxAtivo.Text = "Ativo"
         Me.ChkBoxAtivo.UseVisualStyleBackColor = True
@@ -144,6 +144,16 @@ Partial Class Frm_Cliente
         Me.GrpBoxInfo.TabIndex = 1
         Me.GrpBoxInfo.TabStop = False
         Me.GrpBoxInfo.Text = "Informações"
+        '
+        'DtPckNasc
+        '
+        Me.DtPckNasc.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DtPckNasc.Location = New System.Drawing.Point(617, 52)
+        Me.DtPckNasc.MaxDate = New Date(2200, 12, 31, 0, 0, 0, 0)
+        Me.DtPckNasc.MinDate = New Date(1922, 1, 1, 0, 0, 0, 0)
+        Me.DtPckNasc.Name = "DtPckNasc"
+        Me.DtPckNasc.Size = New System.Drawing.Size(118, 24)
+        Me.DtPckNasc.TabIndex = 2
         '
         'BtnConsCargo
         '
@@ -406,16 +416,6 @@ Partial Class Frm_Cliente
         Me.LblCep.Size = New System.Drawing.Size(35, 17)
         Me.LblCep.TabIndex = 48
         Me.LblCep.Text = "CEP"
-        '
-        'DtPckNasc
-        '
-        Me.DtPckNasc.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DtPckNasc.Location = New System.Drawing.Point(617, 52)
-        Me.DtPckNasc.MaxDate = New Date(2200, 12, 31, 0, 0, 0, 0)
-        Me.DtPckNasc.MinDate = New Date(1922, 1, 1, 0, 0, 0, 0)
-        Me.DtPckNasc.Name = "DtPckNasc"
-        Me.DtPckNasc.Size = New System.Drawing.Size(118, 24)
-        Me.DtPckNasc.TabIndex = 2
         '
         'Frm_Cliente
         '

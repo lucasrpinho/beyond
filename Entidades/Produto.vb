@@ -28,10 +28,10 @@ Public Class Produto
             strError = "Código do produto deve ser zero pois será gerado automaticamente"
         ElseIf Me.Descricao = "" Then
             strError = "A descrição do produto precisa ser preenchida"
-        ElseIf Not IsNumeric(Me.Preco) Or Me.Preco <> 0 Then
-            strError = "Preço precisa ser numérico e o valor precisa ser zero durante o registro"
-        ElseIf Not IsNumeric(Me.Quantidade) Or Me.Quantidade <> 0 Then
-            strError = "Quantidade precisa ser numérico e o valor precisa ser zero durante o registro"
+        ElseIf Not IsNumeric(Me.Preco) Then
+            strError = "Preço precisa ser numérico."
+        ElseIf Not IsNumeric(Me.Quantidade) Then
+            strError = "Quantidade precisa ser numérico."
         End If
 
         Return String.IsNullOrWhiteSpace(strError)

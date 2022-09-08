@@ -4,9 +4,12 @@ Imports Entidades
 Public Class Frm_Produto
 
     Private frmPrincipal As Frm_Principal_MDI
-    Private objProduto As Produto
+    Private LstProduto As List(Of Produto)
     Private StrImgPath As String = ""
     Private DAOProd As New DAO.DAO
+    Private MyModo As New UC_Toolstrip.UniqueModo
+    Private IsOperacaoActive As Boolean = False
+    Friend objProduto As Produto
 
     Public Sub New(ByVal frm As Frm_Principal_MDI)
 
@@ -19,46 +22,69 @@ Public Class Frm_Produto
     End Sub
 
     Private Sub Frm_Produto_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        DAOProd.ReverterOuCommitar()
         RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
     Private Sub Frm_Produto_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         Uteis.ControlsHelper.SetControlsDisabled(Me)
         AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
+        MyModo.UniqueModo = "PADRÃO"
     End Sub
 
     Private Sub LimpaCampos_AtivaControles()
-        Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
         Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
+        Uteis.ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
+        Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
         ClearImg()
     End Sub
 
-    Private Sub Insere()
+    Private Function ChecaPreenchimento() As Control
+        If TxtCategoria.Text = String.Empty Then
+            Return TxtCategoria
+        ElseIf TxtDesc.Text = String.Empty Then
+            Return TxtDesc
+        ElseIf TxtPreco.Text = String.Empty Then
+            Return TxtPreco
+        ElseIf TxtQtd.Text = String.Empty Then
+            Return TxtQtd
+        Else
+            Return Nothing
+        End If
+    End Function
+
+    Private Function Insere() As Boolean
         Dim prod As New Produto
+        Dim controlNaoPreenchido = ChecaPreenchimento()
+
+        If controlNaoPreenchido IsNot Nothing Then
+            MsgBoxHelper.CustomTooltip(Me, controlNaoPreenchido, "Campo não pode ser vazio.", "Campo não foi preenchido")
+            Return False
+        End If
 
         prod.Descricao = TxtDesc.Text.ToUpper
         prod.Categoria = TxtCategoria.Text.ToUpper
-        prod.Preco = Convert.ToDecimal(TxtPreco.Text)
+        prod.Preco = Convert.ToDecimal(StringHelper.CurrencyType(TxtPreco.Text))
         prod.Quantidade = Convert.ToInt32(TxtQtd.Text)
         prod.IsAtivo = ChkAtivo.Checked
+        prod.Imagem = StrImgPath
         prod.LoginCriacao = loginusuario
 
         Dim resposta As String = ""
 
         If Not prod.IsValid(resposta) Then
-            MsgBoxHelper.Erro(Me, resposta, "Erro de preenchimento")
-            Exit Sub
+            MsgBoxHelper.Alerta(Me, resposta, "Erro de preenchimento")
+            Return False
         End If
 
         If Not DAOProd.InsereProduto(prod, resposta) Then
-            Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
-        Else
-            frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
-            'Uteis.Controls.SetTextsEmpty(Me)
-
-            Uteis.ControlsHelper.SetControlsDisabled(Me)
+            Uteis.MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            Return False
         End If
-    End Sub
+
+        IsOperacaoActive = True
+        Return True
+    End Function
 
     Private Sub ToolStrip_ItemClicked()
         If Not Me.Enabled Then
@@ -67,74 +93,83 @@ Public Class Frm_Produto
 
         Dim resposta As String = ""
 
-        If UC_Toolstrip.Modo = "SALVAR" Then
-            Insere()
+        MyModo.UniqueModo = UC_Toolstrip.Modo
 
-
-        ElseIf UC_Toolstrip.Modo = "ALTERAR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "O produto será alterado. Deseja continuar?", "ALTERAR") Then
-                If DAOProd.AtualizaProduto(objProduto, resposta, loginusuario) Then
-                    ParaRemocaoEAlteracao()
-                Else
-                    MsgBoxHelper.Erro(Me, resposta, "Erro")
-                    Exit Sub
-                End If
-            Else
-                Exit Sub
-            End If
-
-
-        ElseIf UC_Toolstrip.Modo = "PESQUISAR" Or UC_Toolstrip.Modo = "NOVO" Then
-            LimpaCampos_AtivaControles()
-
-
-        ElseIf UC_Toolstrip.Modo = "CONFIRMAR" Then
-            If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
-                DAOProd.ReverterOuCommitar(True)
-                LimpaCampos_AtivaControles()
-                frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
-            End If
-
-
-        ElseIf UC_Toolstrip.Modo = "REVERTER" Then
-            If frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja REVERTER a operação?", "REVERTER") Then
-                    DAOProd.ReverterOuCommitar(False)
+        If MyModo.UniqueModo = "SALVAR" Then
+            If objProduto Is Nothing Then
+                If Insere() Then
                     Uteis.ControlsHelper.SetControlsDisabled(Me)
-                    LimpaCampos_AtivaControles()
-                    frmPrincipal.StateTransaction = Uteis.SYSConsts.FINALIZADO
+                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
                 Else
-                    Exit Sub
+                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                End If
+            Else
+                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "O registro será modificado. Deseja continuar?", "Alterar") Then
+                    CarregaProdutos()
+                    If Not DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, False, loginusuario) Then
+                        frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                    Else
+                        Uteis.ControlsHelper.SetControlsDisabled(Me)
+                        frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
+                        IsOperacaoActive = True
+                        objProduto = Nothing
+                    End If
                 End If
             End If
 
 
-        ElseIf UC_Toolstrip.Modo = "EXCLUIR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja EXCLUIR o item?", "EXCLUIR") Then
-                If DAOProd.AtualizaProduto(objProduto, resposta, loginusuario, True) Then
-                    ParaRemocaoEAlteracao()
-                Else
-                    MsgBoxHelper.Erro(Me, resposta, "Erro")
-                    Exit Sub
+        ElseIf MyModo.UniqueModo = "ALTERAR" Then
+            ControlsHelper.SetControlsEnabled(Me.Controls)
+            TxtCategoria.Enabled = False
+            PicBoxFoto.Enabled = False
+            TxtDesc.Enabled = False
+
+        ElseIf MyModo.UniqueModo = "NOVO" Then
+            LimpaCampos_AtivaControles()
+            ClearImg()
+
+        ElseIf MyModo.UniqueModo = "PESQUISAR" Then
+            LimpaCampos_AtivaControles()
+            ControlsHelper.SetControlsDisabled(Me.Controls)
+            Dim frmCons As New Frm_ConsProduto(Me)
+            frmCons.ShowDialog()
+            If objProduto IsNot Nothing Then
+                PreencheCampos(objProduto)
+                frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
+            End If
+
+
+        ElseIf MyModo.UniqueModo = "REVERTER" Then
+            If IsOperacaoActive Then
+                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja reverter a operação?", "Reverter") Then
+                    DAOProd.ReverterOuCommitar(True)
+                    IsOperacaoActive = False
+                End If
+            End If
+            LimpaCampos_AtivaControles()
+            Uteis.ControlsHelper.SetControlsDisabled(Me)
+
+
+        ElseIf MyModo.UniqueModo = "EXCLUIR" Then
+            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
+                If DAOProd.AtualizaProduto(objProduto, "", True, loginusuario) Then
+                    IsOperacaoActive = True
+                    LimpaCampos_AtivaControles()
+                    ControlsHelper.SetControlsDisabled(Me)
+                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
                 End If
             Else
                 Exit Sub
             End If
 
-
-        ElseIf UC_Toolstrip.Modo = "LIMPAR" Then
-            LimpaCampos_AtivaControles()
         End If
 
-        If frmPrincipal.StateTransaction Then
-            Uteis.ControlsHelper.EnableAllToolBarItens(frmPrincipal.UC_Toolstrip1.ToolStrip1)
-        End If
     End Sub
 
     Private Sub PreencheCampos(ByVal prod As Produto)
         TxtCategoria.Text = prod.Categoria
         TxtDesc.Text = prod.Descricao
-        TxtPreco.Text = Convert.ToString(prod.Preco)
+        TxtPreco.Text = "R$ " + prod.Preco.ToString("C")
         TxtQtd.Text = prod.Quantidade.ToString
         ChkAtivo.Checked = prod.IsAtivo
         If IO.File.Exists(prod.Imagem) Then
@@ -200,7 +235,9 @@ Public Class Frm_Produto
 
     Private Sub TxtPreco_Leave(sender As System.Object, e As System.EventArgs) Handles TxtPreco.Leave
         Dim val = TxtPreco.Text
-        TxtPreco.Text = Decimal.Parse(val).ToString("C")
+        If val <> String.Empty Then
+            TxtPreco.Text = Decimal.Parse(val).ToString("C")
+        End If
     End Sub
 
     Private Sub TxtPreco_Enter(sender As System.Object, e As System.EventArgs) Handles TxtPreco.Enter
@@ -208,4 +245,47 @@ Public Class Frm_Produto
             TxtPreco.Text = TxtPreco.Text.Replace("R$", "").Trim
         End If
     End Sub
+
+    Private Function GetProdutoForOperation() As Produto
+        Dim prod As New Produto
+
+        If TxtCategoria.Text <> String.Empty AndAlso TxtDesc.Text <> String.Empty Then
+            prod = objProduto
+        End If
+
+        prod.Preco = Convert.ToDecimal(StringHelper.CurrencyType(TxtPreco.Text))
+        prod.Quantidade = TxtQtd.Text
+        prod.IsAtivo = ChkAtivo.Checked
+
+        Return prod
+    End Function
+
+    Private Sub CarregaProdutos()
+        'If Not MyModo.UniqueModo = "PESQUISAR" Then
+        '    Exit Sub
+        'End If
+
+        'LstProduto.Clear()
+        'ComboCateg.Items.Clear()
+
+        'Dim resposta As String = ""
+
+        'LstProduto = DAOProd.GetProdutos(resposta)
+
+        'If Not LstProduto.Count > 0 Then
+        '    MsgBoxHelper.Alerta(Me, resposta, "Erro")
+        '    Exit Sub
+        'End If
+
+        'ComboCateg.BeginUpdate()
+        'ComboCateg.Items.AddRange(LstProduto.ToArray)
+        'ComboCateg.DisplayMember = "Categoria"
+        'ComboCateg.ValueMember = "CodProduto"
+        'If MyModo.UniqueModo = "PESQUISAR" Then
+        '    ComboCateg.SelectedIndex = 0
+        'End If
+        'ComboCateg.EndUpdate()
+
+    End Sub
+
 End Class

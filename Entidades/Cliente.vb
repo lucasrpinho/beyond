@@ -3,7 +3,7 @@
 Public Class Cliente
 
     Private _CodCliente As Integer = 0
-    Public Nome As String
+    Private _Nome As String
     Public DatNasc As Date
     Public Empresa As String
     Public CodCargo As Int16
@@ -21,6 +21,15 @@ Public Class Cliente
         End Get
         Set(value)
             _CodCliente = value
+        End Set
+    End Property
+
+    Public Property Nome As String
+        Get
+            Return _Nome
+        End Get
+        Set(value As String)
+            _Nome = value
         End Set
     End Property
 

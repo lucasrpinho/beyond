@@ -28,6 +28,12 @@ Public Class Frm_Vendedor
         frmPrincipal = frm
     End Sub
 
+    Private Sub Frm_Vendedor_EnabledChanged(sender As Object, e As System.EventArgs) Handles Me.EnabledChanged
+        If Me.Enabled Then
+            frmPrincipal.UC_Toolstrip1.ToolbarItemsState(MyModo.UniqueModo)
+        End If
+    End Sub
+
     Private Sub Frm_Vendedor_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         DAOVendedor.ReverterOuCommitar()
         RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
@@ -51,7 +57,7 @@ Public Class Frm_Vendedor
 
     Private Sub ComboNome_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboNome.SelectedIndexChanged
         If Not Uteis.StringHelper.IsNull(ComboNome.Text) Then
-            BuscaVendedorPorCodigo(LstVendedor(ComboNome.SelectedIndex - 1).CodVendedor)
+            BuscaVendedorPorCodigo(LstVendedor(ComboNome.SelectedIndex).CodVendedor)
         Else
             Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxEndereco.Controls)
             Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
@@ -87,7 +93,7 @@ Public Class Frm_Vendedor
         vendedor.ObjEndereco.Logradouro = TxtLogradouro.Text.ToUpper
         vendedor.ObjEndereco.Bairro = TxtBairro.Text.ToUpper
         vendedor.ObjEndereco.Cidade = TxtCidade.Text.ToUpper
-        vendedor.ObjEndereco.UF = LstEstados.Item(ComboEstado.SelectedIndex - 1).UF
+        vendedor.ObjEndereco.UF = LstEstados.Item(ComboEstado.SelectedIndex).UF
         vendedor.ObjEndereco.Complemento = TxtComplemento.Text.ToUpper
         vendedor.ObjEndereco.NumeroEndereco = Convert.ToInt16(TxtNum.Text)
 
@@ -121,14 +127,14 @@ Public Class Frm_Vendedor
         LstCargos = DAOVendedor.GetCargo(True)
 
         If Not LstCargos.Count > 0 Then
-            MsgBoxHelper.Erro(Me, "O sistema não conseguiu buscar os cargos", "Erro")
+            MsgBoxHelper.Alerta(Me, "O sistema não conseguiu buscar os cargos.", "Erro")
             Exit Sub
         End If
 
         ComboCargo.BeginUpdate()
-        For I As Integer = 0 To LstCargos.Count - 1
-            ComboCargo.Items.Add(LstCargos(I).Nome)
-        Next
+        ComboCargo.Items.AddRange(LstCargos.ToArray)
+        ComboCargo.DisplayMember = "Nome"
+        ComboCargo.ValueMember = "CodCargo"
         If MyModo.UniqueModo = "PESQUISAR" Then
             ComboCargo.SelectedIndex = 0
         End If
@@ -154,7 +160,7 @@ Public Class Frm_Vendedor
             TxtLogradouro.Text = Endereco.Logradouro.ToUpper
 
             ' Soma com 1 pois o combobox contém um item vazio
-            ComboEstado.SelectedIndex = LstEstados.FindIndex(Function(e As EstadoUF) e.UF = Endereco.UF) + 1
+            ComboEstado.SelectedIndex = LstEstados.FindIndex(Function(e As EstadoUF) e.UF = Endereco.UF)
         End If
     End Sub
 
@@ -167,13 +173,12 @@ Public Class Frm_Vendedor
         LstEstados = DAOVendedor.GetEstados(resposta)
 
         If Not LstEstados.Count > 0 Then
-            MsgBoxHelper.Erro(Me, resposta, "UF vazio")
+            MsgBoxHelper.Alerta(Me, resposta, "UF vazio")
         Else
             ComboEstado.BeginUpdate()
-            ComboEstado.Items.Add("")
-            For Each estado As EstadoUF In LstEstados
-                ComboEstado.Items.Add(estado.Nome)
-            Next
+            ComboEstado.Items.AddRange(LstEstados.ToArray)
+            ComboEstado.DisplayMember = "Nome"
+            ComboEstado.ValueMember = "UF"
             ComboEstado.EndUpdate()
         End If
     End Sub
@@ -193,7 +198,10 @@ Public Class Frm_Vendedor
             PicBoxFoto.Image = bmp
             StrFotoPath = OpenFileDialog1.FileName
         Catch ex As Exception
+#If DEBUG Then
             MsgBoxHelper.Erro(Me, ex.Message, "Erro")
+#End If
+            MsgBoxHelper.Alerta(Me, "Falha ao inserir foto.", "Erro")
         End Try
     End Sub
 
@@ -207,7 +215,7 @@ Public Class Frm_Vendedor
         MyModo.UniqueModo = UC_Toolstrip.Modo
 
         If MyModo.UniqueModo = "SALVAR" Then
-            If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso Not IsOperacaoActive Then
+            If ComboNome.DropDownStyle = ComboBoxStyle.Simple Then
                 If Insere() Then
                     Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
@@ -260,9 +268,6 @@ Public Class Frm_Vendedor
                 Exit Sub
             End If
         End If
-
-        AlternarControle()
-
     End Sub
 
     Private Sub BuscaVendedorPorCodigo(ByVal codvendedor As String)
@@ -279,7 +284,7 @@ Public Class Frm_Vendedor
     End Sub
 
     Private Sub PreencheCampos(ByVal vendedor As Vendedor)
-        ComboNome.SelectedIndex = LstVendedor.FindIndex(Function(v) v.CodVendedor = vendedor.CodVendedor) + 1
+        ComboNome.SelectedIndex = LstVendedor.FindIndex(Function(v) v.CodVendedor = vendedor.CodVendedor)
         TxtSobrenome.Text = vendedor.Sobrenome
         TxtCEP.Text = vendedor.ObjEndereco.CEP
         TxtBairro.Text = vendedor.ObjEndereco.Bairro
@@ -288,7 +293,7 @@ Public Class Frm_Vendedor
         TxtLogradouro.Text = vendedor.ObjEndereco.Logradouro
         TxtNum.Text = vendedor.ObjEndereco.NumeroEndereco
         TxtObs.Text = vendedor.Observacao
-        ComboEstado.SelectedIndex = LstEstados.FindIndex(Function(e) e.UF = vendedor.ObjEndereco.UF) + 1
+        ComboEstado.SelectedIndex = LstEstados.FindIndex(Function(e) e.UF = vendedor.ObjEndereco.UF)
         ComboCargo.SelectedIndex = LstCargos.FindIndex(Function(c) c.CodCargo = vendedor.CodCargo)
         ChkBoxAtivo.Checked = vendedor.IsAtivo
         If IO.File.Exists(vendedor.Foto) Then
@@ -309,13 +314,12 @@ Public Class Frm_Vendedor
         LstVendedor = DAOVendedor.GetVendedor(True, resposta)
 
         If Not LstVendedor.Count > 0 Then
-            MsgBoxHelper.Erro(Me, resposta, "Erro")
+            MsgBoxHelper.Alerta(Me, resposta, "Erro")
         Else
             ComboNome.BeginUpdate()
-            ComboNome.Items.Add(String.Empty)
-            For Each vendedor As Vendedor In LstVendedor
-                ComboNome.Items.Add(vendedor.NomeCompleto)
-            Next
+            ComboNome.Items.AddRange(LstVendedor.ToArray)
+            ComboNome.DisplayMember = "Nome"
+            ComboNome.ValueMember = "CodVendedor"
             If MyModo.UniqueModo = "PESQUISAR" Then
                 ComboNome.SelectedIndex = 0
             End If
@@ -349,16 +353,10 @@ Public Class Frm_Vendedor
         CarregaVendedores()
     End Sub
 
-    Private Sub ParaRemocaoEAlteracao()
-        frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
-        Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
-
-    End Sub
-
     Private Function ObjVendedorFromList() As Vendedor
         Dim vendedor As New Vendedor
         If ComboNome.Text <> String.Empty Then
-            vendedor = LstVendedor(ComboNome.SelectedIndex - 1)
+            vendedor = LstVendedor(ComboNome.SelectedIndex)
         End If
 
         vendedor.CodCargo = LstCargos(ComboCargo.SelectedIndex).CodCargo
@@ -366,7 +364,7 @@ Public Class Frm_Vendedor
         vendedor.ObjEndereco.Logradouro = TxtLogradouro.Text.ToUpper
         vendedor.ObjEndereco.Bairro = TxtBairro.Text.ToUpper
         vendedor.ObjEndereco.Cidade = TxtCidade.Text.ToUpper
-        vendedor.ObjEndereco.UF = LstEstados.Item(ComboEstado.SelectedIndex - 1).UF
+        vendedor.ObjEndereco.UF = LstEstados.Item(ComboEstado.SelectedIndex).UF
         vendedor.ObjEndereco.Complemento = TxtComplemento.Text.ToUpper
         vendedor.ObjEndereco.NumeroEndereco = Convert.ToInt16(TxtNum.Text)
         vendedor.Observacao = TxtObs.Text
@@ -377,8 +375,16 @@ Public Class Frm_Vendedor
     Private Sub ModoNovo()
         ClearImage()
         ControlsHelper.SetControlsEnabled(Me.Controls)
+        ControlsHelper.SetControlsEnabled(GrpBoxEndereco.Controls)
+        ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
         ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
         ControlsHelper.SetTextsEmpty(GrpBoxEndereco.Controls)
         AlternarControle()
+    End Sub
+
+    Private Sub TxtNum_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtNum.KeyPress
+        If Char.IsPunctuation(e.KeyChar) Then
+            e.KeyChar = ""
+        End If
     End Sub
 End Class

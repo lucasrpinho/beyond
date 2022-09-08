@@ -118,6 +118,12 @@
     <Compile Include="Forms Entidades\Frm_Cliente_Cargo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms Entidades\Frm_ConsProduto.Designer.vb">
+      <DependentUpon>Frm_ConsProduto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms Entidades\Frm_ConsProduto.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms Entidades\Frm_Produto.Designer.vb">
       <DependentUpon>Frm_Produto.vb</DependentUpon>
     </Compile>
@@ -194,6 +200,9 @@
     <EmbeddedResource Include="Forms Entidades\Frm_Cliente_Cargo.resx">
       <DependentUpon>Frm_Cliente_Cargo.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms Entidades\Frm_ConsProduto.resx">
+      <DependentUpon>Frm_ConsProduto.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms Entidades\Frm_Produto.resx">
       <DependentUpon>Frm_Produto.vb</DependentUpon>
     </EmbeddedResource>
@@ -260,6 +269,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Imagens\password.png" />
     <None Include="Icons Toolstrip\confirm.png" />
     <None Include="Icons Toolstrip\delete.png" />
     <None Include="Icons Toolstrip\rollback.png" />

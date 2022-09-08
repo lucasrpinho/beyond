@@ -82,6 +82,9 @@ Public Class Frm_Principal_MDI
             Dim page = TCPrincipal.TabPages(TCPrincipal.SelectedIndex)
             Application.OpenForms.Item(page.Controls.OfType(Of Form).LastOrDefault.Name).Close()
             TCPrincipal.TabPages.Remove(TCPrincipal.SelectedTab)
+            If TCPrincipal.TabCount > 0 Then
+                TCPrincipal.SelectTab(TCPrincipal.TabPages.Count - 1)
+            End If
         End If
     End Sub
 
@@ -105,8 +108,11 @@ Public Class Frm_Principal_MDI
     Private Sub ToolStripMenuFecharUma_Click(sender As System.Object, e As System.EventArgs) Handles FecharUmaCtxMenu.Click
         If TCPrincipal.TabPages.Count > 0 Then
             Dim page = TCPrincipal.TabPages(TCPrincipal.SelectedIndex)
-            Application.OpenForms(page.Controls.OfType(Of Form).LastOrDefault.Name).Close()
+            Application.OpenForms(page.Controls.OfType(Of Form).FirstOrDefault.Name).Close()
             TCPrincipal.TabPages.Remove(TCPrincipal.SelectedTab)
+            If TCPrincipal.TabCount > 0 Then
+                TCPrincipal.SelectTab(TCPrincipal.TabPages.Count - 1)
+            End If
         End If
     End Sub
 
@@ -339,13 +345,14 @@ Public Class Frm_Principal_MDI
             TP.Controls.Add(Frm)
             TP.Tag = Frm
             TP.Text = Frm.Text
-            TP.ImageIndex = 0
+            TP.ImageIndex = 4
             TP.BackColor = Frm.BackColor
             TP.Name = Frm.Name
             TCPrincipal.TabPages.Add(TP)
             TCPrincipal.SelectTab(TP)
             TCPrincipal.BringToFront()
             TCPrincipal.Visible = True
+            UC_Toolstrip1.PagAberta_HabilitarBotoes()
             Frm.Show()
             Me.Refresh()
         End If
@@ -375,11 +382,12 @@ Public Class Frm_Principal_MDI
             TP.Text = Frm.Text
             TP.BackColor = Frm.BackColor
             TP.Name = Frm.Name
-            TP.ImageIndex = 0
+            TP.ImageIndex = 5
             TCPrincipal.TabPages.Add(TP)
             TCPrincipal.SelectTab(TP)
             TCPrincipal.BringToFront()
             TCPrincipal.Visible = True
+            UC_Toolstrip1.PagAberta_HabilitarBotoes()
             Frm.Show()
             Me.Refresh()
         End If

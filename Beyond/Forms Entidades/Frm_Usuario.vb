@@ -8,6 +8,7 @@ Public Class Frm_Usuario
     Private MyModo As New UC_Toolstrip.UniqueModo
     Private IsOperacaoActive As Boolean = False
     Private DAOUsuario As New DAO.DAO
+    Private MostrarSenha As Boolean = True
 
     Public Sub New(frm As Frm_Principal_MDI)
 
@@ -75,7 +76,7 @@ Public Class Frm_Usuario
         MyModo.UniqueModo = UC_Toolstrip.Modo
 
         If MyModo.UniqueModo = "SALVAR" Then
-            If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso Not IsOperacaoActive Then
+            If ComboNome.DropDownStyle = ComboBoxStyle.Simple Then
                 If InsereUsuario() Then
                     Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
@@ -177,12 +178,11 @@ Public Class Frm_Usuario
         LstUsuario = DAOUsuario.GetUsuarios(True, resposta)
 
         If LstUsuario.Count > 0 Then
-            ComboNome.Items.Add("")
-            For Each usuario As Usuario In LstUsuario
-                ComboNome.BeginUpdate()
-                ComboNome.Items.Add(usuario.NomeCompleto)
-                ComboNome.EndUpdate()
-            Next
+            ComboNome.BeginUpdate()
+            ComboNome.Items.AddRange(LstUsuario.ToArray)
+            ComboNome.DisplayMember = "NomeCompleto"
+            ComboNome.ValueMember = "CodUsuario"
+            ComboNome.EndUpdate()
             If MyModo.UniqueModo = "PESQUISAR" Then
                 ComboNome.SelectedIndex = 0
             End If
@@ -191,7 +191,7 @@ Public Class Frm_Usuario
 
     Private Sub ComboNome_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboNome.SelectedIndexChanged
         If Not Uteis.StringHelper.IsNull(ComboNome.Text) Then
-            BuscaUsuarioPorCodigo(LstUsuario(ComboNome.SelectedIndex - 1).CodUsuario)
+            BuscaUsuarioPorCodigo(LstUsuario(ComboNome.SelectedIndex).CodUsuario)
         Else
             Uteis.ControlsHelper.SetTextsEmpty(Me.GroupBox1.Controls)
             Uteis.ControlsHelper.SetTextsEmpty(Me.GroupBox2.Controls)
@@ -230,6 +230,10 @@ Public Class Frm_Usuario
         If Char.IsLetter(e.KeyChar) Then
             e.KeyChar = Char.ToUpper(e.KeyChar)
         End If
+
+        If Char.IsNumber(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Then
+            e.KeyChar = ""
+        End If
     End Sub
 
     Private Sub ControlsState_ModoProcurar()
@@ -257,7 +261,7 @@ Public Class Frm_Usuario
     Private Function UsuarioUpdate() As Usuario
         Dim usuario As New Usuario
         If ComboNome.SelectedIndex > 0 Then
-            usuario = LstUsuario(ComboNome.SelectedIndex - 1)
+            usuario = LstUsuario(ComboNome.SelectedIndex)
         Else
             usuario = LstUsuario.Find(Function(u) u.Login = TxtLogin.Text)
         End If
@@ -266,4 +270,36 @@ Public Class Frm_Usuario
         Usuario.IsAtivo = ChkBoxAtivo.Checked
         Return Usuario
     End Function
+
+    Private Sub TxtSobrenome_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtSobrenome.KeyPress
+        If Char.IsLetter(e.KeyChar) Then
+            e.KeyChar = Char.ToUpper(e.KeyChar)
+        End If
+
+        If Char.IsNumber(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Then
+            e.KeyChar = ""
+        End If
+    End Sub
+
+    Private Sub TxtLogin_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtLogin.KeyPress
+        If Char.IsLetter(e.KeyChar) Then
+            e.KeyChar = Char.ToUpper(e.KeyChar)
+        End If
+
+        If Char.IsNumber(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or Char.IsSeparator(e.KeyChar) Then
+            e.KeyChar = ""
+        End If
+    End Sub
+
+    Private Sub PictureBox1_Click(sender As System.Object, e As System.EventArgs) Handles PictureBox1.Click
+        If MostrarSenha Then
+            TxtSenha.UseSystemPasswordChar = False
+            TxtSenhaConfirmar.UseSystemPasswordChar = False
+            MostrarSenha = False
+        Else
+            TxtSenha.UseSystemPasswordChar = True
+            TxtSenhaConfirmar.UseSystemPasswordChar = True
+            MostrarSenha = True
+        End If
+    End Sub
 End Class

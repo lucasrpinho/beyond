@@ -69,12 +69,12 @@ Public Class Frm_Cargo
             MsgBoxHelper.Erro(Me, "O sistema não conseguiu buscar os cargos.", "Erro")
             Exit Sub
         Else
-            ComboNome.Items.Add("")
-            For Each cargo As Cargo In LstCargo
-                ComboNome.BeginUpdate()
-                ComboNome.Items.Add(cargo.Nome)
-                ComboNome.EndUpdate()
-            Next
+            ComboNome.BeginUpdate()
+            ComboNome.Items.AddRange(LstCargo.ToArray)
+            ComboNome.DisplayMember = "Nome"
+            ComboNome.ValueMember = "CodCargo"
+            ComboNome.EndUpdate()
+
             If MyModo.UniqueModo = "PESQUISAR" Then
                 ComboNome.SelectedIndex = 0
             End If
@@ -101,7 +101,7 @@ Public Class Frm_Cargo
 
 
         ElseIf MyModo.UniqueModo = "SALVAR" Then
-            If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso Not IsOperacaoPendente Then
+            If ComboNome.DropDownStyle = ComboBoxStyle.Simple Then
                 If InsereCargo() Then
                     Uteis.ControlsHelper.SetControlsDisabled(Me)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
@@ -142,7 +142,7 @@ Public Class Frm_Cargo
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
-                If DAOCargo.AtualizaCargo(LstCargo(ComboNome.SelectedIndex - 1), "", True, loginusuario) Then
+                If DAOCargo.AtualizaCargo(LstCargo(ComboNome.SelectedIndex), "", True, loginusuario) Then
                     IsOperacaoPendente = True
                     LimpaCampos()
                     Uteis.ControlsHelper.SetControlsDisabled(Me)
@@ -173,7 +173,7 @@ Public Class Frm_Cargo
 
     Private Sub ComboNome_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles ComboNome.SelectedIndexChanged
         If Not Uteis.StringHelper.IsNull(ComboNome.Text) Then
-            BuscaCargoPorCodigo(LstCargo(ComboNome.SelectedIndex - 1).CodCargo)
+            BuscaCargoPorCodigo(LstCargo(ComboNome.SelectedIndex).CodCargo)
         Else
             frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(False)
             LimpaCampos()

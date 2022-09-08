@@ -37,8 +37,10 @@ Partial Class Frm_Usuario
         Me.TxtSenhaConfirmar = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -79,10 +81,10 @@ Partial Class Frm_Usuario
         Me.ChkBoxAtivo.AutoSize = True
         Me.ChkBoxAtivo.Checked = True
         Me.ChkBoxAtivo.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ChkBoxAtivo.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChkBoxAtivo.Location = New System.Drawing.Point(454, 178)
+        Me.ChkBoxAtivo.Font = New System.Drawing.Font("Verdana", 8.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChkBoxAtivo.Location = New System.Drawing.Point(461, 181)
         Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
-        Me.ChkBoxAtivo.Size = New System.Drawing.Size(67, 21)
+        Me.ChkBoxAtivo.Size = New System.Drawing.Size(60, 18)
         Me.ChkBoxAtivo.TabIndex = 10
         Me.ChkBoxAtivo.Text = "Ativo"
         Me.ChkBoxAtivo.UseVisualStyleBackColor = True
@@ -168,7 +170,6 @@ Partial Class Frm_Usuario
         Me.TxtSenha.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtSenha.MaxLength = 20
         Me.TxtSenha.Name = "TxtSenha"
-        Me.TxtSenha.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TxtSenha.Size = New System.Drawing.Size(205, 24)
         Me.TxtSenha.TabIndex = 5
         Me.TxtSenha.UseSystemPasswordChar = True
@@ -190,7 +191,6 @@ Partial Class Frm_Usuario
         Me.TxtSenhaConfirmar.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtSenhaConfirmar.MaxLength = 20
         Me.TxtSenhaConfirmar.Name = "TxtSenhaConfirmar"
-        Me.TxtSenhaConfirmar.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TxtSenhaConfirmar.Size = New System.Drawing.Size(205, 24)
         Me.TxtSenhaConfirmar.TabIndex = 6
         Me.TxtSenhaConfirmar.UseSystemPasswordChar = True
@@ -209,6 +209,7 @@ Partial Class Frm_Usuario
         '
         Me.GroupBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox2.Controls.Add(Me.PictureBox1)
         Me.GroupBox2.Controls.Add(Me.TxtLogin)
         Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Controls.Add(Me.Label5)
@@ -223,6 +224,16 @@ Partial Class Frm_Usuario
         Me.GroupBox2.TabIndex = 11
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Informações - Login"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.password
+        Me.PictureBox1.Location = New System.Drawing.Point(220, 120)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(25, 23)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 9
+        Me.PictureBox1.TabStop = False
         '
         'Frm_Usuario
         '
@@ -246,6 +257,7 @@ Partial Class Frm_Usuario
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -264,4 +276,5 @@ Partial Class Frm_Usuario
     Friend WithEvents TxtEmail As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents ComboNome As System.Windows.Forms.ComboBox
+    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
 End Class

@@ -142,6 +142,9 @@
                 mainForm.TCPrincipal.TabPages(mainForm.TCPrincipal.SelectedTab.Name).Controls.OfType _
                     (Of Form).FirstOrDefault.Close()
                 mainForm.TCPrincipal.TabPages.Remove(mainForm.TCPrincipal.SelectedTab)
+                If mainForm.TCPrincipal.TabCount > 0 Then
+                    mainForm.TCPrincipal.SelectTab(mainForm.TCPrincipal.TabPages.Count - 1)
+                End If
                 If Not mainForm.TCPrincipal.TabPages.Count > 0 Then
                     Me.OnLoad(Nothing)
                 End If

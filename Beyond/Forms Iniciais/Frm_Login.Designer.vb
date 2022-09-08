@@ -78,9 +78,9 @@ Partial Class Frm_Login
         Me.TxtSenha.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtSenha.MaxLength = 25
         Me.TxtSenha.Name = "TxtSenha"
-        Me.TxtSenha.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TxtSenha.Size = New System.Drawing.Size(292, 21)
         Me.TxtSenha.TabIndex = 2
+        Me.TxtSenha.UseSystemPasswordChar = True
         '
         'BtnAcessa
         '

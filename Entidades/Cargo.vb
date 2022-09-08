@@ -3,7 +3,7 @@
 Public Class Cargo
 
     Private _CodCargo As Int16 = 0
-    Public Nome As String
+    Private _Nome As String
     Public Descricao As String
     Public IsAtivo As Boolean
     Public IsVendedor As Boolean
@@ -16,6 +16,15 @@ Public Class Cargo
         End Get
         Set(value)
             _CodCargo = value
+        End Set
+    End Property
+
+    Public Property Nome() As String
+        Get
+            Return _Nome
+        End Get
+        Set(value As String)
+            _Nome = value
         End Set
     End Property
 

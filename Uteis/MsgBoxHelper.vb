@@ -56,7 +56,7 @@ Public Class MsgBoxHelper
     Public Shared Sub CustomTooltip(control As Control, window As IWin32Window, msg As String, titulo As String)
         Dim tooltip As New ToolTip
         tooltip.ToolTipTitle = titulo
-        tooltip.ToolTipIcon = ToolTipIcon.Error
+        tooltip.ToolTipIcon = ToolTipIcon.Warning
         tooltip.IsBalloon = True
         tooltip.SetToolTip(window, msg)
         tooltip.Show(msg, window, 3000)

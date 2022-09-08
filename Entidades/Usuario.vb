@@ -4,7 +4,7 @@ Public Class Usuario
     Private _CodUsuario As Integer = 0
     Public Nome As String
     Public Sobrenome As String
-    Public NomeCompleto As String
+    Private _NomeCompleto As String
     Public Email As String
     Private _Login As String
     Private _Senha As String
@@ -41,6 +41,15 @@ Public Class Usuario
         End Get
         Set(value)
             _Senha = value
+        End Set
+    End Property
+
+    Public Property NomeCompleto As String
+        Get
+            Return _NomeCompleto
+        End Get
+        Set(value As String)
+            _NomeCompleto = value
         End Set
     End Property
 
