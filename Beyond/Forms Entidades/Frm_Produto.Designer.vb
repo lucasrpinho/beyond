@@ -26,7 +26,6 @@ Partial Class Frm_Produto
         Me.GrpBoxInfo = New System.Windows.Forms.GroupBox()
         Me.TxtCategoria = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.BtnInsereImg = New System.Windows.Forms.Button()
         Me.PicBoxFoto = New System.Windows.Forms.PictureBox()
         Me.ChkAtivo = New System.Windows.Forms.CheckBox()
         Me.TxtQtd = New System.Windows.Forms.TextBox()
@@ -37,16 +36,15 @@ Partial Class Frm_Produto
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
-        Me.GrpBoxInfo.SuspendLayout
-        CType(Me.PicBoxFoto,System.ComponentModel.ISupportInitialize).BeginInit
-        Me.SuspendLayout
+        Me.GrpBoxInfo.SuspendLayout()
+        CType(Me.PicBoxFoto, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuspendLayout()
         '
         'GrpBoxInfo
         '
         Me.GrpBoxInfo.BackColor = System.Drawing.SystemColors.Control
         Me.GrpBoxInfo.Controls.Add(Me.TxtCategoria)
         Me.GrpBoxInfo.Controls.Add(Me.Label5)
-        Me.GrpBoxInfo.Controls.Add(Me.BtnInsereImg)
         Me.GrpBoxInfo.Controls.Add(Me.PicBoxFoto)
         Me.GrpBoxInfo.Controls.Add(Me.ChkAtivo)
         Me.GrpBoxInfo.Controls.Add(Me.TxtQtd)
@@ -61,7 +59,7 @@ Partial Class Frm_Produto
         Me.GrpBoxInfo.Name = "GrpBoxInfo"
         Me.GrpBoxInfo.Size = New System.Drawing.Size(728, 297)
         Me.GrpBoxInfo.TabIndex = 0
-        Me.GrpBoxInfo.TabStop = false
+        Me.GrpBoxInfo.TabStop = False
         Me.GrpBoxInfo.Text = "Informações"
         '
         'TxtCategoria
@@ -69,28 +67,19 @@ Partial Class Frm_Produto
         Me.TxtCategoria.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtCategoria.Location = New System.Drawing.Point(12, 67)
         Me.TxtCategoria.MaxLength = 60
-        Me.TxtCategoria.Multiline = true
+        Me.TxtCategoria.Multiline = True
         Me.TxtCategoria.Name = "TxtCategoria"
         Me.TxtCategoria.Size = New System.Drawing.Size(248, 62)
         Me.TxtCategoria.TabIndex = 13
         '
         'Label5
         '
-        Me.Label5.AutoSize = true
+        Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(541, 48)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(136, 16)
         Me.Label5.TabIndex = 11
         Me.Label5.Text = "Imagem do produto"
-        '
-        'BtnInsereImg
-        '
-        Me.BtnInsereImg.Location = New System.Drawing.Point(544, 228)
-        Me.BtnInsereImg.Name = "BtnInsereImg"
-        Me.BtnInsereImg.Size = New System.Drawing.Size(174, 29)
-        Me.BtnInsereImg.TabIndex = 5
-        Me.BtnInsereImg.Text = "Inserir imagem"
-        Me.BtnInsereImg.UseVisualStyleBackColor = true
         '
         'PicBoxFoto
         '
@@ -98,21 +87,22 @@ Partial Class Frm_Produto
         Me.PicBoxFoto.Location = New System.Drawing.Point(544, 67)
         Me.PicBoxFoto.Name = "PicBoxFoto"
         Me.PicBoxFoto.Size = New System.Drawing.Size(174, 155)
+        Me.PicBoxFoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PicBoxFoto.TabIndex = 9
-        Me.PicBoxFoto.TabStop = false
+        Me.PicBoxFoto.TabStop = False
         '
         'ChkAtivo
         '
-        Me.ChkAtivo.AutoSize = true
-        Me.ChkAtivo.Checked = true
+        Me.ChkAtivo.AutoSize = True
+        Me.ChkAtivo.Checked = True
         Me.ChkAtivo.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ChkAtivo.Font = New System.Drawing.Font("Verdana", 8.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.ChkAtivo.Font = New System.Drawing.Font("Verdana", 8.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ChkAtivo.Location = New System.Drawing.Point(15, 267)
         Me.ChkAtivo.Name = "ChkAtivo"
         Me.ChkAtivo.Size = New System.Drawing.Size(60, 18)
         Me.ChkAtivo.TabIndex = 8
         Me.ChkAtivo.Text = "Ativo"
-        Me.ChkAtivo.UseVisualStyleBackColor = true
+        Me.ChkAtivo.UseVisualStyleBackColor = True
         '
         'TxtQtd
         '
@@ -127,7 +117,7 @@ Partial Class Frm_Produto
         Me.TxtDesc.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtDesc.Location = New System.Drawing.Point(281, 67)
         Me.TxtDesc.MaxLength = 60
-        Me.TxtDesc.Multiline = true
+        Me.TxtDesc.Multiline = True
         Me.TxtDesc.Name = "TxtDesc"
         Me.TxtDesc.Size = New System.Drawing.Size(240, 62)
         Me.TxtDesc.TabIndex = 2
@@ -142,7 +132,7 @@ Partial Class Frm_Produto
         '
         'Label4
         '
-        Me.Label4.AutoSize = true
+        Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(12, 206)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(165, 16)
@@ -151,7 +141,7 @@ Partial Class Frm_Produto
         '
         'Label3
         '
-        Me.Label3.AutoSize = true
+        Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(12, 156)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(45, 16)
@@ -160,7 +150,7 @@ Partial Class Frm_Produto
         '
         'Label2
         '
-        Me.Label2.AutoSize = true
+        Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(278, 48)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(72, 16)
@@ -169,7 +159,7 @@ Partial Class Frm_Produto
         '
         'Label1
         '
-        Me.Label1.AutoSize = true
+        Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(12, 48)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(71, 16)
@@ -182,24 +172,24 @@ Partial Class Frm_Produto
         '
         'Frm_Produto
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8!, 16!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(728, 297)
         Me.Controls.Add(Me.GrpBoxInfo)
-        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-        Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
-        Me.MaximizeBox = false
-        Me.MinimizeBox = false
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "Frm_Produto"
-        Me.ShowInTaskbar = false
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Frm_Produto"
+        Me.Text = "Produto"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
-        Me.GrpBoxInfo.ResumeLayout(false)
-        Me.GrpBoxInfo.PerformLayout
-        CType(Me.PicBoxFoto,System.ComponentModel.ISupportInitialize).EndInit
-        Me.ResumeLayout(false)
+        Me.GrpBoxInfo.ResumeLayout(False)
+        Me.GrpBoxInfo.PerformLayout()
+        CType(Me.PicBoxFoto, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ResumeLayout(False)
 
 End Sub
     Friend WithEvents GrpBoxInfo As System.Windows.Forms.GroupBox
@@ -211,7 +201,6 @@ End Sub
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents BtnInsereImg As System.Windows.Forms.Button
     Friend WithEvents PicBoxFoto As System.Windows.Forms.PictureBox
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents TxtDesc As System.Windows.Forms.TextBox

@@ -30,7 +30,6 @@ Partial Class Frm_Vendedor
         Me.PicBoxFoto = New System.Windows.Forms.PictureBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.ComboNome = New System.Windows.Forms.ComboBox()
-        Me.BtnFoto = New System.Windows.Forms.Button()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.TxtObs = New System.Windows.Forms.TextBox()
         Me.TxtSobrenome = New System.Windows.Forms.TextBox()
@@ -67,7 +66,6 @@ Partial Class Frm_Vendedor
         Me.GrpBoxInfo.Controls.Add(Me.GroupBox1)
         Me.GrpBoxInfo.Controls.Add(Me.Label9)
         Me.GrpBoxInfo.Controls.Add(Me.ComboNome)
-        Me.GrpBoxInfo.Controls.Add(Me.BtnFoto)
         Me.GrpBoxInfo.Controls.Add(Me.Label17)
         Me.GrpBoxInfo.Controls.Add(Me.TxtObs)
         Me.GrpBoxInfo.Controls.Add(Me.TxtSobrenome)
@@ -147,16 +145,6 @@ Partial Class Frm_Vendedor
         Me.ComboNome.Name = "ComboNome"
         Me.ComboNome.Size = New System.Drawing.Size(208, 24)
         Me.ComboNome.TabIndex = 1
-        '
-        'BtnFoto
-        '
-        Me.BtnFoto.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnFoto.Location = New System.Drawing.Point(507, 230)
-        Me.BtnFoto.Name = "BtnFoto"
-        Me.BtnFoto.Size = New System.Drawing.Size(103, 31)
-        Me.BtnFoto.TabIndex = 6
-        Me.BtnFoto.Text = "Inserir Foto"
-        Me.BtnFoto.UseVisualStyleBackColor = True
         '
         'Label17
         '
@@ -410,7 +398,6 @@ Partial Class Frm_Vendedor
     Friend WithEvents GrpBoxEndereco As System.Windows.Forms.GroupBox
     Friend WithEvents TxtObs As System.Windows.Forms.TextBox
     Friend WithEvents Label17 As System.Windows.Forms.Label
-    Friend WithEvents BtnFoto As System.Windows.Forms.Button
     Friend WithEvents PicBoxFoto As System.Windows.Forms.PictureBox
     Friend WithEvents ComboCargo As System.Windows.Forms.ComboBox
     Friend WithEvents Label9 As System.Windows.Forms.Label

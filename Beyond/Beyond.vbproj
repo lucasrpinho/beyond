@@ -278,6 +278,7 @@
     <None Include="Icons Toolstrip\close.png" />
     <Content Include="Imagens\BeyondICON.ico" />
     <Content Include="Imagens\BeyondICON.png" />
+    <None Include="Imagens\InsertPicture.png" />
     <Content Include="Imagens\login.png" />
   </ItemGroup>
   <ItemGroup>

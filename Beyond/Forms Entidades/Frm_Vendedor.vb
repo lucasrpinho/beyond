@@ -36,6 +36,7 @@ Public Class Frm_Vendedor
 
     Private Sub Frm_Vendedor_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         DAOVendedor.ReverterOuCommitar()
+        frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = False
         RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
@@ -77,6 +78,7 @@ Public Class Frm_Vendedor
         Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxEndereco.Controls)
         Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
         Uteis.ControlsHelper.SetControlsDisabled(Me)
+        frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = False
         ClearImage()
     End Sub
 
@@ -183,7 +185,7 @@ Public Class Frm_Vendedor
         End If
     End Sub
 
-    Private Sub BtnFoto_Click(sender As System.Object, e As System.EventArgs) Handles BtnFoto.Click
+    Private Sub BtnFoto_Click(sender As System.Object, e As System.EventArgs)
         CarregaImagem()
     End Sub
 
@@ -245,7 +247,6 @@ Public Class Frm_Vendedor
             ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
             ComboNome.Enabled = False
             TxtSobrenome.Enabled = False
-            BtnFoto.Enabled = False
 
         ElseIf MyModo.UniqueModo = "REVERTER" Then
             If IsOperacaoActive Then
@@ -267,6 +268,9 @@ Public Class Frm_Vendedor
             Else
                 Exit Sub
             End If
+
+        ElseIf MyModo.UniqueModo = "IMAGEM" Then
+            CarregaImagem()
         End If
     End Sub
 
@@ -379,6 +383,7 @@ Public Class Frm_Vendedor
         ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
         ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
         ControlsHelper.SetTextsEmpty(GrpBoxEndereco.Controls)
+        frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
         AlternarControle()
     End Sub
 

@@ -70,6 +70,8 @@
             Modo = "REVERTER"
         ElseIf e.ClickedItem Is BtnFecharPag Then
             Modo = "FECHAR"
+        ElseIf e.ClickedItem Is BtnInsereImagem Then
+            Modo = "IMAGEM"
         End If
         ToolbarItemsState()
     End Sub

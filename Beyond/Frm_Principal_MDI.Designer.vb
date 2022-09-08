@@ -397,6 +397,7 @@ Partial Class Frm_Principal_MDI
         Me.ImageList1.Images.SetKeyName(2, "cargo")
         Me.ImageList1.Images.SetKeyName(3, "vendedor")
         Me.ImageList1.Images.SetKeyName(4, "clienteico")
+        Me.ImageList1.Images.SetKeyName(5, "produto")
         '
         'LblOla
         '
@@ -414,7 +415,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.BeyondICON
-        Me.PictureBox1.Location = New System.Drawing.Point(211, 153)
+        Me.PictureBox1.Location = New System.Drawing.Point(213, 153)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(163, 149)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage

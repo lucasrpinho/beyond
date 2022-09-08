@@ -35,13 +35,14 @@ Partial Class UC_Toolstrip
         Me.BtnReverter = New System.Windows.Forms.ToolStripButton()
         Me.toolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnFecharPag = New System.Windows.Forms.ToolStripButton()
+        Me.BtnInsereImagem = New System.Windows.Forms.ToolStripButton()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolStrip1
         '
         Me.ToolStrip1.BackColor = System.Drawing.Color.LightGray
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnNovo, Me.BtnSalvar, Me.BtnPesquisar, Me.BtnAlterar, Me.BtnExcluir, Me.toolStripSeparator, Me.BtnAnterior, Me.BtnSeguinte, Me.BtnReverter, Me.toolStripSeparator1, Me.BtnFecharPag})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnNovo, Me.BtnSalvar, Me.BtnPesquisar, Me.BtnAlterar, Me.BtnExcluir, Me.toolStripSeparator, Me.BtnAnterior, Me.BtnSeguinte, Me.BtnReverter, Me.toolStripSeparator1, Me.BtnFecharPag, Me.BtnInsereImagem})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(473, 25)
@@ -142,6 +143,16 @@ Partial Class UC_Toolstrip
         Me.BtnFecharPag.Text = "Fechar tela"
         Me.BtnFecharPag.ToolTipText = "Fechar tela"
         '
+        'BtnInsereImagem
+        '
+        Me.BtnInsereImagem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnInsereImagem.Enabled = False
+        Me.BtnInsereImagem.Image = Global.Beyond.My.Resources.Resources.InsertPicture1
+        Me.BtnInsereImagem.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnInsereImagem.Name = "BtnInsereImagem"
+        Me.BtnInsereImagem.Size = New System.Drawing.Size(23, 22)
+        Me.BtnInsereImagem.Text = "Inserir Imagem"
+        '
         'UC_Toolstrip
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -167,5 +178,6 @@ Partial Class UC_Toolstrip
     Public WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents BtnAlterar As System.Windows.Forms.ToolStripButton
     Friend WithEvents BtnFecharPag As System.Windows.Forms.ToolStripButton
+    Friend WithEvents BtnInsereImagem As System.Windows.Forms.ToolStripButton
 
 End Class

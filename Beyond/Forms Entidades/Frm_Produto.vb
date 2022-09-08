@@ -23,6 +23,7 @@ Public Class Frm_Produto
 
     Private Sub Frm_Produto_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         DAOProd.ReverterOuCommitar()
+        frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = False
         RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
@@ -30,12 +31,14 @@ Public Class Frm_Produto
         Uteis.ControlsHelper.SetControlsDisabled(Me)
         AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
         MyModo.UniqueModo = "PADRÃO"
+        PicBoxFoto.Image = Nothing
     End Sub
 
     Private Sub LimpaCampos_AtivaControles()
         Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
         Uteis.ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
         Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
+        frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
         ClearImg()
     End Sub
 
@@ -105,7 +108,6 @@ Public Class Frm_Produto
                 End If
             Else
                 If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "O registro será modificado. Deseja continuar?", "Alterar") Then
-                    CarregaProdutos()
                     If Not DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, False, loginusuario) Then
                         frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                     Else
@@ -162,6 +164,9 @@ Public Class Frm_Produto
                 Exit Sub
             End If
 
+        ElseIf MyModo.UniqueModo = "IMAGEM" Then
+            CarregaImagem()
+
         End If
 
     End Sub
@@ -191,16 +196,6 @@ Public Class Frm_Produto
         End If
     End Sub
 
-    Private Sub ParaRemocaoEAlteracao()
-        frmPrincipal.StateTransaction = Uteis.SYSConsts.PENDENTE
-        Uteis.ControlsHelper.SetControlsDisabled(Me)
-
-    End Sub
-
-    Private Sub BtnInsereImg_Click(sender As System.Object, e As System.EventArgs) Handles BtnInsereImg.Click
-        CarregaImagem()
-    End Sub
-
     Private Sub CarregaImagem()
         OpenFileDialog1.Title = "Selecione uma imagem"
         OpenFileDialog1.InitialDirectory = "C:"
@@ -220,17 +215,6 @@ Public Class Frm_Produto
         If Not PicBoxFoto.Image Is Nothing Then
             PicBoxFoto.Image = Nothing
         End If
-    End Sub
-
-    Private Sub TxtPreco_TextChanged(sender As System.Object, e As System.EventArgs) Handles TxtPreco.TextChanged
-        'If TxtPreco.Text.Contains("R$") Then
-        '    TxtPreco.Text += TxtPreco.Text.Replace("R$", "")
-        'End If
-        'If TxtPreco.Text = String.Empty Then
-        '    Exit Sub
-        'End If
-        'Dim val = Convert.ToDecimal(TxtPreco.Text)
-        'TxtPreco.Text = String.Format("{0:N}", val)
     End Sub
 
     Private Sub TxtPreco_Leave(sender As System.Object, e As System.EventArgs) Handles TxtPreco.Leave
@@ -259,33 +243,5 @@ Public Class Frm_Produto
 
         Return prod
     End Function
-
-    Private Sub CarregaProdutos()
-        'If Not MyModo.UniqueModo = "PESQUISAR" Then
-        '    Exit Sub
-        'End If
-
-        'LstProduto.Clear()
-        'ComboCateg.Items.Clear()
-
-        'Dim resposta As String = ""
-
-        'LstProduto = DAOProd.GetProdutos(resposta)
-
-        'If Not LstProduto.Count > 0 Then
-        '    MsgBoxHelper.Alerta(Me, resposta, "Erro")
-        '    Exit Sub
-        'End If
-
-        'ComboCateg.BeginUpdate()
-        'ComboCateg.Items.AddRange(LstProduto.ToArray)
-        'ComboCateg.DisplayMember = "Categoria"
-        'ComboCateg.ValueMember = "CodProduto"
-        'If MyModo.UniqueModo = "PESQUISAR" Then
-        '    ComboCateg.SelectedIndex = 0
-        'End If
-        'ComboCateg.EndUpdate()
-
-    End Sub
 
 End Class
