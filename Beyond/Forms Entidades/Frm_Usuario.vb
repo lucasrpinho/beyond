@@ -9,6 +9,7 @@ Public Class Frm_Usuario
     Private IsOperacaoActive As Boolean = False
     Private DAOUsuario As New DAO.DAO
     Private MostrarSenha As Boolean = True
+    Private objUsuario As Usuario
 
     Public Sub New(frm As Frm_Principal_MDI)
 
@@ -76,6 +77,7 @@ Public Class Frm_Usuario
         If MyModo.UniqueModo = "SALVAR" Then
             If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso UC_Toolstrip.ModoAnterior = "NOVO" Then
                 If InsereUsuario() Then
+                    LimpaCampos_AtivaControles()
                     Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
                 Else
@@ -93,21 +95,22 @@ Public Class Frm_Usuario
             End If
 
         ElseIf MyModo.UniqueModo = "NOVO" Then
-            ComboNome.Focus()
+            Cursor.Position = ComboNome.Location
             LimpaCampos_AtivaControles()
             AlternarControle()
 
 
         ElseIf MyModo.UniqueModo = "ALTERAR" Then
             CarregaUsuarios()
-            ComboNome.SelectedIndex = LstUsuario.FindIndex(Function(u As Usuario) u.Login = TxtLogin.Text)
             ModoAlterar()
 
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
             ModoProcurar()
-            CarregaUsuarios()
-            AlternarControle()
+            If UC_Toolstrip.ModoAnterior = "REVERTER" Then
+                ComboNome.SelectedIndex = LstUsuario.FindIndex(Function(u As Usuario) u.CodUsuario = objUsuario.CodUsuario)
+            End If
+
 
         ElseIf MyModo.UniqueModo = "REVERTER" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
@@ -134,6 +137,7 @@ Public Class Frm_Usuario
             Exit Sub
         End If
 
+        objUsuario = usuario
         frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
         frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnExcluir").Enabled = False
         PreencheCampos(usuario)
@@ -188,6 +192,9 @@ Public Class Frm_Usuario
 
     Private Sub ComboNome_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboNome.SelectedIndexChanged
         If Not Uteis.StringHelper.IsNull(ComboNome.Text) Then
+            If objUsuario IsNot Nothing Then
+                objUsuario = Nothing
+            End If
             BuscaUsuarioPorCodigo(LstUsuario(ComboNome.SelectedIndex).CodUsuario)
         Else
             Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
@@ -217,8 +224,8 @@ Public Class Frm_Usuario
         Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
         Uteis.ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
         Uteis.ControlsHelper.SetControlsEnabled(GrpBoxCredenciais.Controls)
-        Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
-        Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxCredenciais.Controls)
+        Uteis.ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
+        Uteis.ControlsHelper.SetTextsEmpty(GrpBoxCredenciais.Controls)
     End Sub
 
     Private Sub AtivaControles()
@@ -255,6 +262,8 @@ Public Class Frm_Usuario
 
         Uteis.ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
         Uteis.ControlsHelper.SetTextsEmpty(GrpBoxCredenciais.Controls)
+        AlternarControle()
+        CarregaUsuarios()
     End Sub
 
     Private Sub Frm_Usuario_EnabledChanged(sender As System.Object, e As System.EventArgs) Handles MyBase.EnabledChanged

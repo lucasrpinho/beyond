@@ -16,6 +16,7 @@ Public Class ControlsHelper
         If controls.OfType(Of ComboBox).Count > 0 Then
             For Each combotext As ComboBox In controls.OfType(Of ComboBox)()
                 combotext.Text = ""
+                combotext.SelectedIndex = -1
             Next
         End If
         If controls.OfType(Of MaskedTextBox).Count > 0 Then

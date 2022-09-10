@@ -100,12 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnderecoHelper.vb" />
-    <Compile Include="Forms Entidades\Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms Entidades\Form1.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms Entidades\Frm_Cargo.Designer.vb">
       <DependentUpon>Frm_Cargo.vb</DependentUpon>
     </Compile>
@@ -201,9 +195,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms Entidades\Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms Entidades\Frm_Cargo.resx">
       <DependentUpon>Frm_Cargo.vb</DependentUpon>
     </EmbeddedResource>

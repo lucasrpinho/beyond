@@ -180,8 +180,7 @@
 
     Public Sub AfterSuccessfulInsert()
         For Each item As ToolStripItem In ToolStrip1.Items
-            If item IsNot BtnAlterar AndAlso item IsNot BtnFecharPag _
-                AndAlso item IsNot BtnNovo AndAlso item IsNot BtnPesquisar Then
+            If item IsNot BtnFecharPag AndAlso item IsNot BtnNovo AndAlso item IsNot BtnPesquisar Then
                 item.Enabled = False
             Else
                 item.Enabled = True

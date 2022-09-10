@@ -3,7 +3,7 @@
 Public Class Vendedor
 
     Private _CodVendedor As Integer = 0
-    Private _CodCargo As Integer
+    Private _CodCargo As Int16
     Private _Nome As String
     Public Sobrenome As String
     Private _NomeCompleto As String

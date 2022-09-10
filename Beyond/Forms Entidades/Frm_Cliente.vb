@@ -10,7 +10,7 @@ Public Class Frm_Cliente
     Private Endereco As Endereco
     Private DAOCliente As New DAO.DAO
     Private MyModo As New UC_Toolstrip.UniqueModo
-    Private IsOperacaoActive As Boolean = False
+    Private objCliente As Cliente
 
 
     Public Sub New(frm As Frm_Principal_MDI)
@@ -29,14 +29,12 @@ Public Class Frm_Cliente
     End Sub
 
     Private Sub Frm_Cliente_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        'DAOCliente.ReverterOuCommitar()
         RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
     Private Sub Frm_Cliente_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         Uteis.ControlsHelper.SetControlsDisabled(Me)
         AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
-        CarregaCargos()
         CarregaEstados()
         MyModo.UniqueModo = "PADRÃO"
     End Sub
@@ -51,8 +49,12 @@ Public Class Frm_Cliente
 
     Private Sub ComboNome_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboNome.SelectedIndexChanged
         If Not Uteis.StringHelper.IsNull(ComboNome.Text) Then
+            If objCliente IsNot Nothing Then
+                objCliente = Nothing
+            End If
             BuscaClientePorCodigo(LstCliente(ComboNome.SelectedIndex).CodCliente)
         Else
+            frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(False)
             Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxEndereco.Controls)
             Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
         End If
@@ -124,7 +126,6 @@ Public Class Frm_Cliente
             Return False
         End If
 
-        IsOperacaoActive = True
         Return True
     End Function
 
@@ -200,65 +201,67 @@ Public Class Frm_Cliente
         MyModo.UniqueModo = UC_Toolstrip.Modo
 
         If MyModo.UniqueModo = "SALVAR" Then
-            If ComboNome.DropDownStyle = ComboBoxStyle.Simple Then
+            If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso Not UC_Toolstrip.ModoAnterior = "ALTERAR" Then
                 If Insere() Then
-                    Uteis.ControlsHelper.SetControlsDisabled(Me)
+                    LimpaCampos_AtivaControles()
+                    Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
                 Else
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                    frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
                 End If
             Else
-                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "O registro será modificado. Deseja continuar?", "Alterar") Then
-                    CarregaClientes()
-                    If Not DAOCliente.AtualizaCliente(GetClienteForOperation, resposta, False, loginusuario) Then
-                        frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                    Else
-                        Uteis.ControlsHelper.SetControlsDisabled(Me)
-                        frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
-                        IsOperacaoActive = True
-                    End If
+                If Not DAOCliente.AtualizaCliente(GetClienteForOperation, resposta, False, loginusuario) Then
+                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                    MsgBoxHelper.Alerta(Me, resposta, "Erro")
+                Else
+                    Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
                 End If
             End If
 
         ElseIf MyModo.UniqueModo = "ALTERAR" Then
-            GrpBoxEndereco.Enabled = True
-            ControlsHelper.SetControlsEnabled(GrpBoxEndereco.Controls)
-            ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
-            ComboNome.Enabled = False
-            DtPckNasc.Enabled = False
+            CarregaClientes()
+            ModoAlterar()
 
 
         ElseIf MyModo.UniqueModo = "NOVO" Then
             LimpaCampos_AtivaControles()
+            CarregaCargos()
             AlternarControle()
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
             ModoPesquisa()
+            If UC_Toolstrip.ModoAnterior = "REVERTER" Then
+                ComboNome.SelectedIndex = LstCliente.FindIndex(Function(c As Cliente) c.CodCliente = objCliente.CodCliente)
+            End If
 
 
         ElseIf MyModo.UniqueModo = "REVERTER" Then
-            If IsOperacaoActive Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja reverter a operação?", "Reverter") Then
-                    'DAOCliente.ReverterOuCommitar(True)
-                    IsOperacaoActive = False
-                End If
+            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
+                ToolStrip_ItemClicked()
+            Else
+                Exit Sub
             End If
-            LimpaCampos_AtivaControles()
-            Uteis.ControlsHelper.SetControlsDisabled(Me)
 
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
                 If DAOCliente.AtualizaCliente(GetClienteForOperation, "", True, loginusuario) Then
-                    IsOperacaoActive = True
                     LimpaCampos_AtivaControles()
-                    ControlsHelper.SetControlsDisabled(Me)
+                    ControlsHelper.SetControlsDisabled(Me.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
                 End If
             Else
                 Exit Sub
             End If
+
+        ElseIf MyModo.UniqueModo = "PADRÃO" Then
+            LimpaCampos_AtivaControles()
+            frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
+            Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
         End If
+
     End Sub
 
     Private Sub BuscaClientePorCodigo(ByVal codcliente As String)
@@ -270,11 +273,14 @@ Public Class Frm_Cliente
             Exit Sub
         End If
 
+        objCliente = cliente
         frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
         PreencheCampos(cliente)
     End Sub
 
     Private Sub PreencheCampos(ByVal cliente As Cliente)
+        Dim cargo = LstCargos.Find(Function(c As Cargo) c.CodCargo = cliente.CodCargo)
+        Dim estado = LstEstados.Find(Function(e As EstadoUF) e.UF = cliente.ObjEndereco.UF)
         ComboNome.SelectedIndex = LstCliente.FindIndex(Function(v) v.CodCliente = cliente.CodCliente)
         TxtCEP.Text = cliente.ObjEndereco.CEP
         TxtCidade.Text = cliente.ObjEndereco.Cidade
@@ -282,12 +288,23 @@ Public Class Frm_Cliente
         TxtLogradouro.Text = cliente.ObjEndereco.Logradouro
         TxtNum.Text = cliente.ObjEndereco.NumeroEndereco
         TxtObs.Text = cliente.Descricao
-        ComboEstado.SelectedIndex = LstEstados.FindIndex(Function(e) e.UF = cliente.ObjEndereco.UF)
-        ComboCargo.SelectedIndex = LstCargos.FindIndex(Function(c) c.CodCargo = cliente.CodCargo)
+        ComboEstado.SelectedItem = estado
+        ComboEstado.Text = estado.Nome
+        ComboCargo.SelectedItem = cargo
+        ComboCargo.Text = cargo.Nome
         TxtEmail.Text = cliente.Email
         TxtEmpresa.Text = cliente.Empresa
         TxtCelular.Text = cliente.Telefone
         DtPckNasc.Value = cliente.DatNasc
+    End Sub
+
+    Private Sub ModoAlterar()
+        GrpBoxEndereco.Enabled = True
+        ControlsHelper.SetControlsEnabled(GrpBoxEndereco.Controls)
+        ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
+        ComboNome.Enabled = False
+        DtPckNasc.Enabled = False
+        CarregaCargos()
     End Sub
 
     Private Sub CarregaClientes()
@@ -347,8 +364,9 @@ Public Class Frm_Cliente
     Private Function GetClienteForOperation() As Cliente
         Dim cliente As New Cliente
         If ComboNome.Text <> String.Empty Then
-            cliente = LstCliente(ComboNome.SelectedIndex)
+            cliente = objCliente
         End If
+
         cliente.Empresa = TxtEmpresa.Text
         cliente.CodCargo = LstCargos(ComboCargo.SelectedIndex).CodCargo
         cliente.Telefone = Uteis.StringHelper.NumericOnly(TxtCelular.Text)

@@ -36,7 +36,6 @@ Public Class Frm_Vendedor
     Private Sub Frm_Vendedor_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         Uteis.ControlsHelper.SetControlsDisabled(Me)
         AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
-        CarregaCargos()
         CarregaEstados()
         MyModo.UniqueModo = "PADRÃO"
     End Sub
@@ -93,7 +92,7 @@ Public Class Frm_Vendedor
 
         Dim vendedor As New Vendedor
 
-        vendedor.CodCargo = ComboCargo.SelectedValue
+        vendedor.CodCargo = LstCargos(ComboCargo.SelectedIndex).CodCargo
         vendedor.Nome = ComboNome.Text.ToUpper
         vendedor.Sobrenome = TxtSobrenome.Text.ToUpper
         vendedor.NomeCompleto = vendedor.Nome + " " + vendedor.Sobrenome
@@ -134,8 +133,6 @@ Public Class Frm_Vendedor
         ComboCargo.Items.Clear()
 
         LstCargos = DAOVendedor.GetCargo(True)
-
-        LstCargos.RemoveAll(Function(c As Cargo) c.IsVendedor = False)
 
         If Not LstCargos.Count > 0 Then
             MsgBoxHelper.Alerta(Me, "O sistema não conseguiu buscar os cargos.", "Erro")
@@ -225,6 +222,7 @@ Public Class Frm_Vendedor
         If MyModo.UniqueModo = "SALVAR" Then
             If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso Not UC_Toolstrip.ModoAnterior = "ALTERAR" Then
                 If Insere() Then
+                    LimpaCampos_Desativa()
                     Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
                 Else
@@ -255,22 +253,22 @@ Public Class Frm_Vendedor
             CarregaVendedores()
             ModoAlterar()
 
-            ElseIf MyModo.UniqueModo = "REVERTER" Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
-                    ToolStrip_ItemClicked()
-                Else
-                    Exit Sub
-                End If
+        ElseIf MyModo.UniqueModo = "REVERTER" Then
+            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
+                ToolStrip_ItemClicked()
+            Else
+                Exit Sub
+            End If
 
-            ElseIf MyModo.UniqueModo = "EXCLUIR" Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
-                    If DAOVendedor.AtualizaVendedor(ObjVendedorFromList, "", True, loginusuario) Then
-                        LimpaCampos_Desativa()
-                        frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
-                    End If
-                Else
-                    Exit Sub
+        ElseIf MyModo.UniqueModo = "EXCLUIR" Then
+            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
+                If DAOVendedor.AtualizaVendedor(ObjVendedorFromList, "", True, loginusuario) Then
+                    LimpaCampos_Desativa()
+                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
                 End If
+            Else
+                Exit Sub
+            End If
 
             ElseIf MyModo.UniqueModo = "PADRÃO" Then
                 LimpaCampos_AtivaControles()
@@ -375,10 +373,10 @@ Public Class Frm_Vendedor
     Private Function ObjVendedorFromList() As Vendedor
         Dim vendedor As New Vendedor
         If ComboNome.Text <> String.Empty Then
-            vendedor = LstVendedor(ComboNome.SelectedIndex)
+            vendedor = objVendedor
         End If
 
-        vendedor.CodCargo = LstCargos.Item(ComboCargo.SelectedIndex).CodCargo
+        vendedor.CodCargo = LstCargos(ComboCargo.SelectedIndex).CodCargo
         vendedor.ObjEndereco.CEP = StringHelper.NumericOnly(TxtCEP.Text)
         vendedor.ObjEndereco.Logradouro = TxtLogradouro.Text.ToUpper
         vendedor.ObjEndereco.Bairro = TxtBairro.Text.ToUpper
@@ -405,11 +403,12 @@ Public Class Frm_Vendedor
             Label2.Visible = True
         End If
         frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
+        CarregaCargos()
         AlternarControle()
     End Sub
 
     Private Sub TxtNum_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtNum.KeyPress
-        If Char.IsPunctuation(e.KeyChar) Or Char.IsDigit(e.KeyChar) Then
+        If Char.IsPunctuation(e.KeyChar) Or Char.IsLetter(e.KeyChar) Then
             e.KeyChar = ""
         End If
     End Sub
@@ -420,5 +419,6 @@ Public Class Frm_Vendedor
         ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
         ComboNome.Enabled = False
         TxtSobrenome.Enabled = False
+        CarregaCargos()
     End Sub
 End Class

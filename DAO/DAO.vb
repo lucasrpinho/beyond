@@ -286,14 +286,14 @@ Public Class DAO
 
 
     Public Overloads Function GetCargo(ByVal codcargo As String) As Cargo
-        Return _GetCargos(True, codcargo).FirstOrDefault
+        Return _GetCargos(True, codcargo, False).FirstOrDefault
     End Function
 
-    Public Overloads Function GetCargo(ByVal ativos As Boolean) As List(Of Cargo)
-        Return _GetCargos(ativos, String.Empty)
+    Public Overloads Function GetCargo(ByVal ativos As Boolean, Optional todos As Boolean = False) As List(Of Cargo)
+        Return _GetCargos(ativos, String.Empty, todos)
     End Function
 
-    Private Function _GetCargos(ativos As Boolean, codcargo As String) As List(Of Cargo)
+    Private Function _GetCargos(ativos As Boolean, codcargo As String, ByVal todos As Boolean) As List(Of Cargo)
         Dim lst As New List(Of Cargo)
         CloseConAndTr()
         Using Cmd As New SqlCommand
@@ -303,6 +303,7 @@ Public Class DAO
                     Cmd.CommandText = "SP_GET_ALL_CARGOS"
                     Cmd.CommandType = CommandType.StoredProcedure
                     Cmd.Parameters.AddWithValue("@ATIVO", ativos)
+                    Cmd.Parameters.AddWithValue("@TODOS", todos)
                 Else
                     Cmd.CommandText = "SP_GET_CARGO"
                     Cmd.CommandType = CommandType.StoredProcedure

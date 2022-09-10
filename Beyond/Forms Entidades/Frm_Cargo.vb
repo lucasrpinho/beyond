@@ -4,10 +4,9 @@ Public Class Frm_Cargo
 
     Private frmPrincipal As Frm_Principal_MDI
     Private LstCargo As New List(Of Cargo)
-    Private cargoCombo As Cargo
     Private MyModo As New UC_Toolstrip.UniqueModo
     Private DAOCargo As New DAO.DAO
-    Private IsOperacaoPendente As Boolean
+    Private objCargo As Cargo
 
     Public Sub New(frm As Frm_Principal_MDI)
 
@@ -53,16 +52,14 @@ Public Class Frm_Cargo
             Return False
         End If
 
-        IsOperacaoPendente = True
         Return True
-
     End Function
 
     Private Sub CarregaCargos()
         ComboNome.Items.Clear()
         Dim resposta As String = ""
 
-        LstCargo = DAOCargo.GetCargo(True)
+        LstCargo = DAOCargo.GetCargo(True, True)
 
         If Not LstCargo.Count > 0 Then
             MsgBoxHelper.Alerta(Me, "O sistema não conseguiu buscar os cargos.", "Erro")
@@ -73,10 +70,6 @@ Public Class Frm_Cargo
             ComboNome.DisplayMember = "Nome"
             ComboNome.ValueMember = "CodCargo"
             ComboNome.EndUpdate()
-
-            If MyModo.UniqueModo = "PESQUISAR" Then
-                'ComboNome.SelectedIndex = 0
-            End If
         End If
     End Sub
 
@@ -96,53 +89,53 @@ Public Class Frm_Cargo
         MyModo.UniqueModo = UC_Toolstrip.Modo
 
         If MyModo.UniqueModo = "NOVO" Then
+            Cursor.Position = ComboNome.Location
+            ComboNome.Focus()
             LimpaCampos_Ativa()
 
 
         ElseIf MyModo.UniqueModo = "SALVAR" Then
             If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso UC_Toolstrip.ModoAnterior = "NOVO" Then
                 If InsereCargo() Then
-                    Uteis.ControlsHelper.SetControlsDisabled(Me)
+                    LimpaCampos()
+                    Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
                 Else
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                 End If
             Else
-                CarregaCargos()
-                If Not DAOCargo.AtualizaCargo(CargoObjForUpdate, resposta, False, loginusuario) Then
-                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                Else
-                    Uteis.ControlsHelper.SetControlsDisabled(Me)
-                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
-                    IsOperacaoPendente = True
+                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
+                    If Not DAOCargo.AtualizaCargo(CargoObjForUpdate, resposta, False, loginusuario) Then
+                        frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                    Else
+                        Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+                        frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
+                    End If
                 End If
             End If
 
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
             ModoPesquisar()
-            CarregaCargos()
-            AlternarControle()
+            If UC_Toolstrip.ModoAnterior = "REVERTER" Then
+                ComboNome.SelectedIndex = LstCargo.FindIndex(Function(c As Cargo) c.CodCargo = objCargo.CodCargo)
+            End If
 
         ElseIf MyModo.UniqueModo = "ALTERAR" Then
-            Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
+            CarregaCargos()
             ModoAlterar()
 
 
         ElseIf MyModo.UniqueModo = "REVERTER" Then
-            If IsOperacaoPendente Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja reverter a operação?", "Reverter") Then
-                    'DAOCargo.ReverterOuCommitar(True)
-                    IsOperacaoPendente = False
-                End If
+            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
+                ToolStrip_ItemClicked()
+            Else
+                Exit Sub
             End If
-            LimpaCampos_Ativa()
-            Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
-                If DAOCargo.AtualizaCargo(LstCargo(ComboNome.SelectedIndex), "", True, loginusuario) Then
-                    IsOperacaoPendente = True
+                If DAOCargo.AtualizaCargo(CargoObjForUpdate, "", True, loginusuario) Then
                     LimpaCampos()
                     Uteis.ControlsHelper.SetControlsDisabled(Me)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
@@ -150,6 +143,11 @@ Public Class Frm_Cargo
             Else
                 Exit Sub
             End If
+
+        ElseIf MyModo.UniqueModo = "PADRÃO" Then
+            LimpaCampos_Ativa()
+            frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
+            Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
         End If
     End Sub
 
@@ -172,6 +170,9 @@ Public Class Frm_Cargo
 
     Private Sub ComboNome_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles ComboNome.SelectedIndexChanged
         If Not Uteis.StringHelper.IsNull(ComboNome.Text) Then
+            If objCargo IsNot Nothing Then
+                objCargo = Nothing
+            End If
             BuscaCargoPorCodigo(LstCargo(ComboNome.SelectedIndex).CodCargo)
         Else
             frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(False)
@@ -189,7 +190,7 @@ Public Class Frm_Cargo
         End If
 
         frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
-        cargoCombo = cargo
+        objCargo = cargo
         PreencheCampos(cargo)
     End Sub
 
@@ -209,7 +210,7 @@ Public Class Frm_Cargo
     Private Function CargoObjForUpdate() As Cargo
         Dim cargo As New Cargo
         If ComboNome.Text <> String.Empty Then
-            cargo = cargoCombo
+            cargo = objCargo
         End If
 
         cargo.Descricao = TxtDesc.Text
@@ -218,6 +219,7 @@ Public Class Frm_Cargo
     End Function
 
     Private Sub ModoAlterar()
+        ControlsHelper.SetControlsEnabled(Me.Controls)
         ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
         ControlsHelper.SetControlsEnabled(GrpBoxCfg.Controls)
 
@@ -233,6 +235,8 @@ Public Class Frm_Cargo
         ChkVendedor.Enabled = False
         ChkBoxAtivo.Enabled = False
         Uteis.ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
+        AlternarControle()
+        CarregaCargos()
     End Sub
 
 End Class
