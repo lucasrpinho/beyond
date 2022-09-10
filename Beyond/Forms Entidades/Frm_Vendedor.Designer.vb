@@ -59,8 +59,6 @@ Partial Class Frm_Vendedor
         '
         'GrpBoxInfo
         '
-        Me.GrpBoxInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GrpBoxInfo.Controls.Add(Me.ChkBoxAtivo)
         Me.GrpBoxInfo.Controls.Add(Me.ComboCargo)
         Me.GrpBoxInfo.Controls.Add(Me.GroupBox1)
@@ -89,7 +87,7 @@ Partial Class Frm_Vendedor
         Me.ChkBoxAtivo.Location = New System.Drawing.Point(6, 236)
         Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
         Me.ChkBoxAtivo.Size = New System.Drawing.Size(60, 18)
-        Me.ChkBoxAtivo.TabIndex = 4
+        Me.ChkBoxAtivo.TabIndex = 5
         Me.ChkBoxAtivo.Text = "Ativo"
         Me.ChkBoxAtivo.UseVisualStyleBackColor = True
         '
@@ -105,8 +103,7 @@ Partial Class Frm_Vendedor
         '
         'GroupBox1
         '
-        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.GroupBox1.Controls.Add(Me.PicBoxFoto)
         Me.GroupBox1.Location = New System.Drawing.Point(507, 15)
         Me.GroupBox1.Name = "GroupBox1"
@@ -117,8 +114,9 @@ Partial Class Frm_Vendedor
         '
         'PicBoxFoto
         '
-        Me.PicBoxFoto.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.PicBoxFoto.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PicBoxFoto.Location = New System.Drawing.Point(2, 24)
         Me.PicBoxFoto.Name = "PicBoxFoto"
         Me.PicBoxFoto.Size = New System.Drawing.Size(222, 179)
@@ -168,7 +166,7 @@ Partial Class Frm_Vendedor
         Me.TxtObs.Name = "TxtObs"
         Me.TxtObs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.TxtObs.Size = New System.Drawing.Size(489, 59)
-        Me.TxtObs.TabIndex = 5
+        Me.TxtObs.TabIndex = 4
         '
         'TxtSobrenome
         '
@@ -202,8 +200,6 @@ Partial Class Frm_Vendedor
         '
         'GrpBoxEndereco
         '
-        Me.GrpBoxEndereco.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GrpBoxEndereco.Controls.Add(Me.TxtCidade)
         Me.GrpBoxEndereco.Controls.Add(Me.TxtNum)
         Me.GrpBoxEndereco.Controls.Add(Me.TxtCEP)
@@ -235,7 +231,7 @@ Partial Class Frm_Vendedor
         Me.TxtCidade.MaxLength = 50
         Me.TxtCidade.Name = "TxtCidade"
         Me.TxtCidade.Size = New System.Drawing.Size(483, 23)
-        Me.TxtCidade.TabIndex = 12
+        Me.TxtCidade.TabIndex = 10
         '
         'TxtNum
         '
@@ -245,7 +241,7 @@ Partial Class Frm_Vendedor
         Me.TxtNum.MaxLength = 5
         Me.TxtNum.Name = "TxtNum"
         Me.TxtNum.Size = New System.Drawing.Size(100, 23)
-        Me.TxtNum.TabIndex = 9
+        Me.TxtNum.TabIndex = 7
         '
         'TxtCEP
         '
@@ -253,7 +249,7 @@ Partial Class Frm_Vendedor
         Me.TxtCEP.Mask = "00000-000"
         Me.TxtCEP.Name = "TxtCEP"
         Me.TxtCEP.Size = New System.Drawing.Size(82, 23)
-        Me.TxtCEP.TabIndex = 7
+        Me.TxtCEP.TabIndex = 6
         '
         'ComboEstado
         '
@@ -264,7 +260,7 @@ Partial Class Frm_Vendedor
         Me.ComboEstado.MaxLength = 2
         Me.ComboEstado.Name = "ComboEstado"
         Me.ComboEstado.Size = New System.Drawing.Size(212, 24)
-        Me.ComboEstado.TabIndex = 13
+        Me.ComboEstado.TabIndex = 11
         '
         'Label8
         '
@@ -284,7 +280,7 @@ Partial Class Frm_Vendedor
         Me.TxtLogradouro.MaxLength = 100
         Me.TxtLogradouro.Name = "TxtLogradouro"
         Me.TxtLogradouro.Size = New System.Drawing.Size(394, 23)
-        Me.TxtLogradouro.TabIndex = 8
+        Me.TxtLogradouro.TabIndex = 6
         '
         'TxtBairro
         '
@@ -294,7 +290,7 @@ Partial Class Frm_Vendedor
         Me.TxtBairro.MaxLength = 30
         Me.TxtBairro.Name = "TxtBairro"
         Me.TxtBairro.Size = New System.Drawing.Size(483, 23)
-        Me.TxtBairro.TabIndex = 10
+        Me.TxtBairro.TabIndex = 8
         '
         'TxtComplemento
         '
@@ -304,7 +300,7 @@ Partial Class Frm_Vendedor
         Me.TxtComplemento.MaxLength = 30
         Me.TxtComplemento.Name = "TxtComplemento"
         Me.TxtComplemento.Size = New System.Drawing.Size(139, 23)
-        Me.TxtComplemento.TabIndex = 11
+        Me.TxtComplemento.TabIndex = 9
         '
         'Label3
         '
@@ -380,7 +376,10 @@ Partial Class Frm_Vendedor
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "Frm_Vendedor"
+        Me.ShowInTaskbar = False
         Me.Text = "Vendedor"
         Me.GrpBoxInfo.ResumeLayout(False)
         Me.GrpBoxInfo.PerformLayout()

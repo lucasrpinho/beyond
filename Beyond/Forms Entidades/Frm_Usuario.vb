@@ -25,7 +25,6 @@ Public Class Frm_Usuario
     End Sub
 
     Private Sub Frm_Usuario_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        DAOUsuario.ReverterOuCommitar()
         RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
@@ -62,7 +61,6 @@ Public Class Frm_Usuario
             Return False
         End If
 
-        IsOperacaoActive = True
         Return True
     End Function
 
@@ -76,7 +74,7 @@ Public Class Frm_Usuario
         MyModo.UniqueModo = UC_Toolstrip.Modo
 
         If MyModo.UniqueModo = "SALVAR" Then
-            If ComboNome.DropDownStyle = ComboBoxStyle.Simple Then
+            If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso UC_Toolstrip.ModoAnterior = "NOVO" Then
                 If InsereUsuario() Then
                     Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
@@ -84,45 +82,43 @@ Public Class Frm_Usuario
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                 End If
             Else
-                CarregaUsuarios()
-                If Not DAOUsuario.AtualizaUsuario(UsuarioUpdate, resposta) Then
-                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                Else
-                    Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
-                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
-                    IsOperacaoActive = True
+                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
+                    If Not DAOUsuario.AtualizaUsuario(GetUsuarioForOperation, resposta) Then
+                        frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                    Else
+                        Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+                        frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
+                    End If
                 End If
             End If
 
         ElseIf MyModo.UniqueModo = "NOVO" Then
+            ComboNome.Focus()
             LimpaCampos_AtivaControles()
             AlternarControle()
 
 
         ElseIf MyModo.UniqueModo = "ALTERAR" Then
-            Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
-            ComboNome.Enabled = False
-            TxtSobrenome.Enabled = False
-            TxtLogin.Enabled = False
-            TxtEmail.Enabled = True
-            ChkBoxAtivo.Enabled = True
-            TxtSenha.Enabled = False
-            TxtSenhaConfirmar.Enabled = False
+            CarregaUsuarios()
+            ComboNome.SelectedIndex = LstUsuario.FindIndex(Function(u As Usuario) u.Login = TxtLogin.Text)
+            ModoAlterar()
 
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
-            ControlsState_ModoProcurar()
+            ModoProcurar()
             CarregaUsuarios()
             AlternarControle()
 
         ElseIf MyModo.UniqueModo = "REVERTER" Then
-            If IsOperacaoActive Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja reverter a operação?", "Reverter") Then
-                    DAOUsuario.ReverterOuCommitar(True)
-                    IsOperacaoActive = False
-                End If
+            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
+                ToolStrip_ItemClicked()
+            Else
+                Exit Sub
             End If
+
+        ElseIf MyModo.UniqueModo = "PADRÃO" Then
             LimpaCampos_AtivaControles()
+            frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
             Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
         End If
 
@@ -139,6 +135,7 @@ Public Class Frm_Usuario
         End If
 
         frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
+        frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnExcluir").Enabled = False
         PreencheCampos(usuario)
     End Sub
 
@@ -184,7 +181,7 @@ Public Class Frm_Usuario
             ComboNome.ValueMember = "CodUsuario"
             ComboNome.EndUpdate()
             If MyModo.UniqueModo = "PESQUISAR" Then
-                ComboNome.SelectedIndex = 0
+                'ComboNome.SelectedIndex = 0
             End If
         End If
     End Sub
@@ -193,8 +190,8 @@ Public Class Frm_Usuario
         If Not Uteis.StringHelper.IsNull(ComboNome.Text) Then
             BuscaUsuarioPorCodigo(LstUsuario(ComboNome.SelectedIndex).CodUsuario)
         Else
-            Uteis.ControlsHelper.SetTextsEmpty(Me.GroupBox1.Controls)
-            Uteis.ControlsHelper.SetTextsEmpty(Me.GroupBox2.Controls)
+            Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
+            Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxCredenciais.Controls)
             frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(False)
         End If
     End Sub
@@ -218,8 +215,16 @@ Public Class Frm_Usuario
 
     Private Sub LimpaCampos_AtivaControles()
         Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
-        Uteis.ControlsHelper.SetTextsEmpty(Me.GroupBox1.Controls)
-        Uteis.ControlsHelper.SetTextsEmpty(Me.GroupBox2.Controls)
+        Uteis.ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
+        Uteis.ControlsHelper.SetControlsEnabled(GrpBoxCredenciais.Controls)
+        Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
+        Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxCredenciais.Controls)
+    End Sub
+
+    Private Sub AtivaControles()
+        Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
+        Uteis.ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
+        Uteis.ControlsHelper.SetControlsEnabled(GrpBoxCredenciais.Controls)
     End Sub
 
     Protected Overrides Sub Finalize()
@@ -236,9 +241,9 @@ Public Class Frm_Usuario
         End If
     End Sub
 
-    Private Sub ControlsState_ModoProcurar()
-        GroupBox1.Enabled = True
-        For Each Control As Control In GroupBox1.Controls
+    Private Sub ModoProcurar()
+        GrpBoxInfo.Enabled = True
+        For Each Control As Control In GrpBoxInfo.Controls
             If Control IsNot ComboNome Then
                 Control.Enabled = False
             Else
@@ -246,10 +251,10 @@ Public Class Frm_Usuario
             End If
         Next
         TxtLogin.Enabled = False
-        GroupBox2.Enabled = False
+        GrpBoxCredenciais.Enabled = False
 
-        Uteis.ControlsHelper.SetTextsEmpty(GroupBox1.Controls)
-        Uteis.ControlsHelper.SetTextsEmpty(GroupBox2.Controls)
+        Uteis.ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
+        Uteis.ControlsHelper.SetTextsEmpty(GrpBoxCredenciais.Controls)
     End Sub
 
     Private Sub Frm_Usuario_EnabledChanged(sender As System.Object, e As System.EventArgs) Handles MyBase.EnabledChanged
@@ -258,17 +263,17 @@ Public Class Frm_Usuario
         End If
     End Sub
 
-    Private Function UsuarioUpdate() As Usuario
+    Private Function GetUsuarioForOperation() As Usuario
         Dim usuario As New Usuario
         If ComboNome.SelectedIndex > 0 Then
             usuario = LstUsuario(ComboNome.SelectedIndex)
         Else
             usuario = LstUsuario.Find(Function(u) u.Login = TxtLogin.Text)
         End If
-        Usuario.Email = TxtEmail.Text
-        Usuario.Senha = TxtSenha.Text
-        Usuario.IsAtivo = ChkBoxAtivo.Checked
-        Return Usuario
+        usuario.Email = TxtEmail.Text
+        usuario.Senha = TxtSenha.Text
+        usuario.IsAtivo = ChkBoxAtivo.Checked
+        Return usuario
     End Function
 
     Private Sub TxtSobrenome_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtSobrenome.KeyPress
@@ -300,6 +305,35 @@ Public Class Frm_Usuario
             TxtSenha.UseSystemPasswordChar = True
             TxtSenhaConfirmar.UseSystemPasswordChar = True
             MostrarSenha = True
+        End If
+    End Sub
+
+    Private Sub ModoAlterar()
+        Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
+        ComboNome.Enabled = False
+        TxtSobrenome.Enabled = False
+        TxtLogin.Enabled = False
+        TxtEmail.Enabled = True
+        ChkBoxAtivo.Enabled = True
+        TxtSenha.Enabled = False
+        TxtSenhaConfirmar.Enabled = False
+    End Sub
+
+    Private Sub TxtEmail_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtEmail.KeyPress
+        If Char.IsSeparator(e.KeyChar) Or e.KeyChar = "," Then
+            e.KeyChar = ""
+        End If
+    End Sub
+
+    Private Sub TxtSenha_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtSenha.KeyPress
+        If Char.IsSeparator(e.KeyChar) Or e.KeyChar = "," Or e.KeyChar = "." Then
+            e.KeyChar = ""
+        End If
+    End Sub
+
+    Private Sub TxtSenhaConfirmar_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtSenhaConfirmar.KeyPress
+        If Char.IsSeparator(e.KeyChar) Or e.KeyChar = "," Or e.KeyChar = "." Then
+            e.KeyChar = ""
         End If
     End Sub
 End Class

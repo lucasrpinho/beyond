@@ -71,20 +71,21 @@ Public Class DAO
 #Region "Usuário"
 
     Public Function InsertUsuario(usuario As Usuario, ByRef response As String) As Boolean
-        ReverterOuCommitar()
+
         Con.Open()
         Tr = Con.BeginTransaction
         Try
             If _InsertUsuario(Con, usuario, response) Then
+                Tr.Commit()
                 Return True
             Else
-                Tr.Rollback()
-                Tr.Dispose()
+                RollbackReleaseTransaction()
             End If
         Catch ex As Exception
+            RollbackReleaseTransaction()
             response = ex.Message
-            Tr.Rollback()
-            Tr.Dispose()
+        Finally
+            CloseConAndTr()
         End Try
         Return False
     End Function
@@ -119,9 +120,10 @@ Public Class DAO
 
     Public Function GetUsuarios(ativo As Boolean, ByRef response As String) As List(Of Usuario)
         Dim LstUsuario As New List(Of Usuario)
-        ReverterOuCommitar()
+
+        Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
         Using Cmd As New SqlClient.SqlCommand
-            Cmd.Connection = Con
+            Cmd.Connection = Connection
             Cmd.CommandText = "SP_GET_ALL_USUARIOS"
             Cmd.CommandType = CommandType.StoredProcedure
             Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = ativo
@@ -146,15 +148,19 @@ Public Class DAO
                 If Not Tbl Is Nothing Then
                     Tbl.Dispose()
                 End If
+                If Connection IsNot Nothing Then
+                    Connection.Close()
+                    Connection.Dispose()
+                    Connection = Nothing
+                End If
             Catch ex As Exception
-                response = "A busca falhou"
+                response = "A busca falhou."
 #If DEBUG Then
                 response = ex.InnerException.Message + ex.Message + ex.StackTrace
 #End If
             End Try
             response = Cmd.Parameters("@RESPONSE").Value
         End Using
-        Con.Close()
         Return LstUsuario
     End Function
 
@@ -191,24 +197,22 @@ Public Class DAO
         Return Nothing
     End Function
 
-    Public Function AtualizaUsuario(usuario As Usuario, ByRef response As String) As Boolean
-        Dim ConnStr As String = ConfigurationManager.ConnectionStrings("ConnString").ConnectionString
-        ReverterOuCommitar()
+    Public Function AtualizaUsuario(usuario As Usuario, ByRef resposta As String) As Boolean
+
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If _AtualizaUsuario(usuario, response) Then
+            If _AtualizaUsuario(usuario, resposta) Then
+                Tr.Commit()
                 Return True
             Else
-                Tr.Rollback()
-                Con = Nothing
-                Con.Close()
+                RollbackReleaseTransaction()
             End If
         Catch ex As Exception
-            response = ex.Message
-            Tr.Rollback()
-            Con.Close()
-            Con = Nothing
+            RollbackReleaseTransaction()
+            resposta = ex.Message
+        Finally
+            CloseConAndTr()
         End Try
         Return False
     End Function
@@ -237,8 +241,6 @@ Public Class DAO
         Return succ
     End Function
 
-
-
 #End Region
 
 #Region "Cargo"
@@ -263,22 +265,21 @@ Public Class DAO
     End Function
 
     Public Function InsereCargo(cargo As Cargo, ByRef resposta As String) As Boolean
-        ReverterOuCommitar()
+
         Con.Open()
         Tr = Con.BeginTransaction
         Try
             If _InsereCargo(cargo) Then
+                Tr.Commit()
                 Return True
             Else
-                Tr.Rollback()
-                Tr.Dispose()
-                Tr = Nothing
+                RollbackReleaseTransaction()
             End If
         Catch ex As Exception
+            RollbackReleaseTransaction()
             resposta = ex.Message
-            Tr.Rollback()
-            Tr.Dispose()
-            Tr = Nothing
+        Finally
+            CloseConAndTr()
         End Try
         Return False
     End Function
@@ -294,7 +295,7 @@ Public Class DAO
 
     Private Function _GetCargos(ativos As Boolean, codcargo As String) As List(Of Cargo)
         Dim lst As New List(Of Cargo)
-        ReverterOuCommitar()
+        CloseConAndTr()
         Using Cmd As New SqlCommand
             Try
                 Cmd.Connection = Con
@@ -353,22 +354,20 @@ Public Class DAO
     Public Function AtualizaCargo(cargo As Cargo, ByRef resposta As String, _
         ByVal isExclusao As Boolean, login As String) As Boolean
 
-        ReverterOuCommitar()
         Con.Open()
         Tr = Con.BeginTransaction
         Try
             If Not _AtualizaCargo(cargo, isExclusao, resposta, login) Then
-                Tr.Rollback()
-                Tr.Dispose()
-                Tr = Nothing
+                RollbackReleaseTransaction()
             Else
+                Tr.Commit()
                 Return True
             End If
         Catch ex As Exception
+            RollbackReleaseTransaction()
             resposta = ex.Message
-            Tr.Rollback()
-            Tr.Dispose()
-            Tr = Nothing
+        Finally
+            CloseConAndTr()
         End Try
         Return False
     End Function
@@ -457,22 +456,21 @@ Public Class DAO
 #Region "Vendedor"
 
     Public Function InsereVendedor(vendedor As Vendedor, ByRef resposta As String) As Boolean
-        ReverterOuCommitar()
+
         Con.Open()
         Tr = Con.BeginTransaction
         Try
             If _InsereVendedor(vendedor) Then
+                Tr.Commit()
                 Return True
             Else
-                Tr.Rollback()
-                Tr.Dispose()
-                Tr = Nothing
+                RollbackReleaseTransaction()
             End If
         Catch ex As Exception
+            RollbackReleaseTransaction()
             resposta = ex.Message
-            Tr.Rollback()
-            Tr.Dispose()
-            Tr = Nothing
+        Finally
+            CloseConAndTr()
         End Try
         Return False
     End Function
@@ -565,22 +563,20 @@ Public Class DAO
     Public Function AtualizaVendedor(vendedor As Vendedor, ByRef resposta As String, _
         ByVal isExclusao As Boolean, login As String) As Boolean
 
-        ReverterOuCommitar()
         Con.Open()
         Tr = Con.BeginTransaction
         Try
             If Not _AtualizaVendedor(vendedor, isExclusao, resposta, login) Then
-                Tr.Rollback()
-                Tr.Dispose()
-                Tr = Nothing
+                RollbackReleaseTransaction()
             Else
+                Tr.Commit()
                 Return True
             End If
         Catch ex As Exception
+            RollbackReleaseTransaction()
             resposta = ex.Message
-            Tr.Rollback()
-            Tr.Dispose()
-            Tr = Nothing
+        Finally
+            CloseConAndTr()
         End Try
         Return False
     End Function
@@ -702,55 +698,55 @@ Public Class DAO
         Return cliente
     End Function
 
-    Public Function RemoveCargoCliente(ByVal codcliente As Int32, ByRef resposta As String) As Boolean
-        ReverterOuCommitar()
+    Public Function RemoveCargoCliente(ByVal codcliente As Int32, ByVal login As String, ByRef resposta As String) As Boolean
+
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If Not _RemoveCargoCliente(codcliente) Then
-                Tr.Rollback()
-                Tr.Dispose()
-                Tr = Nothing
+            If Not _RemoveCargoCliente(codcliente, login) Then
+                RollbackReleaseTransaction
             Else
                 Tr.Commit()
                 Return True
             End If
         Catch ex As Exception
+            RollbackReleaseTransaction()
             resposta = ex.Message
-            Tr.Rollback()
-            Tr.Dispose()
-            Tr = Nothing
+        Finally
+            CloseConAndTr()
         End Try
         Return False
     End Function
 
 
-    Private Function _RemoveCargoCliente(ByVal codcliente As Int32) As Boolean
+    Private Function _RemoveCargoCliente(ByVal codcliente As Int32, ByVal login As String) As Boolean
         Using Cmd As New SqlCommand
             Cmd.Connection = Con
             Cmd.Transaction = Tr
             Cmd.CommandText = "SP_REMOVE_CARGO_CLIENTE"
             Cmd.CommandType = CommandType.StoredProcedure
             Cmd.Parameters.AddWithValue("@CODCLIENTE", codcliente)
+            Cmd.Parameters.AddWithValue("@LOGINALTERACAO", login)
             Return Cmd.ExecuteNonQuery > 0
         End Using
     End Function
 
     Public Function InsereCliente(ByVal cliente As Cliente, ByRef resposta As String) As Boolean
-        ReverterOuCommitar()
+
         Con.Open()
         Tr = Con.BeginTransaction
         Try
             If _InsereCliente(cliente, resposta) Then
+                Tr.Commit()
                 Return True
             Else
-                Tr.Rollback()
-                Tr.Dispose()
-                Tr = Nothing
+                RollbackReleaseTransaction()
             End If
         Catch ex As Exception
+            RollbackReleaseTransaction()
             resposta = ex.Message
-            Tr.Rollback()
+        Finally
+            CloseConAndTr()
         End Try
         Return False
     End Function
@@ -792,22 +788,20 @@ Public Class DAO
     Public Function AtualizaCliente(cliente As Cliente, ByRef resposta As String, _
         ByVal isExclusao As Boolean, login As String) As Boolean
 
-        ReverterOuCommitar()
         Con.Open()
         Tr = Con.BeginTransaction
         Try
             If Not _AtualizaCliente(cliente, isExclusao, resposta, login) Then
-                Tr.Rollback()
-                Tr.Dispose()
-                Tr = Nothing
+                RollbackReleaseTransaction()
             Else
+                Tr.Commit()
                 Return True
             End If
         Catch ex As Exception
+            RollbackReleaseTransaction()
             resposta = ex.Message
-            Tr.Rollback()
-            Tr.Dispose()
-            Tr = Nothing
+        Finally
+            CloseConAndTr()
         End Try
         Return False
     End Function
@@ -860,60 +854,62 @@ Public Class DAO
     Public Function _GetProdutos(ByVal cod As Int32, ByRef resposta As String) As List(Of Produto)
         Dim Lst As New List(Of Produto)
 
-        ReverterOuCommitar()
-        Using Con As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
-            Using Cmd As New SqlCommand
-                Try
-                    Cmd.Connection = Con
-                    Cmd.CommandText = "SP_GET_PRODUTOS"
-                    Cmd.CommandType = CommandType.StoredProcedure
-                    Cmd.Parameters.AddWithValue("@CODPRODUTO", cod)
+        Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Using Cmd As New SqlCommand
+            Try
+                Cmd.Connection = Con
+                Cmd.CommandText = "SP_GET_PRODUTOS"
+                Cmd.CommandType = CommandType.StoredProcedure
+                Cmd.Parameters.AddWithValue("@CODPRODUTO", cod)
 
-                    Dim Adp As New SqlDataAdapter(Cmd)
-                    Dim Tbl As New DataTable
+                Dim Adp As New SqlDataAdapter(Cmd)
+                Dim Tbl As New DataTable
 
-                    Adp.Fill(Tbl)
+                Adp.Fill(Tbl)
 
-                    If Tbl.Rows.Count > 0 Then
-                        For I As Integer = 0 To Tbl.Rows.Count - 1
-                            Dim prod As New Produto
-                            prod.Carrega(Tbl.Rows(I))
-                            Lst.Add(prod)
-                        Next
-                    End If
+                If Tbl.Rows.Count > 0 Then
+                    For I As Integer = 0 To Tbl.Rows.Count - 1
+                        Dim prod As New Produto
+                        prod.Carrega(Tbl.Rows(I))
+                        Lst.Add(prod)
+                    Next
+                End If
 
-                    If Not Adp Is Nothing Then
-                        Adp.Dispose()
-                    End If
-                    If Not Tbl Is Nothing Then
-                        Tbl.Dispose()
-                    End If
-                Catch ex As Exception
-                    resposta = ex.Message
-                End Try
-            End Using
+                If Not Adp Is Nothing Then
+                    Adp.Dispose()
+                End If
+                If Not Tbl Is Nothing Then
+                    Tbl.Dispose()
+                End If
+            Catch ex As Exception
+                resposta = ex.Message
+            Finally
+                If Connection IsNot Nothing Then
+                    Connection.Close()
+                    Connection.Dispose()
+                    Connection = Nothing
+                End If
+            End Try
         End Using
-
         Return Lst
     End Function
 
     Public Function InsereProduto(ByVal obj As Produto, ByRef resposta As String) As Boolean
-        ReverterOuCommitar()
+
         Con.Open()
         Tr = Con.BeginTransaction
         Try
             If _InsereProduto(obj, resposta) Then
+                Tr.Commit()
                 Return True
             Else
-                Tr.Rollback()
-                Tr.Dispose()
-                Tr = Nothing
+                RollbackReleaseTransaction()
             End If
         Catch ex As Exception
-            Tr.Rollback()
-            Tr.Dispose()
-            Tr = Nothing
+            RollbackReleaseTransaction
             resposta = ex.Message
+        Finally
+            CloseConAndTr()
         End Try
         Return False
     End Function
@@ -950,23 +946,21 @@ Public Class DAO
     End Function
 
     Public Function AtualizaProduto(ByVal obj As Produto, ByRef resposta As String, _
-                                          ByVal login As String, Optional isDelete As Boolean = False)
-        ReverterOuCommitar()
+                                    ByVal login As String, Optional isDelete As Boolean = False)
         Con.Open()
         Tr = Con.BeginTransaction
         Try
             If _AtualizaProduto(obj, isDelete, login) Then
+                Tr.Commit()
                 Return True
             Else
-                Tr.Rollback()
-                Tr.Dispose()
-                Tr = Nothing
+                RollbackReleaseTransaction()
             End If
         Catch ex As Exception
-            Tr.Rollback()
-            Tr.Dispose()
-            Tr = Nothing
+            RollbackReleaseTransaction()
             resposta = ex.Message
+        Finally
+            CloseConAndTr()
         End Try
         Return False
     End Function
@@ -1115,27 +1109,34 @@ Public Class DAO
 #End Region
 
 #Region "Transaction"
-    Public Sub ReverterOuCommitar(Optional reverter As Boolean = False)
+    Public Sub CloseConAndTr()
         Try
-            If reverter AndAlso Tr IsNot Nothing AndAlso Not Con.State = ConnectionState.Closed Then
-                Tr.Rollback()
-                Tr.Dispose()
-                Tr = Nothing
-            ElseIf Tr IsNot Nothing AndAlso Not Con.State = ConnectionState.Closed Then
-                Tr.Commit()
+
+            If Tr IsNot Nothing Then
                 Tr.Dispose()
                 Tr = Nothing
             End If
-        Catch ex As Exception
-            Con.Close()
-            Tr.Rollback()
-            Tr.Dispose()
-            Tr = Nothing
-        Finally
+
             If Con.State = ConnectionState.Open Then
                 Con.Close()
             End If
+
+        Catch ex As Exception
+            Throw New Exception("Ocorreu um erro ao fechar a conexão.")
         End Try
+    End Sub
+
+    Private Sub RollbackReleaseTransaction()
+
+        If Tr IsNot Nothing Then
+            Tr.Rollback()
+            Tr.Dispose()
+            Tr = Nothing
+        End If
+
+        If Con.State = ConnectionState.Open Then
+            Con.Close()
+        End If
     End Sub
 
 #End Region

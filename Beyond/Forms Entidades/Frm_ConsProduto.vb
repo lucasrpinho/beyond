@@ -82,4 +82,11 @@ Public Class Frm_ConsProduto
 
         Me.Close()
     End Sub
+
+    Private Sub ListView1_MouseDoubleClick(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles ListView1.MouseDoubleClick
+        If ListView1.SelectedItems.Count > 0 Then
+            frmInstancia.objProduto = ListView1.SelectedItems(0).Tag
+            Me.Close()
+        End If
+    End Sub
 End Class

@@ -11,13 +11,7 @@ Public Class Frm_Vendedor
     Private Endereco As Endereco
     Private StrFotoPath As String
     Private DAOVendedor As New DAO.DAO
-    Private IsOperacaoActive As Boolean
-
-    ' Note: os combos possuem um item a mais que as respectivas listas
-    ' Determinar o item do combo pelo index do item da lista: index + 1
-    ' Determinar o item da lista pelo index do combo: index - 1
-
-    ' Possivelmente será alterado
+    Private objVendedor As Vendedor
 
     Public Sub New(frm As Frm_Principal_MDI)
 
@@ -35,7 +29,6 @@ Public Class Frm_Vendedor
     End Sub
 
     Private Sub Frm_Vendedor_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        DAOVendedor.ReverterOuCommitar()
         frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = False
         RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
@@ -58,6 +51,9 @@ Public Class Frm_Vendedor
 
     Private Sub ComboNome_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboNome.SelectedIndexChanged
         If Not Uteis.StringHelper.IsNull(ComboNome.Text) Then
+            If objVendedor IsNot Nothing Then
+                objVendedor = Nothing
+            End If
             BuscaVendedorPorCodigo(LstVendedor(ComboNome.SelectedIndex).CodVendedor)
         Else
             Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxEndereco.Controls)
@@ -83,9 +79,21 @@ Public Class Frm_Vendedor
     End Sub
 
     Private Function Insere() As Boolean
+
+        If TxtNum.Text = String.Empty Then
+            Uteis.MsgBoxHelper.CustomTooltip(Me, TxtNum, "Número vazio.", "Alerta de preenchimento")
+            Return False
+        End If
+
+        If PicBoxFoto.Image Is Nothing Then
+            Uteis.MsgBoxHelper.CustomTooltip(Me, PicBoxFoto, "Vendedor precisa ter uma foto no cadastro.", _
+                                                "Preenchimento incompleto")
+            Return False
+        End If
+
         Dim vendedor As New Vendedor
 
-        vendedor.CodCargo = LstCargos(ComboCargo.SelectedIndex).CodCargo
+        vendedor.CodCargo = ComboCargo.SelectedValue
         vendedor.Nome = ComboNome.Text.ToUpper
         vendedor.Sobrenome = TxtSobrenome.Text.ToUpper
         vendedor.NomeCompleto = vendedor.Nome + " " + vendedor.Sobrenome
@@ -118,7 +126,6 @@ Public Class Frm_Vendedor
             Return False
         End If
 
-        IsOperacaoActive = True
         Return True
     End Function
 
@@ -127,6 +134,8 @@ Public Class Frm_Vendedor
         ComboCargo.Items.Clear()
 
         LstCargos = DAOVendedor.GetCargo(True)
+
+        LstCargos.RemoveAll(Function(c As Cargo) c.IsVendedor = False)
 
         If Not LstCargos.Count > 0 Then
             MsgBoxHelper.Alerta(Me, "O sistema não conseguiu buscar os cargos.", "Erro")
@@ -137,9 +146,6 @@ Public Class Frm_Vendedor
         ComboCargo.Items.AddRange(LstCargos.ToArray)
         ComboCargo.DisplayMember = "Nome"
         ComboCargo.ValueMember = "CodCargo"
-        If MyModo.UniqueModo = "PESQUISAR" Then
-            ComboCargo.SelectedIndex = 0
-        End If
         ComboCargo.EndUpdate()
     End Sub
 
@@ -217,21 +223,21 @@ Public Class Frm_Vendedor
         MyModo.UniqueModo = UC_Toolstrip.Modo
 
         If MyModo.UniqueModo = "SALVAR" Then
-            If ComboNome.DropDownStyle = ComboBoxStyle.Simple Then
+            If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso Not UC_Toolstrip.ModoAnterior = "ALTERAR" Then
                 If Insere() Then
                     Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
                 Else
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                    frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
                 End If
             Else
-                CarregaVendedores()
                 If Not DAOVendedor.AtualizaVendedor(ObjVendedorFromList, resposta, False, loginusuario) Then
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                    MsgBoxHelper.Alerta(Me, resposta, "Erro")
                 Else
                     Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
-                    IsOperacaoActive = True
                 End If
             End If
 
@@ -240,38 +246,40 @@ Public Class Frm_Vendedor
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
             ModoPesquisa()
+            If UC_Toolstrip.ModoAnterior = "REVERTER" Then
+                ComboNome.SelectedIndex = LstVendedor.FindIndex(Function(v As Vendedor) v.CodVendedor = objVendedor.CodVendedor)
+            End If
+
 
         ElseIf MyModo.UniqueModo = "ALTERAR" Then
-            GrpBoxEndereco.Enabled = True
-            ControlsHelper.SetControlsEnabled(GrpBoxEndereco.Controls)
-            ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
-            ComboNome.Enabled = False
-            TxtSobrenome.Enabled = False
+            CarregaVendedores()
+            ModoAlterar()
 
-        ElseIf MyModo.UniqueModo = "REVERTER" Then
-            If IsOperacaoActive Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja reverter a operação?", "Reverter") Then
-                    DAOVendedor.ReverterOuCommitar(True)
-                    IsOperacaoActive = False
+            ElseIf MyModo.UniqueModo = "REVERTER" Then
+                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
+                    ToolStrip_ItemClicked()
+                Else
+                    Exit Sub
                 End If
-            End If
-            LimpaCampos_AtivaControles()
-            Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
 
-        ElseIf MyModo.UniqueModo = "EXCLUIR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
-                If DAOVendedor.AtualizaVendedor(ObjVendedorFromList, "", True, loginusuario) Then
-                    IsOperacaoActive = True
-                    LimpaCampos_Desativa()
-                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
+            ElseIf MyModo.UniqueModo = "EXCLUIR" Then
+                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
+                    If DAOVendedor.AtualizaVendedor(ObjVendedorFromList, "", True, loginusuario) Then
+                        LimpaCampos_Desativa()
+                        frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
+                    End If
+                Else
+                    Exit Sub
                 End If
-            Else
-                Exit Sub
-            End If
 
-        ElseIf MyModo.UniqueModo = "IMAGEM" Then
-            CarregaImagem()
-        End If
+            ElseIf MyModo.UniqueModo = "PADRÃO" Then
+                LimpaCampos_AtivaControles()
+                frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
+                Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+
+            ElseIf MyModo.UniqueModo = "IMAGEM" Then
+                CarregaImagem()
+            End If
     End Sub
 
     Private Sub BuscaVendedorPorCodigo(ByVal codvendedor As String)
@@ -283,12 +291,14 @@ Public Class Frm_Vendedor
             Exit Sub
         End If
 
+        objVendedor = vendedor
         frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
         PreencheCampos(vendedor)
     End Sub
 
     Private Sub PreencheCampos(ByVal vendedor As Vendedor)
-        ComboNome.SelectedIndex = LstVendedor.FindIndex(Function(v) v.CodVendedor = vendedor.CodVendedor)
+        Dim cargo = LstCargos.Find(Function(c As Cargo) c.CodCargo = vendedor.CodCargo)
+        Dim estado = LstEstados.Find(Function(e As EstadoUF) e.UF = vendedor.ObjEndereco.UF)
         TxtSobrenome.Text = vendedor.Sobrenome
         TxtCEP.Text = vendedor.ObjEndereco.CEP
         TxtBairro.Text = vendedor.ObjEndereco.Bairro
@@ -297,8 +307,10 @@ Public Class Frm_Vendedor
         TxtLogradouro.Text = vendedor.ObjEndereco.Logradouro
         TxtNum.Text = vendedor.ObjEndereco.NumeroEndereco
         TxtObs.Text = vendedor.Observacao
-        ComboEstado.SelectedIndex = LstEstados.FindIndex(Function(e) e.UF = vendedor.ObjEndereco.UF)
-        ComboCargo.SelectedIndex = LstCargos.FindIndex(Function(c) c.CodCargo = vendedor.CodCargo)
+        ComboEstado.SelectedItem = estado
+        ComboEstado.Text = estado.Nome
+        ComboCargo.SelectedItem = cargo
+        ComboCargo.Text = cargo.Nome
         ChkBoxAtivo.Checked = vendedor.IsAtivo
         If IO.File.Exists(vendedor.Foto) Then
             PicBoxFoto.ImageLocation = vendedor.Foto
@@ -322,11 +334,8 @@ Public Class Frm_Vendedor
         Else
             ComboNome.BeginUpdate()
             ComboNome.Items.AddRange(LstVendedor.ToArray)
-            ComboNome.DisplayMember = "Nome"
+            ComboNome.DisplayMember = "NomeCompleto"
             ComboNome.ValueMember = "CodVendedor"
-            If MyModo.UniqueModo = "PESQUISAR" Then
-                ComboNome.SelectedIndex = 0
-            End If
             ComboNome.EndUpdate()
         End If
     End Sub
@@ -348,6 +357,12 @@ Public Class Frm_Vendedor
     End Sub
 
     Private Sub ModoPesquisa()
+        If Label1.Text <> "Nome Completo" Then
+            Label1.Text = "Nome Completo"
+            ComboNome.Width = ComboNome.Width + TxtSobrenome.Width
+            TxtSobrenome.Visible = False
+            Label2.Visible = False
+        End If
         AlternarControle()
         ClearImage()
         LimpaCampos_Desativa()
@@ -363,7 +378,7 @@ Public Class Frm_Vendedor
             vendedor = LstVendedor(ComboNome.SelectedIndex)
         End If
 
-        vendedor.CodCargo = LstCargos(ComboCargo.SelectedIndex).CodCargo
+        vendedor.CodCargo = LstCargos.Item(ComboCargo.SelectedIndex).CodCargo
         vendedor.ObjEndereco.CEP = StringHelper.NumericOnly(TxtCEP.Text)
         vendedor.ObjEndereco.Logradouro = TxtLogradouro.Text.ToUpper
         vendedor.ObjEndereco.Bairro = TxtBairro.Text.ToUpper
@@ -383,13 +398,27 @@ Public Class Frm_Vendedor
         ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
         ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
         ControlsHelper.SetTextsEmpty(GrpBoxEndereco.Controls)
+        If Label1.Text <> "Nome" Then
+            Label1.Text = "Nome"
+            ComboNome.Width = ComboNome.Width - TxtSobrenome.Width
+            TxtSobrenome.Visible = True
+            Label2.Visible = True
+        End If
         frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
         AlternarControle()
     End Sub
 
     Private Sub TxtNum_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtNum.KeyPress
-        If Char.IsPunctuation(e.KeyChar) Then
+        If Char.IsPunctuation(e.KeyChar) Or Char.IsDigit(e.KeyChar) Then
             e.KeyChar = ""
         End If
+    End Sub
+
+    Private Sub ModoAlterar()
+        ControlsHelper.SetControlsEnabled(Me.Controls)
+        ControlsHelper.SetControlsEnabled(GrpBoxEndereco.Controls)
+        ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
+        ComboNome.Enabled = False
+        TxtSobrenome.Enabled = False
     End Sub
 End Class

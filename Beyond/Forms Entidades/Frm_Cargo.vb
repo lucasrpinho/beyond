@@ -24,7 +24,6 @@ Public Class Frm_Cargo
     End Sub
 
     Private Sub Frm_Cargo_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        DAOCargo.ReverterOuCommitar()
         RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
@@ -45,7 +44,7 @@ Public Class Frm_Cargo
         Dim str As String = ""
 
         If Not cargo.IsValid(str) Then
-            MsgBoxHelper.Erro(Me, str, "Erro de preenchimento")
+            MsgBoxHelper.Alerta(Me, str, "Erro de preenchimento")
             Return False
         End If
 
@@ -66,7 +65,7 @@ Public Class Frm_Cargo
         LstCargo = DAOCargo.GetCargo(True)
 
         If Not LstCargo.Count > 0 Then
-            MsgBoxHelper.Erro(Me, "O sistema não conseguiu buscar os cargos.", "Erro")
+            MsgBoxHelper.Alerta(Me, "O sistema não conseguiu buscar os cargos.", "Erro")
             Exit Sub
         Else
             ComboNome.BeginUpdate()
@@ -76,7 +75,7 @@ Public Class Frm_Cargo
             ComboNome.EndUpdate()
 
             If MyModo.UniqueModo = "PESQUISAR" Then
-                ComboNome.SelectedIndex = 0
+                'ComboNome.SelectedIndex = 0
             End If
         End If
     End Sub
@@ -101,7 +100,7 @@ Public Class Frm_Cargo
 
 
         ElseIf MyModo.UniqueModo = "SALVAR" Then
-            If ComboNome.DropDownStyle = ComboBoxStyle.Simple Then
+            If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso UC_Toolstrip.ModoAnterior = "NOVO" Then
                 If InsereCargo() Then
                     Uteis.ControlsHelper.SetControlsDisabled(Me)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
@@ -133,12 +132,12 @@ Public Class Frm_Cargo
         ElseIf MyModo.UniqueModo = "REVERTER" Then
             If IsOperacaoPendente Then
                 If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja reverter a operação?", "Reverter") Then
-                    DAOCargo.ReverterOuCommitar(True)
+                    'DAOCargo.ReverterOuCommitar(True)
                     IsOperacaoPendente = False
                 End If
             End If
             LimpaCampos_Ativa()
-            Uteis.ControlsHelper.SetControlsDisabled(Me)
+            Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
@@ -228,6 +227,7 @@ Public Class Frm_Cargo
 
     Private Sub ModoPesquisar()
         ControlsHelper.SetControlsEnabled(Me.Controls)
+        ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
 
         TxtDesc.Enabled = False
         ChkVendedor.Enabled = False

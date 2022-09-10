@@ -30,7 +30,6 @@ Partial Class Frm_Cliente
         Me.Label17 = New System.Windows.Forms.Label()
         Me.GrpBoxInfo = New System.Windows.Forms.GroupBox()
         Me.DtPckNasc = New System.Windows.Forms.DateTimePicker()
-        Me.BtnConsCargo = New System.Windows.Forms.Button()
         Me.TxtCelular = New System.Windows.Forms.MaskedTextBox()
         Me.TxtEmpresa = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -55,8 +54,10 @@ Partial Class Frm_Cliente
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.LblCep = New System.Windows.Forms.Label()
+        Me.BtnConsCargo = New System.Windows.Forms.PictureBox()
         Me.GrpBoxInfo.SuspendLayout()
         Me.GrpBoxEndereco.SuspendLayout()
+        CType(Me.BtnConsCargo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ComboCargo
@@ -120,8 +121,8 @@ Partial Class Frm_Cliente
         '
         Me.GrpBoxInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GrpBoxInfo.Controls.Add(Me.DtPckNasc)
         Me.GrpBoxInfo.Controls.Add(Me.BtnConsCargo)
+        Me.GrpBoxInfo.Controls.Add(Me.DtPckNasc)
         Me.GrpBoxInfo.Controls.Add(Me.TxtCelular)
         Me.GrpBoxInfo.Controls.Add(Me.Label17)
         Me.GrpBoxInfo.Controls.Add(Me.TxtObs)
@@ -154,16 +155,6 @@ Partial Class Frm_Cliente
         Me.DtPckNasc.Name = "DtPckNasc"
         Me.DtPckNasc.Size = New System.Drawing.Size(118, 24)
         Me.DtPckNasc.TabIndex = 2
-        '
-        'BtnConsCargo
-        '
-        Me.BtnConsCargo.Enabled = False
-        Me.BtnConsCargo.Location = New System.Drawing.Point(596, 202)
-        Me.BtnConsCargo.Name = "BtnConsCargo"
-        Me.BtnConsCargo.Size = New System.Drawing.Size(139, 34)
-        Me.BtnConsCargo.TabIndex = 42
-        Me.BtnConsCargo.Text = "Consultar Cargo"
-        Me.BtnConsCargo.UseVisualStyleBackColor = True
         '
         'TxtCelular
         '
@@ -417,6 +408,17 @@ Partial Class Frm_Cliente
         Me.LblCep.TabIndex = 48
         Me.LblCep.Text = "CEP"
         '
+        'BtnConsCargo
+        '
+        Me.BtnConsCargo.Image = Global.Beyond.My.Resources.Resources.search
+        Me.BtnConsCargo.Location = New System.Drawing.Point(710, 202)
+        Me.BtnConsCargo.Name = "BtnConsCargo"
+        Me.BtnConsCargo.Size = New System.Drawing.Size(25, 25)
+        Me.BtnConsCargo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.BtnConsCargo.TabIndex = 42
+        Me.BtnConsCargo.TabStop = False
+        Me.BtnConsCargo.Visible = False
+        '
         'Frm_Cliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -437,6 +439,7 @@ Partial Class Frm_Cliente
         Me.GrpBoxInfo.PerformLayout()
         Me.GrpBoxEndereco.ResumeLayout(False)
         Me.GrpBoxEndereco.PerformLayout()
+        CType(Me.BtnConsCargo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -470,6 +473,6 @@ Partial Class Frm_Cliente
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents LblCep As System.Windows.Forms.Label
     Friend WithEvents TxtCelular As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents BtnConsCargo As System.Windows.Forms.Button
     Friend WithEvents DtPckNasc As System.Windows.Forms.DateTimePicker
+    Friend WithEvents BtnConsCargo As System.Windows.Forms.PictureBox
 End Class

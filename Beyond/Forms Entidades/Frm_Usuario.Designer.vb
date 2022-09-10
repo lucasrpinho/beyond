@@ -22,7 +22,7 @@ Partial Class Frm_Usuario
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_Usuario))
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.GrpBoxInfo = New System.Windows.Forms.GroupBox()
         Me.ComboNome = New System.Windows.Forms.ComboBox()
         Me.ChkBoxAtivo = New System.Windows.Forms.CheckBox()
         Me.TxtEmail = New System.Windows.Forms.TextBox()
@@ -36,32 +36,32 @@ Partial Class Frm_Usuario
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TxtSenhaConfirmar = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.GrpBoxCredenciais = New System.Windows.Forms.GroupBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.GroupBox1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
+        Me.GrpBoxInfo.SuspendLayout()
+        Me.GrpBoxCredenciais.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'GroupBox1
+        'GrpBoxInfo
         '
-        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.GrpBoxInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox1.Controls.Add(Me.ComboNome)
-        Me.GroupBox1.Controls.Add(Me.ChkBoxAtivo)
-        Me.GroupBox1.Controls.Add(Me.TxtEmail)
-        Me.GroupBox1.Controls.Add(Me.Label6)
-        Me.GroupBox1.Controls.Add(Me.TxtSobrenome)
-        Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Location = New System.Drawing.Point(16, 15)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(539, 214)
-        Me.GroupBox1.TabIndex = 0
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Informações - Usuário"
+        Me.GrpBoxInfo.Controls.Add(Me.ComboNome)
+        Me.GrpBoxInfo.Controls.Add(Me.ChkBoxAtivo)
+        Me.GrpBoxInfo.Controls.Add(Me.TxtEmail)
+        Me.GrpBoxInfo.Controls.Add(Me.Label6)
+        Me.GrpBoxInfo.Controls.Add(Me.TxtSobrenome)
+        Me.GrpBoxInfo.Controls.Add(Me.Label2)
+        Me.GrpBoxInfo.Controls.Add(Me.Label1)
+        Me.GrpBoxInfo.Location = New System.Drawing.Point(16, 15)
+        Me.GrpBoxInfo.Margin = New System.Windows.Forms.Padding(4)
+        Me.GrpBoxInfo.Name = "GrpBoxInfo"
+        Me.GrpBoxInfo.Padding = New System.Windows.Forms.Padding(4)
+        Me.GrpBoxInfo.Size = New System.Drawing.Size(539, 214)
+        Me.GrpBoxInfo.TabIndex = 0
+        Me.GrpBoxInfo.TabStop = False
+        Me.GrpBoxInfo.Text = "Informações"
         '
         'ComboNome
         '
@@ -205,25 +205,25 @@ Partial Class Frm_Usuario
         Me.Label5.TabIndex = 8
         Me.Label5.Text = "Confirme a senha"
         '
-        'GroupBox2
+        'GrpBoxCredenciais
         '
-        Me.GroupBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.GrpBoxCredenciais.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox2.Controls.Add(Me.PictureBox1)
-        Me.GroupBox2.Controls.Add(Me.TxtLogin)
-        Me.GroupBox2.Controls.Add(Me.Label4)
-        Me.GroupBox2.Controls.Add(Me.Label5)
-        Me.GroupBox2.Controls.Add(Me.TxtSenhaConfirmar)
-        Me.GroupBox2.Controls.Add(Me.Label3)
-        Me.GroupBox2.Controls.Add(Me.TxtSenha)
-        Me.GroupBox2.Location = New System.Drawing.Point(13, 237)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox2.Size = New System.Drawing.Size(539, 225)
-        Me.GroupBox2.TabIndex = 11
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Informações - Login"
+        Me.GrpBoxCredenciais.Controls.Add(Me.PictureBox1)
+        Me.GrpBoxCredenciais.Controls.Add(Me.TxtLogin)
+        Me.GrpBoxCredenciais.Controls.Add(Me.Label4)
+        Me.GrpBoxCredenciais.Controls.Add(Me.Label5)
+        Me.GrpBoxCredenciais.Controls.Add(Me.TxtSenhaConfirmar)
+        Me.GrpBoxCredenciais.Controls.Add(Me.Label3)
+        Me.GrpBoxCredenciais.Controls.Add(Me.TxtSenha)
+        Me.GrpBoxCredenciais.Location = New System.Drawing.Point(13, 237)
+        Me.GrpBoxCredenciais.Margin = New System.Windows.Forms.Padding(4)
+        Me.GrpBoxCredenciais.Name = "GrpBoxCredenciais"
+        Me.GrpBoxCredenciais.Padding = New System.Windows.Forms.Padding(4)
+        Me.GrpBoxCredenciais.Size = New System.Drawing.Size(539, 225)
+        Me.GrpBoxCredenciais.TabIndex = 11
+        Me.GrpBoxCredenciais.TabStop = False
+        Me.GrpBoxCredenciais.Text = "Credenciais"
         '
         'PictureBox1
         '
@@ -241,8 +241,8 @@ Partial Class Frm_Usuario
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Window
         Me.ClientSize = New System.Drawing.Size(571, 490)
-        Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.GrpBoxCredenciais)
+        Me.Controls.Add(Me.GrpBoxInfo)
         Me.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -253,15 +253,15 @@ Partial Class Frm_Usuario
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Usuário"
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        Me.GrpBoxInfo.ResumeLayout(False)
+        Me.GrpBoxInfo.PerformLayout()
+        Me.GrpBoxCredenciais.ResumeLayout(False)
+        Me.GrpBoxCredenciais.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents GrpBoxInfo As System.Windows.Forms.GroupBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents TxtSobrenome As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
@@ -272,7 +272,7 @@ Partial Class Frm_Usuario
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents TxtLogin As System.Windows.Forms.TextBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents GrpBoxCredenciais As System.Windows.Forms.GroupBox
     Friend WithEvents TxtEmail As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents ComboNome As System.Windows.Forms.ComboBox

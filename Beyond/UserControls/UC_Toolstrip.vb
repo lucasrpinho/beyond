@@ -51,7 +51,9 @@
     End Sub
 
     Public Sub ModoSelecionado(ByVal sender As System.Object, ByVal e As ToolStripItemClickedEventArgs)
-        ModoAnterior = Modo
+        If Modo IsNot "IMAGEM" Then
+            ModoAnterior = Modo
+        End If
         If e.ClickedItem Is BtnNovo Then
             Modo = "NOVO"
         ElseIf e.ClickedItem Is BtnSalvar Then
@@ -89,7 +91,6 @@
             Modo = modoAposAtivarPagina
         End If
 
-        ' Serve para quando uma operação falha e o toolstrip precisa retornar ao estado anterior em que estava antes de executar a operação
         If Not succ Then
             Modo = ModoAnterior
         End If
@@ -106,7 +107,7 @@
         ElseIf Modo = "PESQUISAR" Then
             For Each item As ToolStripItem In ToolStrip1.Items
                 If item IsNot BtnSeguinte AndAlso item IsNot BtnAnterior AndAlso item IsNot BtnFecharPag _
-                    AndAlso item IsNot BtnReverter Then
+                    AndAlso item IsNot BtnNovo Then
                     item.Enabled = False
                 Else
                     item.Enabled = True
@@ -137,7 +138,19 @@
                 End If
             Next
         ElseIf Modo = "REVERTER" Then
-            PagAberta_HabilitarBotoes()
+            If ModoAnterior = "ALTERAR" Or ModoAnterior = "EXCLUIR" Then
+                Modo = "PESQUISAR"
+                ModoAnterior = "REVERTER"
+                For Each item As ToolStripItem In ToolStrip1.Items
+                    If item IsNot BtnNovo AndAlso item IsNot BtnFecharPag Then
+                        item.Enabled = False
+                    Else
+                        item.Enabled = True
+                    End If
+                Next
+            ElseIf ModoAnterior = "NOVO" Then
+                Modo = "PADRÃO"
+            End If
         ElseIf Modo = "FECHAR" Then
             Dim mainForm = Application.OpenForms.OfType(Of Frm_Principal_MDI).FirstOrDefault
             If mainForm.TCPrincipal.TabPages.Count > 0 Then
@@ -167,8 +180,8 @@
 
     Public Sub AfterSuccessfulInsert()
         For Each item As ToolStripItem In ToolStrip1.Items
-            If item IsNot BtnAlterar AndAlso item IsNot BtnFecharPag AndAlso item IsNot BtnReverter _
-                AndAlso item IsNot BtnNovo Then
+            If item IsNot BtnAlterar AndAlso item IsNot BtnFecharPag _
+                AndAlso item IsNot BtnNovo AndAlso item IsNot BtnPesquisar Then
                 item.Enabled = False
             Else
                 item.Enabled = True
@@ -178,8 +191,8 @@
 
     Public Sub AfterSuccessfulUpdate()
         For Each item As ToolStripItem In ToolStrip1.Items
-            If item IsNot BtnNovo AndAlso item IsNot BtnExcluir AndAlso _
-                item IsNot BtnAlterar AndAlso item IsNot BtnReverter AndAlso item IsNot BtnFecharPag Then
+            If item IsNot BtnNovo AndAlso item IsNot BtnExcluir AndAlso item IsNot BtnPesquisar AndAlso _
+                item IsNot BtnAlterar AndAlso item IsNot BtnFecharPag Then
                 item.Enabled = False
             Else
                 item.Enabled = True
@@ -189,7 +202,7 @@
 
     Public Sub AfterSuccessfulDelete()
         For Each item As ToolStripItem In ToolStrip1.Items
-            If item IsNot BtnNovo AndAlso item IsNot BtnReverter AndAlso item IsNot BtnFecharPag _
+            If item IsNot BtnNovo AndAlso item IsNot BtnFecharPag _
                 AndAlso item IsNot BtnPesquisar Then
                 item.Enabled = False
             Else

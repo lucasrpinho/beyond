@@ -6,7 +6,7 @@ Public Class Vendedor
     Private _CodCargo As Integer
     Private _Nome As String
     Public Sobrenome As String
-    Public NomeCompleto As String
+    Private _NomeCompleto As String
     Public ObjEndereco As Endereco
     Public Observacao As String
     Public Foto As String
@@ -41,6 +41,15 @@ Public Class Vendedor
         End Set
     End Property
 
+    Public Property NomeCompleto As String
+        Get
+            Return _NomeCompleto
+        End Get
+        Set(value As String)
+            _NomeCompleto = value
+        End Set
+    End Property
+
     Public Sub New()
         Me.ObjEndereco = New Endereco
     End Sub
@@ -49,27 +58,27 @@ Public Class Vendedor
         strError = String.Empty
 
         If Me.CodVendedor <> 0 Then
-            strError = "Código do vendedor deve ser vazio pois será gerado"
+            strError = "Código do vendedor deve ser vazio pois será gerado."
         ElseIf Me.CodCargo <= 0 Then
-            strError = "Cargo precisa ser preenchido"
+            strError = "Cargo precisa ser preenchido."
         ElseIf Me.Nome = "" Then
-            strError = "Nome precisa estar preenchido"
+            strError = "Nome precisa estar preenchido."
         ElseIf Me.Sobrenome = "" Then
-            strError = "Sobrenome precisa estar preenchido"
+            strError = "Sobrenome precisa estar preenchido."
         ElseIf Me.ObjEndereco.CEP = "" Or Me.ObjEndereco.CEP.ToString.Length > 8 Then
-            strError = "CEP não pode ser vazio"
+            strError = "CEP não pode ser vazio."
         ElseIf Me.ObjEndereco.Bairro = "" Then
-            strError = "Bairro precisa ser preenchido"
+            strError = "Bairro precisa ser preenchido."
         ElseIf Me.ObjEndereco.Cidade = "" Then
-            strError = "Cidade precisa ser preenchida"
+            strError = "Cidade precisa ser preenchida."
         ElseIf Me.ObjEndereco.UF = "" Or Me.ObjEndereco.UF.ToString.Length > 2 Then
-            strError = "Estado precisa ser preenchido e deve conter no máximo dois caracteres (UF)"
+            strError = "Estado precisa ser preenchido e deve conter no máximo dois caracteres (UF)."
         ElseIf Me.ObjEndereco.Logradouro = "" Then
-            strError = "Logradouro precisa ser preenchido"
+            strError = "Logradouro precisa ser preenchido."
         ElseIf Me.ObjEndereco.NumeroEndereco = 0 Then
-            strError = "Número do endereço precisa ser preenchido"
+            strError = "Número do endereço precisa ser preenchido."
         ElseIf Me.Foto = "" Then
-            strError = "Vendedor precisa ter uma foto no seu cadastro"
+            strError = "Vendedor precisa ter uma foto no seu cadastro."
         End If
         Return String.IsNullOrWhiteSpace(strError)
     End Function

@@ -36,16 +36,16 @@ Public Class Frm_Cliente_Cargo
         If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Ao confirmar, o cliente " + Cliente.Nome + _
             " perderá a informação de cargo " + Cargo.Nome, "Confirmar") Then
             Dim resposta As String = ""
-            If DAO.RemoveCargoCliente(Cliente.CodCliente, resposta) Then
+            If DAO.RemoveCargoCliente(Cliente.CodCliente, loginusuario, resposta) Then
                 Uteis.MsgBoxHelper.Msg(Me, "O Cliente " + Cliente.Nome + " não possui mais o cargo " + _
-                    Cargo.Nome, "Sucesso")
+                    Cargo.Nome + ".", "Sucesso")
                 Cargo = Nothing
                 Cliente = Nothing
                 Cursor.Current = Cursors.WaitCursor
                 System.Threading.Thread.Sleep(2000)
                 Me.Close()
             Else
-                Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
+                Uteis.MsgBoxHelper.Alerta(Me, resposta, "Erro")
             End If
         End If
     End Sub

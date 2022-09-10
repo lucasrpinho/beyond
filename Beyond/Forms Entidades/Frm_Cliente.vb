@@ -29,7 +29,7 @@ Public Class Frm_Cliente
     End Sub
 
     Private Sub Frm_Cliente_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        DAOCliente.ReverterOuCommitar()
+        'DAOCliente.ReverterOuCommitar()
         RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
@@ -239,7 +239,7 @@ Public Class Frm_Cliente
         ElseIf MyModo.UniqueModo = "REVERTER" Then
             If IsOperacaoActive Then
                 If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja reverter a operação?", "Reverter") Then
-                    DAOCliente.ReverterOuCommitar(True)
+                    'DAOCliente.ReverterOuCommitar(True)
                     IsOperacaoActive = False
                 End If
             End If
@@ -331,10 +331,6 @@ Public Class Frm_Cliente
         End If
     End Sub
 
-    Private Sub BtnConsCargo_Click(sender As System.Object, e As System.EventArgs) Handles BtnConsCargo.Click
-        Dim frm As New Frm_Cliente_Cargo(frmPrincipal, LstCargos(ComboCargo.SelectedIndex).CodCargo)
-        frm.ShowDialog()
-    End Sub
 
     Private Sub ComboCargo_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboCargo.SelectedIndexChanged
         Dim existe As Boolean
@@ -342,7 +338,7 @@ Public Class Frm_Cliente
             If ComboCargo.Text <> String.Empty Then
                 If DAOCliente.ChecaCargoCliente(LstCargos(ComboCargo.SelectedIndex).CodCargo, existe) Then
                     MsgBoxHelper.CustomTooltip(GrpBoxInfo, ComboCargo, "Outro cliente já possui esse cargo.", "Alerta")
-                    BtnConsCargo.Enabled = True
+                    BtnConsCargo.Visible = True
                 End If
             End If
         End If
@@ -377,5 +373,10 @@ Public Class Frm_Cliente
         ControlsHelper.SetControlsDisabled(GrpBoxEndereco.Controls)
         ComboNome.Enabled = True
         CarregaClientes()
+    End Sub
+
+    Private Sub BtnConsCargo_Click_1(sender As System.Object, e As System.EventArgs) Handles BtnConsCargo.Click
+        Dim frm As New Frm_Cliente_Cargo(frmPrincipal, LstCargos(ComboCargo.SelectedIndex).CodCargo)
+        frm.ShowDialog()
     End Sub
 End Class

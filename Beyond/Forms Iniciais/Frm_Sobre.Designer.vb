@@ -52,7 +52,7 @@ Partial Class Frm_Sobre
         '
         Me.LblNomeAutor.AutoSize = True
         Me.LblNomeAutor.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblNomeAutor.Location = New System.Drawing.Point(88, 101)
+        Me.LblNomeAutor.Location = New System.Drawing.Point(73, 101)
         Me.LblNomeAutor.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblNomeAutor.Name = "LblNomeAutor"
         Me.LblNomeAutor.Size = New System.Drawing.Size(53, 17)
@@ -86,9 +86,9 @@ Partial Class Frm_Sobre
         '
         Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(363, 12)
+        Me.PictureBox1.Location = New System.Drawing.Point(276, 44)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(226, 187)
+        Me.PictureBox1.Size = New System.Drawing.Size(124, 113)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 4
         Me.PictureBox1.TabStop = False
@@ -128,7 +128,7 @@ Partial Class Frm_Sobre
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Window
-        Me.ClientSize = New System.Drawing.Size(601, 209)
+        Me.ClientSize = New System.Drawing.Size(412, 209)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
