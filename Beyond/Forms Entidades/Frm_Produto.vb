@@ -7,8 +7,8 @@ Public Class Frm_Produto
     Private StrImgPath As String = ""
     Private DAOProd As New DAO.DAO
     Private MyModo As New UC_Toolstrip.UniqueModo
-    Private IsOperacaoActive As Boolean = False
     Friend objProduto As Produto
+
 
     Public Sub New(ByVal frm As Frm_Principal_MDI)
 
@@ -21,7 +21,6 @@ Public Class Frm_Produto
     End Sub
 
     Private Sub Frm_Produto_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        'DAOProd.ReverterOuCommitar()
         frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = False
         RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
@@ -84,7 +83,6 @@ Public Class Frm_Produto
         End If
 
         objProduto = prod
-        IsOperacaoActive = True
         Return True
     End Function
 
@@ -98,31 +96,29 @@ Public Class Frm_Produto
         MyModo.UniqueModo = UC_Toolstrip.Modo
 
         If MyModo.UniqueModo = "SALVAR" Then
-            If UC_Toolstrip.ModoAnterior Is "NOVO" Then
+            If UC_Toolstrip.ModoAnterior = "NOVO" Then
                 If Insere() Then
-                    Uteis.ControlsHelper.SetControlsDisabled(Me)
+                    LimpaCampos_AtivaControles()
+                    Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
                 Else
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                    frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
                 End If
             Else
-                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "O registro será modificado. Deseja continuar?", "Alterar") Then
-                    If Not DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, loginusuario) Then
-                        frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                    Else
-                        Uteis.ControlsHelper.SetControlsDisabled(Me)
-                        frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
-                        IsOperacaoActive = True
-                    End If
+                If Not DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, loginusuario) Then
+                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                    MsgBoxHelper.Alerta(Me, resposta, "Erro")
+                Else
+                    Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
                 End If
             End If
 
 
         ElseIf MyModo.UniqueModo = "ALTERAR" Then
-            ControlsHelper.SetControlsEnabled(Me.Controls)
-            TxtCategoria.Enabled = False
-            PicBoxFoto.Enabled = False
-            TxtDesc.Enabled = False
+            ModoAlterar()
+
 
         ElseIf MyModo.UniqueModo = "NOVO" Then
             LimpaCampos_AtivaControles()
@@ -130,38 +126,26 @@ Public Class Frm_Produto
             ClearImg()
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
-            objProduto = Nothing
-            LimpaCampos_AtivaControles()
-            ControlsHelper.SetControlsDisabled(Me.Controls)
-            Dim frmCons As New Frm_ConsProduto(Me)
-            frmCons.ShowDialog()
-            If objProduto IsNot Nothing Then
-                PreencheCampos(objProduto)
-                frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
-                frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnAnterior").Enabled = False
-                frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnSeguinte").Enabled = False
-            Else
-                frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
+            If UC_Toolstrip.ModoAnterior = "REVERTER" Then
+                ModoPesquisaPreenchido()
+                Exit Sub
             End If
+            ModoPesquisa()
 
 
         ElseIf MyModo.UniqueModo = "REVERTER" Then
-            If IsOperacaoActive Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja reverter a operação?", "Reverter") Then
-                    'DAOProd.ReverterOuCommitar(True)
-                    IsOperacaoActive = False
-                End If
+            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
+                ToolStrip_ItemClicked()
+            Else
+                Exit Sub
             End If
-            LimpaCampos_AtivaControles()
-            Uteis.ControlsHelper.SetControlsDisabled(Me)
 
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
-                If DAOProd.AtualizaProduto(objProduto, "", loginusuario, True) Then
-                    IsOperacaoActive = True
+                If DAOProd.AtualizaProduto(GetProdutoForOperation, "", loginusuario, True) Then
                     LimpaCampos_AtivaControles()
-                    ControlsHelper.SetControlsDisabled(Me)
+                    ControlsHelper.SetControlsDisabled(Me.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
                 End If
             Else
@@ -171,6 +155,10 @@ Public Class Frm_Produto
         ElseIf MyModo.UniqueModo = "IMAGEM" Then
             CarregaImagem()
 
+        ElseIf MyModo.UniqueModo = "PADRÃO" Then
+        LimpaCampos_AtivaControles()
+        frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
+        Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
         End If
 
     End Sub
@@ -195,7 +183,8 @@ Public Class Frm_Produto
     End Sub
 
     Private Sub TxtQtd_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtQtd.KeyPress
-        If Char.IsLetter(e.KeyChar) Then
+        If Char.IsLetter(e.KeyChar) Or Char.IsSymbol(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or Char.IsSeparator(e.KeyChar) _
+            Or e.KeyChar = "," Then
             e.KeyChar = ""
         End If
     End Sub
@@ -247,5 +236,37 @@ Public Class Frm_Produto
 
         Return prod
     End Function
+
+    Private Sub ModoAlterar()
+        ControlsHelper.SetControlsEnabled(Me.Controls)
+        TxtCategoria.Enabled = False
+        PicBoxFoto.Enabled = False
+        TxtDesc.Enabled = False
+    End Sub
+
+    Private Sub ModoPesquisa()
+        objProduto = Nothing
+        LimpaCampos_AtivaControles()
+        ControlsHelper.SetControlsDisabled(Me.Controls)
+        Dim frmCons As New Frm_ConsProduto(Me)
+        frmCons.ShowDialog()
+        If objProduto IsNot Nothing Then
+            PreencheCampos(objProduto)
+            frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
+            frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnAnterior").Enabled = False
+            frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnSeguinte").Enabled = False
+        Else
+            frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
+        End If
+    End Sub
+
+    Private Sub ModoPesquisaPreenchido()
+        LimpaCampos_AtivaControles()
+        ControlsHelper.SetControlsDisabled(Me.Controls)
+        PreencheCampos(objProduto)
+        frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
+        frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnAnterior").Enabled = False
+        frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnSeguinte").Enabled = False
+    End Sub
 
 End Class

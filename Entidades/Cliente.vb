@@ -65,7 +65,7 @@ Public Class Cliente
 
     Public Sub Carrega(ByVal row As DataRow)
         Me.CodCliente = row.Field(Of Integer)("cod_cliente")
-        Me.CodCargo = row.Field(Of Int16)("cod_cargo")
+        Me.CodCargo = If(row.IsNull("cod_cargo"), 0, row.Field(Of Int16)("cod_cargo"))
         Me.Nome = row.Field(Of String)("de_nome_completo")
         Me.DatNasc = row.Field(Of Date)("dat_nasc")
         Me.Empresa = row.Field(Of String)("de_empresa")

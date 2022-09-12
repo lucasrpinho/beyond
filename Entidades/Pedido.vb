@@ -1,19 +1,18 @@
 ﻿Public Class Pedido
 
-    Private _CodPedido As Integer = 0
-    Public ObjCliente As Cliente
-    Public ObjProduto As Produto
+    Private _CodPedido As String
+    Private _CodCliente As Integer
+    Private _CodVendedor As Integer
+    Public LstProduto As List(Of Produto)
     Public Destinatario As String
+    Public ValorTotal As Decimal
     Public DatVenda As Date
-    Private _CEP As String
-    Private _Logradouro As String
-    Private _NumeroEndereco As Integer = 0
-    Private _Bairro As String
-    Private _Cidade As String
-    Private _Complemento As String
-    Public Estado As String
+    Public ObjEndereco As Endereco
     Public Observacao As String
     Public IsPresente As Boolean
+    Public IsClienteDestinatario As Boolean
+    Public DatCriacao As DateTime
+    Public LoginCriacao As String
 
     Public Property CodPedido()
         Get
@@ -24,107 +23,65 @@
         End Set
     End Property
 
-    'Public Property CodCliente()
-    '    Get
-    '        Return _CodCliente
-    '    End Get
-    '    Set(value)
-    '        _CodCliente = value
-    '    End Set
-    'End Property
+    Public Property CodCliente()
+        Get
+            Return _CodCliente
+        End Get
+        Set(value)
+            _CodCliente = value
+        End Set
+    End Property
 
-    'Public Property CodProduto()
+    Public Property CodVendedor()
+        Get
+            Return _CodVendedor
+        End Get
+        Set(value)
+            _CodVendedor = value
+        End Set
+    End Property
+
+    'Public ProPerty CodProduto()
     '    Get
     '        Return _CodProduto
     '    End Get
     '    Set(value)
     '        _CodProduto = value
     '    End Set
-    'End Property
+    'End ProPerty
 
-    Public Property CEP()
-        Get
-            Return _CEP
-        End Get
-        Set(value)
-            _CEP = value
-        End Set
-    End Property
 
-    Public Property Logradouro()
-        Get
-            Return _Logradouro
-        End Get
-        Set(value)
-            _Logradouro = value
-        End Set
-    End Property
-
-    Public Property NumeroEndereco()
-        Get
-            Return _NumeroEndereco
-        End Get
-        Set(value)
-            _NumeroEndereco = value
-        End Set
-    End Property
-
-    Public Property Bairro()
-        Get
-            Return _Bairro
-        End Get
-        Set(value)
-            _Bairro = value
-        End Set
-    End Property
-
-    Public Property Cidade()
-        Get
-            Return _Cidade
-        End Get
-        Set(value)
-            _Cidade = value
-        End Set
-    End Property
-
-    Public Property Complemento()
-        Get
-            Return _Complemento
-        End Get
-        Set(value)
-            _Complemento = value
-        End Set
-    End Property
-
-    Public Shared Function IsValid(ByVal p As Pedido, ByRef strError As String) As Boolean
+    Public Function IsValid(ByRef strError As String) As Boolean
         strError = ""
 
-        If Not p.ObjCliente.IsAtivo Then
-            strError = "O cliente selecionado está inativo"
-        ElseIf Not p.ObjProduto.IsAtivo Then
-            strError = "O produto selecionado está inativo"
-        ElseIf p.Logradouro = "" Then
-            strError = "Logradouro precisa ser preenchido"
-        ElseIf p.Bairro = "" Then
-            strError = "Bairro precisa ser preenchido"
-        ElseIf p.Cidade = "" Then
-            strError = "Cidade precisa ser preenchida"
-        ElseIf p.Estado = "" Then
-            strError = "Estado precisa ser selecionado"
-        ElseIf p.NumeroEndereco = 0 Then
-            strError = "Número do endereço não pode ser zero"
-        ElseIf p.ObjProduto Is Nothing Then
-            strError = "Pedidos sem produtos não podem ser gravados"
-        ElseIf p.ObjCliente Is Nothing Then
-            strError = "Pedidos sem cliente não podem ser gravados"
-        ElseIf p.CEP = "" Then
-            strError = "CEP precisa ser preenchido"
-        ElseIf p.Destinatario = "" Then
-            strError = "Destinatário precisa ser preenchido"
+        If Me.LstProduto.Count = 0 Then
+            strError = "O pedido está sem produtos no carrinho."
+        ElseIf Not Me.LstProduto.Any(Function(p As Produto) p.IsAtivo = False) Then
+            strError = "Produtos inativos não podem ser inseridos no pedido."
+        ElseIf Me.CodCliente = 0 Then
+            strError = "O pedido está sem um cliente vinculado."
+        ElseIf Me.Destinatario = "" Then
+            strError = "O pedido está sem um destinatário."
+        ElseIf Me.CodVendedor = 0 Then
+            strError = "O pedido está sem um vendedor vinculado."
+        ElseIf Me.ObjEndereco Is Nothing Then
+            strError = "O pedido precisa ter um endereço um preenchido."
         End If
 
         Return String.IsNullOrWhiteSpace(strError)
 
     End Function
+
+    Public Sub Carrega(ByVal row As Data.DataRow)
+        Me.CodPedido = row.Field(Of String)("cod_pedido")
+        Me.CodCliente = row.Field(Of Integer)("cod_cliente")
+        Me.CodVendedor = row.Field(Of Integer)("cod_vendedor")
+        Me.DatCriacao = row.Field(Of DateTime)("dat_criacao")
+        Me.LoginCriacao = row.Field(Of String)("de_login_criacao")
+        Me.DatVenda = row.Field(Of DateTime)("dat_venda")
+        Me.Destinatario = row.Field(Of String)("de_destinatario")
+        Me.IsPresente = row.Field(Of Boolean)("ct_presente")
+        Me.ValorTotal = row.Field(Of Decimal)("nu_valor_total")
+    End Sub
 
 End Class

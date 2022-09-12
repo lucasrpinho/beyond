@@ -4,7 +4,7 @@ Public Class Produto
 
     Private _CodProduto As Integer = 0
     Public Categoria As String
-    Public Descricao As String
+    Private _Descricao As String
     Public Preco As Decimal
     Public Quantidade As Integer
     Public Imagem As String
@@ -18,6 +18,15 @@ Public Class Produto
         End Get
         Set(value)
             _CodProduto = value
+        End Set
+    End Property
+
+    Public Property Descricao
+        Get
+            Return _Descricao
+        End Get
+        Set(value)
+            _Descricao = value
         End Set
     End Property
 

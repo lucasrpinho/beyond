@@ -2,25 +2,27 @@
 
 Public Class PedidoItem
 
-    Public ObjPedido As Pedido
-    Public LstProduto As List(Of Produto)
+    Public CodPedido As String
+    Public CodProduto As Integer
     Public Quantidade As Integer
 
-    Public Shared Function IsValid(ByVal pi As PedidoItem, ByRef strError As String) As Boolean
+    Public Function IsValid(ByRef strError As String) As Boolean
         strError = ""
-        Dim hasDuplicates As Boolean
-        hasDuplicates = pi.LstProduto.Count <>
-            (From p In pi.LstProduto
-            Select p.CodProduto
-            Distinct).Count
-        If pi.ObjPedido Is Nothing Then
-            strError = "Pedido não pode ser vazio"
-        ElseIf Not pi.LstProduto.Count > 0 Then
-            strError = "Pedido deve conter um produto ou mais"
-        ElseIf hasDuplicates Then
-            strError = "Um pedido não pode conter mais de um mesmo produto"
+
+        If Me.CodPedido = String.Empty Then
+            strError = "Pedido está vazio."
+        ElseIf Me.CodProduto = 0 Then
+            strError = "Pedido deve conter um produto."
+        ElseIf Quantidade <= 0 Then
+            strError = "Quantidade deve ser maior que zero."
         End If
         Return String.IsNullOrWhiteSpace(strError)
     End Function
+
+    Public Sub Carrega(ByVal row As Data.DataRow)
+        Me.CodPedido = row.Field(Of String)("cod_pedido")
+        Me.CodProduto = row.Field(Of Integer)("cod_produto")
+        Me.Quantidade = row.Field(Of Integer)("nu_quantidade")
+    End Sub
 
 End Class

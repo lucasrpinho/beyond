@@ -42,7 +42,7 @@ Partial Class Frm_Pedido
         Me.LblCep = New System.Windows.Forms.Label()
         Me.GrpBoxInfo = New System.Windows.Forms.GroupBox()
         Me.ChkDestinatario = New System.Windows.Forms.CheckBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TxtCod = New System.Windows.Forms.TextBox()
         Me.DtPckVenda = New System.Windows.Forms.DateTimePicker()
         Me.TxtDestinatario = New System.Windows.Forms.TextBox()
         Me.ComboVendedor = New System.Windows.Forms.ComboBox()
@@ -53,14 +53,12 @@ Partial Class Frm_Pedido
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabProduto = New System.Windows.Forms.TabPage()
-        Me.LstCarrinho = New System.Windows.Forms.ListView()
-        Me.ColDescricao1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColUniPreco = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColQtd1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColPrecoTotal = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.ChkPresente = New System.Windows.Forms.CheckBox()
+        Me.TxtPreco = New System.Windows.Forms.TextBox()
+        Me.TxtDesc = New System.Windows.Forms.TextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
+        Me.ComboProduto = New System.Windows.Forms.ComboBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.ComboCategoria = New System.Windows.Forms.ComboBox()
         Me.LstProd = New System.Windows.Forms.ListView()
@@ -68,17 +66,40 @@ Partial Class Frm_Pedido
         Me.ColDescricao = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColPreco = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColQtd = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.TabItens = New System.Windows.Forms.TabPage()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.ColImagem = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.ColDesc = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ColPreco1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ColPrecoTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ColQtd1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ColQtdBtn = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.ListView1 = New System.Windows.Forms.ListView()
+        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.ChkPresente = New System.Windows.Forms.CheckBox()
+        Me.PicInsereProd = New System.Windows.Forms.PictureBox()
+        Me.PicProd = New System.Windows.Forms.PictureBox()
         Me.TCPedido.SuspendLayout()
         Me.TabDados.SuspendLayout()
         Me.GrpBoxEndereco.SuspendLayout()
         Me.GrpBoxInfo.SuspendLayout()
         Me.TabProduto.SuspendLayout()
+        Me.TabItens.SuspendLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicInsereProd, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicProd, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TCPedido
         '
         Me.TCPedido.Controls.Add(Me.TabDados)
         Me.TCPedido.Controls.Add(Me.TabProduto)
+        Me.TCPedido.Controls.Add(Me.TabItens)
         Me.TCPedido.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCPedido.Location = New System.Drawing.Point(0, 0)
         Me.TCPedido.Name = "TCPedido"
@@ -264,7 +285,7 @@ Partial Class Frm_Pedido
         'GrpBoxInfo
         '
         Me.GrpBoxInfo.Controls.Add(Me.ChkDestinatario)
-        Me.GrpBoxInfo.Controls.Add(Me.TextBox1)
+        Me.GrpBoxInfo.Controls.Add(Me.TxtCod)
         Me.GrpBoxInfo.Controls.Add(Me.DtPckVenda)
         Me.GrpBoxInfo.Controls.Add(Me.TxtDestinatario)
         Me.GrpBoxInfo.Controls.Add(Me.ComboVendedor)
@@ -293,15 +314,15 @@ Partial Class Frm_Pedido
         Me.ChkDestinatario.Text = "Destinatário"
         Me.ChkDestinatario.UseVisualStyleBackColor = True
         '
-        'TextBox1
+        'TxtCod
         '
-        Me.TextBox1.Enabled = False
-        Me.TextBox1.Location = New System.Drawing.Point(16, 52)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(185, 25)
-        Me.TextBox1.TabIndex = 11
-        Me.TextBox1.TabStop = False
+        Me.TxtCod.Enabled = False
+        Me.TxtCod.Location = New System.Drawing.Point(16, 52)
+        Me.TxtCod.Name = "TxtCod"
+        Me.TxtCod.ReadOnly = True
+        Me.TxtCod.Size = New System.Drawing.Size(185, 25)
+        Me.TxtCod.TabIndex = 11
+        Me.TxtCod.TabStop = False
         '
         'DtPckVenda
         '
@@ -382,9 +403,14 @@ Partial Class Frm_Pedido
         '
         'TabProduto
         '
-        Me.TabProduto.Controls.Add(Me.LstCarrinho)
-        Me.TabProduto.Controls.Add(Me.ChkPresente)
+        Me.TabProduto.Controls.Add(Me.PicInsereProd)
+        Me.TabProduto.Controls.Add(Me.TxtPreco)
+        Me.TabProduto.Controls.Add(Me.TxtDesc)
+        Me.TabProduto.Controls.Add(Me.Label16)
+        Me.TabProduto.Controls.Add(Me.Label15)
+        Me.TabProduto.Controls.Add(Me.PicProd)
         Me.TabProduto.Controls.Add(Me.Label13)
+        Me.TabProduto.Controls.Add(Me.ComboProduto)
         Me.TabProduto.Controls.Add(Me.Label11)
         Me.TabProduto.Controls.Add(Me.ComboCategoria)
         Me.TabProduto.Controls.Add(Me.LstProd)
@@ -396,69 +422,61 @@ Partial Class Frm_Pedido
         Me.TabProduto.Text = "Produtos"
         Me.TabProduto.UseVisualStyleBackColor = True
         '
-        'LstCarrinho
+        'TxtPreco
         '
-        Me.LstCarrinho.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColDescricao1, Me.ColUniPreco, Me.ColQtd1, Me.ColPrecoTotal})
-        Me.LstCarrinho.FullRowSelect = True
-        Me.LstCarrinho.GridLines = True
-        Me.LstCarrinho.LargeImageList = Me.ImageList1
-        Me.LstCarrinho.Location = New System.Drawing.Point(6, 268)
-        Me.LstCarrinho.Name = "LstCarrinho"
-        Me.LstCarrinho.Size = New System.Drawing.Size(711, 151)
-        Me.LstCarrinho.TabIndex = 12
-        Me.LstCarrinho.UseCompatibleStateImageBehavior = False
-        Me.LstCarrinho.View = System.Windows.Forms.View.Details
+        Me.TxtPreco.Location = New System.Drawing.Point(228, 336)
+        Me.TxtPreco.Name = "TxtPreco"
+        Me.TxtPreco.ReadOnly = True
+        Me.TxtPreco.Size = New System.Drawing.Size(173, 25)
+        Me.TxtPreco.TabIndex = 9
         '
-        'ColDescricao1
+        'TxtDesc
         '
-        Me.ColDescricao1.Text = "Descrição"
-        Me.ColDescricao1.Width = 366
+        Me.TxtDesc.Location = New System.Drawing.Point(228, 286)
+        Me.TxtDesc.Name = "TxtDesc"
+        Me.TxtDesc.ReadOnly = True
+        Me.TxtDesc.Size = New System.Drawing.Size(550, 25)
+        Me.TxtDesc.TabIndex = 8
         '
-        'ColUniPreco
+        'Label16
         '
-        Me.ColUniPreco.Text = "Preço Unitário"
-        Me.ColUniPreco.Width = 120
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(224, 264)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(67, 19)
+        Me.Label16.TabIndex = 7
+        Me.Label16.Text = "Descrição"
         '
-        'ColQtd1
+        'Label15
         '
-        Me.ColQtd1.Text = "Quantidade"
-        Me.ColQtd1.Width = 80
-        '
-        'ColPrecoTotal
-        '
-        Me.ColPrecoTotal.Text = "Preço Total"
-        Me.ColPrecoTotal.Width = 140
-        '
-        'ImageList1
-        '
-        Me.ImageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit
-        Me.ImageList1.ImageSize = New System.Drawing.Size(32, 32)
-        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
-        '
-        'ChkPresente
-        '
-        Me.ChkPresente.AutoSize = True
-        Me.ChkPresente.Font = New System.Drawing.Font("Segoe UI", 8.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChkPresente.Location = New System.Drawing.Point(641, 247)
-        Me.ChkPresente.Name = "ChkPresente"
-        Me.ChkPresente.Size = New System.Drawing.Size(71, 19)
-        Me.ChkPresente.TabIndex = 11
-        Me.ChkPresente.Text = "Presente"
-        Me.ChkPresente.UseVisualStyleBackColor = True
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(224, 314)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(43, 19)
+        Me.Label15.TabIndex = 6
+        Me.Label15.Text = "Preço"
         '
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(3, 246)
+        Me.Label13.Location = New System.Drawing.Point(5, 54)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(62, 19)
-        Me.Label13.TabIndex = 5
-        Me.Label13.Text = "Carrinho"
+        Me.Label13.Size = New System.Drawing.Size(59, 19)
+        Me.Label13.TabIndex = 4
+        Me.Label13.Text = "Produto"
+        '
+        'ComboProduto
+        '
+        Me.ComboProduto.FormattingEnabled = True
+        Me.ComboProduto.Location = New System.Drawing.Point(9, 76)
+        Me.ComboProduto.Name = "ComboProduto"
+        Me.ComboProduto.Size = New System.Drawing.Size(485, 25)
+        Me.ComboProduto.TabIndex = 3
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(6, 13)
+        Me.Label11.Location = New System.Drawing.Point(3, 3)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(68, 19)
         Me.Label11.TabIndex = 2
@@ -467,9 +485,9 @@ Partial Class Frm_Pedido
         'ComboCategoria
         '
         Me.ComboCategoria.FormattingEnabled = True
-        Me.ComboCategoria.Location = New System.Drawing.Point(6, 35)
+        Me.ComboCategoria.Location = New System.Drawing.Point(9, 25)
         Me.ComboCategoria.Name = "ComboCategoria"
-        Me.ComboCategoria.Size = New System.Drawing.Size(486, 25)
+        Me.ComboCategoria.Size = New System.Drawing.Size(483, 25)
         Me.ComboCategoria.TabIndex = 1
         '
         'LstProd
@@ -478,9 +496,10 @@ Partial Class Frm_Pedido
         Me.LstProd.FullRowSelect = True
         Me.LstProd.GridLines = True
         Me.LstProd.LargeImageList = Me.ImageList1
-        Me.LstProd.Location = New System.Drawing.Point(6, 66)
+        Me.LstProd.Location = New System.Drawing.Point(9, 107)
+        Me.LstProd.MultiSelect = False
         Me.LstProd.Name = "LstProd"
-        Me.LstProd.Size = New System.Drawing.Size(777, 151)
+        Me.LstProd.Size = New System.Drawing.Size(769, 151)
         Me.LstProd.TabIndex = 0
         Me.LstProd.UseCompatibleStateImageBehavior = False
         Me.LstProd.View = System.Windows.Forms.View.Details
@@ -505,6 +524,155 @@ Partial Class Frm_Pedido
         Me.ColQtd.Text = "Quantidade"
         Me.ColQtd.Width = 100
         '
+        'ImageList1
+        '
+        Me.ImageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit
+        Me.ImageList1.ImageSize = New System.Drawing.Size(32, 32)
+        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
+        '
+        'TabItens
+        '
+        Me.TabItens.Controls.Add(Me.ChkPresente)
+        Me.TabItens.Controls.Add(Me.DataGridView1)
+        Me.TabItens.Controls.Add(Me.ListView1)
+        Me.TabItens.Controls.Add(Me.Label14)
+        Me.TabItens.Location = New System.Drawing.Point(4, 26)
+        Me.TabItens.Name = "TabItens"
+        Me.TabItens.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabItens.Size = New System.Drawing.Size(786, 442)
+        Me.TabItens.TabIndex = 2
+        Me.TabItens.Text = "Itens"
+        Me.TabItens.UseVisualStyleBackColor = True
+        '
+        'DataGridView1
+        '
+        Me.DataGridView1.AllowUserToAddRows = False
+        Me.DataGridView1.ColumnHeadersHeight = 35
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ColImagem, Me.ColDesc, Me.ColPreco1, Me.ColPrecoTotal, Me.ColQtd1, Me.ColQtdBtn})
+        Me.DataGridView1.Location = New System.Drawing.Point(8, 252)
+        Me.DataGridView1.MultiSelect = False
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DataGridView1.Size = New System.Drawing.Size(775, 150)
+        Me.DataGridView1.TabIndex = 15
+        '
+        'ColImagem
+        '
+        Me.ColImagem.HeaderText = "Imagem"
+        Me.ColImagem.Name = "ColImagem"
+        Me.ColImagem.ReadOnly = True
+        '
+        'ColDesc
+        '
+        Me.ColDesc.HeaderText = "Descrição"
+        Me.ColDesc.MinimumWidth = 250
+        Me.ColDesc.Name = "ColDesc"
+        Me.ColDesc.ReadOnly = True
+        Me.ColDesc.Width = 250
+        '
+        'ColPreco1
+        '
+        Me.ColPreco1.HeaderText = "Preço Unitário"
+        Me.ColPreco1.MinimumWidth = 120
+        Me.ColPreco1.Name = "ColPreco1"
+        Me.ColPreco1.ReadOnly = True
+        Me.ColPreco1.Width = 120
+        '
+        'ColPrecoTotal
+        '
+        Me.ColPrecoTotal.HeaderText = "Preço Total"
+        Me.ColPrecoTotal.MinimumWidth = 150
+        Me.ColPrecoTotal.Name = "ColPrecoTotal"
+        Me.ColPrecoTotal.ReadOnly = True
+        Me.ColPrecoTotal.Width = 150
+        '
+        'ColQtd1
+        '
+        Me.ColQtd1.HeaderText = "Quantidade"
+        Me.ColQtd1.MinimumWidth = 100
+        Me.ColQtd1.Name = "ColQtd1"
+        Me.ColQtd1.ReadOnly = True
+        '
+        'ColQtdBtn
+        '
+        Me.ColQtdBtn.HeaderText = ""
+        Me.ColQtdBtn.MinimumWidth = 60
+        Me.ColQtdBtn.Name = "ColQtdBtn"
+        Me.ColQtdBtn.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.ColQtdBtn.Width = 60
+        '
+        'ListView1
+        '
+        Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4})
+        Me.ListView1.GridLines = True
+        Me.ListView1.LargeImageList = Me.ImageList1
+        Me.ListView1.Location = New System.Drawing.Point(8, 25)
+        Me.ListView1.Name = "ListView1"
+        Me.ListView1.Size = New System.Drawing.Size(772, 221)
+        Me.ListView1.TabIndex = 14
+        Me.ListView1.TileSize = New System.Drawing.Size(260, 30)
+        Me.ListView1.UseCompatibleStateImageBehavior = False
+        Me.ListView1.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader1
+        '
+        Me.ColumnHeader1.Text = "Descrição"
+        Me.ColumnHeader1.Width = 366
+        '
+        'ColumnHeader2
+        '
+        Me.ColumnHeader2.Text = "Preço Unitário"
+        Me.ColumnHeader2.Width = 120
+        '
+        'ColumnHeader3
+        '
+        Me.ColumnHeader3.Text = "Quantidade"
+        Me.ColumnHeader3.Width = 80
+        '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "Preço Total"
+        Me.ColumnHeader4.Width = 140
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(6, 3)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(62, 19)
+        Me.Label14.TabIndex = 13
+        Me.Label14.Text = "Carrinho"
+        '
+        'ChkPresente
+        '
+        Me.ChkPresente.AutoSize = True
+        Me.ChkPresente.Font = New System.Drawing.Font("Segoe UI", 8.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChkPresente.Location = New System.Drawing.Point(10, 415)
+        Me.ChkPresente.Name = "ChkPresente"
+        Me.ChkPresente.Size = New System.Drawing.Size(71, 19)
+        Me.ChkPresente.TabIndex = 16
+        Me.ChkPresente.Text = "Presente"
+        Me.ChkPresente.UseVisualStyleBackColor = True
+        '
+        'PicInsereProd
+        '
+        Me.PicInsereProd.Image = Global.Beyond.My.Resources.Resources.confirm
+        Me.PicInsereProd.Location = New System.Drawing.Point(753, 336)
+        Me.PicInsereProd.Name = "PicInsereProd"
+        Me.PicInsereProd.Size = New System.Drawing.Size(25, 25)
+        Me.PicInsereProd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PicInsereProd.TabIndex = 10
+        Me.PicInsereProd.TabStop = False
+        '
+        'PicProd
+        '
+        Me.PicProd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PicProd.Location = New System.Drawing.Point(9, 264)
+        Me.PicProd.Name = "PicProd"
+        Me.PicProd.Size = New System.Drawing.Size(194, 170)
+        Me.PicProd.TabIndex = 5
+        Me.PicProd.TabStop = False
+        '
         'Frm_Pedido
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
@@ -527,6 +695,11 @@ Partial Class Frm_Pedido
         Me.GrpBoxInfo.PerformLayout()
         Me.TabProduto.ResumeLayout(False)
         Me.TabProduto.PerformLayout()
+        Me.TabItens.ResumeLayout(False)
+        Me.TabItens.PerformLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicInsereProd, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicProd, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -534,7 +707,7 @@ Partial Class Frm_Pedido
     Friend WithEvents TabDados As System.Windows.Forms.TabPage
     Friend WithEvents TabProduto As System.Windows.Forms.TabPage
     Friend WithEvents GrpBoxInfo As System.Windows.Forms.GroupBox
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents TxtCod As System.Windows.Forms.TextBox
     Friend WithEvents DtPckVenda As System.Windows.Forms.DateTimePicker
     Friend WithEvents TxtDestinatario As System.Windows.Forms.TextBox
     Friend WithEvents ComboVendedor As System.Windows.Forms.ComboBox
@@ -562,18 +735,34 @@ Partial Class Frm_Pedido
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents ComboCategoria As System.Windows.Forms.ComboBox
     Friend WithEvents LstProd As System.Windows.Forms.ListView
-    Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents ColCategoria As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColDescricao As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColPreco As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColQtd As System.Windows.Forms.ColumnHeader
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
-    Friend WithEvents ChkPresente As System.Windows.Forms.CheckBox
     Friend WithEvents ChkDestinatario As System.Windows.Forms.CheckBox
-    Friend WithEvents LstCarrinho As System.Windows.Forms.ListView
-    Friend WithEvents ColDescricao1 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents ColUniPreco As System.Windows.Forms.ColumnHeader
-    Friend WithEvents ColQtd1 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents ColPrecoTotal As System.Windows.Forms.ColumnHeader
+    Friend WithEvents TxtPreco As System.Windows.Forms.TextBox
+    Friend WithEvents TxtDesc As System.Windows.Forms.TextBox
+    Friend WithEvents Label16 As System.Windows.Forms.Label
+    Friend WithEvents Label15 As System.Windows.Forms.Label
+    Friend WithEvents PicProd As System.Windows.Forms.PictureBox
+    Friend WithEvents Label13 As System.Windows.Forms.Label
+    Friend WithEvents ComboProduto As System.Windows.Forms.ComboBox
+    Friend WithEvents TabItens As System.Windows.Forms.TabPage
+    Friend WithEvents ListView1 As System.Windows.Forms.ListView
+    Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColumnHeader2 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents Label14 As System.Windows.Forms.Label
+    Friend WithEvents PicInsereProd As System.Windows.Forms.PictureBox
+    Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
+    Friend WithEvents ColImagem As System.Windows.Forms.DataGridViewImageColumn
+    Friend WithEvents ColDesc As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ColPreco1 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ColPrecoTotal As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ColQtd1 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ColQtdBtn As System.Windows.Forms.DataGridViewButtonColumn
+    Friend WithEvents ChkPresente As System.Windows.Forms.CheckBox
 
 End Class

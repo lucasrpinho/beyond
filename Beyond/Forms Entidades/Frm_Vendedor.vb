@@ -139,6 +139,8 @@ Public Class Frm_Vendedor
             Exit Sub
         End If
 
+        LstCargos.RemoveAll(Function(c As Cargo) c.IsVendedor = False)
+
         ComboCargo.BeginUpdate()
         ComboCargo.Items.AddRange(LstCargos.ToArray)
         ComboCargo.DisplayMember = "Nome"
@@ -328,7 +330,7 @@ Public Class Frm_Vendedor
         LstVendedor = DAOVendedor.GetVendedor(True, resposta)
 
         If Not LstVendedor.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            MsgBoxHelper.Alerta(Me, "A busca por vendedores não retornou resultados.", "Aviso")
         Else
             ComboNome.BeginUpdate()
             ComboNome.Items.AddRange(LstVendedor.ToArray)
@@ -367,6 +369,7 @@ Public Class Frm_Vendedor
         GrpBoxInfo.Enabled = True
         ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
         ComboNome.Enabled = True
+        CarregaCargos()
         CarregaVendedores()
     End Sub
 

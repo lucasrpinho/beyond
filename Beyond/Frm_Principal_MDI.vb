@@ -397,4 +397,33 @@ Public Class Frm_Principal_MDI
         AbreProdutoPag()
     End Sub
 
+    Private Sub AbrePedidoPag()
+        Dim page = TCPrincipal.TabPages("Frm_Pedido")
+        If Not page Is Nothing Then
+            TCPrincipal.SelectTab(page)
+        Else
+            Dim Frm As New Frm_Pedido(Me)
+            Dim TP As New TabPage
+            TP.Name = Frm.Name
+            Frm.TopLevel = False
+            Frm.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            Frm.MdiParent = Me
+            Frm.Dock = DockStyle.Fill
+            TP.Controls.Add(Frm)
+            TP.Tag = Frm
+            TP.Text = Frm.Text
+            TP.ImageIndex = 1
+            TCPrincipal.TabPages.Add(TP)
+            TCPrincipal.SelectTab(TP)
+            TCPrincipal.BringToFront()
+            TCPrincipal.Visible = True
+            Frm.Show()
+            UC_Toolstrip1.PagAberta_HabilitarBotoes()
+            Me.Refresh()
+        End If
+    End Sub
+
+    Private Sub BtnPedido_Click(sender As System.Object, e As System.EventArgs) Handles BtnPedido.Click
+        AbrePedidoPag()
+    End Sub
 End Class

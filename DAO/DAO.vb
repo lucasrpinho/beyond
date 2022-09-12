@@ -615,8 +615,8 @@ Public Class DAO
 
 #Region "Cliente"
 
-    Public Overloads Function GetCliente(ByVal ativos As Boolean, ByRef resposta As String) As List(Of Cliente)
-        Return _GetCliente(0, ativos, resposta)
+    Public Overloads Function GetCliente(ByVal ativos As Boolean, ByRef resposta As String, Optional todos As Boolean = True) As List(Of Cliente)
+        Return _GetCliente(0, ativos, resposta, todos)
     End Function
 
     Public Overloads Function GetCliente(ByVal codcliente As Integer, ByVal ativos As Boolean, _
@@ -626,7 +626,7 @@ Public Class DAO
     End Function
 
     Private Function _GetCliente(ByVal codcliente As Integer, ByVal ativos As Boolean, _
-        ByRef resposta As String) As List(Of Cliente)
+        ByRef resposta As String, Optional todos As Boolean = True) As List(Of Cliente)
         Dim Lst As New List(Of Cliente)
 
         Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
@@ -637,6 +637,7 @@ Public Class DAO
                 Cmd.CommandType = CommandType.StoredProcedure
                 Cmd.Parameters.AddWithValue("@CODCLIENTE", codcliente)
                 Cmd.Parameters.AddWithValue("@ATIVOS", ativos)
+                Cmd.Parameters.AddWithValue("@TODOS", todos)
                 Dim Adp As New SqlDataAdapter(Cmd)
                 Dim Tbl As New DataTable
                 Adp.Fill(Tbl)
@@ -1066,6 +1067,273 @@ Public Class DAO
 
         Return lst
 
+    End Function
+
+#End Region
+
+#Region "Pedido"
+    Public Overloads Function GetPedido(ByVal codpedido As Integer, ByRef resposta As String) As Pedido
+        Return Nothing
+    End Function
+
+    Public Overloads Function GetPedido(ByRef resposta As String, Optional codvendedor As Integer = 0, _
+                                        Optional codcliente As Integer = 0) As List(Of Pedido)
+        Return Nothing
+    End Function
+
+    Private Function _GetPedido(ByVal codpedido As Integer, ByRef resposta As String, _
+                                ByVal codcliente As Integer, ByVal codvendedor As Integer) As List(Of Pedido)
+        Dim lst As New List(Of Pedido)
+        Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Using Cmd As New SqlCommand
+            Cmd.Connection = Connection
+            Cmd.CommandText = "SP_GET_PEDIDO"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.AddWithValue("@CODPEDIDO", codpedido)
+            Cmd.Parameters.AddWithValue("@CODCLIENTE", codcliente)
+            Cmd.Parameters.AddWithValue("@CODVENDEDOR", codvendedor)
+            Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+            Cmd.Parameters("@RESPONSE").Size = 255
+
+            Dim Adp As New SqlDataAdapter(Cmd)
+            Dim Tbl As New DataTable
+
+            Adp.Fill(Tbl)
+
+            If Tbl.Rows.Count > 0 Then
+                For i As Integer = 0 To Tbl.Rows.Count - 1
+                    Dim ped As New Pedido
+                    ped.Carrega(Tbl.Rows(i))
+                    lst.Add(ped)
+                Next
+            End If
+            If Adp IsNot Nothing Then
+                Adp.Dispose()
+                Adp = Nothing
+            End If
+            If Tbl IsNot Nothing Then
+                Tbl.Dispose()
+                Tbl = Nothing
+            End If
+            resposta = Cmd.Parameters("@RESPONSE").Value
+        End Using
+        Return lst
+    End Function
+
+    Public Function InserePedido(ByVal obj As Pedido, ByVal lstItens As List(Of PedidoItem), ByRef resposta As String) As Boolean
+        Con.Open()
+        Tr = Con.BeginTransaction
+        Try
+            If _InserePedido(obj) AndAlso lstItens.All(Function(pi As PedidoItem) _
+                                                _InserePedidoItem(pi)) Then
+                Tr.Commit()
+                Return True
+            Else
+                RollbackReleaseTransaction()
+            End If
+        Catch ex As Exception
+            RollbackReleaseTransaction()
+            resposta = ex.Message
+        Finally
+            CloseConAndTr()
+        End Try
+        Return False
+    End Function
+
+    Private Function _InserePedido(obj As Pedido) As Boolean
+        Using Cmd As New SqlCommand
+            Cmd.Connection = Con
+            Cmd.Transaction = Tr
+            Cmd.CommandText = "SP_INSERE_PEDIDO"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.AddWithValue("@CODPEDIDO", obj.CodPedido)
+            Cmd.Parameters.AddWithValue("@CODCLIENTE", obj.CodCliente)
+            Cmd.Parameters.AddWithValue("@CODVENDEDOR", obj.CodVendedor)
+            Cmd.Parameters.AddWithValue("@CODPEDIDO", obj.CodPedido)
+            Cmd.Parameters.AddWithValue("@DESTINATARIO", obj.Destinatario)
+            Cmd.Parameters.AddWithValue("@CEP", obj.ObjEndereco.CEP)
+            Cmd.Parameters.AddWithValue("@LOGRADOURO", obj.ObjEndereco.Logradouro)
+            Cmd.Parameters.Add("@NUM", SqlDbType.SmallInt).Value = obj.ObjEndereco.NumeroEndereco
+            Cmd.Parameters.AddWithValue("@COMPLEMENTO", obj.ObjEndereco.Complemento)
+            Cmd.Parameters.AddWithValue("@BAIRRO", obj.ObjEndereco.Bairro)
+            Cmd.Parameters.AddWithValue("@CIDADE", obj.ObjEndereco.Cidade)
+            Cmd.Parameters.AddWithValue("@UF", obj.ObjEndereco.UF)
+            Cmd.Parameters.AddWithValue("@OBS", obj.Observacao)
+            Cmd.Parameters.AddWithValue("@DATVENDA", obj.DatVenda)
+            Cmd.Parameters.AddWithValue("@VALORTOTAL", obj.ValorTotal)
+            Cmd.Parameters.AddWithValue("@ISPRESENTE", obj.IsPresente)
+            Cmd.Parameters.AddWithValue("@LOGINCRIACAO", obj.LoginCriacao)
+
+            If Cmd.ExecuteNonQuery > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+        End Using
+    End Function
+
+    Private Function _InserePedidoItem(obj As PedidoItem) As Boolean
+        Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Connection.Open()
+        Dim tr = Connection.BeginTransaction
+        Try
+            Using Cmd As New SqlCommand
+                Cmd.Connection = Connection
+                Cmd.Transaction = tr
+                Cmd.CommandText = "SP_INSERE_PEDIDO_ITEM"
+                Cmd.CommandType = CommandType.StoredProcedure
+                Cmd.Parameters.AddWithValue("@CODPEDIDO", obj.CodPedido)
+                Cmd.Parameters.AddWithValue("@CODPRODUTO", obj.CodProduto)
+                Cmd.Parameters.AddWithValue("@QTD", obj.Quantidade)
+
+                If Cmd.ExecuteNonQuery > 0 Then
+                    tr.Commit()
+                    Return True
+                End If
+            End Using
+        Catch ex As Exception
+            tr.Rollback()
+            tr.Dispose()
+            tr = Nothing
+            Throw
+        Finally
+            If Connection.State = ConnectionState.Open Then
+                Connection.Close()
+                Connection.Dispose()
+                Connection = Nothing
+            End If
+            If tr IsNot Nothing Then
+                tr.Dispose()
+                tr = Nothing
+            End If
+        End Try
+        Return False
+    End Function
+
+    Public Function AtualizaPedido(obj As Pedido, lstItens As List(Of PedidoItem), ByRef resposta As String, _
+                                   Optional isExclusao As Boolean = False) As Boolean
+        Con.Open()
+        Tr = Con.BeginTransaction
+
+        Try
+            If _AtualizaPedido(obj, isExclusao) AndAlso lstItens.All(Function(pi As PedidoItem) _AtualizaItensPedido(pi, isExclusao) = True) Then
+                Tr.Commit()
+                Return True
+            End If
+        Catch ex As Exception
+            resposta = ex.Message
+            RollbackReleaseTransaction()
+        Finally
+            CloseConAndTr()
+        End Try
+        Return False
+    End Function
+
+    Private Function _AtualizaPedido(obj As Pedido, isExclusao As Boolean) As Boolean
+        Using Cmd As New SqlCommand()
+            Cmd.Connection = Con
+            Cmd.Transaction = Tr
+            Cmd.CommandText = "SP_ATUALIZA_PEDIDO"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.AddWithValue("@CODPEDIDO", obj.CodPedido)
+            Cmd.Parameters.AddWithValue("@CODCLIENTE", obj.CodCliente)
+            Cmd.Parameters.AddWithValue("@CODVENDEDOR", obj.CodVendedor)
+            Cmd.Parameters.AddWithValue("@DESTINATARIO", obj.Destinatario)
+            Cmd.Parameters.AddWithValue("@CODPEDIDO", obj.CodPedido)
+            Cmd.Parameters.AddWithValue("@DATVENDA", obj.DatVenda)
+            Cmd.Parameters.AddWithValue("@CEP", obj.ObjEndereco.CEP)
+            Cmd.Parameters.AddWithValue("@LOGRADOURO", obj.ObjEndereco.Logradouro)
+            Cmd.Parameters.Add("@NUM", SqlDbType.SmallInt).Value = obj.ObjEndereco.NumeroEndereco
+            Cmd.Parameters.AddWithValue("@COMPLEMENTO", obj.ObjEndereco.Complemento)
+            Cmd.Parameters.AddWithValue("@BAIRRO", obj.ObjEndereco.Bairro)
+            Cmd.Parameters.AddWithValue("@CIDADE", obj.ObjEndereco.Cidade)
+            Cmd.Parameters.AddWithValue("@UF", obj.ObjEndereco.UF)
+            Cmd.Parameters.AddWithValue("@OBS", obj.Observacao)
+            Cmd.Parameters.AddWithValue("@ISPRESENTE", obj.IsPresente)
+            Cmd.Parameters.AddWithValue("@VALORTOTAL", obj.ValorTotal)
+            Cmd.Parameters.AddWithValue("@ISEXCLUSAO", isExclusao)
+
+            If Cmd.ExecuteNonQuery > 0 Then
+                Return True
+            End If
+        End Using
+
+        Return False
+    End Function
+
+    Private Function _AtualizaItensPedido(obj As PedidoItem, ByVal isExclusao As Boolean) As Boolean
+        Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Connection.Open()
+        Dim transaction = Connection.BeginTransaction
+        Using Cmd As New SqlCommand()
+            Try
+                Cmd.Connection = Con
+                Cmd.Transaction = Tr
+                Cmd.CommandText = "SP_ATUALIZA_ITENS_PEDIDO"
+                Cmd.CommandType = CommandType.StoredProcedure
+                Cmd.Parameters.AddWithValue("@CODPEDIDO", obj.CodPedido)
+                Cmd.Parameters.AddWithValue("@CODPRODUTO", obj.CodProduto)
+                Cmd.Parameters.AddWithValue("@QTD", obj.Quantidade)
+                Cmd.Parameters.AddWithValue("@ISEXCLUSAO", isExclusao)
+
+                If Cmd.ExecuteNonQuery > 0 Then
+                    transaction.Commit()
+                    Return True
+                End If
+            Catch ex As Exception
+                transaction.Rollback()
+                transaction.Dispose()
+                transaction = Nothing
+                Return False
+            Finally
+                If Connection.State = ConnectionState.Open Then
+                    Connection.Close()
+                    Connection.Dispose()
+                    Connection = Nothing
+                End If
+                If transaction IsNot Nothing Then
+                    transaction.Dispose()
+                    transaction = Nothing
+                End If
+            End Try
+        End Using
+        Return False
+    End Function
+
+    Public Function GetItemPedido(ByVal codpedido As Integer, ByRef resposta As String) As List(Of PedidoItem)
+        Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Dim lst As New List(Of PedidoItem)
+        Using Cmd As New SqlCommand
+            Cmd.Connection = Connection
+            Cmd.CommandText = "SP_GET_ITEM_PEDIDO"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.AddWithValue("@CODPEDIDO", codpedido)
+            Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+            Cmd.Parameters("@RESPONSE").Size = 255
+            Dim Adp As New SqlDataAdapter(Cmd)
+            Dim Tbl As New DataTable
+
+            Adp.Fill(Tbl)
+
+            If Tbl.Rows.Count > 0 Then
+                For I As Integer = 0 To Tbl.Rows.Count - 1
+                    Dim pedItem As New PedidoItem
+                    pedItem.Carrega(Tbl.Rows(I))
+                    lst.Add(pedItem)
+                Next
+            End If
+
+            If Adp IsNot Nothing Then
+                Adp.Dispose()
+                Adp = Nothing
+            End If
+            If Tbl IsNot Nothing Then
+                Tbl.Dispose()
+                Tbl = Nothing
+            End If
+        End Using
+
+        Return lst
     End Function
 
 #End Region

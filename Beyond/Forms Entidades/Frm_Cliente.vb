@@ -165,7 +165,6 @@ Public Class Frm_Cliente
             TxtCidade.Text = Endereco.Cidade.ToUpper
             TxtLogradouro.Text = Endereco.Logradouro.ToUpper
 
-            ' Soma com 1 pois o combobox contém um item vazio
             ComboEstado.SelectedIndex = LstEstados.FindIndex(Function(e As EstadoUF) e.UF = Endereco.UF)
         End If
     End Sub
@@ -279,7 +278,6 @@ Public Class Frm_Cliente
     End Sub
 
     Private Sub PreencheCampos(ByVal cliente As Cliente)
-        Dim cargo = LstCargos.Find(Function(c As Cargo) c.CodCargo = cliente.CodCargo)
         Dim estado = LstEstados.Find(Function(e As EstadoUF) e.UF = cliente.ObjEndereco.UF)
         ComboNome.SelectedIndex = LstCliente.FindIndex(Function(v) v.CodCliente = cliente.CodCliente)
         TxtCEP.Text = cliente.ObjEndereco.CEP
@@ -290,8 +288,11 @@ Public Class Frm_Cliente
         TxtObs.Text = cliente.Descricao
         ComboEstado.SelectedItem = estado
         ComboEstado.Text = estado.Nome
-        ComboCargo.SelectedItem = cargo
-        ComboCargo.Text = cargo.Nome
+        Dim cargo = LstCargos.Find(Function(c As Cargo) c.CodCargo = cliente.CodCargo)
+        If cargo IsNot Nothing Then
+            ComboCargo.SelectedItem = cargo
+            ComboCargo.Text = cargo.Nome
+        End If
         TxtEmail.Text = cliente.Email
         TxtEmpresa.Text = cliente.Empresa
         TxtCelular.Text = cliente.Telefone
