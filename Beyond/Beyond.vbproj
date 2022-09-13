@@ -118,6 +118,12 @@
     <Compile Include="Forms Entidades\Frm_Cliente_Cargo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms Entidades\Frm_ConsPedido.Designer.vb">
+      <DependentUpon>Frm_ConsPedido.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms Entidades\Frm_ConsPedido.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms Entidades\Frm_ConsProduto.Designer.vb">
       <DependentUpon>Frm_ConsProduto.vb</DependentUpon>
     </Compile>
@@ -206,6 +212,9 @@
     <EmbeddedResource Include="Forms Entidades\Frm_Cliente_Cargo.resx">
       <DependentUpon>Frm_Cliente_Cargo.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms Entidades\Frm_ConsPedido.resx">
+      <DependentUpon>Frm_ConsPedido.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms Entidades\Frm_ConsProduto.resx">
       <DependentUpon>Frm_ConsProduto.vb</DependentUpon>
     </EmbeddedResource>
@@ -278,6 +287,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Imagens\shopcar1.png" />
+    <None Include="Imagens\shopcar.png" />
+    <None Include="Imagens\menos.png" />
+    <None Include="Imagens\mais.png" />
     <None Include="Imagens\password.png" />
     <None Include="Icons Toolstrip\confirm.png" />
     <None Include="Icons Toolstrip\delete.png" />

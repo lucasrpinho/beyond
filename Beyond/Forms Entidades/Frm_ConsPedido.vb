@@ -5,9 +5,9 @@ Imports DAO
 Public Class Frm_ConsPedido
 
     Private frm As Frm_Pedido
-    Private LstPedidos As List(Of Pedido)
-    Private LstCliente As List(Of Cliente)
-    Private LstVendedor As List(Of Vendedor)
+    Private LstPedidos As New List(Of Pedido)
+    Private LstCliente As New List(Of Cliente)
+    Private LstVendedor As New List(Of Vendedor)
     Private DAOPed As New DAO.DAO
 
     Public Sub New()
@@ -19,7 +19,7 @@ Public Class Frm_ConsPedido
 
     End Sub
 
-    Public Sub New(ByVal frmInstancia As Form)
+    Public Sub New(ByVal frmInstancia As Frm_Pedido)
         InitializeComponent()
 
         frm = frmInstancia
@@ -30,27 +30,24 @@ Public Class Frm_ConsPedido
     End Sub
 
 
-    Private Sub Frm_ConsPedido_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+    Private Sub Frm_ConsPedido_Shown(sender As Object, e As System.EventArgs) Handles Me.Shown
         CarregaClientes()
         CarregaVendedores()
         CarregaPedidos()
     End Sub
 
     Private Sub CarregaPedidos()
-        LstPedidos.Clear()
+        'LstPedidos.Clear()
 
-        Dim resposta As String = ""
-        Dim vendedor = LstVendedor(ComboVendedor.SelectedIndex)
-        Dim cliente = LstCliente(ComboCliente.SelectedIndex)
+        'Dim resposta As String = ""
 
-        LstPedidos = DAOPed.GetPedido(True, resposta, vendedor.CodVendedor, cliente.CodCliente)
+        'LstPedidos = DAOPed.GetPedido(resposta, 0, 0)
 
-        If Not LstPedidos.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, "A busca por pedidos não encontrou resultados.", "Informação")
-            Exit Sub
-        End If
-
-        PopulateListView()
+        'If Not LstPedidos.Count > 0 Then
+        '    MsgBoxHelper.Alerta(Me, "A busca por pedidos não encontrou resultados.", "Informação")
+        '    CarregaFechamento()
+        '    Exit Sub
+        'End If
     End Sub
 
     Private Sub CarregaClientes()
@@ -64,13 +61,14 @@ Public Class Frm_ConsPedido
 
         If Not LstCliente.Count > 0 Then
             MsgBoxHelper.Alerta(Me, "Ocorreu um erro ao buscar os clientes.", "Erro")
+            CarregaFechamento()
             Exit Sub
         End If
 
         ComboCliente.BeginUpdate()
-        For I As Integer = 0 To LstCliente.Count - 1
-            ComboCliente.Items.Add(LstCliente(I))
-        Next
+        ComboCliente.Items.AddRange(LstCliente.ToArray)
+        ComboCliente.DisplayMember = "Nome"
+        ComboCliente.ValueMember = "CodCliente"
         ComboCliente.EndUpdate()
     End Sub
 
@@ -79,17 +77,18 @@ Public Class Frm_ConsPedido
 
         ComboVendedor.Items.Clear()
 
-        LstVendedor = DAOPed.GetVendedor(True, "")
+        LstVendedor = DAOPed.GetVendedor(True, resposta, True)
 
         If Not LstVendedor.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, "Ocorreu um erro ao buscar os vendedores.", "Erro")
+            MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            CarregaFechamento()
             Exit Sub
         End If
 
         ComboVendedor.BeginUpdate()
-        For I As Integer = 0 To LstVendedor.Count - 1
-            ComboVendedor.Items.Add(LstVendedor(I))
-        Next
+        ComboVendedor.Items.AddRange(LstVendedor.ToArray)
+        ComboVendedor.DisplayMember = "NomeCompleto"
+        ComboVendedor.ValueMember = "CodVendedor"
         ComboVendedor.EndUpdate()
     End Sub
 
@@ -97,13 +96,14 @@ Public Class Frm_ConsPedido
         LstPedido.Items.Clear()
 
         For Each ped As Pedido In LstPedidos
-            Dim pedItem As New ListViewItem(New String() {ped.CodPedido, _
-                LstCliente.Find(Function(c As Cliente) c.CodCliente = ped.CodCliente).Nome, _
-                LstVendedor.Find(Function(v As Vendedor) v.CodVendedor = ped.CodVendedor).Nome, _
+            Dim p = ped
+            Dim pedItem As New ListViewItem(New String() {p.CodPedido, _
+                LstCliente.Find(Function(c As Cliente) c.CodCliente = p.CodCliente).Nome, _
+                LstVendedor.Find(Function(v As Vendedor) v.CodVendedor = p.CodVendedor).NomeCompleto, _
                 ped.DatVenda.ToString("dd/MM/yyyy hh:mm"), _
                 ped.Destinatario})
 
-            LstPedido.Tag = pedItem
+            pedItem.Tag = ped
             LstPedido.Items.Add(pedItem)
         Next
 
@@ -126,5 +126,69 @@ Public Class Frm_ConsPedido
                 Me.Close()
             End If
         End If
+    End Sub
+
+    Private Sub CarregaFechamento()
+        Cursor.Current = Cursors.WaitCursor
+        Threading.Thread.Sleep(2000)
+        Cursor.Current = Cursors.Default
+        Me.Close()
+    End Sub
+
+    Private Sub ChkCliente_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChkCliente.CheckedChanged
+        If ChkCliente.CheckState = CheckState.Checked Then
+            ComboCliente.Enabled = True
+        Else
+            ComboCliente.Text = ""
+            ComboCliente.Enabled = False
+        End If
+    End Sub
+
+    Private Sub ChkVendedor_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChkVendedor.CheckedChanged
+        If ChkVendedor.CheckState = CheckState.Checked Then
+            ComboVendedor.Enabled = True
+        Else
+            ComboVendedor.Text = ""
+            ComboVendedor.Enabled = False
+        End If
+    End Sub
+
+    Private Sub PicBuscar_Click(sender As System.Object, e As System.EventArgs) Handles PicBuscar.Click
+        LstPedido.Items.Clear()
+        LstPedidos.Clear()
+
+        Dim resposta As String = ""
+        If ChkCliente.Checked AndAlso Not ChkVendedor.Checked Then
+            If ComboCliente.Text = String.Empty Then
+                MsgBoxHelper.CustomTooltip(GrpBoxFiltro, ComboCliente, "O filtro de clientes foi ativo, porém nenhum cliente foi selecionado.", "Preenchimento")
+                Exit Sub
+            End If
+            LstPedidos = DAOPed.GetPedido(resposta, 0, LstCliente(ComboCliente.SelectedIndex).CodCliente)
+        ElseIf ChkCliente.Checked AndAlso ChkVendedor.Checked Then
+            If ComboCliente.Text = String.Empty Then
+                MsgBoxHelper.CustomTooltip(GrpBoxFiltro, ComboCliente, "O filtro de clientes foi ativado, porém nenhum cliente foi selecionado.", "Preenchimento")
+                Exit Sub
+            ElseIf ComboVendedor.Text = String.Empty Then
+                MsgBoxHelper.CustomTooltip(GrpBoxFiltro, ComboVendedor, "O filtro de vendedores foi ativado, porém nenhum vendedor foi selecionado.", "Preenchimento")
+                Exit Sub
+            End If
+            LstPedidos = DAOPed.GetPedido(resposta, LstVendedor(ComboVendedor.SelectedIndex).CodVendedor, LstCliente(ComboCliente.SelectedIndex).CodCliente)
+        ElseIf Not ChkCliente.Checked AndAlso Not ChkVendedor.Checked Then
+            LstPedidos = DAOPed.GetPedido(resposta)
+
+        ElseIf Not ChkCliente.Checked AndAlso ChkVendedor.Checked Then
+            If ComboVendedor.Text = String.Empty Then
+                MsgBoxHelper.CustomTooltip(GrpBoxFiltro, ComboVendedor, "O filtro de vendedores foi ativado, porém nenhum vendedor foi selecionado.", "Preenchimento")
+                Exit Sub
+            End If
+            LstPedidos = DAOPed.GetPedido(resposta, LstVendedor(ComboVendedor.SelectedIndex).CodVendedor, 0)
+        End If
+
+        If Not LstPedidos.Count > 0 Then
+            MsgBoxHelper.Alerta(Me, "A busca não encontrou resultados.", "Sem resultados")
+            Exit Sub
+        End If
+
+        PopulateListView()
     End Sub
 End Class

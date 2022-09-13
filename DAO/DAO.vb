@@ -509,14 +509,14 @@ Public Class DAO
     End Function
 
     Public Overloads Function GetVendedor(ByVal codvendedor As String, ByRef resposta As String) As Vendedor
-        Return _GetVendedor(True, codvendedor, resposta).FirstOrDefault
+        Return _GetVendedor(True, codvendedor, resposta, False).FirstOrDefault
     End Function
 
-    Public Overloads Function GetVendedor(ByVal ativos As Boolean, ByRef resposta As String) As List(Of Vendedor)
-        Return _GetVendedor(ativos, String.Empty, resposta)
+    Public Overloads Function GetVendedor(ByVal ativos As Boolean, ByRef resposta As String, Optional todos As Boolean = False) As List(Of Vendedor)
+        Return _GetVendedor(ativos, String.Empty, resposta, todos)
     End Function
 
-    Private Function _GetVendedor(ativos As Boolean, codvendedor As String, ByRef resposta As String) As List(Of Vendedor)
+    Private Function _GetVendedor(ativos As Boolean, codvendedor As String, ByRef resposta As String, todos As Boolean) As List(Of Vendedor)
 
         Dim lst As New List(Of Vendedor)
         Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
@@ -526,7 +526,8 @@ Public Class DAO
                 If codvendedor = String.Empty Then
                     Cmd.CommandText = "SP_GET_ALL_VENDEDORES"
                     Cmd.CommandType = CommandType.StoredProcedure
-                    Cmd.Parameters.AddWithValue("@ATIVO", ativos)
+                    Cmd.Parameters.AddWithValue("@ATIVOS", ativos)
+                    Cmd.Parameters.AddWithValue("@TODOS", todos)
                 Else
                     Cmd.CommandText = "SP_GET_VENDEDOR"
                     Cmd.CommandType = CommandType.StoredProcedure
@@ -1072,16 +1073,17 @@ Public Class DAO
 #End Region
 
 #Region "Pedido"
-    Public Overloads Function GetPedido(ByVal codpedido As Integer, ByRef resposta As String) As Pedido
-        Return Nothing
+    Public Overloads Function GetPedido(ByVal codpedido As String, ByRef resposta As String) As Pedido
+        Return _GetPedido(codpedido, resposta, 0, 0).FirstOrDefault
     End Function
 
     Public Overloads Function GetPedido(ByRef resposta As String, Optional codvendedor As Integer = 0, _
                                         Optional codcliente As Integer = 0) As List(Of Pedido)
-        Return Nothing
+
+        Return _GetPedido("", resposta, codcliente, codvendedor)
     End Function
 
-    Private Function _GetPedido(ByVal codpedido As Integer, ByRef resposta As String, _
+    Private Function _GetPedido(ByVal codpedido As String, ByRef resposta As String, _
                                 ByVal codcliente As Integer, ByVal codvendedor As Integer) As List(Of Pedido)
         Dim lst As New List(Of Pedido)
         Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
@@ -1173,13 +1175,13 @@ Public Class DAO
     End Function
 
     Private Function _InserePedidoItem(obj As PedidoItem) As Boolean
-        Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
-        Connection.Open()
-        Dim tr = Connection.BeginTransaction
+        'Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        'Connection.Open()
+        'Dim tr = Connection.BeginTransaction
         Try
             Using Cmd As New SqlCommand
-                Cmd.Connection = Connection
-                Cmd.Transaction = tr
+                Cmd.Connection = Con
+                Cmd.Transaction = Tr
                 Cmd.CommandText = "SP_INSERE_PEDIDO_ITEM"
                 Cmd.CommandType = CommandType.StoredProcedure
                 Cmd.Parameters.AddWithValue("@CODPEDIDO", obj.CodPedido)
@@ -1187,25 +1189,25 @@ Public Class DAO
                 Cmd.Parameters.AddWithValue("@QTD", obj.Quantidade)
 
                 If Cmd.ExecuteNonQuery > 0 Then
-                    tr.Commit()
+                    'tr.Commit()
                     Return True
                 End If
             End Using
         Catch ex As Exception
-            tr.Rollback()
-            tr.Dispose()
-            tr = Nothing
+            'tr.Rollback()
+            'tr.Dispose()
+            'tr = Nothing
             Throw
         Finally
-            If Connection.State = ConnectionState.Open Then
-                Connection.Close()
-                Connection.Dispose()
-                Connection = Nothing
-            End If
-            If tr IsNot Nothing Then
-                tr.Dispose()
-                tr = Nothing
-            End If
+            'If Connection.State = ConnectionState.Open Then
+            '    Connection.Close()
+            '    Connection.Dispose()
+            '    Connection = Nothing
+            'End If
+            'If tr IsNot Nothing Then
+            '    tr.Dispose()
+            '    tr = Nothing
+            'End If
         End Try
         Return False
     End Function
@@ -1239,7 +1241,6 @@ Public Class DAO
             Cmd.Parameters.AddWithValue("@CODCLIENTE", obj.CodCliente)
             Cmd.Parameters.AddWithValue("@CODVENDEDOR", obj.CodVendedor)
             Cmd.Parameters.AddWithValue("@DESTINATARIO", obj.Destinatario)
-            Cmd.Parameters.AddWithValue("@CODPEDIDO", obj.CodPedido)
             Cmd.Parameters.AddWithValue("@DATVENDA", obj.DatVenda)
             Cmd.Parameters.AddWithValue("@CEP", obj.ObjEndereco.CEP)
             Cmd.Parameters.AddWithValue("@LOGRADOURO", obj.ObjEndereco.Logradouro)
@@ -1300,7 +1301,7 @@ Public Class DAO
         Return False
     End Function
 
-    Public Function GetItemPedido(ByVal codpedido As Integer, ByRef resposta As String) As List(Of PedidoItem)
+    Public Function GetItemPedido(ByVal codpedido As String, ByRef resposta As String) As List(Of PedidoItem)
         Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
         Dim lst As New List(Of PedidoItem)
         Using Cmd As New SqlCommand

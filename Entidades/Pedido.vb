@@ -14,29 +14,29 @@
     Public DatCriacao As DateTime
     Public LoginCriacao As String
 
-    Public Property CodPedido()
+    Public Property CodPedido() As String
         Get
             Return _CodPedido
         End Get
-        Set(value)
+        Set(value As String)
             _CodPedido = value
         End Set
     End Property
 
-    Public Property CodCliente()
+    Public Property CodCliente() As Integer
         Get
             Return _CodCliente
         End Get
-        Set(value)
+        Set(value As Integer)
             _CodCliente = value
         End Set
     End Property
 
-    Public Property CodVendedor()
+    Public Property CodVendedor() As Integer
         Get
             Return _CodVendedor
         End Get
-        Set(value)
+        Set(value As Integer)
             _CodVendedor = value
         End Set
     End Property
@@ -66,6 +66,8 @@
             strError = "O pedido está sem um vendedor vinculado."
         ElseIf Me.ObjEndereco Is Nothing Then
             strError = "O pedido precisa ter um endereço um preenchido."
+        ElseIf Me.ValorTotal <= 0 Then
+            strError = "O pedido está com um valor total inválido."
         End If
 
         Return String.IsNullOrWhiteSpace(strError)
@@ -82,6 +84,11 @@
         Me.Destinatario = row.Field(Of String)("de_destinatario")
         Me.IsPresente = row.Field(Of Boolean)("ct_presente")
         Me.ValorTotal = row.Field(Of Decimal)("nu_valor_total")
+
+        Me.ObjEndereco.Carrega(row)
     End Sub
 
+    Public Sub New()
+        Me.ObjEndereco = New Entidades.Endereco
+    End Sub
 End Class

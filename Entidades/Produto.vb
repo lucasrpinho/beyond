@@ -12,20 +12,20 @@ Public Class Produto
     Public DatCriacao As DateTime
     Public LoginCriacao As String
 
-    Public Property CodProduto()
+    Public Property CodProduto() As Integer
         Get
             Return _CodProduto
         End Get
-        Set(value)
+        Set(value As Integer)
             _CodProduto = value
         End Set
     End Property
 
-    Public Property Descricao
+    Public Property Descricao As String
         Get
             Return _Descricao
         End Get
-        Set(value)
+        Set(value As String)
             _Descricao = value
         End Set
     End Property

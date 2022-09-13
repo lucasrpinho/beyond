@@ -35,13 +35,20 @@ Partial Class Frm_ConsPedido
         Me.ColVendedor = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColDatVenda = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColDestinatario = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.PicBuscar = New System.Windows.Forms.PictureBox()
+        Me.ChkCliente = New System.Windows.Forms.CheckBox()
+        Me.ChkVendedor = New System.Windows.Forms.CheckBox()
         Me.GrpBoxFiltro.SuspendLayout()
         Me.GrpBoxPedidos.SuspendLayout()
         CType(Me.PicConfirmar, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicBuscar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GrpBoxFiltro
         '
+        Me.GrpBoxFiltro.Controls.Add(Me.ChkVendedor)
+        Me.GrpBoxFiltro.Controls.Add(Me.ChkCliente)
+        Me.GrpBoxFiltro.Controls.Add(Me.PicBuscar)
         Me.GrpBoxFiltro.Controls.Add(Me.ComboVendedor)
         Me.GrpBoxFiltro.Controls.Add(Me.Label2)
         Me.GrpBoxFiltro.Controls.Add(Me.ComboCliente)
@@ -56,6 +63,7 @@ Partial Class Frm_ConsPedido
         '
         'ComboVendedor
         '
+        Me.ComboVendedor.Enabled = False
         Me.ComboVendedor.FormattingEnabled = True
         Me.ComboVendedor.Location = New System.Drawing.Point(9, 98)
         Me.ComboVendedor.Name = "ComboVendedor"
@@ -73,6 +81,7 @@ Partial Class Frm_ConsPedido
         '
         'ComboCliente
         '
+        Me.ComboCliente.Enabled = False
         Me.ComboCliente.FormattingEnabled = True
         Me.ComboCliente.Location = New System.Drawing.Point(9, 52)
         Me.ComboCliente.Name = "ComboCliente"
@@ -113,7 +122,9 @@ Partial Class Frm_ConsPedido
         'LstPedido
         '
         Me.LstPedido.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColCod, Me.ColCliente, Me.ColVendedor, Me.ColDatVenda, Me.ColDestinatario})
+        Me.LstPedido.FullRowSelect = True
         Me.LstPedido.Location = New System.Drawing.Point(6, 40)
+        Me.LstPedido.MultiSelect = False
         Me.LstPedido.Name = "LstPedido"
         Me.LstPedido.Size = New System.Drawing.Size(791, 193)
         Me.LstPedido.TabIndex = 0
@@ -145,6 +156,34 @@ Partial Class Frm_ConsPedido
         Me.ColDestinatario.Text = "Destinatário"
         Me.ColDestinatario.Width = 283
         '
+        'PicBuscar
+        '
+        Me.PicBuscar.Image = Global.Beyond.My.Resources.Resources.search
+        Me.PicBuscar.Location = New System.Drawing.Point(766, 120)
+        Me.PicBuscar.Name = "PicBuscar"
+        Me.PicBuscar.Size = New System.Drawing.Size(25, 25)
+        Me.PicBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PicBuscar.TabIndex = 12
+        Me.PicBuscar.TabStop = False
+        '
+        'ChkCliente
+        '
+        Me.ChkCliente.AutoSize = True
+        Me.ChkCliente.Location = New System.Drawing.Point(398, 56)
+        Me.ChkCliente.Name = "ChkCliente"
+        Me.ChkCliente.Size = New System.Drawing.Size(15, 14)
+        Me.ChkCliente.TabIndex = 13
+        Me.ChkCliente.UseVisualStyleBackColor = True
+        '
+        'ChkVendedor
+        '
+        Me.ChkVendedor.AutoSize = True
+        Me.ChkVendedor.Location = New System.Drawing.Point(398, 102)
+        Me.ChkVendedor.Name = "ChkVendedor"
+        Me.ChkVendedor.Size = New System.Drawing.Size(15, 14)
+        Me.ChkVendedor.TabIndex = 14
+        Me.ChkVendedor.UseVisualStyleBackColor = True
+        '
         'Frm_ConsPedido
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -153,16 +192,18 @@ Partial Class Frm_ConsPedido
         Me.Controls.Add(Me.GrpBoxPedidos)
         Me.Controls.Add(Me.GrpBoxFiltro)
         Me.Font = New System.Drawing.Font("Verdana", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Frm_ConsPedido"
+        Me.ShowIcon = False
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Consultar Pedidos"
         Me.GrpBoxFiltro.ResumeLayout(False)
         Me.GrpBoxFiltro.PerformLayout()
         Me.GrpBoxPedidos.ResumeLayout(False)
         CType(Me.PicConfirmar, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicBuscar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -179,4 +220,7 @@ Partial Class Frm_ConsPedido
     Friend WithEvents ColDatVenda As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColDestinatario As System.Windows.Forms.ColumnHeader
     Friend WithEvents PicConfirmar As System.Windows.Forms.PictureBox
+    Friend WithEvents ChkVendedor As System.Windows.Forms.CheckBox
+    Friend WithEvents ChkCliente As System.Windows.Forms.CheckBox
+    Friend WithEvents PicBuscar As System.Windows.Forms.PictureBox
 End Class

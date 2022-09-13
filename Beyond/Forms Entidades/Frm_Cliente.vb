@@ -265,7 +265,7 @@ Public Class Frm_Cliente
 
     Private Sub BuscaClientePorCodigo(ByVal codcliente As String)
         Dim resposta As String = ""
-        Dim cliente = DAOCliente.GetCliente(codcliente, True, resposta)
+        Dim cliente = DAOCliente.GetCliente(Convert.ToInt32(codcliente), True, resposta)
 
         If IsNothing(cliente) Then
             Uteis.MsgBoxHelper.Alerta(Me, resposta, "Erro")
