@@ -78,10 +78,9 @@ Partial Class Frm_Pedido
         Me.ColPreco = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColQtd = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TabItens = New System.Windows.Forms.TabPage()
+        Me.BtnDeletaItem = New System.Windows.Forms.Button()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.TxtValorTotal = New System.Windows.Forms.TextBox()
         Me.TxtObs = New System.Windows.Forms.TextBox()
-        Me.LblValorTotal = New System.Windows.Forms.Label()
         Me.BtnMenos = New System.Windows.Forms.Button()
         Me.BtnMais = New System.Windows.Forms.Button()
         Me.TxtQtd = New System.Windows.Forms.TextBox()
@@ -93,6 +92,7 @@ Partial Class Frm_Pedido
         Me.ColQtd1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColPrecoTotal = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Label14 = New System.Windows.Forms.Label()
+        Me.TxtValorTotal = New System.Windows.Forms.Label()
         Me.TCPedido.SuspendLayout()
         Me.TabDados.SuspendLayout()
         Me.GrpBoxEndereco.SuspendLayout()
@@ -520,6 +520,7 @@ Partial Class Frm_Pedido
         Me.ImageList1.Images.SetKeyName(2, "confirm.png")
         Me.ImageList1.Images.SetKeyName(3, "search.png")
         Me.ImageList1.Images.SetKeyName(4, "shopcar1.png")
+        Me.ImageList1.Images.SetKeyName(5, "delete.png")
         '
         'BtnMenosInsere
         '
@@ -660,10 +661,10 @@ Partial Class Frm_Pedido
         '
         'TabItens
         '
-        Me.TabItens.Controls.Add(Me.Label15)
         Me.TabItens.Controls.Add(Me.TxtValorTotal)
+        Me.TabItens.Controls.Add(Me.BtnDeletaItem)
+        Me.TabItens.Controls.Add(Me.Label15)
         Me.TabItens.Controls.Add(Me.TxtObs)
-        Me.TabItens.Controls.Add(Me.LblValorTotal)
         Me.TabItens.Controls.Add(Me.BtnMenos)
         Me.TabItens.Controls.Add(Me.BtnMais)
         Me.TabItens.Controls.Add(Me.TxtQtd)
@@ -679,6 +680,18 @@ Partial Class Frm_Pedido
         Me.TabItens.Text = "Itens"
         Me.TabItens.UseVisualStyleBackColor = True
         '
+        'BtnDeletaItem
+        '
+        Me.BtnDeletaItem.FlatAppearance.BorderSize = 0
+        Me.BtnDeletaItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnDeletaItem.ImageKey = "delete.png"
+        Me.BtnDeletaItem.ImageList = Me.ImageList1
+        Me.BtnDeletaItem.Location = New System.Drawing.Point(621, 275)
+        Me.BtnDeletaItem.Name = "BtnDeletaItem"
+        Me.BtnDeletaItem.Size = New System.Drawing.Size(19, 23)
+        Me.BtnDeletaItem.TabIndex = 25
+        Me.BtnDeletaItem.UseVisualStyleBackColor = True
+        '
         'Label15
         '
         Me.Label15.AutoSize = True
@@ -687,16 +700,6 @@ Partial Class Frm_Pedido
         Me.Label15.Size = New System.Drawing.Size(81, 19)
         Me.Label15.TabIndex = 24
         Me.Label15.Text = "Observação"
-        '
-        'TxtValorTotal
-        '
-        Me.TxtValorTotal.Location = New System.Drawing.Point(159, 271)
-        Me.TxtValorTotal.Name = "TxtValorTotal"
-        Me.TxtValorTotal.ReadOnly = True
-        Me.TxtValorTotal.Size = New System.Drawing.Size(192, 25)
-        Me.TxtValorTotal.TabIndex = 23
-        Me.TxtValorTotal.Text = "0"
-        Me.TxtValorTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'TxtObs
         '
@@ -707,16 +710,6 @@ Partial Class Frm_Pedido
         Me.TxtObs.Size = New System.Drawing.Size(770, 57)
         Me.TxtObs.TabIndex = 22
         '
-        'LblValorTotal
-        '
-        Me.LblValorTotal.AutoSize = True
-        Me.LblValorTotal.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblValorTotal.Location = New System.Drawing.Point(155, 249)
-        Me.LblValorTotal.Name = "LblValorTotal"
-        Me.LblValorTotal.Size = New System.Drawing.Size(73, 19)
-        Me.LblValorTotal.TabIndex = 21
-        Me.LblValorTotal.Text = "Valor Total"
-        '
         'BtnMenos
         '
         Me.BtnMenos.FlatAppearance.BorderSize = 0
@@ -724,7 +717,7 @@ Partial Class Frm_Pedido
         Me.BtnMenos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.BtnMenos.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnMenos.Image = Global.Beyond.My.Resources.Resources.menos
-        Me.BtnMenos.Location = New System.Drawing.Point(10, 275)
+        Me.BtnMenos.Location = New System.Drawing.Point(667, 277)
         Me.BtnMenos.Name = "BtnMenos"
         Me.BtnMenos.Size = New System.Drawing.Size(19, 23)
         Me.BtnMenos.TabIndex = 20
@@ -737,7 +730,7 @@ Partial Class Frm_Pedido
         Me.BtnMais.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.BtnMais.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnMais.Image = Global.Beyond.My.Resources.Resources.mais
-        Me.BtnMais.Location = New System.Drawing.Point(98, 275)
+        Me.BtnMais.Location = New System.Drawing.Point(755, 277)
         Me.BtnMais.Name = "BtnMais"
         Me.BtnMais.Size = New System.Drawing.Size(23, 23)
         Me.BtnMais.TabIndex = 19
@@ -745,7 +738,7 @@ Partial Class Frm_Pedido
         '
         'TxtQtd
         '
-        Me.TxtQtd.Location = New System.Drawing.Point(35, 273)
+        Me.TxtQtd.Location = New System.Drawing.Point(692, 275)
         Me.TxtQtd.Name = "TxtQtd"
         Me.TxtQtd.ReadOnly = True
         Me.TxtQtd.Size = New System.Drawing.Size(57, 25)
@@ -756,7 +749,7 @@ Partial Class Frm_Pedido
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(22, 249)
+        Me.Label17.Location = New System.Drawing.Point(679, 254)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(81, 19)
         Me.Label17.TabIndex = 17
@@ -778,11 +771,10 @@ Partial Class Frm_Pedido
         Me.LstCarrinho.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColDesc, Me.ColPrecoUnit, Me.ColQtd1, Me.ColPrecoTotal})
         Me.LstCarrinho.FullRowSelect = True
         Me.LstCarrinho.GridLines = True
-        Me.LstCarrinho.Location = New System.Drawing.Point(8, 25)
+        Me.LstCarrinho.Location = New System.Drawing.Point(10, 25)
         Me.LstCarrinho.MultiSelect = False
         Me.LstCarrinho.Name = "LstCarrinho"
-        Me.LstCarrinho.Size = New System.Drawing.Size(772, 221)
-        Me.LstCarrinho.StateImageList = Me.ImageList1
+        Me.LstCarrinho.Size = New System.Drawing.Size(771, 221)
         Me.LstCarrinho.TabIndex = 14
         Me.LstCarrinho.TileSize = New System.Drawing.Size(260, 30)
         Me.LstCarrinho.UseCompatibleStateImageBehavior = False
@@ -816,6 +808,16 @@ Partial Class Frm_Pedido
         Me.Label14.Size = New System.Drawing.Size(62, 19)
         Me.Label14.TabIndex = 13
         Me.Label14.Text = "Carrinho"
+        '
+        'TxtValorTotal
+        '
+        Me.TxtValorTotal.AutoSize = True
+        Me.TxtValorTotal.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TxtValorTotal.Location = New System.Drawing.Point(8, 251)
+        Me.TxtValorTotal.Name = "TxtValorTotal"
+        Me.TxtValorTotal.Size = New System.Drawing.Size(92, 21)
+        Me.TxtValorTotal.TabIndex = 26
+        Me.TxtValorTotal.Text = "Valor Total"
         '
         'Frm_Pedido
         '
@@ -911,9 +913,9 @@ Partial Class Frm_Pedido
     Friend WithEvents BtnComprar As System.Windows.Forms.Button
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents Label15 As System.Windows.Forms.Label
-    Friend WithEvents TxtValorTotal As System.Windows.Forms.TextBox
     Friend WithEvents TxtObs As System.Windows.Forms.TextBox
-    Friend WithEvents LblValorTotal As System.Windows.Forms.Label
     Friend WithEvents BtnMaisInsere As System.Windows.Forms.Button
+    Friend WithEvents BtnDeletaItem As System.Windows.Forms.Button
+    Friend WithEvents TxtValorTotal As System.Windows.Forms.Label
 
 End Class

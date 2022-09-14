@@ -57,4 +57,23 @@ Public Class Produto
         Me.DatCriacao = row.Field(Of DateTime)("dat_criacao")
         Me.LoginCriacao = row.Field(Of String)("de_login_criacao")
     End Sub
+
+    Protected Overrides Sub Finalize()
+        MyBase.Finalize()
+    End Sub
+
+    Public Sub New()
+
+    End Sub
+
+    Public Sub New(ByVal obj As Produto)
+        Me.CodProduto = obj.CodProduto
+        Me.Categoria = obj.Categoria
+        Me.Descricao = obj.Descricao
+        Me.Preco = obj.Preco
+        Me.Quantidade = obj.Quantidade
+        Me.DatCriacao = obj.DatCriacao
+        Me.LoginCriacao = obj.LoginCriacao
+        Me.Imagem = obj.Imagem
+    End Sub
 End Class

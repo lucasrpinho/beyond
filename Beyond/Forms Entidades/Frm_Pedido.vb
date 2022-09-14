@@ -14,7 +14,7 @@ Public Class Frm_Pedido
     Private Endereco As Endereco
     Private MyModo As New UC_Toolstrip.UniqueModo
     Private DAOPedido As New DAO.DAO
-    Private objProdSelecionado As New Produto
+    Private objProdSelecionado As Produto
     Friend objPedido As Pedido
     Private LstPedidoItem As List(Of PedidoItem)
 
@@ -185,10 +185,20 @@ Public Class Frm_Pedido
             If produtoCombo.Imagem IsNot Nothing Then
                 ImageList1.Images.Add(Image.FromFile(produtoCombo.Imagem))
             End If
-            Dim lstViewItem As New ListViewItem(New String() {produtoCombo.Categoria, produtoCombo.Descricao, produtoCombo.Preco.ToString("C"), produtoCombo.Quantidade.ToString})
-            lstViewItem.ImageKey = System.IO.Path.GetFileName(produtoCombo.Imagem)
-            lstViewItem.Tag = produtoCombo
-            LstProd.Items.Add(lstViewItem)
+            Dim lstViewItem As New ListViewItem(produtoCombo.Categoria)
+            Dim item = LstProd.Items.Add(lstViewItem)
+            item.Name = produtoCombo.CodProduto.ToString
+
+            Dim subItemDescricao = item.SubItems.Add(produtoCombo.Descricao)
+            subItemDescricao.Name = "DESCRIÇÃO"
+
+            Dim subItemPreco = item.SubItems.Add(produtoCombo.Preco.ToString("C"))
+            subItemPreco.Name = "PREÇO"
+
+            Dim subItemEstoque = item.SubItems.Add(produtoCombo.Quantidade.ToString)
+            subItemEstoque.Name = "ESTOQUE"
+
+            item.Tag = produtoCombo
             Exit Sub
         End If
 
@@ -200,7 +210,7 @@ Public Class Frm_Pedido
             Dim item = LstProd.Items.Add(New ListViewItem(prod.Categoria))
             item.Name = prod.CodProduto.ToString
 
-            Dim subItemDescricao = item.SubItems.Add(prod.Descricao.ToString)
+            Dim subItemDescricao = item.SubItems.Add(prod.Descricao)
             subItemDescricao.Name = "DESCRIÇÃO"
 
             Dim subItemPreco = item.SubItems.Add(prod.Preco.ToString("C"))
@@ -234,8 +244,10 @@ Public Class Frm_Pedido
         End If
 
         If LstProd.SelectedItems.Count > 0 Then
-            objProdSelecionado = LstProduto.Find(Function(p As Produto) p.CodProduto _
-                                                     = LstProd.SelectedItems(0).Name)
+            objProdSelecionado = New Produto(LstProduto.First(Function(p) p.CodProduto = _
+                                                LstProd.SelectedItems(0).Name))
+
+
             LimpaInformacoesProduto()
             If objProdSelecionado.Imagem <> String.Empty Then
                 PicProd.ImageLocation = objProdSelecionado.Imagem
@@ -245,22 +257,29 @@ Public Class Frm_Pedido
         End If
     End Sub
 
-    Private Sub InsereCarrinho(ByVal obj As Produto, qtd As String)
-        Dim newObj As New Produto
-        newObj = obj
-        newObj.Quantidade = Integer.Parse(qtd)
-        LstItens.Add(newObj)
-        Dim lstviewItem As New ListViewItem(newObj.Descricao.ToString)
-        lstviewItem.Name = newObj.CodProduto.ToString
+    Private Sub InsereCarrinho(qtd As String)
+        objProdSelecionado.Quantidade = Integer.Parse(qtd)
+        LstItens.Add(objProdSelecionado)
+
+        LstCarrinho.SmallImageList = ImageList1
+
+        Dim lstviewItem As New ListViewItem(objProdSelecionado.Descricao)
+        lstviewItem.Name = objProdSelecionado.CodProduto.ToString
         Dim item = LstCarrinho.Items.Add(lstviewItem)
-        Dim subItem1 = item.SubItems.Add(newObj.Preco.ToString("C"))
+
+        Dim subItem1 = item.SubItems.Add(objProdSelecionado.Preco.ToString("C"))
         subItem1.Name = "PRECO"
-        Dim subItem2 = item.SubItems.Add(newObj.Quantidade.ToString)
+
+        Dim subItem2 = item.SubItems.Add(objProdSelecionado.Quantidade.ToString)
         subItem2.Name = "QTD"
-        Dim subItem3 = item.SubItems.Add((newObj.Preco * newObj.Quantidade).ToString("C"))
+
+        Dim subItem3 = item.SubItems.Add((objProdSelecionado.Preco * objProdSelecionado.Quantidade).ToString("C"))
         subItem3.Name = "PRECOTOTAL"
-        item.Tag = newObj
+
+        item.Tag = objProdSelecionado
+
         objProdSelecionado = Nothing
+
         LimpaInformacoesProduto()
         AtualizaValorTotalDoPedido()
     End Sub
@@ -528,7 +547,7 @@ Public Class Frm_Pedido
 
         For i As Integer = 0 To LstPedidoItem.Count - 1
             Dim index = i
-            LstItens.Add(LstProduto.Find(Function(p As Produto) p.CodProduto = LstPedidoItem(index).CodProduto))
+            LstItens.Add(LstProduto.First(Function(p As Produto) p.CodProduto = LstPedidoItem(index).CodProduto))
         Next
     End Sub
 
@@ -575,7 +594,7 @@ Public Class Frm_Pedido
             Exit Sub
         End If
 
-        Dim obj = LstProduto.Find(Function(p As Produto) objProdSelecionado.CodProduto = p.CodProduto)
+        Dim obj As New Produto(LstProduto.First(Function(p As Produto) objProdSelecionado.CodProduto = p.CodProduto))
 
         Dim qtd = Integer.Parse(TxtQtd.Text)
         qtd = qtd + 1
@@ -586,9 +605,9 @@ Public Class Frm_Pedido
             Exit Sub
         End If
 
-        LstCarrinho.Items(objProdSelecionado.CodProduto.ToString).SubItems("QTD").Text = TxtQtd.Text
-        Dim precoQtd = objProdSelecionado.Preco * Integer.Parse(TxtQtd.Text)
-        LstCarrinho.Items(objProdSelecionado.CodProduto.ToString).SubItems("PRECOTOTAL").Text = precoQtd.ToString("C")
+        LstCarrinho.Items(obj.CodProduto.ToString).SubItems("QTD").Text = TxtQtd.Text
+        Dim precoQtd = obj.Preco * Integer.Parse(TxtQtd.Text)
+        LstCarrinho.Items(obj.CodProduto.ToString).SubItems("PRECOTOTAL").Text = precoQtd.ToString("C")
         AtualizaValorTotalDoPedido()
     End Sub
 
@@ -598,7 +617,7 @@ Public Class Frm_Pedido
         End If
         If LstCarrinho.SelectedItems.Count > 0 Then
             objProdSelecionado = LstCarrinho.SelectedItems(0).Tag
-            TxtQtd.Text = objProdSelecionado.Quantidade
+            TxtQtd.Text = LstCarrinho.SelectedItems(0).SubItems("QTD").Text
         End If
     End Sub
 
@@ -641,12 +660,11 @@ Public Class Frm_Pedido
                 Exit Sub
             End If
             LblQtdCarrinho.Text = (Integer.Parse(LblQtdCarrinho.Text) + 1).ToString
-            InsereCarrinho(objProdSelecionado, TxtQtdInsere.Text)
+            InsereCarrinho(TxtQtdInsere.Text)
             If MsgBoxHelper.MsgTemCerteza(Me, "Item adicionado! Deseja ir para o carrinho?", "Continuar") Then
                 TCPedido.SelectTab("TabItens")
             End If
             LimpaInformacoesProduto()
-            objProdSelecionado = Nothing
         End If
     End Sub
 
@@ -656,10 +674,8 @@ Public Class Frm_Pedido
             Exit Sub
         End If
 
-        Dim obj = LstProduto.Find(Function(p As Produto) objProdSelecionado.CodProduto = p.CodProduto)
-
         TxtQtdInsere.Text = (Integer.Parse(TxtQtdInsere.Text) + 1).ToString
-        If Integer.Parse(TxtQtdInsere.Text) > obj.Quantidade Then
+        If Integer.Parse(TxtQtdInsere.Text) > objProdSelecionado.Quantidade Then
             MsgBoxHelper.Alerta(Me, "A quantidade desejada é maior do que o disponível em estoque.", "Estoque insuficiente")
             TxtQtdInsere.Text = (Integer.Parse(TxtQtdInsere.Text) - 1).ToString
             Exit Sub
@@ -760,4 +776,20 @@ Public Class Frm_Pedido
         End If
     End Sub
 
+    Private Sub BtnDeletaItem_Click(sender As System.Object, e As System.EventArgs) Handles BtnDeletaItem.Click
+        If objProdSelecionado Is Nothing Then
+            MsgBoxHelper.Alerta(Me, "Selecione o item que deseja remover do carrinho.", "Selecionar item")
+            Exit Sub
+        End If
+
+        If MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja remover o item do carrinho?", "Remover") Then
+            LstItens.Remove(LstItens.First(Function(p) p.CodProduto = objProdSelecionado.CodProduto))
+            LstCarrinho.Items.RemoveByKey(objProdSelecionado.CodProduto)
+            TxtQtd.Text = "0"
+            AtualizaValorTotalDoPedido()
+            LblQtdCarrinho.Text = (Integer.Parse(LblQtdCarrinho.Text) - 1).ToString
+        Else
+            Exit Sub
+        End If
+    End Sub
 End Class
