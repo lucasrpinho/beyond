@@ -74,6 +74,8 @@
             Modo = "FECHAR"
         ElseIf e.ClickedItem Is BtnInsereImagem Then
             Modo = "IMAGEM"
+        ElseIf e.ClickedItem Is BtnImprimir Then
+            Modo = "IMPRIMIR"
         End If
         ToolbarItemsState()
     End Sub

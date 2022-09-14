@@ -298,6 +298,7 @@
     <None Include="Imagens\backgroundmdi.png" />
     <None Include="Icons Toolstrip\update.png" />
     <None Include="Icons Toolstrip\close.png" />
+    <None Include="Icons Toolstrip\pinmenu.png" />
     <Content Include="Imagens\BeyondICON.ico" />
     <Content Include="Imagens\BeyondICON.png" />
     <None Include="Imagens\InsertPicture.png" />

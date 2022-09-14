@@ -172,7 +172,7 @@ Public Class Frm_Principal_MDI
         AbreVendedorPag()
     End Sub
 
-    Private Sub BtnUsuario_Click(sender As System.Object, e As System.EventArgs) Handles BtnUsuario.Click
+    Private Sub BtnUsuario_Click(sender As System.Object, e As System.EventArgs)
         AbreUsuarioPag()
     End Sub
 
@@ -202,7 +202,7 @@ Public Class Frm_Principal_MDI
         End If
     End Sub
 
-    Private Sub Button2_Click(sender As System.Object, e As System.EventArgs) Handles BtnCargo.Click
+    Private Sub Button2_Click(sender As System.Object, e As System.EventArgs)
         AbreCargoPag()
     End Sub
 
@@ -260,74 +260,11 @@ Public Class Frm_Principal_MDI
         End If
     End Sub
 
-    Private Sub BtnVendedor_Click(sender As System.Object, e As System.EventArgs) Handles BtnVendedor.Click
+    Private Sub BtnVendedor_Click(sender As System.Object, e As System.EventArgs)
         AbreVendedorPag()
     End Sub
 
-    Private Sub BtnUsuario_MouseEnter(sender As System.Object, e As System.EventArgs) Handles BtnUsuario.MouseEnter
-        BtnUsuario.BackColor = Color.WhiteSmoke
-        BtnUsuario.Focus()
-    End Sub
-
-    Private Sub BtnUsuario_MouseLeave(sender As System.Object, e As System.EventArgs) Handles BtnUsuario.MouseLeave
-        BtnUsuario.BackColor = Color.LightGray
-    End Sub
-
-    Private Sub BtnCargo_MouseLeave(sender As System.Object, e As System.EventArgs) Handles BtnCargo.MouseLeave
-        BtnCargo.BackColor = Color.LightGray
-    End Sub
-
-    Private Sub BtnCargo_MouseEnter(sender As System.Object, e As System.EventArgs) Handles BtnCargo.MouseEnter
-        BtnCargo.BackColor = Color.WhiteSmoke
-        BtnCargo.Focus()
-    End Sub
-
-    Private Sub BtnVendedor_MouseEnter(sender As System.Object, e As System.EventArgs) Handles BtnVendedor.MouseEnter
-        BtnVendedor.BackColor = Color.WhiteSmoke
-        BtnVendedor.Focus()
-    End Sub
-
-    Private Sub BtnVendedor_MouseLeave(sender As System.Object, e As System.EventArgs) Handles BtnVendedor.MouseLeave
-        BtnVendedor.BackColor = Color.LightGray
-    End Sub
-
-    Private Sub Button5_MouseEnter(sender As System.Object, e As System.EventArgs) Handles BtnProduto.MouseEnter
-        BtnProduto.BackColor = Color.WhiteSmoke
-        BtnProduto.Focus()
-    End Sub
-
-    Private Sub Button4_MouseLeave(sender As System.Object, e As System.EventArgs) Handles BtnCliente.MouseLeave
-        BtnCliente.BackColor = Color.LightGray
-    End Sub
-
-    Private Sub BtnCliente_MouseEnter(sender As System.Object, e As System.EventArgs) Handles BtnCliente.MouseEnter
-        BtnCliente.BackColor = Color.WhiteSmoke
-        BtnCliente.Focus()
-    End Sub
-
-    Private Sub BtnProduto_MouseLeave(sender As System.Object, e As System.EventArgs) Handles BtnProduto.MouseLeave
-        BtnProduto.BackColor = Color.LightGray
-    End Sub
-
-    Private Sub BtnPedido_MouseLeave(sender As System.Object, e As System.EventArgs) Handles BtnPedido.MouseLeave
-        BtnPedido.BackColor = Color.LightGray
-    End Sub
-
-    Private Sub BtnPedido_MouseEnter(sender As System.Object, e As System.EventArgs) Handles BtnPedido.MouseEnter
-        BtnPedido.BackColor = Color.WhiteSmoke
-        BtnPedido.Focus()
-    End Sub
-
-    Private Sub BtnRelatorio_MouseLeave(sender As System.Object, e As System.EventArgs) Handles BtnRelatorio.MouseLeave
-        BtnRelatorio.BackColor = Color.LightGray
-    End Sub
-
-    Private Sub BtnRelatorio_MouseEnter(sender As System.Object, e As System.EventArgs) Handles BtnRelatorio.MouseEnter
-        BtnRelatorio.BackColor = Color.WhiteSmoke
-        BtnRelatorio.Focus()
-    End Sub
-
-    Private Sub BtnCliente_Click(sender As System.Object, e As System.EventArgs) Handles BtnCliente.Click
+    Private Sub BtnCliente_Click(sender As System.Object, e As System.EventArgs)
         AbreClientePag()
     End Sub
 
@@ -362,7 +299,7 @@ Public Class Frm_Principal_MDI
         AbreClientePag()
     End Sub
 
-    Private Sub BtnProduto_Click(sender As System.Object, e As System.EventArgs) Handles BtnProduto.Click
+    Private Sub BtnProduto_Click(sender As System.Object, e As System.EventArgs)
         AbreProdutoPag()
     End Sub
 
@@ -423,7 +360,21 @@ Public Class Frm_Principal_MDI
         End If
     End Sub
 
-    Private Sub BtnPedido_Click(sender As System.Object, e As System.EventArgs) Handles BtnPedido.Click
+    Private Sub BtnPedido_Click(sender As System.Object, e As System.EventArgs)
         AbrePedidoPag()
+    End Sub
+
+    Private Sub PedidoToolStripMenuItem2_Click(sender As System.Object, e As System.EventArgs) Handles PedidoToolStripMenuItem2.Click
+        AbrePedidoPag()
+    End Sub
+
+    Private Sub BtnExpandir_Click(sender As System.Object, e As System.EventArgs) Handles BtnExpandir.Click
+        SplitC1.Panel1Collapsed = True
+        BtnUnPin.ImageKey = "unpinmenu.png"
+    End Sub
+
+    Private Sub BtnUnPin_Click(sender As System.Object, e As System.EventArgs) Handles BtnUnPin.Click
+        SplitC1.Panel1Collapsed = False
+        BtnUnPin.ImageKey = ""
     End Sub
 End Class
