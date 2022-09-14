@@ -66,6 +66,7 @@ Public Class Produto
 
     End Sub
 
+
     Public Sub New(ByVal obj As Produto)
         Me.CodProduto = obj.CodProduto
         Me.Categoria = obj.Categoria

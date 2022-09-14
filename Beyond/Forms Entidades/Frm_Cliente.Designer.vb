@@ -29,6 +29,7 @@ Partial Class Frm_Cliente
         Me.TxtObs = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.GrpBoxInfo = New System.Windows.Forms.GroupBox()
+        Me.BtnConsCargo = New System.Windows.Forms.PictureBox()
         Me.DtPckNasc = New System.Windows.Forms.DateTimePicker()
         Me.TxtCelular = New System.Windows.Forms.MaskedTextBox()
         Me.TxtEmpresa = New System.Windows.Forms.TextBox()
@@ -54,24 +55,25 @@ Partial Class Frm_Cliente
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.LblCep = New System.Windows.Forms.Label()
-        Me.BtnConsCargo = New System.Windows.Forms.PictureBox()
         Me.GrpBoxInfo.SuspendLayout()
-        Me.GrpBoxEndereco.SuspendLayout()
         CType(Me.BtnConsCargo, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GrpBoxEndereco.SuspendLayout()
         Me.SuspendLayout()
         '
         'ComboCargo
         '
+        Me.ComboCargo.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ComboCargo.FormattingEnabled = True
         Me.ComboCargo.Items.AddRange(New Object() {" "})
         Me.ComboCargo.Location = New System.Drawing.Point(343, 171)
         Me.ComboCargo.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboCargo.Name = "ComboCargo"
-        Me.ComboCargo.Size = New System.Drawing.Size(392, 24)
+        Me.ComboCargo.Size = New System.Drawing.Size(369, 24)
         Me.ComboCargo.TabIndex = 6
         '
         'Label9
         '
+        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label9.AutoSize = True
         Me.Label9.Location = New System.Drawing.Point(340, 150)
         Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
@@ -87,7 +89,7 @@ Partial Class Frm_Cliente
         Me.ChkBoxAtivo.Checked = True
         Me.ChkBoxAtivo.CheckState = System.Windows.Forms.CheckState.Checked
         Me.ChkBoxAtivo.Font = New System.Drawing.Font("Verdana", 8.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChkBoxAtivo.Location = New System.Drawing.Point(667, 294)
+        Me.ChkBoxAtivo.Location = New System.Drawing.Point(11, 209)
         Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
         Me.ChkBoxAtivo.Size = New System.Drawing.Size(60, 18)
         Me.ChkBoxAtivo.TabIndex = 8
@@ -96,15 +98,16 @@ Partial Class Frm_Cliente
         '
         'TxtObs
         '
-        Me.TxtObs.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.TxtObs.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtObs.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtObs.Location = New System.Drawing.Point(9, 256)
+        Me.TxtObs.Location = New System.Drawing.Point(9, 263)
         Me.TxtObs.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtObs.MaxLength = 255
         Me.TxtObs.Multiline = True
         Me.TxtObs.Name = "TxtObs"
         Me.TxtObs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TxtObs.Size = New System.Drawing.Size(651, 56)
+        Me.TxtObs.Size = New System.Drawing.Size(703, 56)
         Me.TxtObs.TabIndex = 7
         '
         'Label17
@@ -137,19 +140,31 @@ Partial Class Frm_Cliente
         Me.GrpBoxInfo.Controls.Add(Me.Label2)
         Me.GrpBoxInfo.Controls.Add(Me.ComboNome)
         Me.GrpBoxInfo.Controls.Add(Me.Label1)
-        Me.GrpBoxInfo.Location = New System.Drawing.Point(3, 2)
+        Me.GrpBoxInfo.Location = New System.Drawing.Point(13, 13)
         Me.GrpBoxInfo.Margin = New System.Windows.Forms.Padding(4)
         Me.GrpBoxInfo.Name = "GrpBoxInfo"
         Me.GrpBoxInfo.Padding = New System.Windows.Forms.Padding(4)
-        Me.GrpBoxInfo.Size = New System.Drawing.Size(743, 320)
+        Me.GrpBoxInfo.Size = New System.Drawing.Size(725, 327)
         Me.GrpBoxInfo.TabIndex = 1
         Me.GrpBoxInfo.TabStop = False
         Me.GrpBoxInfo.Text = "Informações"
         '
+        'BtnConsCargo
+        '
+        Me.BtnConsCargo.Image = Global.Beyond.My.Resources.Resources.search
+        Me.BtnConsCargo.Location = New System.Drawing.Point(687, 202)
+        Me.BtnConsCargo.Name = "BtnConsCargo"
+        Me.BtnConsCargo.Size = New System.Drawing.Size(25, 25)
+        Me.BtnConsCargo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.BtnConsCargo.TabIndex = 42
+        Me.BtnConsCargo.TabStop = False
+        Me.BtnConsCargo.Visible = False
+        '
         'DtPckNasc
         '
+        Me.DtPckNasc.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DtPckNasc.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DtPckNasc.Location = New System.Drawing.Point(617, 52)
+        Me.DtPckNasc.Location = New System.Drawing.Point(594, 52)
         Me.DtPckNasc.MaxDate = New Date(2200, 12, 31, 0, 0, 0, 0)
         Me.DtPckNasc.MinDate = New Date(1922, 1, 1, 0, 0, 0, 0)
         Me.DtPckNasc.Name = "DtPckNasc"
@@ -161,11 +176,13 @@ Partial Class Frm_Cliente
         Me.TxtCelular.Location = New System.Drawing.Point(9, 111)
         Me.TxtCelular.Mask = "(00) 00000-0000"
         Me.TxtCelular.Name = "TxtCelular"
-        Me.TxtCelular.Size = New System.Drawing.Size(120, 24)
+        Me.TxtCelular.Size = New System.Drawing.Size(137, 24)
         Me.TxtCelular.TabIndex = 3
         '
         'TxtEmpresa
         '
+        Me.TxtEmpresa.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtEmpresa.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtEmpresa.Location = New System.Drawing.Point(9, 171)
         Me.TxtEmpresa.Margin = New System.Windows.Forms.Padding(4)
@@ -186,8 +203,9 @@ Partial Class Frm_Cliente
         '
         'Label11
         '
+        Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(608, 31)
+        Me.Label11.Location = New System.Drawing.Point(591, 32)
         Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(127, 17)
@@ -197,17 +215,19 @@ Partial Class Frm_Cliente
         'TxtEmail
         '
         Me.TxtEmail.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtEmail.Location = New System.Drawing.Point(153, 111)
+        Me.TxtEmail.Location = New System.Drawing.Point(174, 111)
         Me.TxtEmail.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtEmail.MaxLength = 100
         Me.TxtEmail.Name = "TxtEmail"
-        Me.TxtEmail.Size = New System.Drawing.Size(582, 24)
+        Me.TxtEmail.Size = New System.Drawing.Size(538, 24)
         Me.TxtEmail.TabIndex = 4
         '
         'Label10
         '
+        Me.Label10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(150, 90)
+        Me.Label10.Location = New System.Drawing.Point(171, 90)
         Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(51, 17)
@@ -226,12 +246,14 @@ Partial Class Frm_Cliente
         '
         'ComboNome
         '
+        Me.ComboNome.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ComboNome.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple
         Me.ComboNome.FormattingEnabled = True
         Me.ComboNome.Location = New System.Drawing.Point(9, 52)
         Me.ComboNome.MaxLength = 90
         Me.ComboNome.Name = "ComboNome"
-        Me.ComboNome.Size = New System.Drawing.Size(584, 24)
+        Me.ComboNome.Size = New System.Drawing.Size(563, 24)
         Me.ComboNome.TabIndex = 1
         '
         'Label1
@@ -262,21 +284,23 @@ Partial Class Frm_Cliente
         Me.GrpBoxEndereco.Controls.Add(Me.Label5)
         Me.GrpBoxEndereco.Controls.Add(Me.Label12)
         Me.GrpBoxEndereco.Controls.Add(Me.LblCep)
-        Me.GrpBoxEndereco.Location = New System.Drawing.Point(3, 329)
+        Me.GrpBoxEndereco.Location = New System.Drawing.Point(13, 347)
         Me.GrpBoxEndereco.Name = "GrpBoxEndereco"
-        Me.GrpBoxEndereco.Size = New System.Drawing.Size(743, 205)
+        Me.GrpBoxEndereco.Size = New System.Drawing.Size(723, 205)
         Me.GrpBoxEndereco.TabIndex = 2
         Me.GrpBoxEndereco.TabStop = False
         Me.GrpBoxEndereco.Text = "Endereço de Entrega"
         '
         'TxtCidade
         '
+        Me.TxtCidade.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtCidade.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtCidade.Location = New System.Drawing.Point(346, 106)
         Me.TxtCidade.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtCidade.MaxLength = 50
         Me.TxtCidade.Name = "TxtCidade"
-        Me.TxtCidade.Size = New System.Drawing.Size(389, 24)
+        Me.TxtCidade.Size = New System.Drawing.Size(366, 24)
         Me.TxtCidade.TabIndex = 13
         '
         'TxtNum
@@ -299,9 +323,10 @@ Partial Class Frm_Cliente
         '
         'ComboEstado
         '
+        Me.ComboEstado.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ComboEstado.FormattingEnabled = True
         Me.ComboEstado.Items.AddRange(New Object() {" "})
-        Me.ComboEstado.Location = New System.Drawing.Point(346, 164)
+        Me.ComboEstado.Location = New System.Drawing.Point(498, 164)
         Me.ComboEstado.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboEstado.MaxLength = 2
         Me.ComboEstado.Name = "ComboEstado"
@@ -310,8 +335,9 @@ Partial Class Frm_Cliente
         '
         'Label8
         '
+        Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(343, 143)
+        Me.Label8.Location = New System.Drawing.Point(495, 143)
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(57, 17)
@@ -320,22 +346,26 @@ Partial Class Frm_Cliente
         '
         'TxtLogradouro
         '
+        Me.TxtLogradouro.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtLogradouro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtLogradouro.Location = New System.Drawing.Point(135, 49)
         Me.TxtLogradouro.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtLogradouro.MaxLength = 100
         Me.TxtLogradouro.Name = "TxtLogradouro"
-        Me.TxtLogradouro.Size = New System.Drawing.Size(600, 24)
+        Me.TxtLogradouro.Size = New System.Drawing.Size(577, 24)
         Me.TxtLogradouro.TabIndex = 10
         '
         'TxtBairro
         '
+        Me.TxtBairro.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtBairro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtBairro.Location = New System.Drawing.Point(13, 164)
         Me.TxtBairro.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtBairro.MaxLength = 30
         Me.TxtBairro.Name = "TxtBairro"
-        Me.TxtBairro.Size = New System.Drawing.Size(220, 24)
+        Me.TxtBairro.Size = New System.Drawing.Size(210, 24)
         Me.TxtBairro.TabIndex = 14
         '
         'TxtComplemento
@@ -408,21 +438,11 @@ Partial Class Frm_Cliente
         Me.LblCep.TabIndex = 48
         Me.LblCep.Text = "CEP"
         '
-        'BtnConsCargo
-        '
-        Me.BtnConsCargo.Image = Global.Beyond.My.Resources.Resources.search
-        Me.BtnConsCargo.Location = New System.Drawing.Point(710, 202)
-        Me.BtnConsCargo.Name = "BtnConsCargo"
-        Me.BtnConsCargo.Size = New System.Drawing.Size(25, 25)
-        Me.BtnConsCargo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.BtnConsCargo.TabIndex = 42
-        Me.BtnConsCargo.TabStop = False
-        Me.BtnConsCargo.Visible = False
-        '
         'Frm_Cliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.Window
         Me.ClientSize = New System.Drawing.Size(748, 564)
         Me.Controls.Add(Me.GrpBoxEndereco)
         Me.Controls.Add(Me.GrpBoxInfo)
@@ -437,9 +457,9 @@ Partial Class Frm_Cliente
         Me.Text = "Cliente"
         Me.GrpBoxInfo.ResumeLayout(False)
         Me.GrpBoxInfo.PerformLayout()
+        CType(Me.BtnConsCargo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GrpBoxEndereco.ResumeLayout(False)
         Me.GrpBoxEndereco.PerformLayout()
-        CType(Me.BtnConsCargo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

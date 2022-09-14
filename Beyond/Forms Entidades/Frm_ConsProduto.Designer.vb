@@ -69,16 +69,16 @@ Partial Class Frm_ConsProduto
         'ComboBox1
         '
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(16, 38)
+        Me.ComboBox1.Location = New System.Drawing.Point(18, 38)
         Me.ComboBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(493, 22)
+        Me.ComboBox1.Size = New System.Drawing.Size(491, 22)
         Me.ComboBox1.TabIndex = 1
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(13, 22)
+        Me.Label1.Location = New System.Drawing.Point(15, 22)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(69, 14)
         Me.Label1.TabIndex = 2
@@ -98,6 +98,7 @@ Partial Class Frm_ConsProduto
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.Window
         Me.ClientSize = New System.Drawing.Size(730, 270)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Label1)
@@ -110,7 +111,7 @@ Partial Class Frm_ConsProduto
         Me.MinimizeBox = False
         Me.Name = "Frm_ConsProduto"
         Me.ShowIcon = False
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Consultar Produtos"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

@@ -357,12 +357,6 @@ Public Class Frm_Vendedor
     End Sub
 
     Private Sub ModoPesquisa()
-        If Label1.Text <> "Nome Completo" Then
-            Label1.Text = "Nome Completo"
-            ComboNome.Width = ComboNome.Width + TxtSobrenome.Width
-            TxtSobrenome.Visible = False
-            Label2.Visible = False
-        End If
         AlternarControle()
         ClearImage()
         LimpaCampos_Desativa()
@@ -399,12 +393,6 @@ Public Class Frm_Vendedor
         ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
         ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
         ControlsHelper.SetTextsEmpty(GrpBoxEndereco.Controls)
-        If Label1.Text <> "Nome" Then
-            Label1.Text = "Nome"
-            ComboNome.Width = ComboNome.Width - TxtSobrenome.Width
-            TxtSobrenome.Visible = True
-            Label2.Visible = True
-        End If
         frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
         CarregaCargos()
         AlternarControle()

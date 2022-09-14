@@ -90,5 +90,6 @@
 
     Public Sub New()
         Me.ObjEndereco = New Entidades.Endereco
+        Me.LstProduto = New List(Of Produto)
     End Sub
 End Class

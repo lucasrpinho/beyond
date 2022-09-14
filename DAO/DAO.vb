@@ -856,8 +856,6 @@ Public Class DAO
 
     Public Function _GetProdutos(ByVal cod As Int32, ByRef resposta As String) As List(Of Produto)
         Dim Lst As New List(Of Produto)
-
-        Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
         Using Cmd As New SqlCommand
             Try
                 Cmd.Connection = Con
@@ -886,12 +884,41 @@ Public Class DAO
                 End If
             Catch ex As Exception
                 resposta = ex.Message
-            Finally
-                If Connection IsNot Nothing Then
-                    Connection.Close()
-                    Connection.Dispose()
-                    Connection = Nothing
+            End Try
+        End Using
+        Return Lst
+    End Function
+
+    Public Function GetProdutoPorNome(ByVal desc As String) As List(Of Produto)
+        Dim Lst As New List(Of Produto)
+        Using Cmd As New SqlCommand
+            Try
+                Cmd.Connection = Con
+                Cmd.CommandText = "SP_GET_PRODUTO_POR_NOME"
+                Cmd.CommandType = CommandType.StoredProcedure
+                Cmd.Parameters.AddWithValue("@DESC", desc)
+
+                Dim Adp As New SqlDataAdapter(Cmd)
+                Dim Tbl As New DataTable
+
+                Adp.Fill(Tbl)
+
+                If Tbl.Rows.Count > 0 Then
+                    For I As Integer = 0 To Tbl.Rows.Count - 1
+                        Dim prod As New Produto
+                        prod.Carrega(Tbl.Rows(I))
+                        Lst.Add(prod)
+                    Next
                 End If
+
+                If Not Adp Is Nothing Then
+                    Adp.Dispose()
+                End If
+                If Not Tbl Is Nothing Then
+                    Tbl.Dispose()
+                End If
+            Catch ex As Exception
+                Throw New Exception("A busca encontrou um erro.")
             End Try
         End Using
         Return Lst
@@ -1151,17 +1178,16 @@ Public Class DAO
             Cmd.Parameters.AddWithValue("@CODPEDIDO", obj.CodPedido)
             Cmd.Parameters.AddWithValue("@CODCLIENTE", obj.CodCliente)
             Cmd.Parameters.AddWithValue("@CODVENDEDOR", obj.CodVendedor)
-            Cmd.Parameters.AddWithValue("@CODPEDIDO", obj.CodPedido)
             Cmd.Parameters.AddWithValue("@DESTINATARIO", obj.Destinatario)
             Cmd.Parameters.AddWithValue("@CEP", obj.ObjEndereco.CEP)
             Cmd.Parameters.AddWithValue("@LOGRADOURO", obj.ObjEndereco.Logradouro)
-            Cmd.Parameters.Add("@NUM", SqlDbType.SmallInt).Value = obj.ObjEndereco.NumeroEndereco
-            Cmd.Parameters.AddWithValue("@COMPLEMENTO", obj.ObjEndereco.Complemento)
+            Cmd.Parameters.Add("@NUM", SqlDbType.SmallInt).Value = Convert.ToInt16(obj.ObjEndereco.NumeroEndereco)
             Cmd.Parameters.AddWithValue("@BAIRRO", obj.ObjEndereco.Bairro)
             Cmd.Parameters.AddWithValue("@CIDADE", obj.ObjEndereco.Cidade)
+            Cmd.Parameters.AddWithValue("@COMPLEMENTO", obj.ObjEndereco.Complemento)
             Cmd.Parameters.AddWithValue("@UF", obj.ObjEndereco.UF)
-            Cmd.Parameters.AddWithValue("@OBS", obj.Observacao)
             Cmd.Parameters.AddWithValue("@DATVENDA", obj.DatVenda)
+            Cmd.Parameters.AddWithValue("@OBS", obj.Observacao)
             Cmd.Parameters.AddWithValue("@VALORTOTAL", obj.ValorTotal)
             Cmd.Parameters.AddWithValue("@ISPRESENTE", obj.IsPresente)
             Cmd.Parameters.AddWithValue("@LOGINCRIACAO", obj.LoginCriacao)
@@ -1256,18 +1282,14 @@ Public Class DAO
 
             If Cmd.ExecuteNonQuery > 0 Then
                 Return True
+            Else
+                Return False
             End If
         End Using
-
-        Return False
     End Function
 
     Private Function _AtualizaItensPedido(obj As PedidoItem, ByVal isExclusao As Boolean) As Boolean
-        Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
-        Connection.Open()
-        Dim transaction = Connection.BeginTransaction
         Using Cmd As New SqlCommand()
-            Try
                 Cmd.Connection = Con
                 Cmd.Transaction = Tr
                 Cmd.CommandText = "SP_ATUALIZA_ITENS_PEDIDO"
@@ -1277,40 +1299,21 @@ Public Class DAO
                 Cmd.Parameters.AddWithValue("@QTD", obj.Quantidade)
                 Cmd.Parameters.AddWithValue("@ISEXCLUSAO", isExclusao)
 
-                If Cmd.ExecuteNonQuery > 0 Then
-                    transaction.Commit()
-                    Return True
-                End If
-            Catch ex As Exception
-                transaction.Rollback()
-                transaction.Dispose()
-                transaction = Nothing
+            If Cmd.ExecuteNonQuery > 0 Then
+                Return True
+            Else
                 Return False
-            Finally
-                If Connection.State = ConnectionState.Open Then
-                    Connection.Close()
-                    Connection.Dispose()
-                    Connection = Nothing
-                End If
-                If transaction IsNot Nothing Then
-                    transaction.Dispose()
-                    transaction = Nothing
-                End If
-            End Try
+            End If
         End Using
-        Return False
     End Function
 
     Public Function GetItemPedido(ByVal codpedido As String, ByRef resposta As String) As List(Of PedidoItem)
-        Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
         Dim lst As New List(Of PedidoItem)
         Using Cmd As New SqlCommand
-            Cmd.Connection = Connection
+            Cmd.Connection = Con
             Cmd.CommandText = "SP_GET_ITEM_PEDIDO"
             Cmd.CommandType = CommandType.StoredProcedure
             Cmd.Parameters.AddWithValue("@CODPEDIDO", codpedido)
-            Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
-            Cmd.Parameters("@RESPONSE").Size = 255
             Dim Adp As New SqlDataAdapter(Cmd)
             Dim Tbl As New DataTable
 

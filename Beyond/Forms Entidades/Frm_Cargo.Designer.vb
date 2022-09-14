@@ -37,11 +37,13 @@ Partial Class Frm_Cargo
         '
         'GrpBoxCfg
         '
+        Me.GrpBoxCfg.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GrpBoxCfg.Controls.Add(Me.ChkVendedor)
         Me.GrpBoxCfg.Controls.Add(Me.ChkBoxAtivo)
-        Me.GrpBoxCfg.Location = New System.Drawing.Point(0, 238)
+        Me.GrpBoxCfg.Location = New System.Drawing.Point(12, 256)
         Me.GrpBoxCfg.Name = "GrpBoxCfg"
-        Me.GrpBoxCfg.Size = New System.Drawing.Size(585, 100)
+        Me.GrpBoxCfg.Size = New System.Drawing.Size(561, 105)
         Me.GrpBoxCfg.TabIndex = 0
         Me.GrpBoxCfg.TabStop = False
         Me.GrpBoxCfg.Text = "Configuração"
@@ -50,7 +52,7 @@ Partial Class Frm_Cargo
         '
         Me.ChkVendedor.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ChkVendedor.AutoSize = True
-        Me.ChkVendedor.Location = New System.Drawing.Point(6, 58)
+        Me.ChkVendedor.Location = New System.Drawing.Point(6, 63)
         Me.ChkVendedor.Name = "ChkVendedor"
         Me.ChkVendedor.Size = New System.Drawing.Size(94, 21)
         Me.ChkVendedor.TabIndex = 4
@@ -63,7 +65,7 @@ Partial Class Frm_Cargo
         Me.ChkBoxAtivo.AutoSize = True
         Me.ChkBoxAtivo.Checked = True
         Me.ChkBoxAtivo.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ChkBoxAtivo.Location = New System.Drawing.Point(6, 22)
+        Me.ChkBoxAtivo.Location = New System.Drawing.Point(6, 27)
         Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
         Me.ChkBoxAtivo.Size = New System.Drawing.Size(63, 21)
         Me.ChkBoxAtivo.TabIndex = 3
@@ -72,15 +74,16 @@ Partial Class Frm_Cargo
         '
         'GrpBoxInfo
         '
+        Me.GrpBoxInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GrpBoxInfo.BackColor = System.Drawing.SystemColors.Window
         Me.GrpBoxInfo.Controls.Add(Me.ComboNome)
         Me.GrpBoxInfo.Controls.Add(Me.TxtDesc)
         Me.GrpBoxInfo.Controls.Add(Me.Label2)
         Me.GrpBoxInfo.Controls.Add(Me.Label1)
-        Me.GrpBoxInfo.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GrpBoxInfo.Location = New System.Drawing.Point(0, 0)
+        Me.GrpBoxInfo.Location = New System.Drawing.Point(12, 23)
         Me.GrpBoxInfo.Name = "GrpBoxInfo"
-        Me.GrpBoxInfo.Size = New System.Drawing.Size(585, 232)
+        Me.GrpBoxInfo.Size = New System.Drawing.Size(561, 227)
         Me.GrpBoxInfo.TabIndex = 1
         Me.GrpBoxInfo.TabStop = False
         Me.GrpBoxInfo.Text = "Informações de Cargo"
@@ -93,25 +96,25 @@ Partial Class Frm_Cargo
         Me.ComboNome.Location = New System.Drawing.Point(7, 59)
         Me.ComboNome.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboNome.Name = "ComboNome"
-        Me.ComboNome.Size = New System.Drawing.Size(566, 24)
+        Me.ComboNome.Size = New System.Drawing.Size(547, 24)
         Me.ComboNome.TabIndex = 1
         '
         'TxtDesc
         '
         Me.TxtDesc.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtDesc.Location = New System.Drawing.Point(6, 132)
+        Me.TxtDesc.Location = New System.Drawing.Point(6, 115)
         Me.TxtDesc.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtDesc.MaxLength = 1000
         Me.TxtDesc.Multiline = True
         Me.TxtDesc.Name = "TxtDesc"
         Me.TxtDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TxtDesc.Size = New System.Drawing.Size(572, 93)
+        Me.TxtDesc.Size = New System.Drawing.Size(547, 93)
         Me.TxtDesc.TabIndex = 2
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(7, 111)
+        Me.Label2.Location = New System.Drawing.Point(4, 96)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(75, 17)
@@ -121,7 +124,7 @@ Partial Class Frm_Cargo
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(7, 38)
+        Me.Label1.Location = New System.Drawing.Point(4, 38)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(115, 17)
@@ -133,7 +136,7 @@ Partial Class Frm_Cargo
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Window
-        Me.ClientSize = New System.Drawing.Size(585, 338)
+        Me.ClientSize = New System.Drawing.Size(585, 373)
         Me.Controls.Add(Me.GrpBoxInfo)
         Me.Controls.Add(Me.GrpBoxCfg)
         Me.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

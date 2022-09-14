@@ -42,7 +42,9 @@ Partial Class Frm_Produto
         '
         'GrpBoxInfo
         '
-        Me.GrpBoxInfo.BackColor = System.Drawing.SystemColors.Control
+        Me.GrpBoxInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GrpBoxInfo.BackColor = System.Drawing.SystemColors.Window
         Me.GrpBoxInfo.Controls.Add(Me.TxtCategoria)
         Me.GrpBoxInfo.Controls.Add(Me.Label5)
         Me.GrpBoxInfo.Controls.Add(Me.PicBoxFoto)
@@ -54,37 +56,37 @@ Partial Class Frm_Produto
         Me.GrpBoxInfo.Controls.Add(Me.Label3)
         Me.GrpBoxInfo.Controls.Add(Me.Label2)
         Me.GrpBoxInfo.Controls.Add(Me.Label1)
-        Me.GrpBoxInfo.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GrpBoxInfo.Location = New System.Drawing.Point(0, 0)
+        Me.GrpBoxInfo.Location = New System.Drawing.Point(16, 12)
         Me.GrpBoxInfo.Name = "GrpBoxInfo"
-        Me.GrpBoxInfo.Size = New System.Drawing.Size(728, 297)
+        Me.GrpBoxInfo.Size = New System.Drawing.Size(671, 407)
         Me.GrpBoxInfo.TabIndex = 0
         Me.GrpBoxInfo.TabStop = False
         Me.GrpBoxInfo.Text = "Informações"
         '
         'TxtCategoria
         '
+        Me.TxtCategoria.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtCategoria.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtCategoria.Location = New System.Drawing.Point(12, 67)
+        Me.TxtCategoria.Location = New System.Drawing.Point(213, 65)
         Me.TxtCategoria.MaxLength = 60
-        Me.TxtCategoria.Multiline = True
         Me.TxtCategoria.Name = "TxtCategoria"
-        Me.TxtCategoria.Size = New System.Drawing.Size(248, 62)
+        Me.TxtCategoria.Size = New System.Drawing.Size(444, 24)
         Me.TxtCategoria.TabIndex = 13
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(541, 48)
+        Me.Label5.Location = New System.Drawing.Point(12, 46)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(136, 16)
+        Me.Label5.Size = New System.Drawing.Size(149, 17)
         Me.Label5.TabIndex = 11
         Me.Label5.Text = "Imagem do produto"
         '
         'PicBoxFoto
         '
         Me.PicBoxFoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PicBoxFoto.Location = New System.Drawing.Point(544, 67)
+        Me.PicBoxFoto.Location = New System.Drawing.Point(15, 65)
         Me.PicBoxFoto.Name = "PicBoxFoto"
         Me.PicBoxFoto.Size = New System.Drawing.Size(174, 155)
         Me.PicBoxFoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -97,7 +99,7 @@ Partial Class Frm_Produto
         Me.ChkAtivo.Checked = True
         Me.ChkAtivo.CheckState = System.Windows.Forms.CheckState.Checked
         Me.ChkAtivo.Font = New System.Drawing.Font("Verdana", 8.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChkAtivo.Location = New System.Drawing.Point(15, 267)
+        Me.ChkAtivo.Location = New System.Drawing.Point(213, 202)
         Me.ChkAtivo.Name = "ChkAtivo"
         Me.ChkAtivo.Size = New System.Drawing.Size(60, 18)
         Me.ChkAtivo.TabIndex = 8
@@ -106,63 +108,65 @@ Partial Class Frm_Produto
         '
         'TxtQtd
         '
-        Me.TxtQtd.Location = New System.Drawing.Point(15, 225)
+        Me.TxtQtd.Location = New System.Drawing.Point(15, 343)
         Me.TxtQtd.Name = "TxtQtd"
-        Me.TxtQtd.Size = New System.Drawing.Size(78, 23)
+        Me.TxtQtd.Size = New System.Drawing.Size(107, 24)
         Me.TxtQtd.TabIndex = 4
         Me.TxtQtd.Text = "0"
         '
         'TxtDesc
         '
+        Me.TxtDesc.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtDesc.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtDesc.Location = New System.Drawing.Point(281, 67)
-        Me.TxtDesc.MaxLength = 60
+        Me.TxtDesc.Location = New System.Drawing.Point(213, 110)
+        Me.TxtDesc.MaxLength = 300
         Me.TxtDesc.Multiline = True
         Me.TxtDesc.Name = "TxtDesc"
-        Me.TxtDesc.Size = New System.Drawing.Size(240, 62)
+        Me.TxtDesc.Size = New System.Drawing.Size(444, 86)
         Me.TxtDesc.TabIndex = 2
         '
         'TxtPreco
         '
-        Me.TxtPreco.Location = New System.Drawing.Point(15, 175)
+        Me.TxtPreco.Location = New System.Drawing.Point(15, 289)
         Me.TxtPreco.Name = "TxtPreco"
-        Me.TxtPreco.Size = New System.Drawing.Size(162, 23)
+        Me.TxtPreco.Size = New System.Drawing.Size(162, 24)
         Me.TxtPreco.TabIndex = 3
         Me.TxtPreco.Text = "0,00"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(12, 206)
+        Me.Label4.Location = New System.Drawing.Point(12, 324)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(165, 16)
+        Me.Label4.Size = New System.Drawing.Size(177, 17)
         Me.Label4.TabIndex = 3
         Me.Label4.Text = "Quantidade em Estoque"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 156)
+        Me.Label3.Location = New System.Drawing.Point(12, 270)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(45, 16)
+        Me.Label3.Size = New System.Drawing.Size(46, 17)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Preço"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(278, 48)
+        Me.Label2.Location = New System.Drawing.Point(210, 91)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(72, 16)
+        Me.Label2.Size = New System.Drawing.Size(75, 17)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Descrição"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 48)
+        Me.Label1.Location = New System.Drawing.Point(210, 46)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(71, 16)
+        Me.Label1.Size = New System.Drawing.Size(75, 17)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Categoria"
         '
@@ -174,9 +178,10 @@ Partial Class Frm_Produto
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(728, 297)
+        Me.BackColor = System.Drawing.SystemColors.Window
+        Me.ClientSize = New System.Drawing.Size(704, 435)
         Me.Controls.Add(Me.GrpBoxInfo)
-        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False

@@ -27,6 +27,12 @@ Public Class Frm_Pedido
         frmPrincipal = frm
     End Sub
 
+    Private Sub Frm_Pedido_EnabledChanged(sender As Object, e As System.EventArgs) Handles Me.EnabledChanged
+        If Me.Enabled Then
+            frmPrincipal.UC_Toolstrip1.ToolbarItemsState(MyModo.UniqueModo)
+        End If
+    End Sub
+
     Private Sub Frm_Pedido_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
 
         RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
@@ -43,6 +49,7 @@ Public Class Frm_Pedido
         CarregaCategorias()
         CarregaProdutos()
         MyModo.UniqueModo = "PADRÃO"
+        WidthColumns()
     End Sub
 
     Private Sub CarregaEstados()
@@ -115,6 +122,8 @@ Public Class Frm_Pedido
             Exit Sub
         End If
 
+        LstProduto.RemoveAll(Function(p) p.IsAtivo = False)
+
         ComboProduto.BeginUpdate()
         ComboProduto.Items.AddRange(LstProduto.ToArray)
         ComboProduto.DisplayMember = "Descricao"
@@ -134,6 +143,8 @@ Public Class Frm_Pedido
             MsgBoxHelper.Alerta(Me, resposta, "Erro")
             Exit Sub
         End If
+
+        LstProduto.RemoveAll(Function(p) p.IsAtivo = False)
 
         ComboProduto.BeginUpdate()
         ComboProduto.Items.AddRange(LstProduto.ToArray)
@@ -164,21 +175,21 @@ Public Class Frm_Pedido
     End Sub
 
     Private Sub ModoNovo()
-        ControlsHelper.SetControlsEnabled(TCPedido.Controls)
-        ControlsHelper.SetControlsEnabled(GrpBoxEndereco.Controls)
-        ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
-        ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
-        ControlsHelper.SetTextsEmpty(GrpBoxEndereco.Controls)
+        LimpaCampos_Ativa()
         ClearLists()
-        'AlternarControle()
+        ClearImgProd()
+        CarregaCategorias()
+        CarregaClientes()
+        CarregaProdutos()
+        CarregaVendedores()
     End Sub
 
     Private Sub ClearLists()
         LstProd.Items.Clear()
-        ImageList1.Images.Clear()
+        LstCarrinho.Items.Clear()
     End Sub
 
-    Private Sub PopulateLstViewProduto(Optional produtoCombo As Produto = Nothing)
+    Private Sub PopulateLstViewProduto(ByVal lst As List(Of Produto), Optional produtoCombo As Produto = Nothing)
         LstProd.Items.Clear()
 
         If produtoCombo IsNot Nothing Then
@@ -202,7 +213,7 @@ Public Class Frm_Pedido
             Exit Sub
         End If
 
-        For Each prod As Produto In LstProduto
+        For Each prod As Produto In lst
             If prod.Imagem IsNot Nothing Then
                 ImageList1.Images.Add(Image.FromFile(prod.Imagem))
             End If
@@ -219,14 +230,20 @@ Public Class Frm_Pedido
             Dim subItemQuantidade = item.SubItems.Add(prod.Quantidade.ToString)
             subItemQuantidade.Name = "QTD"
 
+            If prod.Quantidade = 0 Then
+                item.ForeColor = Color.Red
+            End If
+
             item.Tag = prod
         Next
-
+        
         LstProd.Sorting = SortOrder.Descending
     End Sub
 
     Private Sub ComboCategoria_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles ComboCategoria.SelectedIndexChanged
-        CarregaProdutosCategoria()
+        If ComboCategoria.Text <> String.Empty Then
+            CarregaProdutosCategoria()
+        End If
         'PopulateLstViewProduto()
     End Sub
 
@@ -261,8 +278,6 @@ Public Class Frm_Pedido
         objProdSelecionado.Quantidade = Integer.Parse(qtd)
         LstItens.Add(objProdSelecionado)
 
-        LstCarrinho.SmallImageList = ImageList1
-
         Dim lstviewItem As New ListViewItem(objProdSelecionado.Descricao)
         lstviewItem.Name = objProdSelecionado.CodProduto.ToString
         Dim item = LstCarrinho.Items.Add(lstviewItem)
@@ -284,8 +299,33 @@ Public Class Frm_Pedido
         AtualizaValorTotalDoPedido()
     End Sub
 
+    Private Sub PopulateCarrinho()
+        If LstItens.Count > 0 Then
+            For i As Integer = 0 To LstItens.Count - 1
+                Dim obj = LstItens(i)
+                Dim lstviewItem As New ListViewItem(obj.Descricao)
+                lstviewItem.Name = obj.CodProduto.ToString
+                Dim item = LstCarrinho.Items.Add(lstviewItem)
+
+                Dim subItem1 = item.SubItems.Add(obj.Preco.ToString("C"))
+                subItem1.Name = "PRECO"
+
+                Dim subItem2 = item.SubItems.Add(obj.Quantidade.ToString)
+                subItem2.Name = "QTD"
+
+                Dim subItem3 = item.SubItems.Add((obj.Preco * obj.Quantidade).ToString("C"))
+                subItem3.Name = "PRECOTOTAL"
+
+                item.Tag = obj
+            Next
+            AtualizaValorTotalDoPedido()
+        End If
+    End Sub
+
     Private Sub ComboProduto_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboProduto.SelectedIndexChanged
-        PopulateLstViewProduto(LstProduto(ComboProduto.SelectedIndex))
+        If ComboProduto.Text <> String.Empty Then
+            PopulateLstViewProduto(New List(Of Produto), LstProduto(ComboProduto.SelectedIndex))
+        End If
     End Sub
 
     Private Function Insere() As Boolean
@@ -331,6 +371,19 @@ Public Class Frm_Pedido
             Return False
         End If
 
+        If LstPedidoItem Is Nothing Then
+            LstPedidoItem = New List(Of PedidoItem)
+        Else
+            LstPedidoItem.Clear()
+        End If
+
+        For I As Integer = 0 To pedido.LstProduto.Count - 1
+            LstPedidoItem.Add(New PedidoItem With {.CodPedido = pedido.CodPedido, _
+                                                   .CodProduto = pedido.LstProduto(I).CodProduto, _
+                                                   .Quantidade = pedido.LstProduto(I).Quantidade})
+
+        Next
+
         If Not DAOPedido.InserePedido(pedido, LstPedidoItem, resposta) Then
             MsgBoxHelper.Alerta(Me, resposta, "Erro")
             Return False
@@ -344,8 +397,6 @@ Public Class Frm_Pedido
             Exit Sub
         End If
 
-        MyModo.UniqueModo = MyModo.UniqueModo
-
         Dim resposta As String = ""
 
         MyModo.UniqueModo = UC_Toolstrip.Modo
@@ -354,17 +405,25 @@ Public Class Frm_Pedido
             If UC_Toolstrip.ModoAnterior = "NOVO" Then
                 If Insere() Then
                     LimpaCampos_Desativa()
+                    ClearLists()
+                    ClearImgProd()
+                    LimpaInformacoesProduto()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
                 Else
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                 End If
             Else
-                If Not DAOPedido.AtualizaPedido(GetPedidoForOperation, LstPedidoItem _
-                                                , resposta, False) Then
+                Dim ped = GetPedidoForOperation()
+                GetLstItensForOperation(ped.LstProduto)
+                If Not DAOPedido.AtualizaPedido(ped, LstPedidoItem, resposta, False) Then
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                     MsgBoxHelper.Alerta(Me, resposta, "Erro")
                 Else
-                    Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+                    Uteis.ControlsHelper.SetControlsDisabled(TabDados.Controls)
+                    Uteis.ControlsHelper.SetControlsDisabled(TabProduto.Controls)
+                    Uteis.ControlsHelper.SetControlsDisabled(TabItens.Controls)
+                    ControlsHelper.SetControlsEnabled(TCPedido.Controls)
+                    TCPedido.SelectTab(TabDados)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
                 End If
             End If
@@ -375,12 +434,7 @@ Public Class Frm_Pedido
 
 
         ElseIf MyModo.UniqueModo = "NOVO" Then
-            LimpaCampos_Ativa()
-            CarregaCategorias()
-            CarregaClientes()
-            CarregaProdutos()
-            CarregaVendedores()
-
+            ModoNovo()
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
             If UC_Toolstrip.ModoAnterior = "REVERTER" Then
@@ -403,7 +457,6 @@ Public Class Frm_Pedido
                 If DAOPedido.AtualizaPedido(GetPedidoForOperation, LstPedidoItem _
                                             , resposta, True) Then
                     LimpaCampos_Ativa()
-                    ControlsHelper.SetControlsDisabled(Me.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
                 End If
             Else
@@ -411,20 +464,28 @@ Public Class Frm_Pedido
             End If
 
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
-                LimpaCampos_Desativa()
-                frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
-            End If
+            LimpaCampos_Desativa()
+            frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
+        End If
     End Sub
 
     Private Sub LimpaCampos_Desativa()
-        ControlsHelper.SetTextsEmpty(TCPedido.TabPages(0).Controls)
-        ControlsHelper.SetTextsEmpty(TCPedido.TabPages(1).Controls)
-        ControlsHelper.SetTextsEmpty(TCPedido.TabPages(2).Controls)
-        ControlsHelper.SetControlsDisabled(Me.Controls)
+        ControlsHelper.SetControlsDisabled(TabItens.Controls)
+        ControlsHelper.SetControlsDisabled(TabDados.Controls)
+        ControlsHelper.SetControlsDisabled(TabProduto.Controls)
+        ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
+        ControlsHelper.SetTextsEmpty(GrpBoxEndereco.Controls)
+        ControlsHelper.SetTextsEmpty(TabProduto.Controls)
+        ControlsHelper.SetTextsEmpty(TabItens.Controls)
+        ClearLists()
+        ClearImgProd()
+        TxtQtd.Text = "0"
+        TxtQtdInsere.Text = "0"
+        TxtValorTotal.Text = 0.ToString("C")
     End Sub
 
     Private Sub LimpaCampos_Ativa()
-        ControlsHelper.SetControlsEnabled(Me.Controls)
+        ControlsHelper.SetControlsEnabled(TCPedido.Controls)
         ControlsHelper.SetControlsEnabled(TabItens.Controls)
         ControlsHelper.SetControlsEnabled(TabDados.Controls)
         ControlsHelper.SetControlsEnabled(TabProduto.Controls)
@@ -432,13 +493,14 @@ Public Class Frm_Pedido
         ControlsHelper.SetTextsEmpty(GrpBoxEndereco.Controls)
         ControlsHelper.SetTextsEmpty(TabProduto.Controls)
         ControlsHelper.SetTextsEmpty(TabItens.Controls)
+        ClearLists()
         TxtQtd.Text = "0"
         TxtQtdInsere.Text = "0"
+        TxtValorTotal.Text = 0.ToString("C")
     End Sub
 
     Private Sub ModoPesquisa()
         LimpaCampos_Desativa()
-        ControlsHelper.SetControlsEnabled(Me.Controls)
         ControlsHelper.SetControlsDisabled(TCPedido.TabPages(0).Controls)
         ControlsHelper.SetControlsDisabled(TCPedido.TabPages(1).Controls)
         ControlsHelper.SetControlsDisabled(TCPedido.TabPages(2).Controls)
@@ -450,23 +512,24 @@ Public Class Frm_Pedido
             frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
             frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnAnterior").Enabled = False
             frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnSeguinte").Enabled = False
+            CarregaProdutosDoPedido()
+            PopulateCarrinho()
         Else
             frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
         End If
     End Sub
 
     Private Sub PreencheCampos(ByVal obj As Pedido)
-        Dim cliente = DAOPedido.GetCliente(obj.CodCliente, True, "")
-        Dim vendedor = DAOPedido.GetVendedor(obj.CodVendedor.ToString, "")
         TxtCod.Text = obj.CodPedido
         ChkDestinatario.Checked = obj.IsClienteDestinatario
         TxtDestinatario.Text = obj.Destinatario
         DtPckVenda.Value = obj.DatVenda
-        ComboCliente.SelectedItem = cliente
-        ComboCliente.Text = cliente.Nome
-        ComboVendedor.SelectedItem = vendedor
-        ComboVendedor.Text = vendedor.NomeCompleto
+        ComboCliente.SelectedItem = LstCliente.First(Function(c) c.CodCliente = obj.CodCliente)
+        ComboCliente.Text = LstCliente.First(Function(c) c.CodCliente = obj.CodCliente).Nome
+        ComboVendedor.SelectedItem = LstVendedor.First(Function(v) v.CodVendedor = obj.CodVendedor)
+        ComboVendedor.Text = LstVendedor.First(Function(v) v.CodVendedor = obj.CodVendedor).NomeCompleto
         ChkPresente.Checked = objPedido.IsPresente
+        Endereco = obj.ObjEndereco
         TxtCEP.Text = obj.ObjEndereco.CEP
         TxtLogradouro.Text = obj.ObjEndereco.Logradouro
         TxtBairro.Text = obj.ObjEndereco.Bairro
@@ -516,6 +579,8 @@ Public Class Frm_Pedido
         ComboCategoria.Text = ""
         ComboProduto.Text = ""
         ControlsHelper.SetControlsEnabled(TCPedido.TabPages(2).Controls)
+        ComboCliente.SelectedItem = LstCliente.First(Function(c) c.CodCliente = objPedido.CodCliente)
+        ComboVendedor.SelectedItem = LstVendedor.First(Function(v) v.CodVendedor = objPedido.CodVendedor)
     End Sub
 
     Private Sub ClearImgProd()
@@ -525,8 +590,11 @@ Public Class Frm_Pedido
     End Sub
 
     Private Sub ModoPesquisaPreenchido()
-        LimpaCampos_Ativa()
-        ControlsHelper.SetControlsDisabled(Me.Controls)
+        TCPedido.SelectTab(TabDados)
+        LimpaCampos_Desativa()
+        ControlsHelper.SetControlsDisabled(TCPedido.TabPages(0).Controls)
+        ControlsHelper.SetControlsDisabled(TCPedido.TabPages(1).Controls)
+        ControlsHelper.SetControlsDisabled(TCPedido.TabPages(2).Controls)
         CarregaProdutosDoPedido()
         PreencheCampos(objPedido)
         frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
@@ -548,6 +616,7 @@ Public Class Frm_Pedido
         For i As Integer = 0 To LstPedidoItem.Count - 1
             Dim index = i
             LstItens.Add(LstProduto.First(Function(p As Produto) p.CodProduto = LstPedidoItem(index).CodProduto))
+            LstItens(i).Quantidade = LstPedidoItem(i).Quantidade
         Next
     End Sub
 
@@ -557,14 +626,22 @@ Public Class Frm_Pedido
         End If
         Dim obj = objPedido
 
-        obj.CodCliente = LstCliente(ComboCliente.SelectedIndex).CodCliente
-        obj.CodVendedor = LstVendedor(ComboVendedor.SelectedIndex).CodVendedor
+        obj.CodCliente = LstCliente.Find(Function(c) c Is ComboCliente.SelectedItem).CodCliente
+        obj.CodVendedor = LstVendedor.Find(Function(v) v Is ComboVendedor.SelectedItem).CodVendedor
         obj.DatVenda = DtPckVenda.Value
         obj.Destinatario = TxtDestinatario.Text
         obj.IsClienteDestinatario = ChkDestinatario.Checked
-        obj.Observacao = ""
+        obj.Observacao = TxtObs.Text
         obj.IsPresente = ChkPresente.Checked
-        obj.ObjEndereco = Endereco
+        obj.Destinatario = TxtDestinatario.Text
+        obj.ObjEndereco.CEP = StringHelper.NumericOnly(TxtCEP.Text)
+        obj.ObjEndereco.Logradouro = TxtLogradouro.Text.ToUpper
+        obj.ObjEndereco.Bairro = TxtBairro.Text.ToUpper
+        obj.ObjEndereco.Cidade = TxtCidade.Text.ToUpper
+        obj.ObjEndereco.UF = LstEstados.Item(ComboEstado.SelectedIndex).UF
+        obj.ObjEndereco.Complemento = TxtComplemento.Text.ToUpper
+        obj.ObjEndereco.NumeroEndereco = StringHelper.NumericOnly(TxtNum.Text)
+        obj.ValorTotal = Decimal.Parse(TxtValorTotal.Text.Replace("R$", ""))
         obj.LstProduto = LstItens
         Return obj
     End Function
@@ -608,6 +685,7 @@ Public Class Frm_Pedido
         LstCarrinho.Items(obj.CodProduto.ToString).SubItems("QTD").Text = TxtQtd.Text
         Dim precoQtd = obj.Preco * Integer.Parse(TxtQtd.Text)
         LstCarrinho.Items(obj.CodProduto.ToString).SubItems("PRECOTOTAL").Text = precoQtd.ToString("C")
+        LstItens.First(Function(i) i.CodProduto = obj.CodProduto).Quantidade = qtd
         AtualizaValorTotalDoPedido()
     End Sub
 
@@ -622,7 +700,7 @@ Public Class Frm_Pedido
     End Sub
 
     Private Sub BtnPesquisar_Click(sender As System.Object, e As System.EventArgs) Handles BtnPesquisar.Click
-        PopulateLstViewProduto()
+        PopulateLstViewProduto(LstProduto)
     End Sub
 
     Private Sub BtnMenosInsere_Click(sender As System.Object, e As System.EventArgs) Handles BtnMenosInsere.Click
@@ -711,6 +789,7 @@ Public Class Frm_Pedido
         Dim precoQtd = objProdSelecionado.Preco * Integer.Parse(TxtQtd.Text)
         LstCarrinho.Items(objProdSelecionado.CodProduto.ToString).SubItems("PRECOTOTAL").Text = precoQtd.ToString("C")
 
+        LstItens.First(Function(i) i.CodProduto = objProdSelecionado.CodProduto).Quantidade = qtd
         AtualizaValorTotalDoPedido()
     End Sub
 
@@ -790,6 +869,89 @@ Public Class Frm_Pedido
             LblQtdCarrinho.Text = (Integer.Parse(LblQtdCarrinho.Text) - 1).ToString
         Else
             Exit Sub
+        End If
+    End Sub
+
+    Private Sub ComboProduto_TextChanged(sender As System.Object, e As System.EventArgs) Handles ComboProduto.TextChanged
+        If ComboProduto.Text <> String.Empty Then
+            Dim lstProduto As New List(Of Produto)
+            lstProduto = DAOPedido.GetProdutoPorNome(ComboProduto.Text)
+            If lstProduto.Count > 0 Then
+                PopulateLstViewProduto(lstProduto)
+            Else
+                LstProd.Items.Clear()
+            End If
+        Else
+            LstProd.Items.Clear()
+        End If
+    End Sub
+
+    Private Sub ComboCliente_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboCliente.KeyPress
+        If Char.IsLetter(e.KeyChar) Then
+            e.KeyChar = Char.ToUpper(e.KeyChar)
+        End If
+    End Sub
+
+    Private Sub ComboVendedor_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboVendedor.KeyPress
+        If Char.IsLetter(e.KeyChar) Then
+            e.KeyChar = Char.ToUpper(e.KeyChar)
+        End If
+    End Sub
+
+    Private Sub ComboCategoria_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboCategoria.KeyPress
+        If Char.IsLetter(e.KeyChar) Then
+            e.KeyChar = Char.ToUpper(e.KeyChar)
+        End If
+    End Sub
+
+    Private Sub ComboProduto_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboProduto.KeyPress
+        If Char.IsLetter(e.KeyChar) Then
+            e.KeyChar = Char.ToUpper(e.KeyChar)
+        End If
+    End Sub
+
+    Private Sub AposSalvarComSucesso()
+        LimpaCampos_Ativa()
+        ClearLists()
+        ClearImgProd()
+        LblQtdCarrinho.Text = "0"
+        LimpaInformacoesProduto()
+        ControlsHelper.SetControlsDisabled(TabDados.Controls)
+        ControlsHelper.SetControlsDisabled(TabProduto.Controls)
+        ControlsHelper.SetControlsDisabled(TabItens.Controls)
+        frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
+        TCPedido.SelectTab(TabDados)
+    End Sub
+
+    Private Sub DesabilitaPages()
+        ControlsHelper.SetControlsDisabled(TCPedido.TabPages(0).Controls)
+        ControlsHelper.SetControlsDisabled(TCPedido.TabPages(1).Controls)
+        ControlsHelper.SetControlsDisabled(TCPedido.TabPages(2).Controls)
+    End Sub
+
+    Private Sub WidthColumns()
+        Dim widthtotal As Integer = 0
+        For Each Column As ColumnHeader In LstProd.Columns
+            widthtotal = widthtotal + Column.Width
+        Next
+        If LstProd.Width > widthtotal Then
+            LstProd.BeginUpdate()
+            Dim newWidthDesc As Integer = 0
+            newWidthDesc = (LstProd.Width - widthtotal)
+            LstProd.Columns(1).Width = LstProd.Columns(1).Width + newWidthDesc
+            LstProd.EndUpdate()
+        End If
+
+        widthtotal = 0
+
+        For Each column As ColumnHeader In LstCarrinho.Columns
+            widthtotal = widthtotal + column.Width
+        Next
+        If LstCarrinho.Width > widthtotal Then
+            LstCarrinho.BeginUpdate()
+            Dim newWidthDesc As Decimal = LstCarrinho.Width - widthtotal
+            LstCarrinho.Columns(0).Width += newWidthDesc
+            LstCarrinho.EndUpdate()
         End If
     End Sub
 End Class

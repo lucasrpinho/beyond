@@ -23,6 +23,9 @@ Partial Class Frm_ConsPedido
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GrpBoxFiltro = New System.Windows.Forms.GroupBox()
+        Me.ChkVendedor = New System.Windows.Forms.CheckBox()
+        Me.ChkCliente = New System.Windows.Forms.CheckBox()
+        Me.PicBuscar = New System.Windows.Forms.PictureBox()
         Me.ComboVendedor = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ComboCliente = New System.Windows.Forms.ComboBox()
@@ -35,13 +38,10 @@ Partial Class Frm_ConsPedido
         Me.ColVendedor = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColDatVenda = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColDestinatario = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.PicBuscar = New System.Windows.Forms.PictureBox()
-        Me.ChkCliente = New System.Windows.Forms.CheckBox()
-        Me.ChkVendedor = New System.Windows.Forms.CheckBox()
         Me.GrpBoxFiltro.SuspendLayout()
+        CType(Me.PicBuscar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GrpBoxPedidos.SuspendLayout()
         CType(Me.PicConfirmar, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicBuscar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GrpBoxFiltro
@@ -60,6 +60,34 @@ Partial Class Frm_ConsPedido
         Me.GrpBoxFiltro.TabIndex = 0
         Me.GrpBoxFiltro.TabStop = False
         Me.GrpBoxFiltro.Text = "Filtros"
+        '
+        'ChkVendedor
+        '
+        Me.ChkVendedor.AutoSize = True
+        Me.ChkVendedor.Location = New System.Drawing.Point(398, 102)
+        Me.ChkVendedor.Name = "ChkVendedor"
+        Me.ChkVendedor.Size = New System.Drawing.Size(15, 14)
+        Me.ChkVendedor.TabIndex = 14
+        Me.ChkVendedor.UseVisualStyleBackColor = True
+        '
+        'ChkCliente
+        '
+        Me.ChkCliente.AutoSize = True
+        Me.ChkCliente.Location = New System.Drawing.Point(398, 56)
+        Me.ChkCliente.Name = "ChkCliente"
+        Me.ChkCliente.Size = New System.Drawing.Size(15, 14)
+        Me.ChkCliente.TabIndex = 13
+        Me.ChkCliente.UseVisualStyleBackColor = True
+        '
+        'PicBuscar
+        '
+        Me.PicBuscar.Image = Global.Beyond.My.Resources.Resources.search
+        Me.PicBuscar.Location = New System.Drawing.Point(766, 120)
+        Me.PicBuscar.Name = "PicBuscar"
+        Me.PicBuscar.Size = New System.Drawing.Size(25, 25)
+        Me.PicBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PicBuscar.TabIndex = 12
+        Me.PicBuscar.TabStop = False
         '
         'ComboVendedor
         '
@@ -156,38 +184,11 @@ Partial Class Frm_ConsPedido
         Me.ColDestinatario.Text = "Destinatário"
         Me.ColDestinatario.Width = 283
         '
-        'PicBuscar
-        '
-        Me.PicBuscar.Image = Global.Beyond.My.Resources.Resources.search
-        Me.PicBuscar.Location = New System.Drawing.Point(766, 120)
-        Me.PicBuscar.Name = "PicBuscar"
-        Me.PicBuscar.Size = New System.Drawing.Size(25, 25)
-        Me.PicBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PicBuscar.TabIndex = 12
-        Me.PicBuscar.TabStop = False
-        '
-        'ChkCliente
-        '
-        Me.ChkCliente.AutoSize = True
-        Me.ChkCliente.Location = New System.Drawing.Point(398, 56)
-        Me.ChkCliente.Name = "ChkCliente"
-        Me.ChkCliente.Size = New System.Drawing.Size(15, 14)
-        Me.ChkCliente.TabIndex = 13
-        Me.ChkCliente.UseVisualStyleBackColor = True
-        '
-        'ChkVendedor
-        '
-        Me.ChkVendedor.AutoSize = True
-        Me.ChkVendedor.Location = New System.Drawing.Point(398, 102)
-        Me.ChkVendedor.Name = "ChkVendedor"
-        Me.ChkVendedor.Size = New System.Drawing.Size(15, 14)
-        Me.ChkVendedor.TabIndex = 14
-        Me.ChkVendedor.UseVisualStyleBackColor = True
-        '
         'Frm_ConsPedido
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.Window
         Me.ClientSize = New System.Drawing.Size(797, 423)
         Me.Controls.Add(Me.GrpBoxPedidos)
         Me.Controls.Add(Me.GrpBoxFiltro)
@@ -197,13 +198,13 @@ Partial Class Frm_ConsPedido
         Me.MinimizeBox = False
         Me.Name = "Frm_ConsPedido"
         Me.ShowIcon = False
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Consultar Pedidos"
         Me.GrpBoxFiltro.ResumeLayout(False)
         Me.GrpBoxFiltro.PerformLayout()
+        CType(Me.PicBuscar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GrpBoxPedidos.ResumeLayout(False)
         CType(Me.PicConfirmar, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicBuscar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
