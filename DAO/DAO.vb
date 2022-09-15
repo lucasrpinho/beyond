@@ -847,14 +847,16 @@ Public Class DAO
 
 #Region "Produto"
     Public Overloads Function GetProdutos(ByVal cod As Int32, ByRef resposta As String) As Produto
-        Return _GetProdutos(cod, resposta).FirstOrDefault
+        Return _GetProdutos(cod, resposta, True, True).FirstOrDefault
     End Function
 
-    Public Overloads Function GetProdutos(ByRef resposta As String) As List(Of Produto)
-        Return _GetProdutos(0, resposta)
+    Public Overloads Function GetProdutos(ByRef resposta As String, Optional todos As Boolean = False, _
+                                          Optional ativos As Boolean = True) As List(Of Produto)
+        Return _GetProdutos(0, resposta, todos, ativos)
     End Function
 
-    Public Function _GetProdutos(ByVal cod As Int32, ByRef resposta As String) As List(Of Produto)
+    Public Function _GetProdutos(ByVal cod As Int32, ByRef resposta As String, ByVal todos As Boolean, _
+                                 ByVal ativos As Boolean) As List(Of Produto)
         Dim Lst As New List(Of Produto)
         Using Cmd As New SqlCommand
             Try
@@ -862,6 +864,8 @@ Public Class DAO
                 Cmd.CommandText = "SP_GET_PRODUTOS"
                 Cmd.CommandType = CommandType.StoredProcedure
                 Cmd.Parameters.AddWithValue("@CODPRODUTO", cod)
+                Cmd.Parameters.AddWithValue("@TODOS", todos)
+                Cmd.Parameters.AddWithValue("@ATIVOS", ativos)
 
                 Dim Adp As New SqlDataAdapter(Cmd)
                 Dim Tbl As New DataTable
@@ -1051,7 +1055,8 @@ Public Class DAO
         Return lst
     End Function
 
-    Public Function GetProdutosPorCategoria(ByVal categ As String, ByRef resposta As String) As List(Of Produto)
+    Public Function GetProdutosPorCategoria(ByVal categ As String, ByRef resposta As String, _
+                    Optional todos As Boolean = False) As List(Of Produto)
         Dim lst As New List(Of Produto)
         Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
         Using Cmd As New SqlCommand
@@ -1059,6 +1064,7 @@ Public Class DAO
             Cmd.CommandText = "SP_GET_PRODUTOS_POR_CATEGORIA"
             Cmd.CommandType = CommandType.StoredProcedure
             Cmd.Parameters.AddWithValue("@CATEGORIA", categ)
+            Cmd.Parameters.AddWithValue("@TODOS", todos)
             Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
             Cmd.Parameters("@RESPONSE").Size = 255
 

@@ -118,11 +118,9 @@ Public Class Frm_Pedido
         LstProduto = DAOPedido.GetProdutos(resposta)
 
         If Not LstProduto.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            MsgBoxHelper.Alerta(Me, "A busca por produtos não encontrou resultados.", "Erro")
             Exit Sub
         End If
-
-        LstProduto.RemoveAll(Function(p) p.IsAtivo = False)
 
         ComboProduto.BeginUpdate()
         ComboProduto.Items.AddRange(LstProduto.ToArray)
@@ -182,6 +180,7 @@ Public Class Frm_Pedido
         CarregaClientes()
         CarregaProdutos()
         CarregaVendedores()
+        ComboCliente.Focus()
     End Sub
 
     Private Sub ClearLists()
@@ -271,6 +270,14 @@ Public Class Frm_Pedido
             End If
             TxtDesc.Text = objProdSelecionado.Descricao
             LblPreco.Text = "Preço: " + objProdSelecionado.Preco.ToString("C")
+
+            BtnComprar.Enabled = objProdSelecionado.Quantidade > 0
+            BtnMaisInsere.Enabled = objProdSelecionado.Quantidade > 0
+            BtnMenosInsere.Enabled = objProdSelecionado.Quantidade > 0
+            If objProdSelecionado.Quantidade <= 0 Then
+                MsgBoxHelper.Msg(Me, "O produto escolhido esgotou. Escolha outro " + _
+                                 "ou tente novamente em outro momento.", "Esgotado")
+            End If
         End If
     End Sub
 
@@ -666,6 +673,9 @@ Public Class Frm_Pedido
     End Sub
 
     Private Sub BtnMais_Click(sender As System.Object, e As System.EventArgs) Handles BtnMais.Click
+        If Not LstCarrinho.Items.Count > 0 Then
+            Exit Sub
+        End If
         If objProdSelecionado Is Nothing Then
             MsgBoxHelper.Msg(Me, "Selecione um produto da lista.", "Produto indefinido")
             Exit Sub
@@ -704,6 +714,9 @@ Public Class Frm_Pedido
     End Sub
 
     Private Sub BtnMenosInsere_Click(sender As System.Object, e As System.EventArgs) Handles BtnMenosInsere.Click
+        If Not LstProd.Items.Count > 0 Then
+            Exit Sub
+        End If
         If objProdSelecionado Is Nothing Then
             MsgBoxHelper.Msg(Me, "Selecione um produto da lista.", "Produto indefinido")
             Exit Sub
@@ -747,6 +760,9 @@ Public Class Frm_Pedido
     End Sub
 
     Private Sub BtnMaisInsere_Click(sender As System.Object, e As System.EventArgs) Handles BtnMaisInsere.Click
+        If Not LstProd.Items.Count > 0 Then
+            Exit Sub
+        End If
         If objProdSelecionado Is Nothing Then
             MsgBoxHelper.Msg(Me, "Selecione um produto da lista.", "Produto indefinido")
             Exit Sub
@@ -771,6 +787,9 @@ Public Class Frm_Pedido
     End Sub
 
     Private Sub BtnMenos_Click(sender As System.Object, e As System.EventArgs) Handles BtnMenos.Click
+        If Not LstCarrinho.Items.Count > 0 Then
+            Exit Sub
+        End If
         If objProdSelecionado Is Nothing Then
             MsgBoxHelper.Msg(Me, "Selecione um produto da lista.", "Produto indefinido.")
             Exit Sub
@@ -797,27 +816,39 @@ Public Class Frm_Pedido
         If ComboCliente.Text = String.Empty Then
             MsgBoxHelper.CustomTooltip(GrpBoxInfo, ComboCliente, "Necessário selecionar um cliente.", _
                                        "Preenchimento incompleto")
+            ComboCliente.Focus()
             Return False
+
         ElseIf ComboVendedor.Text = String.Empty Then
             MsgBoxHelper.CustomTooltip(GrpBoxInfo, ComboVendedor, "Necessário selecionar um vendedor.", _
                                        "Preenchimento incompleto")
+            ComboVendedor.Focus()
             Return False
+
         ElseIf TxtDestinatario.Text = String.Empty Then
             MsgBoxHelper.CustomTooltip(GrpBoxInfo, TxtDestinatario, "Necessário informar um destinatário.", _
                                        "Preenchimento incompleto")
+            TxtDestinatario.Focus()
             Return False
+
         ElseIf TxtCEP.Text = String.Empty Then
             MsgBoxHelper.CustomTooltip(GrpBoxEndereco, TxtCEP, "Necessário informar um CEP.", _
                                        "Preenchimento incompleto")
+            TxtCEP.Focus()
+
             Return False
+
         ElseIf TxtCEP.Text <> String.Empty AndAlso TxtNum.Text = String.Empty Then
             MsgBoxHelper.CustomTooltip(GrpBoxEndereco, TxtNum, "Necessário informar o número do endereço.", _
                                        "Preenchimento incompleto")
+            TxtNum.Focus()
             Return False
+
         ElseIf LstCarrinho.Items.Count = 0 Then
             MsgBoxHelper.Alerta(Me, "O pedido está sem itens. Necessário adicionar algum produto ao carrinho.",
                                 "Carrinho vazio")
             Return False
+
         End If
 
         Return True
@@ -830,20 +861,6 @@ Public Class Frm_Pedido
         Else
             TxtDestinatario.ReadOnly = False
             TxtDestinatario.Text = ""
-        End If
-    End Sub
-
-    Private Sub TxtCEP_Enter(sender As System.Object, e As System.EventArgs) Handles TxtCEP.Enter
-        If ChkDestinatario.Checked Then
-            Dim c = LstCliente(ComboCliente.SelectedIndex)
-            TxtCEP.Text = c.ObjEndereco.CEP
-            TxtLogradouro.Text = c.ObjEndereco.Logradouro
-            TxtBairro.Text = c.ObjEndereco.Bairro
-            TxtNum.Text = c.ObjEndereco.NumeroEndereco.ToString
-            ComboEstado.SelectedItem = LstEstados.Find(Function(es As EstadoUF) es.UF = c.ObjEndereco.UF)
-            ComboEstado.Text = LstEstados.Find(Function(es As EstadoUF) es.UF = c.ObjEndereco.UF).Nome
-            TxtCidade.Text = c.ObjEndereco.Cidade
-            TxtComplemento.Text = c.ObjEndereco.Complemento
         End If
     End Sub
 
@@ -952,6 +969,20 @@ Public Class Frm_Pedido
             Dim newWidthDesc As Decimal = LstCarrinho.Width - widthtotal
             LstCarrinho.Columns(0).Width += newWidthDesc
             LstCarrinho.EndUpdate()
+        End If
+    End Sub
+
+    Private Sub TxtDestinatario_ReadOnlyChanged(sender As System.Object, e As System.EventArgs) Handles TxtDestinatario.ReadOnlyChanged
+        If ChkDestinatario.Checked Then
+            Dim c = LstCliente(ComboCliente.SelectedIndex)
+            TxtCEP.Text = c.ObjEndereco.CEP
+            TxtLogradouro.Text = c.ObjEndereco.Logradouro
+            TxtBairro.Text = c.ObjEndereco.Bairro
+            TxtNum.Text = c.ObjEndereco.NumeroEndereco.ToString
+            ComboEstado.SelectedItem = LstEstados.Find(Function(es As EstadoUF) es.UF = c.ObjEndereco.UF)
+            ComboEstado.Text = LstEstados.Find(Function(es As EstadoUF) es.UF = c.ObjEndereco.UF).Nome
+            TxtCidade.Text = c.ObjEndereco.Cidade
+            TxtComplemento.Text = c.ObjEndereco.Complemento
         End If
     End Sub
 End Class

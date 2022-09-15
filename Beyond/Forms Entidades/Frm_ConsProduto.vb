@@ -15,9 +15,16 @@ Public Class Frm_ConsProduto
 
 
     Private Sub Frm_ConsProduto_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        CarregaProdutos()
+        CarregaCategorias()
+
+        ComboCateg.Focus()
+    End Sub
+
+    Private Sub CarregaCategorias()
         Dim resposta As String = ""
 
-        ComboBox1.Items.Clear()
+        ComboCateg.Items.Clear()
         LstCategoria.Clear()
 
         LstCategoria = DAOProd.GetCategoriasProduto(resposta)
@@ -27,35 +34,82 @@ Public Class Frm_ConsProduto
             Exit Sub
         End If
 
-        ComboBox1.BeginUpdate()
+        ComboCateg.BeginUpdate()
         For I As Integer = 0 To LstCategoria.Count - 1
-            ComboBox1.Items.Add(LstCategoria(I))
+            ComboCateg.Items.Add(LstCategoria(I))
         Next
-        ComboBox1.EndUpdate()
+        ComboCateg.EndUpdate()
     End Sub
 
     Private Sub CarregaProdutos()
         Dim resposta As String = ""
 
         LstProduto.Clear()
+        ComboDesc.Items.Clear()
 
-        LstProduto = DAOProd.GetProdutosPorCategoria(ComboBox1.Text, resposta)
+        LstProduto = DAOProd.GetProdutos(resposta, True)
 
         If Not LstProduto.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            MsgBoxHelper.Alerta(Me, "A busca não encontrou resultados.", "Erro")
             Exit Sub
         End If
 
-        PopulateListView()
+        ComboDesc.BeginUpdate()
+        ComboDesc.Items.AddRange(LstProduto.ToArray)
+        ComboDesc.DisplayMember = "Descricao"
+        ComboDesc.ValueMember = "CodProduto"
+        ComboDesc.EndUpdate()
 
     End Sub
 
-    Private Sub PopulateListView()
+    Private Sub CarregaProdCateg()
+        Dim resposta As String = ""
+
+        LstProduto.Clear()
+        ComboDesc.Items.Clear()
+
+        LstProduto = DAOProd.GetProdutosPorCategoria(ComboCateg.Text, resposta, True)
+
+        If Not LstProduto.Count > 0 Then
+            MsgBoxHelper.Alerta(Me, "A busca não encontrou resultados.", "Erro")
+            Exit Sub
+        End If
+
+        ComboDesc.BeginUpdate()
+        ComboDesc.Items.AddRange(LstProduto.ToArray)
+        ComboDesc.DisplayMember = "Descricao"
+        ComboDesc.ValueMember = "CodProduto"
+        ComboDesc.EndUpdate()
+    End Sub
+
+    Private Sub PopulateListView(ByVal lst As List(Of Produto), Optional ByVal prod As Produto = Nothing)
         ListView1.Items.Clear()
 
-        For Each prod As Produto In LstProduto
-            Dim lstViewItem As New ListViewItem(New String() {prod.Descricao, prod.Preco.ToString("C"), prod.Quantidade.ToString})
-            lstViewItem.Tag = prod
+        If prod IsNot Nothing Then
+            If prod.Imagem IsNot Nothing Then
+                ImageList1.Images.Add(Image.FromFile(prod.Imagem))
+            End If
+            Dim lstViewItem As New ListViewItem(prod.Categoria)
+            Dim item = ListView1.Items.Add(lstViewItem)
+            item.Name = prod.CodProduto.ToString
+
+            Dim subItemDescricao = item.SubItems.Add(prod.Descricao)
+            subItemDescricao.Name = "DESCRIÇÃO"
+
+            Dim subItemPreco = item.SubItems.Add(prod.Preco.ToString("C"))
+            subItemPreco.Name = "PREÇO"
+
+            Dim subItemEstoque = item.SubItems.Add(prod.Quantidade.ToString)
+            subItemEstoque.Name = "ESTOQUE"
+
+            item.Tag = prod
+            Exit Sub
+        End If
+        ListView1.Items.Clear()
+
+        For Each p As Produto In LstProduto
+            Dim lstViewItem As New ListViewItem(New String() {p.Descricao, p.Preco.ToString("C"), p.Quantidade.ToString})
+            lstViewItem.Tag = p
             ListView1.Items.Add(lstViewItem)
         Next
 
@@ -71,16 +125,8 @@ Public Class Frm_ConsProduto
         Me.frmInstancia = frm
     End Sub
 
-    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles ComboBox1.SelectedIndexChanged
-        CarregaProdutos()
-    End Sub
-
-    Private Sub PictureBox1_Click(sender As System.Object, e As System.EventArgs) Handles PictureBox1.Click
-        If ListView1.SelectedItems.Count > 0 Then
-            frmInstancia.objProduto = ListView1.SelectedItems(0).Tag
-        End If
-
-        Me.Close()
+    Private Sub ComboCateg_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles ComboCateg.SelectedIndexChanged
+        CarregaProdCateg()
     End Sub
 
     Private Sub ListView1_MouseDoubleClick(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles ListView1.MouseDoubleClick
@@ -88,5 +134,64 @@ Public Class Frm_ConsProduto
             frmInstancia.objProduto = ListView1.SelectedItems(0).Tag
             Me.Close()
         End If
+    End Sub
+
+    Private Sub BtnConfirmar_Click(sender As System.Object, e As System.EventArgs) Handles BtnConfirmar.Click
+        If ListView1.SelectedItems.Count > 0 Then
+            frmInstancia.objProduto = ListView1.SelectedItems(0).Tag
+        End If
+
+        Me.Close()
+    End Sub
+
+    Private Sub BtnPesquisar_Click(sender As System.Object, e As System.EventArgs) Handles BtnPesquisar.Click
+        PopulateListView(LstProduto)
+    End Sub
+
+    Private Sub ComboDesc_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboDesc.SelectedIndexChanged
+        PopulateListView(New List(Of Produto), LstProduto(ComboDesc.SelectedIndex))
+    End Sub
+
+    Private Sub ComboDesc_TextChanged(sender As System.Object, e As System.EventArgs) Handles ComboDesc.TextChanged
+        If ComboDesc.Text <> String.Empty Then
+            Dim lstProduto As New List(Of Produto)
+            lstProduto = DAOProd.GetProdutoPorNome(ComboDesc.Text)
+            If lstProduto.Count > 0 Then
+                PopulateListView(lstProduto)
+            Else
+                ListView1.Items.Clear()
+            End If
+        Else
+            ListView1.Items.Clear()
+        End If
+    End Sub
+
+    Private Sub ChkCateg_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChkCateg.CheckedChanged
+        If ChkCateg.CheckState = CheckState.Checked Then
+            ComboCateg.Enabled = True
+        Else
+            ComboCateg.Text = ""
+            ComboCateg.Enabled = False
+        End If
+    End Sub
+
+    Private Sub ChkDesc_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChkDesc.CheckedChanged
+        If ChkDesc.CheckState = CheckState.Checked Then
+            ComboDesc.Enabled = True
+        Else
+            ComboDesc.Text = ""
+            ComboDesc.Enabled = False
+        End If
+    End Sub
+
+    Private Sub ComboCateg_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboCateg.KeyPress
+        If Char.IsLetter(e.KeyChar) Or Char.IsDigit(e.KeyChar) Or Char.IsSeparator(e.KeyChar) Or
+            Char.IsPunctuation(e.KeyChar) Then
+            e.KeyChar = ""
+        End If
+    End Sub
+
+    Private Sub ComboDesc_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboDesc.KeyPress
+        e.KeyChar = Char.ToUpper(e.KeyChar)
     End Sub
 End Class

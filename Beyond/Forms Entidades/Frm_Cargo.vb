@@ -89,9 +89,8 @@ Public Class Frm_Cargo
         MyModo.UniqueModo = UC_Toolstrip.Modo
 
         If MyModo.UniqueModo = "NOVO" Then
-            Cursor.Position = ComboNome.Location
-            ComboNome.Focus()
             LimpaCampos_Ativa()
+            ComboNome.Focus()
 
 
         ElseIf MyModo.UniqueModo = "SALVAR" Then

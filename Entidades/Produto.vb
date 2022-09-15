@@ -52,7 +52,9 @@ Public Class Produto
         Me.Descricao = row.Field(Of String)("de_descricao")
         Me.Preco = row.Field(Of Decimal)("nu_preco")
         Me.Quantidade = row.Field(Of Integer)("nu_quantidade")
-        Me.Imagem = System.Text.Encoding.UTF8.GetString(row.Field(Of Byte())("fl_imagem"))
+        If Me.Imagem IsNot Nothing Then
+            Me.Imagem = System.Text.Encoding.UTF8.GetString(row.Field(Of Byte())("fl_imagem"))
+        End If
         Me.IsAtivo = row.Field(Of Boolean)("ct_ativo")
         Me.DatCriacao = row.Field(Of DateTime)("dat_criacao")
         Me.LoginCriacao = row.Field(Of String)("de_login_criacao")

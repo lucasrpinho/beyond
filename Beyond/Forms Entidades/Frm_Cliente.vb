@@ -48,7 +48,7 @@ Public Class Frm_Cliente
     End Sub
 
     Private Sub ComboNome_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboNome.SelectedIndexChanged
-        If Not Uteis.StringHelper.IsNull(ComboNome.Text) Then
+        If Not String.IsNullOrWhiteSpace(ComboNome.Text) Then
             If objCliente IsNot Nothing Then
                 objCliente = Nothing
             End If
@@ -228,6 +228,7 @@ Public Class Frm_Cliente
             LimpaCampos_AtivaControles()
             CarregaCargos()
             AlternarControle()
+            ComboNome.Focus()
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
             ModoPesquisa()
@@ -250,6 +251,7 @@ Public Class Frm_Cliente
                     LimpaCampos_AtivaControles()
                     ControlsHelper.SetControlsDisabled(Me.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
+                    objCliente = Nothing
                 End If
             Else
                 Exit Sub
@@ -268,7 +270,7 @@ Public Class Frm_Cliente
         Dim cliente = DAOCliente.GetCliente(Convert.ToInt32(codcliente), True, resposta)
 
         If IsNothing(cliente) Then
-            Uteis.MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            Uteis.MsgBoxHelper.Alerta(Me, "Não foi possível buscar as informações do cliente.", "Erro")
             Exit Sub
         End If
 
@@ -288,7 +290,7 @@ Public Class Frm_Cliente
         TxtObs.Text = cliente.Descricao
         ComboEstado.SelectedItem = estado
         ComboEstado.Text = estado.Nome
-        Dim cargo = LstCargos.Find(Function(c As Cargo) c.CodCargo = cliente.CodCargo)
+        Dim cargo = LstCargos.Find(Function(c) c.CodCargo = cliente.CodCargo)
         If cargo IsNot Nothing Then
             ComboCargo.SelectedItem = cargo
             ComboCargo.Text = cargo.Nome
@@ -297,15 +299,22 @@ Public Class Frm_Cliente
         TxtEmpresa.Text = cliente.Empresa
         TxtCelular.Text = cliente.Telefone
         DtPckNasc.Value = cliente.DatNasc
+        ChkBoxAtivo.Checked = cliente.IsAtivo
     End Sub
 
     Private Sub ModoAlterar()
         GrpBoxEndereco.Enabled = True
+        GrpBoxInfo.Enabled = True
         ControlsHelper.SetControlsEnabled(GrpBoxEndereco.Controls)
         ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
         ComboNome.Enabled = False
         DtPckNasc.Enabled = False
         CarregaCargos()
+        If objCliente.CodCargo > 0 Then
+            Dim cargo = LstCargos.First(Function(c) c.CodCargo = objCliente.CodCargo)
+            ComboCargo.SelectedItem = cargo
+            ComboCargo.Text = cargo.Nome
+        End If
     End Sub
 
     Private Sub CarregaClientes()
@@ -317,7 +326,7 @@ Public Class Frm_Cliente
 
         Dim resposta As String = ""
 
-        LstCliente = DAOCliente.GetCliente(True, resposta)
+        LstCliente = DAOCliente.GetCliente(True, resposta, True)
 
         If Not LstCliente.Count > 0 Then
             MsgBoxHelper.Alerta(Me, resposta, "Erro")
@@ -326,9 +335,6 @@ Public Class Frm_Cliente
             ComboNome.Items.AddRange(LstCliente.ToArray)
             ComboNome.DisplayMember = "Nome"
             ComboNome.ValueMember = "CodCliente"
-            If MyModo.UniqueModo = "PESQUISAR" Then
-                ComboNome.SelectedIndex = 0
-            End If
             ComboNome.EndUpdate()
         End If
     End Sub
@@ -351,6 +357,12 @@ Public Class Frm_Cliente
 
 
     Private Sub ComboCargo_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboCargo.SelectedIndexChanged
+        If objCliente IsNot Nothing Then
+            If objCliente.CodCargo = LstCargos(ComboCargo.SelectedIndex).CodCargo Then
+                Exit Sub
+            End If
+        End If
+
         Dim existe As Boolean
         If ComboCargo.Enabled Then
             If ComboCargo.Text <> String.Empty Then
@@ -369,7 +381,11 @@ Public Class Frm_Cliente
         End If
 
         cliente.Empresa = TxtEmpresa.Text
-        cliente.CodCargo = LstCargos(ComboCargo.SelectedIndex).CodCargo
+        If ComboCargo.Text <> String.Empty Then
+            cliente.CodCargo = LstCargos.Find(Function(c) c Is ComboCargo.SelectedItem).CodCargo
+        Else
+            cliente.CodCargo = 0
+        End If
         cliente.Telefone = Uteis.StringHelper.NumericOnly(TxtCelular.Text)
         cliente.Email = TxtEmail.Text
         cliente.Descricao = TxtObs.Text
@@ -392,6 +408,7 @@ Public Class Frm_Cliente
         ControlsHelper.SetControlsDisabled(GrpBoxEndereco.Controls)
         ComboNome.Enabled = True
         CarregaClientes()
+        CarregaCargos()
     End Sub
 
     Private Sub BtnConsCargo_Click_1(sender As System.Object, e As System.EventArgs) Handles BtnConsCargo.Click

@@ -130,6 +130,7 @@ Public Class Frm_Produto
             LimpaCampos_AtivaControles()
             frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
             ClearImg()
+            TxtCategoria.Focus()
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
             If UC_Toolstrip.ModoAnterior = "REVERTER" Then

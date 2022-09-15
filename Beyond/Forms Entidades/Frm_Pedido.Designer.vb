@@ -162,7 +162,7 @@ Partial Class Frm_Pedido
         Me.TxtCidade.MaxLength = 50
         Me.TxtCidade.Name = "TxtCidade"
         Me.TxtCidade.Size = New System.Drawing.Size(453, 24)
-        Me.TxtCidade.TabIndex = 13
+        Me.TxtCidade.TabIndex = 9
         '
         'TxtNum
         '
@@ -172,7 +172,7 @@ Partial Class Frm_Pedido
         Me.TxtNum.MaxLength = 5
         Me.TxtNum.Name = "TxtNum"
         Me.TxtNum.Size = New System.Drawing.Size(114, 24)
-        Me.TxtNum.TabIndex = 11
+        Me.TxtNum.TabIndex = 7
         '
         'TxtCEP
         '
@@ -180,7 +180,7 @@ Partial Class Frm_Pedido
         Me.TxtCEP.Mask = "00000-000"
         Me.TxtCEP.Name = "TxtCEP"
         Me.TxtCEP.Size = New System.Drawing.Size(85, 24)
-        Me.TxtCEP.TabIndex = 9
+        Me.TxtCEP.TabIndex = 5
         '
         'ComboEstado
         '
@@ -192,12 +192,13 @@ Partial Class Frm_Pedido
         Me.ComboEstado.MaxLength = 2
         Me.ComboEstado.Name = "ComboEstado"
         Me.ComboEstado.Size = New System.Drawing.Size(244, 24)
-        Me.ComboEstado.TabIndex = 15
+        Me.ComboEstado.TabIndex = 11
         '
         'Label8
         '
+        Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(630, 135)
+        Me.Label8.Location = New System.Drawing.Point(601, 135)
         Me.Label8.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(57, 17)
@@ -214,7 +215,7 @@ Partial Class Frm_Pedido
         Me.TxtLogradouro.MaxLength = 100
         Me.TxtLogradouro.Name = "TxtLogradouro"
         Me.TxtLogradouro.Size = New System.Drawing.Size(710, 24)
-        Me.TxtLogradouro.TabIndex = 10
+        Me.TxtLogradouro.TabIndex = 6
         '
         'TxtBairro
         '
@@ -226,7 +227,7 @@ Partial Class Frm_Pedido
         Me.TxtBairro.MaxLength = 30
         Me.TxtBairro.Name = "TxtBairro"
         Me.TxtBairro.Size = New System.Drawing.Size(579, 24)
-        Me.TxtBairro.TabIndex = 14
+        Me.TxtBairro.TabIndex = 10
         '
         'TxtComplemento
         '
@@ -236,7 +237,7 @@ Partial Class Frm_Pedido
         Me.TxtComplemento.MaxLength = 30
         Me.TxtComplemento.Name = "TxtComplemento"
         Me.TxtComplemento.Size = New System.Drawing.Size(247, 24)
-        Me.TxtComplemento.TabIndex = 12
+        Me.TxtComplemento.TabIndex = 8
         '
         'Label3
         '
@@ -322,13 +323,14 @@ Partial Class Frm_Pedido
         '
         'ChkDestinatario
         '
+        Me.ChkDestinatario.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ChkDestinatario.AutoSize = True
         Me.ChkDestinatario.Enabled = False
         Me.ChkDestinatario.Font = New System.Drawing.Font("Segoe UI", 9.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ChkDestinatario.Location = New System.Drawing.Point(331, 79)
         Me.ChkDestinatario.Name = "ChkDestinatario"
         Me.ChkDestinatario.Size = New System.Drawing.Size(97, 21)
-        Me.ChkDestinatario.TabIndex = 12
+        Me.ChkDestinatario.TabIndex = 100
         Me.ChkDestinatario.Text = "Destinatário"
         Me.ChkDestinatario.UseVisualStyleBackColor = True
         '
@@ -350,7 +352,7 @@ Partial Class Frm_Pedido
         Me.DtPckVenda.Location = New System.Drawing.Point(691, 148)
         Me.DtPckVenda.Name = "DtPckVenda"
         Me.DtPckVenda.Size = New System.Drawing.Size(157, 24)
-        Me.DtPckVenda.TabIndex = 9
+        Me.DtPckVenda.TabIndex = 4
         '
         'TxtDestinatario
         '
@@ -360,7 +362,7 @@ Partial Class Frm_Pedido
         Me.TxtDestinatario.MaxLength = 100
         Me.TxtDestinatario.Name = "TxtDestinatario"
         Me.TxtDestinatario.Size = New System.Drawing.Size(395, 24)
-        Me.TxtDestinatario.TabIndex = 8
+        Me.TxtDestinatario.TabIndex = 2
         '
         'ComboVendedor
         '
@@ -370,17 +372,18 @@ Partial Class Frm_Pedido
         Me.ComboVendedor.Location = New System.Drawing.Point(18, 148)
         Me.ComboVendedor.Name = "ComboVendedor"
         Me.ComboVendedor.Size = New System.Drawing.Size(397, 24)
-        Me.ComboVendedor.TabIndex = 7
+        Me.ComboVendedor.TabIndex = 3
         '
         'ComboCliente
         '
         Me.ComboCliente.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboCliente.BackColor = System.Drawing.SystemColors.Window
         Me.ComboCliente.FormattingEnabled = True
         Me.ComboCliente.Location = New System.Drawing.Point(18, 101)
         Me.ComboCliente.Name = "ComboCliente"
         Me.ComboCliente.Size = New System.Drawing.Size(397, 24)
-        Me.ComboCliente.TabIndex = 6
+        Me.ComboCliente.TabIndex = 1
         '
         'Label6
         '
@@ -464,7 +467,7 @@ Partial Class Frm_Pedido
         Me.BtnMaisInsere.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.BtnMaisInsere.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnMaisInsere.Image = Global.Beyond.My.Resources.Resources.mais
-        Me.BtnMaisInsere.Location = New System.Drawing.Point(355, 316)
+        Me.BtnMaisInsere.Location = New System.Drawing.Point(337, 332)
         Me.BtnMaisInsere.Name = "BtnMaisInsere"
         Me.BtnMaisInsere.Size = New System.Drawing.Size(26, 22)
         Me.BtnMaisInsere.TabIndex = 32
@@ -493,7 +496,7 @@ Partial Class Frm_Pedido
         Me.BtnComprar.Location = New System.Drawing.Point(736, 376)
         Me.BtnComprar.Name = "BtnComprar"
         Me.BtnComprar.Size = New System.Drawing.Size(153, 32)
-        Me.BtnComprar.TabIndex = 30
+        Me.BtnComprar.TabIndex = 6
         Me.BtnComprar.Text = "Adicionar"
         Me.BtnComprar.UseVisualStyleBackColor = False
         '
@@ -512,7 +515,7 @@ Partial Class Frm_Pedido
         '
         Me.LblPrecoTotal.AutoSize = True
         Me.LblPrecoTotal.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblPrecoTotal.Location = New System.Drawing.Point(256, 382)
+        Me.LblPrecoTotal.Location = New System.Drawing.Point(402, 337)
         Me.LblPrecoTotal.Name = "LblPrecoTotal"
         Me.LblPrecoTotal.Size = New System.Drawing.Size(77, 17)
         Me.LblPrecoTotal.TabIndex = 28
@@ -551,7 +554,7 @@ Partial Class Frm_Pedido
         Me.BtnMenosInsere.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.BtnMenosInsere.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnMenosInsere.Image = Global.Beyond.My.Resources.Resources.menos
-        Me.BtnMenosInsere.Location = New System.Drawing.Point(257, 316)
+        Me.BtnMenosInsere.Location = New System.Drawing.Point(246, 332)
         Me.BtnMenosInsere.Name = "BtnMenosInsere"
         Me.BtnMenosInsere.Size = New System.Drawing.Size(25, 22)
         Me.BtnMenosInsere.TabIndex = 24
@@ -559,18 +562,18 @@ Partial Class Frm_Pedido
         '
         'TxtQtdInsere
         '
-        Me.TxtQtdInsere.Location = New System.Drawing.Point(294, 316)
+        Me.TxtQtdInsere.Location = New System.Drawing.Point(277, 332)
         Me.TxtQtdInsere.Name = "TxtQtdInsere"
         Me.TxtQtdInsere.ReadOnly = True
         Me.TxtQtdInsere.Size = New System.Drawing.Size(54, 24)
-        Me.TxtQtdInsere.TabIndex = 22
+        Me.TxtQtdInsere.TabIndex = 5
         Me.TxtQtdInsere.Text = "0"
         Me.TxtQtdInsere.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(256, 296)
+        Me.Label18.Location = New System.Drawing.Point(256, 312)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(88, 17)
         Me.Label18.TabIndex = 21
@@ -580,11 +583,11 @@ Partial Class Frm_Pedido
         '
         Me.TxtDesc.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TxtDesc.Location = New System.Drawing.Point(261, 269)
+        Me.TxtDesc.Location = New System.Drawing.Point(259, 269)
         Me.TxtDesc.Name = "TxtDesc"
         Me.TxtDesc.ReadOnly = True
-        Me.TxtDesc.Size = New System.Drawing.Size(628, 24)
-        Me.TxtDesc.TabIndex = 8
+        Me.TxtDesc.Size = New System.Drawing.Size(630, 24)
+        Me.TxtDesc.TabIndex = 4
         Me.TxtDesc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label16
@@ -599,7 +602,7 @@ Partial Class Frm_Pedido
         'LblPreco
         '
         Me.LblPreco.AutoSize = True
-        Me.LblPreco.Location = New System.Drawing.Point(256, 349)
+        Me.LblPreco.Location = New System.Drawing.Point(256, 385)
         Me.LblPreco.Name = "LblPreco"
         Me.LblPreco.Size = New System.Drawing.Size(46, 17)
         Me.LblPreco.TabIndex = 6
@@ -621,7 +624,7 @@ Partial Class Frm_Pedido
         Me.ComboProduto.MaxLength = 60
         Me.ComboProduto.Name = "ComboProduto"
         Me.ComboProduto.Size = New System.Drawing.Size(554, 24)
-        Me.ComboProduto.TabIndex = 3
+        Me.ComboProduto.TabIndex = 2
         '
         'Label11
         '
@@ -638,7 +641,7 @@ Partial Class Frm_Pedido
         Me.ComboCategoria.Location = New System.Drawing.Point(10, 24)
         Me.ComboCategoria.MaxLength = 60
         Me.ComboCategoria.Name = "ComboCategoria"
-        Me.ComboCategoria.Size = New System.Drawing.Size(551, 24)
+        Me.ComboCategoria.Size = New System.Drawing.Size(554, 24)
         Me.ComboCategoria.TabIndex = 1
         '
         'PicProd
@@ -663,7 +666,7 @@ Partial Class Frm_Pedido
         Me.LstProd.MultiSelect = False
         Me.LstProd.Name = "LstProd"
         Me.LstProd.Size = New System.Drawing.Size(883, 142)
-        Me.LstProd.TabIndex = 0
+        Me.LstProd.TabIndex = 3
         Me.LstProd.UseCompatibleStateImageBehavior = False
         Me.LstProd.View = System.Windows.Forms.View.Details
         '
@@ -748,7 +751,7 @@ Partial Class Frm_Pedido
         Me.TxtObs.Name = "TxtObs"
         Me.TxtObs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.TxtObs.Size = New System.Drawing.Size(879, 54)
-        Me.TxtObs.TabIndex = 22
+        Me.TxtObs.TabIndex = 2
         '
         'BtnMenos
         '
@@ -785,7 +788,7 @@ Partial Class Frm_Pedido
         Me.TxtQtd.Name = "TxtQtd"
         Me.TxtQtd.ReadOnly = True
         Me.TxtQtd.Size = New System.Drawing.Size(65, 24)
-        Me.TxtQtd.TabIndex = 18
+        Me.TxtQtd.TabIndex = 1
         Me.TxtQtd.Text = "0"
         Me.TxtQtd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -806,7 +809,7 @@ Partial Class Frm_Pedido
         Me.ChkPresente.Location = New System.Drawing.Point(11, 401)
         Me.ChkPresente.Name = "ChkPresente"
         Me.ChkPresente.Size = New System.Drawing.Size(77, 21)
-        Me.ChkPresente.TabIndex = 16
+        Me.ChkPresente.TabIndex = 3
         Me.ChkPresente.Text = "Presente"
         Me.ChkPresente.UseVisualStyleBackColor = True
         '

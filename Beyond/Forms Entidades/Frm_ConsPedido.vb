@@ -34,6 +34,7 @@ Public Class Frm_ConsPedido
         CarregaClientes()
         CarregaVendedores()
         CarregaPedidos()
+        ComboCliente.Focus()
     End Sub
 
     Private Sub CarregaPedidos()

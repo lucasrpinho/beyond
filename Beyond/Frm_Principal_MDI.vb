@@ -40,19 +40,8 @@ Public Class Frm_Principal_MDI
     End Sub
 
     Private Sub SairToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles SairToolStripMenuItem.Click
-        Sair()
+        Me.Close()
     End Sub
-
-    Private Function Sair() As Boolean
-        If Uteis.MsgBoxHelper.MsgTemCerteza(Me) Then
-            Cursor.Current = Cursors.WaitCursor
-            System.Threading.Thread.Sleep(2000)
-            Return True
-        Else
-            Return False
-        End If
-        Return False
-    End Function
 
     Private Sub SobreToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles SobreToolStripMenuItem.Click
         Dim FrmSobre As New Frm_Sobre

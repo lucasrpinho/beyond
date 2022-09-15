@@ -95,9 +95,9 @@ Public Class Frm_Usuario
             End If
 
         ElseIf MyModo.UniqueModo = "NOVO" Then
-            Cursor.Position = ComboNome.Location
             LimpaCampos_AtivaControles()
             AlternarControle()
+            ComboNome.Focus()
 
 
         ElseIf MyModo.UniqueModo = "ALTERAR" Then

@@ -151,6 +151,7 @@ Partial Class Frm_Cliente
         '
         'BtnConsCargo
         '
+        Me.BtnConsCargo.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BtnConsCargo.Image = Global.Beyond.My.Resources.Resources.search
         Me.BtnConsCargo.Location = New System.Drawing.Point(687, 202)
         Me.BtnConsCargo.Name = "BtnConsCargo"

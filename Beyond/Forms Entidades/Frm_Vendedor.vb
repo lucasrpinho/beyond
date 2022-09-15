@@ -327,7 +327,7 @@ Public Class Frm_Vendedor
         ComboNome.Items.Clear()
 
         Dim resposta As String = ""
-        LstVendedor = DAOVendedor.GetVendedor(True, resposta)
+        LstVendedor = DAOVendedor.GetVendedor(True, resposta, True)
 
         If Not LstVendedor.Count > 0 Then
             MsgBoxHelper.Alerta(Me, "A busca por vendedores não retornou resultados.", "Aviso")
@@ -373,7 +373,7 @@ Public Class Frm_Vendedor
             vendedor = objVendedor
         End If
 
-        vendedor.CodCargo = LstCargos(ComboCargo.SelectedIndex).CodCargo
+        vendedor.CodCargo = LstCargos.Find(Function(c) c Is ComboCargo.SelectedItem).CodCargo
         vendedor.ObjEndereco.CEP = StringHelper.NumericOnly(TxtCEP.Text)
         vendedor.ObjEndereco.Logradouro = TxtLogradouro.Text.ToUpper
         vendedor.ObjEndereco.Bairro = TxtBairro.Text.ToUpper
@@ -396,6 +396,7 @@ Public Class Frm_Vendedor
         frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
         CarregaCargos()
         AlternarControle()
+        ComboNome.Focus()
     End Sub
 
     Private Sub TxtNum_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtNum.KeyPress
@@ -411,5 +412,12 @@ Public Class Frm_Vendedor
         ComboNome.Enabled = False
         TxtSobrenome.Enabled = False
         CarregaCargos()
+        ComboCargo.SelectedItem = LstCargos.First(Function(c) c.CodCargo = objVendedor.CodCargo)
+    End Sub
+
+    Private Sub ComboCargo_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboCargo.KeyPress
+        If Char.IsLetterOrDigit(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or Char.IsSeparator(e.KeyChar) Then
+            e.KeyChar = ""
+        End If
     End Sub
 End Class

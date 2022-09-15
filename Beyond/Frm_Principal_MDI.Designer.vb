@@ -36,7 +36,11 @@ Partial Class Frm_Principal_MDI
         Me.VendedorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProdutosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PedidoToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConsultasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PedidoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.VendedoresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ProdutosToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.AjudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SobreToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BuscarAtualizaçãoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -46,18 +50,14 @@ Partial Class Frm_Principal_MDI
         Me.TSL_Hora = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TimerClock = New System.Windows.Forms.Timer(Me.components)
         Me.SplitC1 = New System.Windows.Forms.SplitContainer()
-        Me.TCPrincipal = New System.Windows.Forms.TabControl()
+        Me.BtnExpandir = New System.Windows.Forms.Button()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.TCPrincipal = New System.Windows.Forms.TabControl()
         Me.LblOla = New System.Windows.Forms.Label()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.FecharUmaCtxMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.FecharTodasCtxMenu = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PedidoToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PedidoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.VendedoresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ProdutosToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.BtnExpandir = New System.Windows.Forms.Button()
         Me.BtnUnPin = New System.Windows.Forms.Button()
         Me.UC_Toolstrip1 = New Beyond.UC_Toolstrip()
         Me.MnStrip_Principal.SuspendLayout()
@@ -66,8 +66,8 @@ Partial Class Frm_Principal_MDI
         Me.SplitC1.Panel1.SuspendLayout()
         Me.SplitC1.Panel2.SuspendLayout()
         Me.SplitC1.SuspendLayout()
-        Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MnStrip_Principal
@@ -152,12 +152,36 @@ Partial Class Frm_Principal_MDI
         Me.ProdutosToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.ProdutosToolStripMenuItem.Text = "Produto"
         '
+        'PedidoToolStripMenuItem2
+        '
+        Me.PedidoToolStripMenuItem2.Name = "PedidoToolStripMenuItem2"
+        Me.PedidoToolStripMenuItem2.Size = New System.Drawing.Size(124, 22)
+        Me.PedidoToolStripMenuItem2.Text = "Pedido"
+        '
         'ConsultasToolStripMenuItem
         '
         Me.ConsultasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PedidoToolStripMenuItem, Me.VendedoresToolStripMenuItem, Me.ProdutosToolStripMenuItem1})
         Me.ConsultasToolStripMenuItem.Name = "ConsultasToolStripMenuItem"
         Me.ConsultasToolStripMenuItem.Size = New System.Drawing.Size(71, 22)
         Me.ConsultasToolStripMenuItem.Text = "Consultas"
+        '
+        'PedidoToolStripMenuItem
+        '
+        Me.PedidoToolStripMenuItem.Name = "PedidoToolStripMenuItem"
+        Me.PedidoToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
+        Me.PedidoToolStripMenuItem.Text = "Pedido"
+        '
+        'VendedoresToolStripMenuItem
+        '
+        Me.VendedoresToolStripMenuItem.Name = "VendedoresToolStripMenuItem"
+        Me.VendedoresToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
+        Me.VendedoresToolStripMenuItem.Text = "Vendedores"
+        '
+        'ProdutosToolStripMenuItem1
+        '
+        Me.ProdutosToolStripMenuItem1.Name = "ProdutosToolStripMenuItem1"
+        Me.ProdutosToolStripMenuItem1.Size = New System.Drawing.Size(135, 22)
+        Me.ProdutosToolStripMenuItem1.Text = "Produtos"
         '
         'AjudaToolStripMenuItem
         '
@@ -229,7 +253,8 @@ Partial Class Frm_Principal_MDI
         Me.SplitC1.Panel1.AutoScroll = True
         Me.SplitC1.Panel1.AutoScrollMinSize = New System.Drawing.Size(20, 402)
         Me.SplitC1.Panel1.BackColor = System.Drawing.SystemColors.Window
-        Me.SplitC1.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.SplitC1.Panel1.BackgroundImage = CType(resources.GetObject("SplitC1.Panel1.BackgroundImage"), System.Drawing.Image)
+        Me.SplitC1.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.SplitC1.Panel1.Controls.Add(Me.BtnExpandir)
         Me.SplitC1.Panel1MinSize = 50
         '
@@ -244,18 +269,23 @@ Partial Class Frm_Principal_MDI
         Me.SplitC1.SplitterWidth = 1
         Me.SplitC1.TabIndex = 10
         '
-        'TCPrincipal
+        'BtnExpandir
         '
-        Me.TCPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCPrincipal.ImageList = Me.ImageList1
-        Me.TCPrincipal.ItemSize = New System.Drawing.Size(30, 30)
-        Me.TCPrincipal.Location = New System.Drawing.Point(0, 0)
-        Me.TCPrincipal.Margin = New System.Windows.Forms.Padding(3, 15, 3, 3)
-        Me.TCPrincipal.Name = "TCPrincipal"
-        Me.TCPrincipal.SelectedIndex = 0
-        Me.TCPrincipal.Size = New System.Drawing.Size(585, 402)
-        Me.TCPrincipal.TabIndex = 2
-        Me.TCPrincipal.Visible = False
+        Me.BtnExpandir.BackColor = System.Drawing.SystemColors.Window
+        Me.BtnExpandir.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BtnExpandir.FlatAppearance.BorderSize = 0
+        Me.BtnExpandir.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnExpandir.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnExpandir.ForeColor = System.Drawing.SystemColors.Window
+        Me.BtnExpandir.ImageKey = "pinmenu.png"
+        Me.BtnExpandir.ImageList = Me.ImageList1
+        Me.BtnExpandir.Location = New System.Drawing.Point(131, 0)
+        Me.BtnExpandir.MinimumSize = New System.Drawing.Size(20, 402)
+        Me.BtnExpandir.Name = "BtnExpandir"
+        Me.BtnExpandir.Size = New System.Drawing.Size(20, 402)
+        Me.BtnExpandir.TabIndex = 0
+        Me.BtnExpandir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.BtnExpandir.UseVisualStyleBackColor = False
         '
         'ImageList1
         '
@@ -272,6 +302,19 @@ Partial Class Frm_Principal_MDI
         Me.ImageList1.Images.SetKeyName(8, "unpinmenu.png")
         Me.ImageList1.Images.SetKeyName(9, "pinmenu.png")
         '
+        'TCPrincipal
+        '
+        Me.TCPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TCPrincipal.ImageList = Me.ImageList1
+        Me.TCPrincipal.ItemSize = New System.Drawing.Size(30, 30)
+        Me.TCPrincipal.Location = New System.Drawing.Point(0, 0)
+        Me.TCPrincipal.Margin = New System.Windows.Forms.Padding(3, 15, 3, 3)
+        Me.TCPrincipal.Name = "TCPrincipal"
+        Me.TCPrincipal.SelectedIndex = 0
+        Me.TCPrincipal.Size = New System.Drawing.Size(585, 402)
+        Me.TCPrincipal.TabIndex = 2
+        Me.TCPrincipal.Visible = False
+        '
         'LblOla
         '
         Me.LblOla.AutoEllipsis = True
@@ -283,6 +326,17 @@ Partial Class Frm_Principal_MDI
         Me.LblOla.Size = New System.Drawing.Size(95, 26)
         Me.LblOla.TabIndex = 1
         Me.LblOla.Text = "Label1"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.BeyondICON
+        Me.PictureBox1.Location = New System.Drawing.Point(235, 152)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(163, 149)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 2
+        Me.PictureBox1.TabStop = False
         '
         'ContextMenuStrip1
         '
@@ -302,59 +356,6 @@ Partial Class Frm_Principal_MDI
         Me.FecharTodasCtxMenu.Name = "FecharTodasCtxMenu"
         Me.FecharTodasCtxMenu.Size = New System.Drawing.Size(175, 22)
         Me.FecharTodasCtxMenu.Text = "Fechar Todas"
-        '
-        'PedidoToolStripMenuItem2
-        '
-        Me.PedidoToolStripMenuItem2.Name = "PedidoToolStripMenuItem2"
-        Me.PedidoToolStripMenuItem2.Size = New System.Drawing.Size(124, 22)
-        Me.PedidoToolStripMenuItem2.Text = "Pedido"
-        '
-        'PedidoToolStripMenuItem
-        '
-        Me.PedidoToolStripMenuItem.Name = "PedidoToolStripMenuItem"
-        Me.PedidoToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
-        Me.PedidoToolStripMenuItem.Text = "Pedido"
-        '
-        'VendedoresToolStripMenuItem
-        '
-        Me.VendedoresToolStripMenuItem.Name = "VendedoresToolStripMenuItem"
-        Me.VendedoresToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
-        Me.VendedoresToolStripMenuItem.Text = "Vendedores"
-        '
-        'ProdutosToolStripMenuItem1
-        '
-        Me.ProdutosToolStripMenuItem1.Name = "ProdutosToolStripMenuItem1"
-        Me.ProdutosToolStripMenuItem1.Size = New System.Drawing.Size(135, 22)
-        Me.ProdutosToolStripMenuItem1.Text = "Produtos"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.BeyondICON
-        Me.PictureBox1.Location = New System.Drawing.Point(234, 152)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(163, 149)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 2
-        Me.PictureBox1.TabStop = False
-        '
-        'BtnExpandir
-        '
-        Me.BtnExpandir.BackColor = System.Drawing.SystemColors.Window
-        Me.BtnExpandir.Dock = System.Windows.Forms.DockStyle.Right
-        Me.BtnExpandir.FlatAppearance.BorderSize = 0
-        Me.BtnExpandir.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnExpandir.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnExpandir.ForeColor = System.Drawing.SystemColors.Window
-        Me.BtnExpandir.ImageKey = "pinmenu.png"
-        Me.BtnExpandir.ImageList = Me.ImageList1
-        Me.BtnExpandir.Location = New System.Drawing.Point(131, 0)
-        Me.BtnExpandir.MinimumSize = New System.Drawing.Size(20, 402)
-        Me.BtnExpandir.Name = "BtnExpandir"
-        Me.BtnExpandir.Size = New System.Drawing.Size(20, 402)
-        Me.BtnExpandir.TabIndex = 0
-        Me.BtnExpandir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.BtnExpandir.UseVisualStyleBackColor = False
         '
         'BtnUnPin
         '
@@ -412,8 +413,8 @@ Partial Class Frm_Principal_MDI
         Me.SplitC1.Panel2.PerformLayout()
         CType(Me.SplitC1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitC1.ResumeLayout(False)
-        Me.ContextMenuStrip1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
