@@ -25,24 +25,23 @@ Partial Class Frm_ConsProduto
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_ConsProduto))
         Me.ListView1 = New System.Windows.Forms.ListView()
-        Me.ColDesc = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColNome = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColPreco = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColQtd = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ComboCateg = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.ComboDesc = New System.Windows.Forms.ComboBox()
+        Me.ComboNome = New System.Windows.Forms.ComboBox()
         Me.ChkCateg = New System.Windows.Forms.CheckBox()
         Me.ChkDesc = New System.Windows.Forms.CheckBox()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.BtnPesquisar = New System.Windows.Forms.Button()
         Me.BtnConfirmar = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'ListView1
         '
         Me.ListView1.Activation = System.Windows.Forms.ItemActivation.OneClick
-        Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColDesc, Me.ColPreco, Me.ColQtd})
+        Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColNome, Me.ColPreco, Me.ColQtd})
         Me.ListView1.FullRowSelect = True
         Me.ListView1.GridLines = True
         Me.ListView1.HotTracking = True
@@ -56,10 +55,10 @@ Partial Class Frm_ConsProduto
         Me.ListView1.UseCompatibleStateImageBehavior = False
         Me.ListView1.View = System.Windows.Forms.View.Details
         '
-        'ColDesc
+        'ColNome
         '
-        Me.ColDesc.Text = "Descrição"
-        Me.ColDesc.Width = 459
+        Me.ColNome.Text = "Nome do Produto"
+        Me.ColNome.Width = 459
         '
         'ColPreco
         '
@@ -97,19 +96,19 @@ Partial Class Frm_ConsProduto
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(15, 73)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(141, 14)
+        Me.Label2.Size = New System.Drawing.Size(117, 14)
         Me.Label2.TabIndex = 6
-        Me.Label2.Text = "Descrição do Produto"
+        Me.Label2.Text = "Nome do Produto"
         '
-        'ComboDesc
+        'ComboNome
         '
-        Me.ComboDesc.Enabled = False
-        Me.ComboDesc.FormattingEnabled = True
-        Me.ComboDesc.Location = New System.Drawing.Point(18, 89)
-        Me.ComboDesc.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.ComboDesc.Name = "ComboDesc"
-        Me.ComboDesc.Size = New System.Drawing.Size(491, 22)
-        Me.ComboDesc.TabIndex = 5
+        Me.ComboNome.Enabled = False
+        Me.ComboNome.FormattingEnabled = True
+        Me.ComboNome.Location = New System.Drawing.Point(18, 89)
+        Me.ComboNome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ComboNome.Name = "ComboNome"
+        Me.ComboNome.Size = New System.Drawing.Size(491, 22)
+        Me.ComboNome.TabIndex = 5
         '
         'ChkCateg
         '
@@ -123,7 +122,7 @@ Partial Class Frm_ConsProduto
         'ChkDesc
         '
         Me.ChkDesc.AutoSize = True
-        Me.ChkDesc.Location = New System.Drawing.Point(515, 97)
+        Me.ChkDesc.Location = New System.Drawing.Point(515, 93)
         Me.ChkDesc.Name = "ChkDesc"
         Me.ChkDesc.Size = New System.Drawing.Size(15, 14)
         Me.ChkDesc.TabIndex = 8
@@ -136,34 +135,19 @@ Partial Class Frm_ConsProduto
         Me.ImageList1.Images.SetKeyName(0, "search.png")
         Me.ImageList1.Images.SetKeyName(1, "confirm.png")
         '
-        'BtnPesquisar
-        '
-        Me.BtnPesquisar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnPesquisar.FlatAppearance.BorderSize = 0
-        Me.BtnPesquisar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray
-        Me.BtnPesquisar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.BtnPesquisar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnPesquisar.ImageKey = "search.png"
-        Me.BtnPesquisar.ImageList = Me.ImageList1
-        Me.BtnPesquisar.Location = New System.Drawing.Point(684, 101)
-        Me.BtnPesquisar.Name = "BtnPesquisar"
-        Me.BtnPesquisar.Size = New System.Drawing.Size(34, 24)
-        Me.BtnPesquisar.TabIndex = 28
-        Me.BtnPesquisar.UseVisualStyleBackColor = True
-        '
         'BtnConfirmar
         '
         Me.BtnConfirmar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnConfirmar.FlatAppearance.BorderSize = 0
-        Me.BtnConfirmar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray
-        Me.BtnConfirmar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.BtnConfirmar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnConfirmar.ImageKey = "confirm.png"
-        Me.BtnConfirmar.ImageList = Me.ImageList1
-        Me.BtnConfirmar.Location = New System.Drawing.Point(684, 337)
+        Me.BtnConfirmar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.BtnConfirmar.FlatAppearance.BorderColor = System.Drawing.SystemColors.Window
+        Me.BtnConfirmar.Image = Global.Beyond.My.Resources.Resources.confirm
+        Me.BtnConfirmar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BtnConfirmar.Location = New System.Drawing.Point(619, 337)
         Me.BtnConfirmar.Name = "BtnConfirmar"
-        Me.BtnConfirmar.Size = New System.Drawing.Size(34, 24)
-        Me.BtnConfirmar.TabIndex = 29
+        Me.BtnConfirmar.Size = New System.Drawing.Size(99, 32)
+        Me.BtnConfirmar.TabIndex = 45
+        Me.BtnConfirmar.Text = "Confirmar"
+        Me.BtnConfirmar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BtnConfirmar.UseVisualStyleBackColor = True
         '
         'Frm_ConsProduto
@@ -173,11 +157,10 @@ Partial Class Frm_ConsProduto
         Me.BackColor = System.Drawing.SystemColors.Menu
         Me.ClientSize = New System.Drawing.Size(730, 373)
         Me.Controls.Add(Me.BtnConfirmar)
-        Me.Controls.Add(Me.BtnPesquisar)
         Me.Controls.Add(Me.ChkDesc)
         Me.Controls.Add(Me.ChkCateg)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.ComboDesc)
+        Me.Controls.Add(Me.ComboNome)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ComboCateg)
         Me.Controls.Add(Me.ListView1)
@@ -197,14 +180,13 @@ Partial Class Frm_ConsProduto
     Friend WithEvents ListView1 As System.Windows.Forms.ListView
     Friend WithEvents ComboCateg As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents ColDesc As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColNome As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColPreco As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColQtd As System.Windows.Forms.ColumnHeader
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents ComboDesc As System.Windows.Forms.ComboBox
+    Friend WithEvents ComboNome As System.Windows.Forms.ComboBox
     Friend WithEvents ChkCateg As System.Windows.Forms.CheckBox
     Friend WithEvents ChkDesc As System.Windows.Forms.CheckBox
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
-    Friend WithEvents BtnPesquisar As System.Windows.Forms.Button
     Friend WithEvents BtnConfirmar As System.Windows.Forms.Button
 End Class

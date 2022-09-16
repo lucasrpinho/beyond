@@ -54,16 +54,14 @@ Partial Class Frm_Pedido
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabProduto = New System.Windows.Forms.TabPage()
-        Me.BtnMaisInsere = New System.Windows.Forms.Button()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.BtnComprar = New System.Windows.Forms.Button()
-        Me.LblQtdCarrinho = New System.Windows.Forms.Label()
-        Me.LblPrecoTotal = New System.Windows.Forms.Label()
-        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.BtnMenosInsere = New System.Windows.Forms.Button()
+        Me.TxtDesc = New System.Windows.Forms.TextBox()
+        Me.BtnMaisInsere = New System.Windows.Forms.Button()
+        Me.BtnComprar = New System.Windows.Forms.Button()
+        Me.LblPrecoTotal = New System.Windows.Forms.Label()
         Me.TxtQtdInsere = New System.Windows.Forms.TextBox()
         Me.Label18 = New System.Windows.Forms.Label()
-        Me.TxtDesc = New System.Windows.Forms.TextBox()
+        Me.TxtNome = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.LblPreco = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -73,9 +71,10 @@ Partial Class Frm_Pedido
         Me.PicProd = New System.Windows.Forms.PictureBox()
         Me.LstProd = New System.Windows.Forms.ListView()
         Me.ColCategoria = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColDescricao = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColNome = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColPreco = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColQtd = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.TabItens = New System.Windows.Forms.TabPage()
         Me.TxtValorTotal = New System.Windows.Forms.Label()
         Me.BtnDeletaItem = New System.Windows.Forms.Button()
@@ -87,21 +86,18 @@ Partial Class Frm_Pedido
         Me.Label17 = New System.Windows.Forms.Label()
         Me.ChkPresente = New System.Windows.Forms.CheckBox()
         Me.LstCarrinho = New System.Windows.Forms.ListView()
-        Me.ColDesc = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColNome1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColPrecoUnit = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColQtd1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColPrecoTotal = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Label14 = New System.Windows.Forms.Label()
-        Me.BtnPesquisar = New System.Windows.Forms.PictureBox()
         Me.TCPedido.SuspendLayout()
         Me.TabDados.SuspendLayout()
         Me.GrpBoxEndereco.SuspendLayout()
         Me.GrpBoxInfo.SuspendLayout()
         Me.TabProduto.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicProd, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabItens.SuspendLayout()
-        CType(Me.BtnPesquisar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TCPedido
@@ -113,7 +109,7 @@ Partial Class Frm_Pedido
         Me.TCPedido.Location = New System.Drawing.Point(0, 0)
         Me.TCPedido.Name = "TCPedido"
         Me.TCPedido.SelectedIndex = 0
-        Me.TCPedido.Size = New System.Drawing.Size(907, 479)
+        Me.TCPedido.Size = New System.Drawing.Size(907, 547)
         Me.TCPedido.TabIndex = 0
         '
         'TabDados
@@ -124,7 +120,7 @@ Partial Class Frm_Pedido
         Me.TabDados.Location = New System.Drawing.Point(4, 25)
         Me.TabDados.Name = "TabDados"
         Me.TabDados.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabDados.Size = New System.Drawing.Size(899, 450)
+        Me.TabDados.Size = New System.Drawing.Size(899, 518)
         Me.TabDados.TabIndex = 0
         Me.TabDados.Text = "Dados"
         '
@@ -146,7 +142,7 @@ Partial Class Frm_Pedido
         Me.GrpBoxEndereco.Controls.Add(Me.Label10)
         Me.GrpBoxEndereco.Controls.Add(Me.Label12)
         Me.GrpBoxEndereco.Controls.Add(Me.LblCep)
-        Me.GrpBoxEndereco.Location = New System.Drawing.Point(20, 233)
+        Me.GrpBoxEndereco.Location = New System.Drawing.Point(20, 311)
         Me.GrpBoxEndereco.Name = "GrpBoxEndereco"
         Me.GrpBoxEndereco.Size = New System.Drawing.Size(861, 199)
         Me.GrpBoxEndereco.TabIndex = 5
@@ -172,7 +168,7 @@ Partial Class Frm_Pedido
         Me.TxtNum.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.TxtNum.MaxLength = 5
         Me.TxtNum.Name = "TxtNum"
-        Me.TxtNum.Size = New System.Drawing.Size(114, 24)
+        Me.TxtNum.Size = New System.Drawing.Size(98, 24)
         Me.TxtNum.TabIndex = 7
         '
         'TxtCEP
@@ -180,7 +176,7 @@ Partial Class Frm_Pedido
         Me.TxtCEP.Location = New System.Drawing.Point(15, 46)
         Me.TxtCEP.Mask = "00000-000"
         Me.TxtCEP.Name = "TxtCEP"
-        Me.TxtCEP.Size = New System.Drawing.Size(85, 24)
+        Me.TxtCEP.Size = New System.Drawing.Size(98, 24)
         Me.TxtCEP.TabIndex = 5
         '
         'ComboEstado
@@ -213,11 +209,11 @@ Partial Class Frm_Pedido
         Me.TxtLogradouro.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtLogradouro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtLogradouro.Location = New System.Drawing.Point(138, 46)
+        Me.TxtLogradouro.Location = New System.Drawing.Point(123, 46)
         Me.TxtLogradouro.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.TxtLogradouro.MaxLength = 100
         Me.TxtLogradouro.Name = "TxtLogradouro"
-        Me.TxtLogradouro.Size = New System.Drawing.Size(710, 24)
+        Me.TxtLogradouro.Size = New System.Drawing.Size(725, 24)
         Me.TxtLogradouro.TabIndex = 6
         '
         'TxtBairro
@@ -235,11 +231,11 @@ Partial Class Frm_Pedido
         'TxtComplemento
         '
         Me.TxtComplemento.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtComplemento.Location = New System.Drawing.Point(138, 100)
+        Me.TxtComplemento.Location = New System.Drawing.Point(123, 100)
         Me.TxtComplemento.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.TxtComplemento.MaxLength = 30
         Me.TxtComplemento.Name = "TxtComplemento"
-        Me.TxtComplemento.Size = New System.Drawing.Size(247, 24)
+        Me.TxtComplemento.Size = New System.Drawing.Size(262, 24)
         Me.TxtComplemento.TabIndex = 8
         '
         'Label3
@@ -255,7 +251,7 @@ Partial Class Frm_Pedido
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(15, 135)
+        Me.Label7.Location = New System.Drawing.Point(12, 135)
         Me.Label7.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(50, 17)
@@ -265,7 +261,7 @@ Partial Class Frm_Pedido
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(135, 81)
+        Me.Label9.Location = New System.Drawing.Point(122, 81)
         Me.Label9.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(105, 17)
@@ -285,7 +281,7 @@ Partial Class Frm_Pedido
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(137, 28)
+        Me.Label12.Location = New System.Drawing.Point(122, 28)
         Me.Label12.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(90, 17)
@@ -319,18 +315,18 @@ Partial Class Frm_Pedido
         Me.GrpBoxInfo.Controls.Add(Me.Label1)
         Me.GrpBoxInfo.Location = New System.Drawing.Point(20, 21)
         Me.GrpBoxInfo.Name = "GrpBoxInfo"
-        Me.GrpBoxInfo.Size = New System.Drawing.Size(861, 195)
+        Me.GrpBoxInfo.Size = New System.Drawing.Size(861, 284)
         Me.GrpBoxInfo.TabIndex = 2
         Me.GrpBoxInfo.TabStop = False
         Me.GrpBoxInfo.Text = "Informações"
         '
         'ChkDestinatario
         '
-        Me.ChkDestinatario.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ChkDestinatario.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ChkDestinatario.AutoSize = True
         Me.ChkDestinatario.Enabled = False
         Me.ChkDestinatario.Font = New System.Drawing.Font("Segoe UI", 9.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChkDestinatario.Location = New System.Drawing.Point(331, 79)
+        Me.ChkDestinatario.Location = New System.Drawing.Point(751, 76)
         Me.ChkDestinatario.Name = "ChkDestinatario"
         Me.ChkDestinatario.Size = New System.Drawing.Size(97, 21)
         Me.ChkDestinatario.TabIndex = 100
@@ -343,29 +339,29 @@ Partial Class Frm_Pedido
         Me.TxtCod.Location = New System.Drawing.Point(18, 49)
         Me.TxtCod.Name = "TxtCod"
         Me.TxtCod.ReadOnly = True
-        Me.TxtCod.Size = New System.Drawing.Size(410, 24)
+        Me.TxtCod.Size = New System.Drawing.Size(397, 24)
         Me.TxtCod.TabIndex = 11
         Me.TxtCod.TabStop = False
         '
         'DtPckVenda
         '
-        Me.DtPckVenda.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DtPckVenda.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DtPckVenda.CustomFormat = "dd/MM/yyyy hh:mm"
         Me.DtPckVenda.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DtPckVenda.Location = New System.Drawing.Point(691, 148)
+        Me.DtPckVenda.Location = New System.Drawing.Point(18, 242)
         Me.DtPckVenda.Name = "DtPckVenda"
         Me.DtPckVenda.Size = New System.Drawing.Size(157, 24)
         Me.DtPckVenda.TabIndex = 4
         '
         'TxtDestinatario
         '
-        Me.TxtDestinatario.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TxtDestinatario.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtDestinatario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtDestinatario.Location = New System.Drawing.Point(453, 101)
+        Me.TxtDestinatario.Location = New System.Drawing.Point(18, 195)
         Me.TxtDestinatario.MaxLength = 100
         Me.TxtDestinatario.Name = "TxtDestinatario"
-        Me.TxtDestinatario.Size = New System.Drawing.Size(395, 24)
+        Me.TxtDestinatario.Size = New System.Drawing.Size(830, 24)
         Me.TxtDestinatario.TabIndex = 2
         '
         'ComboVendedor
@@ -377,7 +373,7 @@ Partial Class Frm_Pedido
         Me.ComboVendedor.FormattingEnabled = True
         Me.ComboVendedor.Location = New System.Drawing.Point(18, 148)
         Me.ComboVendedor.Name = "ComboVendedor"
-        Me.ComboVendedor.Size = New System.Drawing.Size(397, 24)
+        Me.ComboVendedor.Size = New System.Drawing.Size(830, 24)
         Me.ComboVendedor.TabIndex = 3
         '
         'ComboCliente
@@ -390,7 +386,7 @@ Partial Class Frm_Pedido
         Me.ComboCliente.FormattingEnabled = True
         Me.ComboCliente.Location = New System.Drawing.Point(18, 101)
         Me.ComboCliente.Name = "ComboCliente"
-        Me.ComboCliente.Size = New System.Drawing.Size(397, 24)
+        Me.ComboCliente.Size = New System.Drawing.Size(830, 24)
         Me.ComboCliente.TabIndex = 1
         '
         'Label6
@@ -404,9 +400,8 @@ Partial Class Frm_Pedido
         '
         'Label5
         '
-        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(688, 128)
+        Me.Label5.Location = New System.Drawing.Point(15, 222)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(111, 17)
         Me.Label5.TabIndex = 4
@@ -414,9 +409,8 @@ Partial Class Frm_Pedido
         '
         'Label4
         '
-        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(450, 80)
+        Me.Label4.Location = New System.Drawing.Point(15, 175)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(93, 17)
         Me.Label4.TabIndex = 3
@@ -425,7 +419,7 @@ Partial Class Frm_Pedido
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(14, 127)
+        Me.Label2.Location = New System.Drawing.Point(14, 128)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(75, 17)
         Me.Label2.TabIndex = 1
@@ -443,16 +437,14 @@ Partial Class Frm_Pedido
         'TabProduto
         '
         Me.TabProduto.BackColor = System.Drawing.Color.Transparent
-        Me.TabProduto.Controls.Add(Me.BtnPesquisar)
-        Me.TabProduto.Controls.Add(Me.BtnMaisInsere)
-        Me.TabProduto.Controls.Add(Me.PictureBox1)
-        Me.TabProduto.Controls.Add(Me.BtnComprar)
-        Me.TabProduto.Controls.Add(Me.LblQtdCarrinho)
-        Me.TabProduto.Controls.Add(Me.LblPrecoTotal)
         Me.TabProduto.Controls.Add(Me.BtnMenosInsere)
+        Me.TabProduto.Controls.Add(Me.TxtDesc)
+        Me.TabProduto.Controls.Add(Me.BtnMaisInsere)
+        Me.TabProduto.Controls.Add(Me.BtnComprar)
+        Me.TabProduto.Controls.Add(Me.LblPrecoTotal)
         Me.TabProduto.Controls.Add(Me.TxtQtdInsere)
         Me.TabProduto.Controls.Add(Me.Label18)
-        Me.TabProduto.Controls.Add(Me.TxtDesc)
+        Me.TabProduto.Controls.Add(Me.TxtNome)
         Me.TabProduto.Controls.Add(Me.Label16)
         Me.TabProduto.Controls.Add(Me.LblPreco)
         Me.TabProduto.Controls.Add(Me.Label13)
@@ -464,38 +456,56 @@ Partial Class Frm_Pedido
         Me.TabProduto.Location = New System.Drawing.Point(4, 25)
         Me.TabProduto.Name = "TabProduto"
         Me.TabProduto.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabProduto.Size = New System.Drawing.Size(899, 450)
+        Me.TabProduto.Size = New System.Drawing.Size(899, 518)
         Me.TabProduto.TabIndex = 1
         Me.TabProduto.Text = "Produtos"
         '
+        'BtnMenosInsere
+        '
+        Me.BtnMenosInsere.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnMenosInsere.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.BtnMenosInsere.FlatAppearance.BorderSize = 0
+        Me.BtnMenosInsere.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray
+        Me.BtnMenosInsere.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.BtnMenosInsere.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnMenosInsere.Image = Global.Beyond.My.Resources.Resources.menos
+        Me.BtnMenosInsere.Location = New System.Drawing.Point(602, 477)
+        Me.BtnMenosInsere.Name = "BtnMenosInsere"
+        Me.BtnMenosInsere.Size = New System.Drawing.Size(25, 25)
+        Me.BtnMenosInsere.TabIndex = 24
+        Me.BtnMenosInsere.UseVisualStyleBackColor = True
+        '
+        'TxtDesc
+        '
+        Me.TxtDesc.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TxtDesc.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.TxtDesc.Location = New System.Drawing.Point(215, 369)
+        Me.TxtDesc.Multiline = True
+        Me.TxtDesc.Name = "TxtDesc"
+        Me.TxtDesc.ReadOnly = True
+        Me.TxtDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.TxtDesc.Size = New System.Drawing.Size(678, 75)
+        Me.TxtDesc.TabIndex = 48
+        '
         'BtnMaisInsere
         '
+        Me.BtnMaisInsere.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BtnMaisInsere.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnMaisInsere.FlatAppearance.BorderSize = 0
         Me.BtnMaisInsere.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray
         Me.BtnMaisInsere.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.BtnMaisInsere.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnMaisInsere.Image = Global.Beyond.My.Resources.Resources.mais
-        Me.BtnMaisInsere.Location = New System.Drawing.Point(337, 332)
+        Me.BtnMaisInsere.Location = New System.Drawing.Point(693, 478)
         Me.BtnMaisInsere.Name = "BtnMaisInsere"
-        Me.BtnMaisInsere.Size = New System.Drawing.Size(26, 22)
-        Me.BtnMaisInsere.TabIndex = 32
+        Me.BtnMaisInsere.Size = New System.Drawing.Size(26, 24)
+        Me.BtnMaisInsere.TabIndex = 47
         Me.BtnMaisInsere.UseVisualStyleBackColor = True
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.shopcar1
-        Me.PictureBox1.Location = New System.Drawing.Point(736, 339)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(42, 32)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 31
-        Me.PictureBox1.TabStop = False
         '
         'BtnComprar
         '
-        Me.BtnComprar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnComprar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BtnComprar.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnComprar.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnComprar.FlatAppearance.BorderColor = System.Drawing.Color.Gray
@@ -503,33 +513,159 @@ Partial Class Frm_Pedido
         Me.BtnComprar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnComprar.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnComprar.ForeColor = System.Drawing.SystemColors.Window
-        Me.BtnComprar.Location = New System.Drawing.Point(736, 376)
+        Me.BtnComprar.Location = New System.Drawing.Point(738, 469)
         Me.BtnComprar.Name = "BtnComprar"
         Me.BtnComprar.Size = New System.Drawing.Size(153, 32)
         Me.BtnComprar.TabIndex = 6
         Me.BtnComprar.Text = "Adicionar"
         Me.BtnComprar.UseVisualStyleBackColor = False
         '
-        'LblQtdCarrinho
-        '
-        Me.LblQtdCarrinho.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblQtdCarrinho.AutoSize = True
-        Me.LblQtdCarrinho.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblQtdCarrinho.Location = New System.Drawing.Point(785, 361)
-        Me.LblQtdCarrinho.Name = "LblQtdCarrinho"
-        Me.LblQtdCarrinho.Size = New System.Drawing.Size(13, 13)
-        Me.LblQtdCarrinho.TabIndex = 29
-        Me.LblQtdCarrinho.Text = "0"
-        '
         'LblPrecoTotal
         '
+        Me.LblPrecoTotal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LblPrecoTotal.AutoSize = True
         Me.LblPrecoTotal.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblPrecoTotal.Location = New System.Drawing.Point(402, 337)
+        Me.LblPrecoTotal.Location = New System.Drawing.Point(212, 472)
         Me.LblPrecoTotal.Name = "LblPrecoTotal"
         Me.LblPrecoTotal.Size = New System.Drawing.Size(77, 17)
         Me.LblPrecoTotal.TabIndex = 28
         Me.LblPrecoTotal.Text = "Preço Total"
+        '
+        'TxtQtdInsere
+        '
+        Me.TxtQtdInsere.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TxtQtdInsere.Location = New System.Drawing.Point(633, 477)
+        Me.TxtQtdInsere.Name = "TxtQtdInsere"
+        Me.TxtQtdInsere.ReadOnly = True
+        Me.TxtQtdInsere.Size = New System.Drawing.Size(54, 24)
+        Me.TxtQtdInsere.TabIndex = 5
+        Me.TxtQtdInsere.Text = "0"
+        Me.TxtQtdInsere.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label18
+        '
+        Me.Label18.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(618, 457)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(88, 17)
+        Me.Label18.TabIndex = 21
+        Me.Label18.Text = "Quantidade"
+        '
+        'TxtNome
+        '
+        Me.TxtNome.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TxtNome.Location = New System.Drawing.Point(215, 339)
+        Me.TxtNome.Name = "TxtNome"
+        Me.TxtNome.ReadOnly = True
+        Me.TxtNome.Size = New System.Drawing.Size(678, 24)
+        Me.TxtNome.TabIndex = 4
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(212, 319)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(132, 17)
+        Me.Label16.TabIndex = 7
+        Me.Label16.Text = "Nome do Produto"
+        '
+        'LblPreco
+        '
+        Me.LblPreco.AutoSize = True
+        Me.LblPreco.Location = New System.Drawing.Point(212, 448)
+        Me.LblPreco.Name = "LblPreco"
+        Me.LblPreco.Size = New System.Drawing.Size(46, 17)
+        Me.LblPreco.TabIndex = 6
+        Me.LblPreco.Text = "Preço"
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(7, 76)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(132, 17)
+        Me.Label13.TabIndex = 4
+        Me.Label13.Text = "Nome do Produto"
+        '
+        'ComboProduto
+        '
+        Me.ComboProduto.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboProduto.FormattingEnabled = True
+        Me.ComboProduto.Location = New System.Drawing.Point(10, 102)
+        Me.ComboProduto.MaxLength = 60
+        Me.ComboProduto.Name = "ComboProduto"
+        Me.ComboProduto.Size = New System.Drawing.Size(881, 24)
+        Me.ComboProduto.TabIndex = 2
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(7, 29)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(75, 17)
+        Me.Label11.TabIndex = 2
+        Me.Label11.Text = "Categoria"
+        '
+        'ComboCategoria
+        '
+        Me.ComboCategoria.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboCategoria.FormattingEnabled = True
+        Me.ComboCategoria.Location = New System.Drawing.Point(11, 49)
+        Me.ComboCategoria.MaxLength = 60
+        Me.ComboCategoria.Name = "ComboCategoria"
+        Me.ComboCategoria.Size = New System.Drawing.Size(880, 24)
+        Me.ComboCategoria.TabIndex = 1
+        '
+        'PicProd
+        '
+        Me.PicProd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PicProd.Location = New System.Drawing.Point(11, 319)
+        Me.PicProd.Name = "PicProd"
+        Me.PicProd.Size = New System.Drawing.Size(192, 170)
+        Me.PicProd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PicProd.TabIndex = 5
+        Me.PicProd.TabStop = False
+        '
+        'LstProd
+        '
+        Me.LstProd.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LstProd.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColCategoria, Me.ColNome, Me.ColPreco, Me.ColQtd})
+        Me.LstProd.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.LstProd.FullRowSelect = True
+        Me.LstProd.GridLines = True
+        Me.LstProd.LargeImageList = Me.ImageList1
+        Me.LstProd.Location = New System.Drawing.Point(10, 132)
+        Me.LstProd.MultiSelect = False
+        Me.LstProd.Name = "LstProd"
+        Me.LstProd.Size = New System.Drawing.Size(883, 171)
+        Me.LstProd.TabIndex = 3
+        Me.LstProd.UseCompatibleStateImageBehavior = False
+        Me.LstProd.View = System.Windows.Forms.View.Details
+        '
+        'ColCategoria
+        '
+        Me.ColCategoria.Text = "Categoria"
+        Me.ColCategoria.Width = 303
+        '
+        'ColNome
+        '
+        Me.ColNome.Text = "Nome do Produto"
+        Me.ColNome.Width = 311
+        '
+        'ColPreco
+        '
+        Me.ColPreco.Text = "Preço"
+        Me.ColPreco.Width = 160
+        '
+        'ColQtd
+        '
+        Me.ColQtd.Text = "Estoque"
+        Me.ColQtd.Width = 100
         '
         'ImageList1
         '
@@ -541,151 +677,7 @@ Partial Class Frm_Pedido
         Me.ImageList1.Images.SetKeyName(3, "search.png")
         Me.ImageList1.Images.SetKeyName(4, "shopcar1.png")
         Me.ImageList1.Images.SetKeyName(5, "delete.png")
-        '
-        'BtnMenosInsere
-        '
-        Me.BtnMenosInsere.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BtnMenosInsere.FlatAppearance.BorderSize = 0
-        Me.BtnMenosInsere.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray
-        Me.BtnMenosInsere.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.BtnMenosInsere.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnMenosInsere.Image = Global.Beyond.My.Resources.Resources.menos
-        Me.BtnMenosInsere.Location = New System.Drawing.Point(246, 332)
-        Me.BtnMenosInsere.Name = "BtnMenosInsere"
-        Me.BtnMenosInsere.Size = New System.Drawing.Size(25, 22)
-        Me.BtnMenosInsere.TabIndex = 24
-        Me.BtnMenosInsere.UseVisualStyleBackColor = True
-        '
-        'TxtQtdInsere
-        '
-        Me.TxtQtdInsere.Location = New System.Drawing.Point(277, 332)
-        Me.TxtQtdInsere.Name = "TxtQtdInsere"
-        Me.TxtQtdInsere.ReadOnly = True
-        Me.TxtQtdInsere.Size = New System.Drawing.Size(54, 24)
-        Me.TxtQtdInsere.TabIndex = 5
-        Me.TxtQtdInsere.Text = "0"
-        Me.TxtQtdInsere.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(256, 312)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(88, 17)
-        Me.Label18.TabIndex = 21
-        Me.Label18.Text = "Quantidade"
-        '
-        'TxtDesc
-        '
-        Me.TxtDesc.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TxtDesc.Location = New System.Drawing.Point(259, 269)
-        Me.TxtDesc.Name = "TxtDesc"
-        Me.TxtDesc.ReadOnly = True
-        Me.TxtDesc.Size = New System.Drawing.Size(630, 24)
-        Me.TxtDesc.TabIndex = 4
-        Me.TxtDesc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(256, 248)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(75, 17)
-        Me.Label16.TabIndex = 7
-        Me.Label16.Text = "Descrição"
-        '
-        'LblPreco
-        '
-        Me.LblPreco.AutoSize = True
-        Me.LblPreco.Location = New System.Drawing.Point(256, 385)
-        Me.LblPreco.Name = "LblPreco"
-        Me.LblPreco.Size = New System.Drawing.Size(46, 17)
-        Me.LblPreco.TabIndex = 6
-        Me.LblPreco.Text = "Preço"
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(6, 51)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(64, 17)
-        Me.Label13.TabIndex = 4
-        Me.Label13.Text = "Produto"
-        '
-        'ComboProduto
-        '
-        Me.ComboProduto.FormattingEnabled = True
-        Me.ComboProduto.Location = New System.Drawing.Point(10, 72)
-        Me.ComboProduto.MaxLength = 60
-        Me.ComboProduto.Name = "ComboProduto"
-        Me.ComboProduto.Size = New System.Drawing.Size(554, 24)
-        Me.ComboProduto.TabIndex = 2
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(9, 3)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(75, 17)
-        Me.Label11.TabIndex = 2
-        Me.Label11.Text = "Categoria"
-        '
-        'ComboCategoria
-        '
-        Me.ComboCategoria.FormattingEnabled = True
-        Me.ComboCategoria.Location = New System.Drawing.Point(10, 24)
-        Me.ComboCategoria.MaxLength = 60
-        Me.ComboCategoria.Name = "ComboCategoria"
-        Me.ComboCategoria.Size = New System.Drawing.Size(554, 24)
-        Me.ComboCategoria.TabIndex = 1
-        '
-        'PicProd
-        '
-        Me.PicProd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PicProd.Location = New System.Drawing.Point(10, 248)
-        Me.PicProd.Name = "PicProd"
-        Me.PicProd.Size = New System.Drawing.Size(221, 160)
-        Me.PicProd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PicProd.TabIndex = 5
-        Me.PicProd.TabStop = False
-        '
-        'LstProd
-        '
-        Me.LstProd.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LstProd.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColCategoria, Me.ColDescricao, Me.ColPreco, Me.ColQtd})
-        Me.LstProd.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.LstProd.FullRowSelect = True
-        Me.LstProd.GridLines = True
-        Me.LstProd.LargeImageList = Me.ImageList1
-        Me.LstProd.Location = New System.Drawing.Point(10, 100)
-        Me.LstProd.MultiSelect = False
-        Me.LstProd.Name = "LstProd"
-        Me.LstProd.Size = New System.Drawing.Size(883, 142)
-        Me.LstProd.TabIndex = 3
-        Me.LstProd.UseCompatibleStateImageBehavior = False
-        Me.LstProd.View = System.Windows.Forms.View.Details
-        '
-        'ColCategoria
-        '
-        Me.ColCategoria.Text = "Categoria"
-        Me.ColCategoria.Width = 303
-        '
-        'ColDescricao
-        '
-        Me.ColDescricao.Text = "Descrição"
-        Me.ColDescricao.Width = 311
-        '
-        'ColPreco
-        '
-        Me.ColPreco.Text = "Preço"
-        Me.ColPreco.Width = 160
-        '
-        'ColQtd
-        '
-        Me.ColQtd.Text = "Estoque"
-        Me.ColQtd.Width = 100
+        Me.ImageList1.Images.SetKeyName(6, "close.png")
         '
         'TabItens
         '
@@ -704,9 +696,9 @@ Partial Class Frm_Pedido
         Me.TabItens.Location = New System.Drawing.Point(4, 25)
         Me.TabItens.Name = "TabItens"
         Me.TabItens.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabItens.Size = New System.Drawing.Size(899, 450)
+        Me.TabItens.Size = New System.Drawing.Size(899, 518)
         Me.TabItens.TabIndex = 2
-        Me.TabItens.Text = "Itens"
+        Me.TabItens.Text = "Carrinho (0)"
         '
         'TxtValorTotal
         '
@@ -726,11 +718,12 @@ Partial Class Frm_Pedido
         Me.BtnDeletaItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnDeletaItem.ImageKey = "delete.png"
         Me.BtnDeletaItem.ImageList = Me.ImageList1
-        Me.BtnDeletaItem.Location = New System.Drawing.Point(728, 297)
+        Me.BtnDeletaItem.Location = New System.Drawing.Point(860, 14)
         Me.BtnDeletaItem.Name = "BtnDeletaItem"
-        Me.BtnDeletaItem.Size = New System.Drawing.Size(22, 22)
+        Me.BtnDeletaItem.Size = New System.Drawing.Size(33, 32)
         Me.BtnDeletaItem.TabIndex = 25
         Me.BtnDeletaItem.UseVisualStyleBackColor = True
+        Me.BtnDeletaItem.Visible = False
         '
         'Label15
         '
@@ -743,12 +736,14 @@ Partial Class Frm_Pedido
         '
         'TxtObs
         '
+        Me.TxtObs.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtObs.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtObs.Location = New System.Drawing.Point(13, 341)
         Me.TxtObs.Multiline = True
         Me.TxtObs.Name = "TxtObs"
         Me.TxtObs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TxtObs.Size = New System.Drawing.Size(879, 54)
+        Me.TxtObs.Size = New System.Drawing.Size(879, 142)
         Me.TxtObs.TabIndex = 2
         '
         'BtnMenos
@@ -775,7 +770,7 @@ Partial Class Frm_Pedido
         Me.BtnMais.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.BtnMais.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnMais.Image = Global.Beyond.My.Resources.Resources.mais
-        Me.BtnMais.Location = New System.Drawing.Point(870, 298)
+        Me.BtnMais.Location = New System.Drawing.Point(867, 297)
         Me.BtnMais.Name = "BtnMais"
         Me.BtnMais.Size = New System.Drawing.Size(26, 22)
         Me.BtnMais.TabIndex = 19
@@ -807,7 +802,7 @@ Partial Class Frm_Pedido
         Me.ChkPresente.AutoSize = True
         Me.ChkPresente.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ChkPresente.Font = New System.Drawing.Font("Segoe UI", 9.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChkPresente.Location = New System.Drawing.Point(11, 401)
+        Me.ChkPresente.Location = New System.Drawing.Point(13, 489)
         Me.ChkPresente.Name = "ChkPresente"
         Me.ChkPresente.Size = New System.Drawing.Size(77, 21)
         Me.ChkPresente.TabIndex = 3
@@ -818,7 +813,7 @@ Partial Class Frm_Pedido
         '
         Me.LstCarrinho.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LstCarrinho.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColDesc, Me.ColPrecoUnit, Me.ColQtd1, Me.ColPrecoTotal})
+        Me.LstCarrinho.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColNome1, Me.ColPrecoUnit, Me.ColQtd1, Me.ColPrecoTotal})
         Me.LstCarrinho.Cursor = System.Windows.Forms.Cursors.Hand
         Me.LstCarrinho.FullRowSelect = True
         Me.LstCarrinho.GridLines = True
@@ -831,10 +826,10 @@ Partial Class Frm_Pedido
         Me.LstCarrinho.UseCompatibleStateImageBehavior = False
         Me.LstCarrinho.View = System.Windows.Forms.View.Details
         '
-        'ColDesc
+        'ColNome1
         '
-        Me.ColDesc.Text = "Descrição"
-        Me.ColDesc.Width = 368
+        Me.ColNome1.Text = "Nome do Produto"
+        Me.ColNome1.Width = 368
         '
         'ColPrecoUnit
         '
@@ -856,26 +851,16 @@ Partial Class Frm_Pedido
         Me.Label14.AutoSize = True
         Me.Label14.Location = New System.Drawing.Point(9, 29)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(68, 17)
+        Me.Label14.Size = New System.Drawing.Size(151, 17)
         Me.Label14.TabIndex = 13
-        Me.Label14.Text = "Carrinho"
-        '
-        'BtnPesquisar
-        '
-        Me.BtnPesquisar.Image = Global.Beyond.My.Resources.Resources.search
-        Me.BtnPesquisar.Location = New System.Drawing.Point(864, 69)
-        Me.BtnPesquisar.Name = "BtnPesquisar"
-        Me.BtnPesquisar.Size = New System.Drawing.Size(25, 25)
-        Me.BtnPesquisar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.BtnPesquisar.TabIndex = 33
-        Me.BtnPesquisar.TabStop = False
+        Me.Label14.Text = "Produtos Escolhidos"
         '
         'Frm_Pedido
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Window
-        Me.ClientSize = New System.Drawing.Size(907, 479)
+        Me.ClientSize = New System.Drawing.Size(907, 547)
         Me.Controls.Add(Me.TCPedido)
         Me.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -893,11 +878,9 @@ Partial Class Frm_Pedido
         Me.GrpBoxInfo.PerformLayout()
         Me.TabProduto.ResumeLayout(False)
         Me.TabProduto.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicProd, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabItens.ResumeLayout(False)
         Me.TabItens.PerformLayout()
-        CType(Me.BtnPesquisar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -934,12 +917,12 @@ Partial Class Frm_Pedido
     Friend WithEvents ComboCategoria As System.Windows.Forms.ComboBox
     Friend WithEvents LstProd As System.Windows.Forms.ListView
     Friend WithEvents ColCategoria As System.Windows.Forms.ColumnHeader
-    Friend WithEvents ColDescricao As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColNome As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColPreco As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColQtd As System.Windows.Forms.ColumnHeader
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
     Friend WithEvents ChkDestinatario As System.Windows.Forms.CheckBox
-    Friend WithEvents TxtDesc As System.Windows.Forms.TextBox
+    Friend WithEvents TxtNome As System.Windows.Forms.TextBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents LblPreco As System.Windows.Forms.Label
     Friend WithEvents PicProd As System.Windows.Forms.PictureBox
@@ -947,7 +930,7 @@ Partial Class Frm_Pedido
     Friend WithEvents ComboProduto As System.Windows.Forms.ComboBox
     Friend WithEvents TabItens As System.Windows.Forms.TabPage
     Friend WithEvents LstCarrinho As System.Windows.Forms.ListView
-    Friend WithEvents ColDesc As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColNome1 As System.Windows.Forms.ColumnHeader
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents ChkPresente As System.Windows.Forms.CheckBox
     Friend WithEvents TxtQtd As System.Windows.Forms.TextBox
@@ -961,14 +944,12 @@ Partial Class Frm_Pedido
     Friend WithEvents BtnMenosInsere As System.Windows.Forms.Button
     Friend WithEvents TxtQtdInsere As System.Windows.Forms.TextBox
     Friend WithEvents Label18 As System.Windows.Forms.Label
-    Friend WithEvents LblQtdCarrinho As System.Windows.Forms.Label
     Friend WithEvents BtnComprar As System.Windows.Forms.Button
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents TxtObs As System.Windows.Forms.TextBox
-    Friend WithEvents BtnMaisInsere As System.Windows.Forms.Button
     Friend WithEvents BtnDeletaItem As System.Windows.Forms.Button
     Friend WithEvents TxtValorTotal As System.Windows.Forms.Label
-    Friend WithEvents BtnPesquisar As System.Windows.Forms.PictureBox
+    Friend WithEvents BtnMaisInsere As System.Windows.Forms.Button
+    Friend WithEvents TxtDesc As System.Windows.Forms.TextBox
 
 End Class

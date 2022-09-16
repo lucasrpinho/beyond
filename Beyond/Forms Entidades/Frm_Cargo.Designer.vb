@@ -37,14 +37,13 @@ Partial Class Frm_Cargo
         '
         'GrpBoxCfg
         '
-        Me.GrpBoxCfg.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GrpBoxCfg.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GrpBoxCfg.BackColor = System.Drawing.Color.Transparent
         Me.GrpBoxCfg.Controls.Add(Me.ChkVendedor)
         Me.GrpBoxCfg.Controls.Add(Me.ChkBoxAtivo)
-        Me.GrpBoxCfg.Location = New System.Drawing.Point(12, 256)
+        Me.GrpBoxCfg.Location = New System.Drawing.Point(591, 23)
         Me.GrpBoxCfg.Name = "GrpBoxCfg"
-        Me.GrpBoxCfg.Size = New System.Drawing.Size(561, 105)
+        Me.GrpBoxCfg.Size = New System.Drawing.Size(159, 227)
         Me.GrpBoxCfg.TabIndex = 0
         Me.GrpBoxCfg.TabStop = False
         Me.GrpBoxCfg.Text = "Configuração"
@@ -53,7 +52,7 @@ Partial Class Frm_Cargo
         '
         Me.ChkVendedor.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ChkVendedor.AutoSize = True
-        Me.ChkVendedor.Location = New System.Drawing.Point(6, 63)
+        Me.ChkVendedor.Location = New System.Drawing.Point(6, 79)
         Me.ChkVendedor.Name = "ChkVendedor"
         Me.ChkVendedor.Size = New System.Drawing.Size(94, 21)
         Me.ChkVendedor.TabIndex = 4
@@ -66,9 +65,10 @@ Partial Class Frm_Cargo
         Me.ChkBoxAtivo.AutoSize = True
         Me.ChkBoxAtivo.Checked = True
         Me.ChkBoxAtivo.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ChkBoxAtivo.Location = New System.Drawing.Point(6, 27)
+        Me.ChkBoxAtivo.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChkBoxAtivo.Location = New System.Drawing.Point(6, 52)
         Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
-        Me.ChkBoxAtivo.Size = New System.Drawing.Size(63, 21)
+        Me.ChkBoxAtivo.Size = New System.Drawing.Size(67, 21)
         Me.ChkBoxAtivo.TabIndex = 3
         Me.ChkBoxAtivo.Text = "Ativo"
         Me.ChkBoxAtivo.UseVisualStyleBackColor = True
@@ -84,13 +84,15 @@ Partial Class Frm_Cargo
         Me.GrpBoxInfo.Controls.Add(Me.Label1)
         Me.GrpBoxInfo.Location = New System.Drawing.Point(12, 23)
         Me.GrpBoxInfo.Name = "GrpBoxInfo"
-        Me.GrpBoxInfo.Size = New System.Drawing.Size(561, 227)
+        Me.GrpBoxInfo.Size = New System.Drawing.Size(568, 227)
         Me.GrpBoxInfo.TabIndex = 1
         Me.GrpBoxInfo.TabStop = False
         Me.GrpBoxInfo.Text = "Informações de Cargo"
         '
         'ComboNome
         '
+        Me.ComboNome.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ComboNome.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple
         Me.ComboNome.FormattingEnabled = True
         Me.ComboNome.Items.AddRange(New Object() {" "})
@@ -102,6 +104,8 @@ Partial Class Frm_Cargo
         '
         'TxtDesc
         '
+        Me.TxtDesc.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtDesc.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtDesc.Location = New System.Drawing.Point(6, 115)
         Me.TxtDesc.Margin = New System.Windows.Forms.Padding(4)
@@ -137,7 +141,7 @@ Partial Class Frm_Cargo
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Menu
-        Me.ClientSize = New System.Drawing.Size(585, 373)
+        Me.ClientSize = New System.Drawing.Size(759, 271)
         Me.Controls.Add(Me.GrpBoxInfo)
         Me.Controls.Add(Me.GrpBoxCfg)
         Me.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

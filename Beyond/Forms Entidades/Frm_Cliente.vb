@@ -33,7 +33,7 @@ Public Class Frm_Cliente
     End Sub
 
     Private Sub Frm_Cliente_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        Uteis.ControlsHelper.SetControlsDisabled(Me)
+        Desativa_Campos()
         AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
         CarregaEstados()
         MyModo.UniqueModo = "PADRÃO"
@@ -60,6 +60,12 @@ Public Class Frm_Cliente
         End If
     End Sub
 
+    Private Sub Desativa_Campos()
+        ControlsHelper.SetControlsDisabled(GrpBoxEndereco.Controls)
+        ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
+    End Sub
+
+
     Private Sub LimpaCampos_AtivaControles()
         ControlsHelper.SetControlsEnabled(Me.Controls)
         Uteis.ControlsHelper.SetControlsEnabled(GrpBoxEndereco.Controls)
@@ -67,6 +73,7 @@ Public Class Frm_Cliente
         Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxEndereco.Controls)
         Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
         DtPckNasc.Value = Date.Now
+        objCliente = Nothing
     End Sub
 
     Private Function Insere() As Boolean
@@ -203,7 +210,7 @@ Public Class Frm_Cliente
             If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso Not UC_Toolstrip.ModoAnterior = "ALTERAR" Then
                 If Insere() Then
                     LimpaCampos_AtivaControles()
-                    Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+                    Desativa_Campos()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
                 Else
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
@@ -214,7 +221,7 @@ Public Class Frm_Cliente
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                     MsgBoxHelper.Alerta(Me, resposta, "Erro")
                 Else
-                    Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+                    Desativa_Campos()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
                 End If
             End If
@@ -259,7 +266,7 @@ Public Class Frm_Cliente
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
                 If DAOCliente.AtualizaCliente(GetClienteForOperation, "", True, loginusuario) Then
                     LimpaCampos_AtivaControles()
-                    ControlsHelper.SetControlsDisabled(Me.Controls)
+                    Desativa_Campos()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
                     objCliente = Nothing
                 End If
@@ -270,7 +277,7 @@ Public Class Frm_Cliente
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
             LimpaCampos_AtivaControles()
             frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
-            Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+            Desativa_Campos()
         End If
 
     End Sub
@@ -379,6 +386,8 @@ Public Class Frm_Cliente
                 If DAOCliente.ChecaCargoCliente(LstCargos(ComboCargo.SelectedIndex).CodCargo, existe) Then
                     MsgBoxHelper.CustomTooltip(GrpBoxInfo, ComboCargo, "Outro cliente já possui esse cargo.", "Alerta")
                     BtnConsCargo.Visible = True
+                Else
+                    BtnConsCargo.Visible = False
                 End If
             End If
         End If
@@ -421,7 +430,7 @@ Public Class Frm_Cliente
         CarregaCargos()
     End Sub
 
-    Private Sub BtnConsCargo_Click_1(sender As System.Object, e As System.EventArgs) Handles BtnConsCargo.Click
+    Private Sub BtnConsCargo_Click(sender As System.Object, e As System.EventArgs) Handles BtnConsCargo.Click
         Dim frm As New Frm_Cliente_Cargo(frmPrincipal, LstCargos(ComboCargo.SelectedIndex).CodCargo)
         frm.ShowDialog()
     End Sub

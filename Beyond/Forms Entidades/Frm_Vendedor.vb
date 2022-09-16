@@ -34,7 +34,7 @@ Public Class Frm_Vendedor
     End Sub
 
     Private Sub Frm_Vendedor_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        Uteis.ControlsHelper.SetControlsDisabled(Me)
+        DesativaCampos()
         AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
         CarregaEstados()
         MyModo.UniqueModo = "PADRÃO"
@@ -72,7 +72,9 @@ Public Class Frm_Vendedor
     Private Sub LimpaCampos_Desativa()
         Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxEndereco.Controls)
         Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
-        Uteis.ControlsHelper.SetControlsDisabled(Me)
+        Uteis.ControlsHelper.SetControlsDisabled(Me.GrpBoxEndereco.Controls)
+        Uteis.ControlsHelper.SetControlsDisabled(Me.GrpBoxInfo.Controls)
+        GroupBox1.Enabled = True
         frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = False
         ClearImage()
     End Sub
@@ -212,6 +214,11 @@ Public Class Frm_Vendedor
         End Try
     End Sub
 
+    Private Sub DesativaCampos()
+        Uteis.ControlsHelper.SetControlsDisabled(Me.GrpBoxEndereco.Controls)
+        Uteis.ControlsHelper.SetControlsDisabled(Me.GrpBoxInfo.Controls)
+    End Sub
+
     Private Sub ToolStrip_ItemClicked()
         If Not Me.Enabled Then
             Exit Sub
@@ -225,7 +232,6 @@ Public Class Frm_Vendedor
             If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso Not UC_Toolstrip.ModoAnterior = "ALTERAR" Then
                 If Insere() Then
                     LimpaCampos_Desativa()
-                    Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
                 Else
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
@@ -236,7 +242,7 @@ Public Class Frm_Vendedor
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                     MsgBoxHelper.Alerta(Me, resposta, "Erro")
                 Else
-                    Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+                    DesativaCampos()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
                 End If
             End If
@@ -285,7 +291,7 @@ Public Class Frm_Vendedor
             ElseIf MyModo.UniqueModo = "PADRÃO" Then
                 LimpaCampos_AtivaControles()
                 frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
-                Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+            DesativaCampos()
 
             ElseIf MyModo.UniqueModo = "IMAGEM" Then
                 CarregaImagem()

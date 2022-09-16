@@ -32,7 +32,7 @@ Public Class Frm_Produto
     End Sub
 
     Private Sub Frm_Produto_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        Uteis.ControlsHelper.SetControlsDisabled(Me)
+        Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
         AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
         MyModo.UniqueModo = "PADRÃO"
         PicBoxFoto.Image = Nothing
@@ -45,9 +45,15 @@ Public Class Frm_Produto
         ClearImg()
     End Sub
 
+    Private Sub Desativa_Campos()
+        Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
+    End Sub
+
     Private Function ChecaPreenchimento() As Control
         If TxtCategoria.Text = String.Empty Then
             Return TxtCategoria
+        ElseIf TxtNome.Text = String.Empty Then
+            Return TxtNome
         ElseIf TxtDesc.Text = String.Empty Then
             Return TxtDesc
         ElseIf TxtPreco.Text = String.Empty Then
@@ -68,6 +74,7 @@ Public Class Frm_Produto
             Return False
         End If
 
+        prod.Nome = TxtNome.Text.ToUpper
         prod.Descricao = TxtDesc.Text.ToUpper
         prod.Categoria = TxtCategoria.Text.ToUpper
         prod.Preco = Convert.ToDecimal(StringHelper.CurrencyType(TxtPreco.Text))
@@ -105,7 +112,7 @@ Public Class Frm_Produto
             If UC_Toolstrip.ModoAnterior = "NOVO" Then
                 If Insere() Then
                     LimpaCampos_AtivaControles()
-                    Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+                    Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
                 Else
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
@@ -116,7 +123,7 @@ Public Class Frm_Produto
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                     MsgBoxHelper.Alerta(Me, resposta, "Erro")
                 Else
-                    Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+                    Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
                 End If
             End If
@@ -152,7 +159,7 @@ Public Class Frm_Produto
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
                 If DAOProd.AtualizaProduto(GetProdutoForOperation, "", loginusuario, True) Then
                     LimpaCampos_AtivaControles()
-                    ControlsHelper.SetControlsDisabled(Me.Controls)
+                    Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
                 End If
             Else
@@ -165,13 +172,14 @@ Public Class Frm_Produto
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
         LimpaCampos_AtivaControles()
         frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
-        Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+            Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
         End If
 
     End Sub
 
     Private Sub PreencheCampos(ByVal prod As Produto)
         TxtCategoria.Text = prod.Categoria
+        TxtNome.Text = prod.Nome
         TxtDesc.Text = prod.Descricao
         TxtPreco.Text = prod.Preco.ToString("C")
         TxtQtd.Text = prod.Quantidade.ToString
@@ -245,7 +253,7 @@ Public Class Frm_Produto
     End Function
 
     Private Sub ModoAlterar()
-        ControlsHelper.SetControlsEnabled(Me.Controls)
+        ControlsHelper.SetControlsEnabled(Me.GrpBoxInfo.Controls)
         TxtCategoria.Enabled = False
         PicBoxFoto.Enabled = False
         TxtDesc.Enabled = False
@@ -254,7 +262,7 @@ Public Class Frm_Produto
     Private Sub ModoPesquisa()
         objProduto = Nothing
         LimpaCampos_AtivaControles()
-        ControlsHelper.SetControlsDisabled(Me.Controls)
+        Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
         Dim frmCons As New Frm_ConsProduto(Me)
         frmCons.ShowDialog()
         If objProduto IsNot Nothing Then
@@ -269,7 +277,7 @@ Public Class Frm_Produto
 
     Private Sub ModoPesquisaPreenchido()
         LimpaCampos_AtivaControles()
-        ControlsHelper.SetControlsDisabled(Me.Controls)
+        Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
         PreencheCampos(objProduto)
         frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
         frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnAnterior").Enabled = False

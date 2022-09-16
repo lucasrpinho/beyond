@@ -4,6 +4,7 @@ Public Class Produto
 
     Private _CodProduto As Integer = 0
     Public Categoria As String
+    Private _Nome As String
     Private _Descricao As String
     Public Preco As Decimal
     Public Quantidade As Integer
@@ -18,6 +19,15 @@ Public Class Produto
         End Get
         Set(value As Integer)
             _CodProduto = value
+        End Set
+    End Property
+
+    Public Property Nome As String
+        Get
+            Return _Nome
+        End Get
+        Set(value As String)
+            _Nome = value
         End Set
     End Property
 
@@ -49,12 +59,11 @@ Public Class Produto
     Public Sub Carrega(ByVal row As DataRow)
         Me.CodProduto = row.Field(Of Integer)("cod_produto")
         Me.Categoria = row.Field(Of String)("de_categoria")
+        Me.Nome = row.Field(Of String)("de_nome")
         Me.Descricao = row.Field(Of String)("de_descricao")
         Me.Preco = row.Field(Of Decimal)("nu_preco")
         Me.Quantidade = row.Field(Of Integer)("nu_quantidade")
-        If Me.Imagem IsNot Nothing Then
-            Me.Imagem = System.Text.Encoding.UTF8.GetString(row.Field(Of Byte())("fl_imagem"))
-        End If
+        Me.Imagem = If(row.Field(Of Byte())("fl_imagem") Is Nothing, "", System.Text.Encoding.UTF8.GetString(row.Field(Of Byte())("fl_imagem")))
         Me.IsAtivo = row.Field(Of Boolean)("ct_ativo")
         Me.DatCriacao = row.Field(Of DateTime)("dat_criacao")
         Me.LoginCriacao = row.Field(Of String)("de_login_criacao")
@@ -72,6 +81,7 @@ Public Class Produto
     Public Sub New(ByVal obj As Produto)
         Me.CodProduto = obj.CodProduto
         Me.Categoria = obj.Categoria
+        Me.Nome = obj.Nome
         Me.Descricao = obj.Descricao
         Me.Preco = obj.Preco
         Me.Quantidade = obj.Quantidade

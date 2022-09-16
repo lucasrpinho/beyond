@@ -35,6 +35,8 @@ Public Class Frm_ConsPedido
         CarregaVendedores()
         CarregaPedidos()
         ComboCliente.Focus()
+        DtInicial.Value = DateTime.Now.Date
+        DtFinal.Value = DateTime.Now.Date
     End Sub
 
     Private Sub CarregaPedidos()
@@ -111,15 +113,6 @@ Public Class Frm_ConsPedido
         LstPedido.Sorting = SortOrder.Descending
     End Sub
 
-    Private Sub PicConfirmar_Click(sender As System.Object, e As System.EventArgs) Handles PicConfirmar.Click
-        If frm IsNot Nothing Then
-            If LstPedido.SelectedItems.Count > 0 Then
-                frm.objPedido = LstPedido.SelectedItems(0).Tag
-            End If
-            Me.Close()
-        End If
-    End Sub
-
     Private Sub LstPedido_MouseDoubleClick(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles LstPedido.MouseDoubleClick
         If frm IsNot Nothing Then
             If LstPedido.SelectedItems.Count > 0 Then
@@ -156,13 +149,62 @@ Public Class Frm_ConsPedido
         End If
     End Sub
 
-    Private Sub PicBuscar_Click(sender As System.Object, e As System.EventArgs) Handles PicBuscar.Click
+    Private Sub ComboCliente_TextChanged(sender As System.Object, e As System.EventArgs) Handles ComboCliente.TextChanged
+        If Not ValidaData() Then
+            Exit Sub
+        End If
+
+        If ComboCliente.Text = String.Empty Then
+            LstPedido.Items.Clear()
+        End If
+
+        Dim datinicial As Date = Nothing
+        Dim datfinal As Date = Nothing
+        If ChkData.Checked Then
+            datinicial = DtInicial.Value
+            datfinal = DtFinal.Value
+        End If
+
+        If ComboCliente.Text <> String.Empty AndAlso ComboCliente.SelectedIndex < 0 Then
+            LstPedidos = DAOPed.GetPedido("", 0, 0, ComboCliente.Text, datinicial, datfinal)
+            If LstPedidos.Count > 0 Then
+                PopulateListView()
+            Else
+                LstPedido.Items.Clear()
+            End If
+        ElseIf ComboCliente.Text <> String.Empty AndAlso ComboCliente.SelectedIndex < 0 AndAlso ComboVendedor.Text <> String.Empty Then
+            LstPedidos = DAOPed.GetPedido("", LstVendedor(ComboVendedor.SelectedIndex).CodVendedor, 0, ComboCliente.Text, datinicial, datfinal)
+            If LstPedidos.Count > 0 Then
+                PopulateListView()
+            Else
+                LstPedido.Items.Clear()
+            End If
+        End If
+    End Sub
+
+    Private Sub BtnConfirmar_Click(sender As System.Object, e As System.EventArgs) Handles BtnConfirmar.Click
+        If frm IsNot Nothing Then
+            If LstPedido.SelectedItems.Count > 0 Then
+                frm.objPedido = LstPedido.SelectedItems(0).Tag
+            End If
+            Me.Close()
+        End If
+    End Sub
+
+    Private Sub BtnPesquisar_Click(sender As System.Object, e As System.EventArgs) Handles BtnPesquisar.Click
+
+        If Not ValidaData() Then
+            Exit Sub
+        End If
+
         LstPedido.Items.Clear()
         LstPedidos.Clear()
 
         Dim codvendedor As Integer = 0
         Dim codcliente As Integer = 0
         Dim nomecliente As String = ""
+        Dim dtinicial As Date = Nothing
+        Dim dtfinal As Date = Nothing
 
         If ComboVendedor.SelectedIndex > -1 Then
             codvendedor = LstVendedor(ComboVendedor.SelectedIndex).CodVendedor
@@ -174,6 +216,11 @@ Public Class Frm_ConsPedido
 
         If ComboCliente.Text <> String.Empty AndAlso LstCliente.FirstOrDefault(Function(c) c.Nome.Trim = ComboCliente.Text.Trim) Is Nothing Then
             nomecliente = ComboCliente.Text
+        End If
+
+        If ChkData.Checked Then
+            dtinicial = Me.DtInicial.Value
+            dtfinal = Me.DtFinal.Value
         End If
 
 
@@ -202,7 +249,7 @@ Public Class Frm_ConsPedido
             End If
         End If
 
-        LstPedidos = DAOPed.GetPedido(resposta, codvendedor, codcliente, nomecliente)
+        LstPedidos = DAOPed.GetPedido(resposta, codvendedor, codcliente, nomecliente, dtinicial, dtfinal)
 
         If Not LstPedidos.Count > 0 Then
             MsgBoxHelper.Alerta(Me, "A busca não encontrou resultados.", "Sem resultados")
@@ -212,24 +259,26 @@ Public Class Frm_ConsPedido
         PopulateListView()
     End Sub
 
-    Private Sub ComboCliente_TextChanged(sender As System.Object, e As System.EventArgs) Handles ComboCliente.TextChanged
-        If ComboCliente.Text = String.Empty Then
-            LstPedido.Items.Clear()
-        End If
-        If ComboCliente.Text <> String.Empty AndAlso ComboCliente.SelectedIndex < 0 Then
-            LstPedidos = DAOPed.GetPedido("", 0, 0, ComboCliente.Text)
-            If LstPedidos.Count > 0 Then
-                PopulateListView()
-            Else
-                LstPedido.Items.Clear()
-            End If
-        ElseIf ComboCliente.Text <> String.Empty AndAlso ComboCliente.SelectedIndex < 0 AndAlso ComboVendedor.Text <> String.Empty Then
-            LstPedidos = DAOPed.GetPedido("", LstVendedor(ComboVendedor.SelectedIndex).CodVendedor, 0, ComboCliente.Text)
-            If LstPedidos.Count > 0 Then
-                PopulateListView()
-            Else
-                LstPedido.Items.Clear()
-            End If
+    Private Sub ChkData_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChkData.CheckedChanged
+        If ChkData.CheckState = CheckState.Checked Then
+            DtInicial.Enabled = True
+            DtFinal.Enabled = True
+        Else
+            DtInicial.Enabled = False
+            DtFinal.Enabled = False
         End If
     End Sub
+
+    Private Function ValidaData() As Boolean
+        If ChkData.Checked Then
+            If DtInicial.Value.Date > DtFinal.Value.Date Then
+                MsgBoxHelper.Alerta(Me, "A data inicial não pode ser maior que a data final.", "Data inválida")
+                DtInicial.Focus()
+                Return False
+            End If
+        End If
+
+        Return True
+
+    End Function
 End Class

@@ -26,16 +26,11 @@ Public Class ControlsHelper
         End If
     End Sub
 
-    Public Overloads Shared Sub SetControlsDisabled(frm As Form)
-        Dim Controls = frm.Controls
-        For Each Control As Control In controls
-        Control.Enabled = False
-        Next
-    End Sub
-
-    Public Overloads Shared Sub SetControlsDisabled(controls As Control.ControlCollection)
-        For Each Control As Control In controls
-            Control.Enabled = False
+    Public Shared Sub SetControlsDisabled(controls As Control.ControlCollection)
+        For Each c As Control In controls
+            If Not TypeOf (c) Is Label Then
+                c.Enabled = False
+            End If
         Next
     End Sub
 

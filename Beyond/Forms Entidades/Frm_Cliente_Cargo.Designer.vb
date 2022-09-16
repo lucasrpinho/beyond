@@ -22,6 +22,7 @@ Partial Class Frm_Cliente_Cargo
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_Cliente_Cargo))
         Me.GrpInfo = New System.Windows.Forms.GroupBox()
         Me.ChkAtivo = New System.Windows.Forms.CheckBox()
@@ -30,6 +31,7 @@ Partial Class Frm_Cliente_Cargo
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TxtCliente = New System.Windows.Forms.TextBox()
         Me.Label999 = New System.Windows.Forms.Label()
+        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.GrpInfo.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -65,11 +67,15 @@ Partial Class Frm_Cliente_Cargo
         '
         'BtnDesvincular
         '
+        Me.BtnDesvincular.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BtnDesvincular.ImageKey = "close.png"
+        Me.BtnDesvincular.ImageList = Me.ImageList1
         Me.BtnDesvincular.Location = New System.Drawing.Point(434, 115)
         Me.BtnDesvincular.Name = "BtnDesvincular"
-        Me.BtnDesvincular.Size = New System.Drawing.Size(116, 32)
+        Me.BtnDesvincular.Size = New System.Drawing.Size(118, 32)
         Me.BtnDesvincular.TabIndex = 6
         Me.BtnDesvincular.Text = "Desvincular"
+        Me.BtnDesvincular.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BtnDesvincular.UseVisualStyleBackColor = True
         '
         'TxtCargo
@@ -106,6 +112,12 @@ Partial Class Frm_Cliente_Cargo
         Me.Label999.TabIndex = 0
         Me.Label999.Text = "Cliente"
         '
+        'ImageList1
+        '
+        Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
+        Me.ImageList1.Images.SetKeyName(0, "close.png")
+        '
         'Frm_Cliente_Cargo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -132,4 +144,5 @@ Partial Class Frm_Cliente_Cargo
     Friend WithEvents TxtCliente As System.Windows.Forms.TextBox
     Friend WithEvents Label999 As System.Windows.Forms.Label
     Friend WithEvents ChkAtivo As System.Windows.Forms.CheckBox
+    Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
 End Class

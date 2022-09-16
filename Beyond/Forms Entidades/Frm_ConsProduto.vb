@@ -45,7 +45,7 @@ Public Class Frm_ConsProduto
         Dim resposta As String = ""
 
         LstProduto.Clear()
-        ComboDesc.Items.Clear()
+        ComboNome.Items.Clear()
 
         LstProduto = DAOProd.GetProdutos(resposta, True)
 
@@ -54,11 +54,11 @@ Public Class Frm_ConsProduto
             Exit Sub
         End If
 
-        ComboDesc.BeginUpdate()
-        ComboDesc.Items.AddRange(LstProduto.ToArray)
-        ComboDesc.DisplayMember = "Descricao"
-        ComboDesc.ValueMember = "CodProduto"
-        ComboDesc.EndUpdate()
+        ComboNome.BeginUpdate()
+        ComboNome.Items.AddRange(LstProduto.ToArray)
+        ComboNome.DisplayMember = "Nome"
+        ComboNome.ValueMember = "CodProduto"
+        ComboNome.EndUpdate()
 
     End Sub
 
@@ -66,7 +66,7 @@ Public Class Frm_ConsProduto
         Dim resposta As String = ""
 
         LstProduto.Clear()
-        ComboDesc.Items.Clear()
+        ComboNome.Items.Clear()
 
         LstProduto = DAOProd.GetProdutosPorCategoria(ComboCateg.Text, resposta, True)
 
@@ -75,11 +75,13 @@ Public Class Frm_ConsProduto
             Exit Sub
         End If
 
-        ComboDesc.BeginUpdate()
-        ComboDesc.Items.AddRange(LstProduto.ToArray)
-        ComboDesc.DisplayMember = "Descricao"
-        ComboDesc.ValueMember = "CodProduto"
-        ComboDesc.EndUpdate()
+        ComboNome.BeginUpdate()
+        ComboNome.Items.AddRange(LstProduto.ToArray)
+        ComboNome.DisplayMember = "Nome"
+        ComboNome.ValueMember = "CodProduto"
+        ComboNome.EndUpdate()
+
+        PopulateListView(LstProduto)
     End Sub
 
     Private Sub PopulateListView(ByVal lst As List(Of Produto), Optional ByVal prod As Produto = Nothing)
@@ -93,8 +95,8 @@ Public Class Frm_ConsProduto
             Dim item = ListView1.Items.Add(lstViewItem)
             item.Name = prod.CodProduto.ToString
 
-            Dim subItemDescricao = item.SubItems.Add(prod.Descricao)
-            subItemDescricao.Name = "DESCRIÇÃO"
+            Dim subItemNome = item.SubItems.Add(prod.Nome)
+            subItemNome.Name = "NOME"
 
             Dim subItemPreco = item.SubItems.Add(prod.Preco.ToString("C"))
             subItemPreco.Name = "PREÇO"
@@ -108,7 +110,7 @@ Public Class Frm_ConsProduto
         ListView1.Items.Clear()
 
         For Each p As Produto In LstProduto
-            Dim lstViewItem As New ListViewItem(New String() {p.Descricao, p.Preco.ToString("C"), p.Quantidade.ToString})
+            Dim lstViewItem As New ListViewItem(New String() {p.Nome, p.Preco.ToString("C"), p.Quantidade.ToString})
             lstViewItem.Tag = p
             ListView1.Items.Add(lstViewItem)
         Next
@@ -126,6 +128,7 @@ Public Class Frm_ConsProduto
     End Sub
 
     Private Sub ComboCateg_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles ComboCateg.SelectedIndexChanged
+        ComboNome.Text = ""
         CarregaProdCateg()
     End Sub
 
@@ -136,26 +139,10 @@ Public Class Frm_ConsProduto
         End If
     End Sub
 
-    Private Sub BtnConfirmar_Click(sender As System.Object, e As System.EventArgs) Handles BtnConfirmar.Click
-        If ListView1.SelectedItems.Count > 0 Then
-            frmInstancia.objProduto = ListView1.SelectedItems(0).Tag
-        End If
-
-        Me.Close()
-    End Sub
-
-    Private Sub BtnPesquisar_Click(sender As System.Object, e As System.EventArgs) Handles BtnPesquisar.Click
-        PopulateListView(LstProduto)
-    End Sub
-
-    Private Sub ComboDesc_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboDesc.SelectedIndexChanged
-        PopulateListView(New List(Of Produto), LstProduto(ComboDesc.SelectedIndex))
-    End Sub
-
-    Private Sub ComboDesc_TextChanged(sender As System.Object, e As System.EventArgs) Handles ComboDesc.TextChanged
-        If ComboDesc.Text <> String.Empty Then
+    Private Sub ComboDesc_TextChanged(sender As System.Object, e As System.EventArgs) Handles ComboNome.TextChanged
+        If ComboNome.Text <> String.Empty Then
             Dim lstProduto As New List(Of Produto)
-            lstProduto = DAOProd.GetProdutoPorNome(ComboDesc.Text)
+            lstProduto = DAOProd.GetProdutoPorCategoriaOuNome(ComboCateg.Text, ComboNome.Text)
             If lstProduto.Count > 0 Then
                 PopulateListView(lstProduto)
             Else
@@ -177,10 +164,10 @@ Public Class Frm_ConsProduto
 
     Private Sub ChkDesc_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChkDesc.CheckedChanged
         If ChkDesc.CheckState = CheckState.Checked Then
-            ComboDesc.Enabled = True
+            ComboNome.Enabled = True
         Else
-            ComboDesc.Text = ""
-            ComboDesc.Enabled = False
+            ComboNome.Text = ""
+            ComboNome.Enabled = False
         End If
     End Sub
 
@@ -191,7 +178,19 @@ Public Class Frm_ConsProduto
         End If
     End Sub
 
-    Private Sub ComboDesc_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboDesc.KeyPress
+    Private Sub ComboDesc_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboNome.KeyPress
         e.KeyChar = Char.ToUpper(e.KeyChar)
+    End Sub
+
+    Private Sub BtnPesquisar_Click(sender As System.Object, e As System.EventArgs)
+        PopulateListView(LstProduto)
+    End Sub
+
+    Private Sub BtnConfirmar_Click(sender As System.Object, e As System.EventArgs) Handles BtnConfirmar.Click
+        If ListView1.SelectedItems.Count > 0 Then
+            frmInstancia.objProduto = ListView1.SelectedItems(0).Tag
+        End If
+
+        Me.Close()
     End Sub
 End Class

@@ -19,8 +19,13 @@ Public Class Frm_Usuario
         frmPrincipal = frm
     End Sub
 
+    Private Sub Desativa_Campos()
+        Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
+        Uteis.ControlsHelper.SetControlsDisabled(GrpBoxCredenciais.Controls)
+    End Sub
+
     Private Sub Frm_Usuario_Load(sender As System.Object, e As System.EventArgs) Handles Me.Load
-        Uteis.ControlsHelper.SetControlsDisabled(Me)
+        Desativa_Campos()
         AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
         MyModo.UniqueModo = "PADRÃO"
     End Sub
@@ -78,7 +83,7 @@ Public Class Frm_Usuario
             If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso UC_Toolstrip.ModoAnterior = "NOVO" Then
                 If InsereUsuario() Then
                     LimpaCampos_AtivaControles()
-                    Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+                    Desativa_Campos()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
                 Else
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
@@ -88,7 +93,7 @@ Public Class Frm_Usuario
                     If Not DAOUsuario.AtualizaUsuario(GetUsuarioForOperation, resposta) Then
                         frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                     Else
-                        Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+                        Desativa_Campos()
                         frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
                     End If
                 End If
@@ -132,7 +137,7 @@ Public Class Frm_Usuario
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
             LimpaCampos_AtivaControles()
             frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
-            Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+            Desativa_Campos()
         End If
 
         frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnExcluir").Enabled = False
@@ -259,14 +264,8 @@ Public Class Frm_Usuario
     End Sub
 
     Private Sub ModoProcurar()
-        GrpBoxInfo.Enabled = True
-        For Each Control As Control In GrpBoxInfo.Controls
-            If Control IsNot ComboNome Then
-                Control.Enabled = False
-            Else
-                Control.Enabled = True
-            End If
-        Next
+        Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
+        ComboNome.Enabled = True
         TxtLogin.Enabled = False
         GrpBoxCredenciais.Enabled = False
 

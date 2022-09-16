@@ -893,14 +893,15 @@ Public Class DAO
         Return Lst
     End Function
 
-    Public Function GetProdutoPorNome(ByVal desc As String) As List(Of Produto)
+    Public Function GetProdutoPorCategoriaOuNome(ByVal categ As String, ByVal nome As String) As List(Of Produto)
         Dim Lst As New List(Of Produto)
         Using Cmd As New SqlCommand
             Try
                 Cmd.Connection = Con
-                Cmd.CommandText = "SP_GET_PRODUTO_POR_NOME"
+                Cmd.CommandText = "SP_GET_PRODUTO_POR_CATEGORIA_OU_NOME"
                 Cmd.CommandType = CommandType.StoredProcedure
-                Cmd.Parameters.AddWithValue("@DESC", desc)
+                Cmd.Parameters.AddWithValue("@CATEGORIA", categ)
+                Cmd.Parameters.AddWithValue("@NOME", nome)
 
                 Dim Adp As New SqlDataAdapter(Cmd)
                 Dim Tbl As New DataTable
@@ -961,6 +962,7 @@ Public Class DAO
             Cmd.CommandText = "SP_INSERE_PRODUTO"
             Cmd.CommandType = CommandType.StoredProcedure
             Cmd.Parameters.AddWithValue("@CATEG", produto.Categoria)
+            Cmd.Parameters.AddWithValue("@NOME", produto.Nome)
             Cmd.Parameters.AddWithValue("@DESC", produto.Descricao)
             Cmd.Parameters.Add("@PRECO", SqlDbType.Decimal).Value = produto.Preco
             Cmd.Parameters.AddWithValue("@QTD", produto.Quantidade)
@@ -1107,17 +1109,23 @@ Public Class DAO
 
 #Region "Pedido"
     Public Overloads Function GetPedido(ByVal codpedido As String, ByRef resposta As String) As Pedido
-        Return _GetPedido(codpedido, resposta, 0, 0, "").FirstOrDefault
+        Return _GetPedido(codpedido, resposta, 0, 0, "", Nothing, Nothing).FirstOrDefault
     End Function
 
     Public Overloads Function GetPedido(ByRef resposta As String, Optional codvendedor As Integer = 0, _
-                                        Optional codcliente As Integer = 0, Optional nomecliente As String = "") As List(Of Pedido)
+                                        Optional codcliente As Integer = 0, Optional nomecliente As String = "", _
+                                        Optional dtinicial As Date = Nothing, Optional dtfinal As Date = Nothing) As List(Of Pedido)
 
-        Return _GetPedido("", resposta, codcliente, codvendedor, nomecliente)
+        If dtinicial = Date.MinValue AndAlso dtfinal = Date.MinValue Then
+            dtinicial = Data.SqlTypes.SqlDateTime.MinValue
+            dtfinal = Data.SqlTypes.SqlDateTime.MaxValue
+        End If
+        Return _GetPedido("", resposta, codcliente, codvendedor, nomecliente, dtinicial, dtfinal)
     End Function
 
     Private Function _GetPedido(ByVal codpedido As String, ByRef resposta As String, _
-                                ByVal codcliente As Integer, ByVal codvendedor As Integer, ByVal nomecliente As String) As List(Of Pedido)
+                                ByVal codcliente As Integer, ByVal codvendedor As Integer, ByVal nomecliente As String, _
+                                ByVal dtinicial As Date, ByVal dtfinal As Date) As List(Of Pedido)
         Dim lst As New List(Of Pedido)
         Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
         Using Cmd As New SqlCommand
@@ -1128,6 +1136,8 @@ Public Class DAO
             Cmd.Parameters.AddWithValue("@CODCLIENTE", codcliente)
             Cmd.Parameters.AddWithValue("@CODVENDEDOR", codvendedor)
             Cmd.Parameters.AddWithValue("@NOMECLIENTE", nomecliente)
+            Cmd.Parameters.AddWithValue("@DATINICIAL", dtinicial)
+            Cmd.Parameters.AddWithValue("@DATFINAL", dtfinal)
             Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
             Cmd.Parameters("@RESPONSE").Size = 255
 

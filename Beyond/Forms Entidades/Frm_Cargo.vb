@@ -27,7 +27,7 @@ Public Class Frm_Cargo
     End Sub
 
     Private Sub Frm_Cargo_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        ControlsHelper.SetControlsDisabled(Me.Controls)
+        Desativa_Campos()
         AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
         MyModo.UniqueModo = "PADRÃO"
     End Sub
@@ -76,7 +76,13 @@ Public Class Frm_Cargo
     Private Sub LimpaCampos_Ativa()
         ControlsHelper.SetTextsEmpty(GrpBoxCfg.Controls)
         ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
-        ControlsHelper.SetControlsEnabled(Me.Controls)
+        ControlsHelper.SetControlsEnabled(GrpBoxCfg.Controls)
+        ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
+    End Sub
+
+    Private Sub Desativa_Campos()
+        ControlsHelper.SetControlsDisabled(GrpBoxCfg.Controls)
+        ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
     End Sub
 
     Private Sub ToolStrip_ItemClicked()
@@ -97,7 +103,7 @@ Public Class Frm_Cargo
             If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso UC_Toolstrip.ModoAnterior = "NOVO" Then
                 If InsereCargo() Then
                     LimpaCampos()
-                    Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+                    Desativa_Campos()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
                 Else
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
@@ -107,7 +113,7 @@ Public Class Frm_Cargo
                     If Not DAOCargo.AtualizaCargo(CargoObjForUpdate, resposta, False, loginusuario) Then
                         frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                     Else
-                        Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+                        Desativa_Campos()
                         frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
                     End If
                 End If
@@ -146,7 +152,7 @@ Public Class Frm_Cargo
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
                 If DAOCargo.AtualizaCargo(CargoObjForUpdate, "", True, loginusuario) Then
                     LimpaCampos()
-                    Uteis.ControlsHelper.SetControlsDisabled(Me)
+                    Desativa_Campos()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
                 End If
             Else
@@ -156,7 +162,7 @@ Public Class Frm_Cargo
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
             LimpaCampos_Ativa()
             frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
-            Uteis.ControlsHelper.SetControlsDisabled(Me.Controls)
+            Desativa_Campos()
         End If
     End Sub
 
