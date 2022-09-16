@@ -170,7 +170,7 @@ Partial Class Frm_ConsProduto
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.Window
+        Me.BackColor = System.Drawing.SystemColors.Menu
         Me.ClientSize = New System.Drawing.Size(730, 373)
         Me.Controls.Add(Me.BtnConfirmar)
         Me.Controls.Add(Me.BtnPesquisar)

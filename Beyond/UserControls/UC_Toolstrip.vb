@@ -144,7 +144,7 @@
                 Modo = "PESQUISAR"
                 ModoAnterior = "REVERTER"
                 For Each item As ToolStripItem In ToolStrip1.Items
-                    If item IsNot BtnNovo AndAlso item IsNot BtnFecharPag Then
+                    If item IsNot BtnNovo AndAlso item IsNot BtnFecharPag AndAlso item IsNot BtnSeguinte AndAlso item IsNot BtnAnterior Then
                         item.Enabled = False
                     Else
                         item.Enabled = True

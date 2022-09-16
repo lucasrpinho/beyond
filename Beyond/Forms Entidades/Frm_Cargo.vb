@@ -120,6 +120,16 @@ Public Class Frm_Cargo
                 ComboNome.SelectedIndex = LstCargo.FindIndex(Function(c As Cargo) c.CodCargo = objCargo.CodCargo)
             End If
 
+        ElseIf MyModo.UniqueModo = "ANTERIOR" Then
+            If ComboNome.SelectedIndex - 1 >= 0 Then
+                ComboNome.SelectedIndex -= 1
+            End If
+
+        ElseIf MyModo.UniqueModo = "SEGUINTE" Then
+            If ComboNome.SelectedIndex + 1 <> ComboNome.Items.Count Then
+                ComboNome.SelectedIndex += 1
+            End If
+
         ElseIf MyModo.UniqueModo = "ALTERAR" Then
             CarregaCargos()
             ModoAlterar()
@@ -152,7 +162,7 @@ Public Class Frm_Cargo
 
     Private Sub AlternarControle()
         If MyModo.UniqueModo = "PESQUISAR" Then
-            ComboNome.DropDownStyle = ComboBoxStyle.DropDown
+            ComboNome.DropDownStyle = ComboBoxStyle.DropDownList
         ElseIf MyModo.UniqueModo = "NOVO" Then
             ComboNome.DropDownStyle = ComboBoxStyle.Simple
         End If

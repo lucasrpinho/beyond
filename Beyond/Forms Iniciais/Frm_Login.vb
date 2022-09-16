@@ -17,15 +17,15 @@ Public Class Frm_Login
 
     Private Function ValidaCampos() As Boolean
         If StringHelper.IsNull(TxtLogin.Text) Then
-            MsgBoxHelper.Alerta(Me, "Campo de login precisa ser preenchido.", "Login")
+            MsgBoxHelper.CustomTooltip(Me, TxtLogin, "Campo de login precisa ser preenchido.", "Login", ToolTipIcon.Info)
         ElseIf StringHelper.IsNull(TxtSenha.Text) Then
-            MsgBoxHelper.Alerta(Me, "Campo de senha precisa ser preenchido.", "Login")
+            MsgBoxHelper.CustomTooltip(Me, TxtSenha, "Campo de senha precisa ser preenchido.", "Senha", ToolTipIcon.Info)
         ElseIf Not StringHelper.MinLength(TxtLogin.Text, 5) Then
             _ToolTip.IsBalloon = True
             _ToolTip.ToolTipTitle = "Login inválido"
-            _ToolTip.ToolTipIcon = ToolTipIcon.Error
+            _ToolTip.ToolTipIcon = ToolTipIcon.Info
             _ToolTip.SetToolTip(TxtLogin, "Login muito curto.")
-            _ToolTip.Show("Login muito curto.", TxtLogin, 3000)
+            _ToolTip.Show("Login muito curto.", TxtLogin, 2000)
         Else
             Return True
         End If
@@ -64,7 +64,7 @@ Public Class Frm_Login
             User = DAO.DAO.AutenticaUsuario(TxtLogin.Text.ToUpper.Trim, TxtSenha.Text, RespostaAutenticacao)
 
             If Retrys >= 3 And IsNothing(User) Then
-                MsgBoxHelper.Alerta(Me, "O sistema será fechado.", "Tentativas de login esgotadas")
+                MsgBoxHelper.Msg(Me, "As tentativas de login foram esgotadas.", "O sistema será fechado")
                 System.Threading.Thread.Sleep(1500)
                 Application.Exit()
             End If
@@ -88,5 +88,17 @@ Public Class Frm_Login
         Else
             Application.Exit()
         End If
+    End Sub
+
+    Private Sub BtnAcessa_MouseEnter(sender As System.Object, e As System.EventArgs) Handles BtnAcessa.MouseEnter
+        BtnAcessa.BackColor = Color.WhiteSmoke
+    End Sub
+
+    Private Sub BtnAcessa_MouseLeave(sender As System.Object, e As System.EventArgs) Handles BtnAcessa.MouseLeave
+        BtnAcessa.BackColor = Color.Transparent
+    End Sub
+
+    Private Sub Frm_Login_Shown(sender As Object, e As System.EventArgs) Handles Me.Shown
+        TxtLogin.Focus()
     End Sub
 End Class

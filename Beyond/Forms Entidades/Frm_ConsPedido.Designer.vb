@@ -46,6 +46,7 @@ Partial Class Frm_ConsPedido
         '
         'GrpBoxFiltro
         '
+        Me.GrpBoxFiltro.BackColor = System.Drawing.SystemColors.Menu
         Me.GrpBoxFiltro.Controls.Add(Me.ChkVendedor)
         Me.GrpBoxFiltro.Controls.Add(Me.ChkCliente)
         Me.GrpBoxFiltro.Controls.Add(Me.PicBuscar)
@@ -56,15 +57,16 @@ Partial Class Frm_ConsPedido
         Me.GrpBoxFiltro.Dock = System.Windows.Forms.DockStyle.Top
         Me.GrpBoxFiltro.Location = New System.Drawing.Point(0, 0)
         Me.GrpBoxFiltro.Name = "GrpBoxFiltro"
-        Me.GrpBoxFiltro.Size = New System.Drawing.Size(797, 151)
+        Me.GrpBoxFiltro.Size = New System.Drawing.Size(1164, 151)
         Me.GrpBoxFiltro.TabIndex = 0
         Me.GrpBoxFiltro.TabStop = False
         Me.GrpBoxFiltro.Text = "Filtros"
         '
         'ChkVendedor
         '
+        Me.ChkVendedor.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ChkVendedor.AutoSize = True
-        Me.ChkVendedor.Location = New System.Drawing.Point(398, 102)
+        Me.ChkVendedor.Location = New System.Drawing.Point(765, 103)
         Me.ChkVendedor.Name = "ChkVendedor"
         Me.ChkVendedor.Size = New System.Drawing.Size(15, 14)
         Me.ChkVendedor.TabIndex = 14
@@ -72,8 +74,9 @@ Partial Class Frm_ConsPedido
         '
         'ChkCliente
         '
+        Me.ChkCliente.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ChkCliente.AutoSize = True
-        Me.ChkCliente.Location = New System.Drawing.Point(398, 56)
+        Me.ChkCliente.Location = New System.Drawing.Point(765, 57)
         Me.ChkCliente.Name = "ChkCliente"
         Me.ChkCliente.Size = New System.Drawing.Size(15, 14)
         Me.ChkCliente.TabIndex = 13
@@ -81,8 +84,10 @@ Partial Class Frm_ConsPedido
         '
         'PicBuscar
         '
+        Me.PicBuscar.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PicBuscar.Image = Global.Beyond.My.Resources.Resources.search
-        Me.PicBuscar.Location = New System.Drawing.Point(766, 120)
+        Me.PicBuscar.Location = New System.Drawing.Point(1133, 120)
         Me.PicBuscar.Name = "PicBuscar"
         Me.PicBuscar.Size = New System.Drawing.Size(25, 25)
         Me.PicBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -91,11 +96,13 @@ Partial Class Frm_ConsPedido
         '
         'ComboVendedor
         '
+        Me.ComboVendedor.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ComboVendedor.Enabled = False
         Me.ComboVendedor.FormattingEnabled = True
         Me.ComboVendedor.Location = New System.Drawing.Point(9, 98)
         Me.ComboVendedor.Name = "ComboVendedor"
-        Me.ComboVendedor.Size = New System.Drawing.Size(383, 24)
+        Me.ComboVendedor.Size = New System.Drawing.Size(750, 24)
         Me.ComboVendedor.TabIndex = 3
         '
         'Label2
@@ -109,11 +116,14 @@ Partial Class Frm_ConsPedido
         '
         'ComboCliente
         '
+        Me.ComboCliente.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboCliente.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ComboCliente.Enabled = False
         Me.ComboCliente.FormattingEnabled = True
         Me.ComboCliente.Location = New System.Drawing.Point(9, 52)
         Me.ComboCliente.Name = "ComboCliente"
-        Me.ComboCliente.Size = New System.Drawing.Size(383, 24)
+        Me.ComboCliente.Size = New System.Drawing.Size(750, 24)
         Me.ComboCliente.TabIndex = 1
         '
         'Label1
@@ -127,20 +137,22 @@ Partial Class Frm_ConsPedido
         '
         'GrpBoxPedidos
         '
+        Me.GrpBoxPedidos.BackColor = System.Drawing.SystemColors.Menu
         Me.GrpBoxPedidos.Controls.Add(Me.PicConfirmar)
         Me.GrpBoxPedidos.Controls.Add(Me.LstPedido)
-        Me.GrpBoxPedidos.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GrpBoxPedidos.Location = New System.Drawing.Point(0, 151)
+        Me.GrpBoxPedidos.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.GrpBoxPedidos.Location = New System.Drawing.Point(0, 148)
         Me.GrpBoxPedidos.Name = "GrpBoxPedidos"
-        Me.GrpBoxPedidos.Size = New System.Drawing.Size(797, 276)
+        Me.GrpBoxPedidos.Size = New System.Drawing.Size(1164, 293)
         Me.GrpBoxPedidos.TabIndex = 1
         Me.GrpBoxPedidos.TabStop = False
         Me.GrpBoxPedidos.Text = "Pedidos"
         '
         'PicConfirmar
         '
+        Me.PicConfirmar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PicConfirmar.Image = Global.Beyond.My.Resources.Resources.confirm
-        Me.PicConfirmar.Location = New System.Drawing.Point(766, 245)
+        Me.PicConfirmar.Location = New System.Drawing.Point(1133, 262)
         Me.PicConfirmar.Name = "PicConfirmar"
         Me.PicConfirmar.Size = New System.Drawing.Size(25, 25)
         Me.PicConfirmar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -149,12 +161,14 @@ Partial Class Frm_ConsPedido
         '
         'LstPedido
         '
+        Me.LstPedido.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LstPedido.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColCod, Me.ColCliente, Me.ColVendedor, Me.ColDatVenda, Me.ColDestinatario})
         Me.LstPedido.FullRowSelect = True
         Me.LstPedido.Location = New System.Drawing.Point(6, 40)
         Me.LstPedido.MultiSelect = False
         Me.LstPedido.Name = "LstPedido"
-        Me.LstPedido.Size = New System.Drawing.Size(791, 193)
+        Me.LstPedido.Size = New System.Drawing.Size(1158, 193)
         Me.LstPedido.TabIndex = 0
         Me.LstPedido.UseCompatibleStateImageBehavior = False
         Me.LstPedido.View = System.Windows.Forms.View.Details
@@ -189,13 +203,15 @@ Partial Class Frm_ConsPedido
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Window
-        Me.ClientSize = New System.Drawing.Size(797, 423)
+        Me.ClientSize = New System.Drawing.Size(1164, 441)
         Me.Controls.Add(Me.GrpBoxPedidos)
         Me.Controls.Add(Me.GrpBoxFiltro)
         Me.Font = New System.Drawing.Font("Verdana", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
+        Me.MaximumSize = New System.Drawing.Size(1180, 480)
         Me.MinimizeBox = False
+        Me.MinimumSize = New System.Drawing.Size(800, 480)
         Me.Name = "Frm_ConsPedido"
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent

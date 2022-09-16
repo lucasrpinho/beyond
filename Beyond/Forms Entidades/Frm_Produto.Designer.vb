@@ -44,7 +44,7 @@ Partial Class Frm_Produto
         '
         Me.GrpBoxInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GrpBoxInfo.BackColor = System.Drawing.SystemColors.Window
+        Me.GrpBoxInfo.BackColor = System.Drawing.Color.Transparent
         Me.GrpBoxInfo.Controls.Add(Me.TxtCategoria)
         Me.GrpBoxInfo.Controls.Add(Me.Label5)
         Me.GrpBoxInfo.Controls.Add(Me.PicBoxFoto)
@@ -98,6 +98,7 @@ Partial Class Frm_Produto
         Me.ChkAtivo.AutoSize = True
         Me.ChkAtivo.Checked = True
         Me.ChkAtivo.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ChkAtivo.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ChkAtivo.Font = New System.Drawing.Font("Verdana", 8.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ChkAtivo.Location = New System.Drawing.Point(213, 202)
         Me.ChkAtivo.Name = "ChkAtivo"
@@ -178,7 +179,7 @@ Partial Class Frm_Produto
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.Window
+        Me.BackColor = System.Drawing.SystemColors.Menu
         Me.ClientSize = New System.Drawing.Size(704, 435)
         Me.Controls.Add(Me.GrpBoxInfo)
         Me.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

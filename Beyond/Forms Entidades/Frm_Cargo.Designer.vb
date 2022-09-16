@@ -39,6 +39,7 @@ Partial Class Frm_Cargo
         '
         Me.GrpBoxCfg.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GrpBoxCfg.BackColor = System.Drawing.Color.Transparent
         Me.GrpBoxCfg.Controls.Add(Me.ChkVendedor)
         Me.GrpBoxCfg.Controls.Add(Me.ChkBoxAtivo)
         Me.GrpBoxCfg.Location = New System.Drawing.Point(12, 256)
@@ -76,7 +77,7 @@ Partial Class Frm_Cargo
         '
         Me.GrpBoxInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GrpBoxInfo.BackColor = System.Drawing.SystemColors.Window
+        Me.GrpBoxInfo.BackColor = System.Drawing.Color.Transparent
         Me.GrpBoxInfo.Controls.Add(Me.ComboNome)
         Me.GrpBoxInfo.Controls.Add(Me.TxtDesc)
         Me.GrpBoxInfo.Controls.Add(Me.Label2)
@@ -135,7 +136,7 @@ Partial Class Frm_Cargo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.Window
+        Me.BackColor = System.Drawing.SystemColors.Menu
         Me.ClientSize = New System.Drawing.Size(585, 373)
         Me.Controls.Add(Me.GrpBoxInfo)
         Me.Controls.Add(Me.GrpBoxCfg)

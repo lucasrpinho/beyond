@@ -24,17 +24,18 @@ Partial Class Frm_Cliente_Cargo
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_Cliente_Cargo))
         Me.GrpInfo = New System.Windows.Forms.GroupBox()
+        Me.ChkAtivo = New System.Windows.Forms.CheckBox()
         Me.BtnDesvincular = New System.Windows.Forms.Button()
         Me.TxtCargo = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TxtCliente = New System.Windows.Forms.TextBox()
         Me.Label999 = New System.Windows.Forms.Label()
-        Me.ChkAtivo = New System.Windows.Forms.CheckBox()
         Me.GrpInfo.SuspendLayout()
         Me.SuspendLayout()
         '
         'GrpInfo
         '
+        Me.GrpInfo.BackColor = System.Drawing.SystemColors.Menu
         Me.GrpInfo.Controls.Add(Me.ChkAtivo)
         Me.GrpInfo.Controls.Add(Me.BtnDesvincular)
         Me.GrpInfo.Controls.Add(Me.TxtCargo)
@@ -50,6 +51,17 @@ Partial Class Frm_Cliente_Cargo
         Me.GrpInfo.TabIndex = 0
         Me.GrpInfo.TabStop = False
         Me.GrpInfo.Text = "Cliente e Cargo"
+        '
+        'ChkAtivo
+        '
+        Me.ChkAtivo.AutoSize = True
+        Me.ChkAtivo.Enabled = False
+        Me.ChkAtivo.Location = New System.Drawing.Point(434, 56)
+        Me.ChkAtivo.Name = "ChkAtivo"
+        Me.ChkAtivo.Size = New System.Drawing.Size(61, 20)
+        Me.ChkAtivo.TabIndex = 7
+        Me.ChkAtivo.Text = "Ativo"
+        Me.ChkAtivo.UseVisualStyleBackColor = True
         '
         'BtnDesvincular
         '
@@ -93,17 +105,6 @@ Partial Class Frm_Cliente_Cargo
         Me.Label999.Size = New System.Drawing.Size(53, 16)
         Me.Label999.TabIndex = 0
         Me.Label999.Text = "Cliente"
-        '
-        'ChkAtivo
-        '
-        Me.ChkAtivo.AutoSize = True
-        Me.ChkAtivo.Enabled = False
-        Me.ChkAtivo.Location = New System.Drawing.Point(434, 56)
-        Me.ChkAtivo.Name = "ChkAtivo"
-        Me.ChkAtivo.Size = New System.Drawing.Size(61, 20)
-        Me.ChkAtivo.TabIndex = 7
-        Me.ChkAtivo.Text = "Ativo"
-        Me.ChkAtivo.UseVisualStyleBackColor = True
         '
         'Frm_Cliente_Cargo
         '

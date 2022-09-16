@@ -111,6 +111,16 @@ Public Class Frm_Usuario
                 ComboNome.SelectedIndex = LstUsuario.FindIndex(Function(u As Usuario) u.CodUsuario = objUsuario.CodUsuario)
             End If
 
+        ElseIf MyModo.UniqueModo = "ANTERIOR" Then
+            If ComboNome.SelectedIndex - 1 >= 0 Then
+                ComboNome.SelectedIndex -= 1
+            End If
+
+        ElseIf MyModo.UniqueModo = "SEGUINTE" Then
+            If ComboNome.SelectedIndex + 1 <> ComboNome.Items.Count Then
+                ComboNome.SelectedIndex += 1
+            End If
+
 
         ElseIf MyModo.UniqueModo = "REVERTER" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
@@ -157,7 +167,7 @@ Public Class Frm_Usuario
 
     Private Sub AlternarControle()
         If MyModo.UniqueModo = "PESQUISAR" Then
-            ComboNome.DropDownStyle = ComboBoxStyle.DropDown
+            ComboNome.DropDownStyle = ComboBoxStyle.DropDownList
             TxtSenha.Enabled = False
             TxtSenhaConfirmar.Enabled = False
         ElseIf MyModo.UniqueModo = "NOVO" Then
@@ -264,6 +274,7 @@ Public Class Frm_Usuario
         Uteis.ControlsHelper.SetTextsEmpty(GrpBoxCredenciais.Controls)
         AlternarControle()
         CarregaUsuarios()
+        ComboNome.Focus()
     End Sub
 
     Private Sub Frm_Usuario_EnabledChanged(sender As System.Object, e As System.EventArgs) Handles MyBase.EnabledChanged

@@ -37,7 +37,7 @@ Partial Class Frm_Sobre
         'LblNomeSistema
         '
         Me.LblNomeSistema.AutoSize = True
-        Me.LblNomeSistema.BackColor = System.Drawing.SystemColors.Window
+        Me.LblNomeSistema.BackColor = System.Drawing.Color.Transparent
         Me.LblNomeSistema.Font = New System.Drawing.Font("Verdana", 22.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblNomeSistema.ForeColor = System.Drawing.SystemColors.InfoText
         Me.LblNomeSistema.Location = New System.Drawing.Point(15, 9)
@@ -127,7 +127,7 @@ Partial Class Frm_Sobre
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.Window
+        Me.BackColor = System.Drawing.SystemColors.Menu
         Me.ClientSize = New System.Drawing.Size(412, 209)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)

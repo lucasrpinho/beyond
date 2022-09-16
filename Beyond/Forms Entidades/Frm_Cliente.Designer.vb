@@ -63,6 +63,8 @@ Partial Class Frm_Cliente
         'ComboCargo
         '
         Me.ComboCargo.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboCargo.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ComboCargo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboCargo.FormattingEnabled = True
         Me.ComboCargo.Items.AddRange(New Object() {" "})
         Me.ComboCargo.Location = New System.Drawing.Point(343, 171)
@@ -124,6 +126,7 @@ Partial Class Frm_Cliente
         '
         Me.GrpBoxInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GrpBoxInfo.BackColor = System.Drawing.Color.Transparent
         Me.GrpBoxInfo.Controls.Add(Me.BtnConsCargo)
         Me.GrpBoxInfo.Controls.Add(Me.DtPckNasc)
         Me.GrpBoxInfo.Controls.Add(Me.TxtCelular)
@@ -152,6 +155,7 @@ Partial Class Frm_Cliente
         'BtnConsCargo
         '
         Me.BtnConsCargo.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnConsCargo.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnConsCargo.Image = Global.Beyond.My.Resources.Resources.search
         Me.BtnConsCargo.Location = New System.Drawing.Point(687, 202)
         Me.BtnConsCargo.Name = "BtnConsCargo"
@@ -271,6 +275,7 @@ Partial Class Frm_Cliente
         '
         Me.GrpBoxEndereco.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GrpBoxEndereco.BackColor = System.Drawing.Color.Transparent
         Me.GrpBoxEndereco.Controls.Add(Me.TxtCidade)
         Me.GrpBoxEndereco.Controls.Add(Me.TxtNum)
         Me.GrpBoxEndereco.Controls.Add(Me.TxtCEP)
@@ -325,6 +330,8 @@ Partial Class Frm_Cliente
         'ComboEstado
         '
         Me.ComboEstado.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboEstado.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ComboEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboEstado.FormattingEnabled = True
         Me.ComboEstado.Items.AddRange(New Object() {" "})
         Me.ComboEstado.Location = New System.Drawing.Point(498, 164)
@@ -443,7 +450,7 @@ Partial Class Frm_Cliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.Window
+        Me.BackColor = System.Drawing.SystemColors.Menu
         Me.ClientSize = New System.Drawing.Size(748, 564)
         Me.Controls.Add(Me.GrpBoxEndereco)
         Me.Controls.Add(Me.GrpBoxInfo)

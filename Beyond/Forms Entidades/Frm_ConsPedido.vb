@@ -142,6 +142,7 @@ Public Class Frm_ConsPedido
         Else
             ComboCliente.Text = ""
             ComboCliente.Enabled = False
+            ComboCliente.SelectedIndex = -1
         End If
     End Sub
 
@@ -151,6 +152,7 @@ Public Class Frm_ConsPedido
         Else
             ComboVendedor.Text = ""
             ComboVendedor.Enabled = False
+            ComboVendedor.SelectedIndex = -1
         End If
     End Sub
 
@@ -158,13 +160,32 @@ Public Class Frm_ConsPedido
         LstPedido.Items.Clear()
         LstPedidos.Clear()
 
+        Dim codvendedor As Integer = 0
+        Dim codcliente As Integer = 0
+        Dim nomecliente As String = ""
+
+        If ComboVendedor.SelectedIndex > -1 Then
+            codvendedor = LstVendedor(ComboVendedor.SelectedIndex).CodVendedor
+        End If
+
+        If ComboCliente.SelectedIndex > -1 Then
+            codcliente = LstCliente(ComboCliente.SelectedIndex).CodCliente
+        End If
+
+        If ComboCliente.Text <> String.Empty AndAlso LstCliente.FirstOrDefault(Function(c) c.Nome.Trim = ComboCliente.Text.Trim) Is Nothing Then
+            nomecliente = ComboCliente.Text
+        End If
+
+
+
         Dim resposta As String = ""
+
         If ChkCliente.Checked AndAlso Not ChkVendedor.Checked Then
             If ComboCliente.Text = String.Empty Then
-                MsgBoxHelper.CustomTooltip(GrpBoxFiltro, ComboCliente, "O filtro de clientes foi ativo, porém nenhum cliente foi selecionado.", "Preenchimento")
+                MsgBoxHelper.CustomTooltip(GrpBoxFiltro, ComboCliente, "O filtro de clientes foi ativado, porém nenhum cliente foi selecionado.", "Preenchimento")
                 Exit Sub
             End If
-            LstPedidos = DAOPed.GetPedido(resposta, 0, LstCliente(ComboCliente.SelectedIndex).CodCliente)
+
         ElseIf ChkCliente.Checked AndAlso ChkVendedor.Checked Then
             If ComboCliente.Text = String.Empty Then
                 MsgBoxHelper.CustomTooltip(GrpBoxFiltro, ComboCliente, "O filtro de clientes foi ativado, porém nenhum cliente foi selecionado.", "Preenchimento")
@@ -173,17 +194,15 @@ Public Class Frm_ConsPedido
                 MsgBoxHelper.CustomTooltip(GrpBoxFiltro, ComboVendedor, "O filtro de vendedores foi ativado, porém nenhum vendedor foi selecionado.", "Preenchimento")
                 Exit Sub
             End If
-            LstPedidos = DAOPed.GetPedido(resposta, LstVendedor(ComboVendedor.SelectedIndex).CodVendedor, LstCliente(ComboCliente.SelectedIndex).CodCliente)
-        ElseIf Not ChkCliente.Checked AndAlso Not ChkVendedor.Checked Then
-            LstPedidos = DAOPed.GetPedido(resposta)
 
         ElseIf Not ChkCliente.Checked AndAlso ChkVendedor.Checked Then
             If ComboVendedor.Text = String.Empty Then
                 MsgBoxHelper.CustomTooltip(GrpBoxFiltro, ComboVendedor, "O filtro de vendedores foi ativado, porém nenhum vendedor foi selecionado.", "Preenchimento")
                 Exit Sub
             End If
-            LstPedidos = DAOPed.GetPedido(resposta, LstVendedor(ComboVendedor.SelectedIndex).CodVendedor, 0)
         End If
+
+        LstPedidos = DAOPed.GetPedido(resposta, codvendedor, codcliente, nomecliente)
 
         If Not LstPedidos.Count > 0 Then
             MsgBoxHelper.Alerta(Me, "A busca não encontrou resultados.", "Sem resultados")
@@ -191,5 +210,26 @@ Public Class Frm_ConsPedido
         End If
 
         PopulateListView()
+    End Sub
+
+    Private Sub ComboCliente_TextChanged(sender As System.Object, e As System.EventArgs) Handles ComboCliente.TextChanged
+        If ComboCliente.Text = String.Empty Then
+            LstPedido.Items.Clear()
+        End If
+        If ComboCliente.Text <> String.Empty AndAlso ComboCliente.SelectedIndex < 0 Then
+            LstPedidos = DAOPed.GetPedido("", 0, 0, ComboCliente.Text)
+            If LstPedidos.Count > 0 Then
+                PopulateListView()
+            Else
+                LstPedido.Items.Clear()
+            End If
+        ElseIf ComboCliente.Text <> String.Empty AndAlso ComboCliente.SelectedIndex < 0 AndAlso ComboVendedor.Text <> String.Empty Then
+            LstPedidos = DAOPed.GetPedido("", LstVendedor(ComboVendedor.SelectedIndex).CodVendedor, 0, ComboCliente.Text)
+            If LstPedidos.Count > 0 Then
+                PopulateListView()
+            Else
+                LstPedido.Items.Clear()
+            End If
+        End If
     End Sub
 End Class

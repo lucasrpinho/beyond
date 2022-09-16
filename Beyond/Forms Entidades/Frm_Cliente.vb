@@ -41,7 +41,7 @@ Public Class Frm_Cliente
 
     Private Sub AlternarControle()
         If MyModo.UniqueModo = "PESQUISAR" Then
-            ComboNome.DropDownStyle = ComboBoxStyle.DropDown
+            ComboNome.DropDownStyle = ComboBoxStyle.DropDownList
         ElseIf MyModo.UniqueModo = "NOVO" Then
             ComboNome.DropDownStyle = ComboBoxStyle.Simple
         End If
@@ -234,6 +234,16 @@ Public Class Frm_Cliente
             ModoPesquisa()
             If UC_Toolstrip.ModoAnterior = "REVERTER" Then
                 ComboNome.SelectedIndex = LstCliente.FindIndex(Function(c As Cliente) c.CodCliente = objCliente.CodCliente)
+            End If
+
+        ElseIf MyModo.UniqueModo = "ANTERIOR" Then
+            If ComboNome.SelectedIndex - 1 >= 0 Then
+                ComboNome.SelectedIndex -= 1
+            End If
+
+        ElseIf MyModo.UniqueModo = "SEGUINTE" Then
+            If ComboNome.SelectedIndex + 1 <> ComboNome.Items.Count Then
+                ComboNome.SelectedIndex += 1
             End If
 
 

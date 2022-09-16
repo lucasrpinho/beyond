@@ -52,6 +52,7 @@ Partial Class Frm_Login
         '
         'UsernameLabel
         '
+        Me.UsernameLabel.BackColor = System.Drawing.Color.Transparent
         Me.UsernameLabel.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.UsernameLabel.Location = New System.Drawing.Point(128, 26)
         Me.UsernameLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
@@ -85,7 +86,7 @@ Partial Class Frm_Login
         '
         'BtnAcessa
         '
-        Me.BtnAcessa.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.BtnAcessa.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.BtnAcessa.Enabled = False
         Me.BtnAcessa.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnAcessa.Location = New System.Drawing.Point(209, 136)
@@ -127,7 +128,7 @@ Partial Class Frm_Login
         Me.AcceptButton = Me.BtnAcessa
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.Window
+        Me.BackColor = System.Drawing.SystemColors.Menu
         Me.ClientSize = New System.Drawing.Size(434, 220)
         Me.Controls.Add(Me.TxtLogin)
         Me.Controls.Add(Me.TxtSenhaInvalida)

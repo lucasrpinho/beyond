@@ -709,9 +709,6 @@ Public Class Frm_Pedido
         End If
     End Sub
 
-    Private Sub BtnPesquisar_Click(sender As System.Object, e As System.EventArgs) Handles BtnPesquisar.Click
-        PopulateLstViewProduto(LstProduto)
-    End Sub
 
     Private Sub BtnMenosInsere_Click(sender As System.Object, e As System.EventArgs) Handles BtnMenosInsere.Click
         If Not LstProd.Items.Count > 0 Then
@@ -984,5 +981,9 @@ Public Class Frm_Pedido
             TxtCidade.Text = c.ObjEndereco.Cidade
             TxtComplemento.Text = c.ObjEndereco.Complemento
         End If
+    End Sub
+
+    Private Sub BtnPesquisar_Click(sender As System.Object, e As System.EventArgs) Handles BtnPesquisar.Click
+        PopulateLstViewProduto(LstProduto)
     End Sub
 End Class

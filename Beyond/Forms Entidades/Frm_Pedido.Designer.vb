@@ -59,7 +59,6 @@ Partial Class Frm_Pedido
         Me.BtnComprar = New System.Windows.Forms.Button()
         Me.LblQtdCarrinho = New System.Windows.Forms.Label()
         Me.LblPrecoTotal = New System.Windows.Forms.Label()
-        Me.BtnPesquisar = New System.Windows.Forms.Button()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.BtnMenosInsere = New System.Windows.Forms.Button()
         Me.TxtQtdInsere = New System.Windows.Forms.TextBox()
@@ -93,6 +92,7 @@ Partial Class Frm_Pedido
         Me.ColQtd1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColPrecoTotal = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Label14 = New System.Windows.Forms.Label()
+        Me.BtnPesquisar = New System.Windows.Forms.PictureBox()
         Me.TCPedido.SuspendLayout()
         Me.TabDados.SuspendLayout()
         Me.GrpBoxEndereco.SuspendLayout()
@@ -101,6 +101,7 @@ Partial Class Frm_Pedido
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicProd, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabItens.SuspendLayout()
+        CType(Me.BtnPesquisar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TCPedido
@@ -117,6 +118,7 @@ Partial Class Frm_Pedido
         '
         'TabDados
         '
+        Me.TabDados.BackColor = System.Drawing.Color.Transparent
         Me.TabDados.Controls.Add(Me.GrpBoxEndereco)
         Me.TabDados.Controls.Add(Me.GrpBoxInfo)
         Me.TabDados.Location = New System.Drawing.Point(4, 25)
@@ -125,7 +127,6 @@ Partial Class Frm_Pedido
         Me.TabDados.Size = New System.Drawing.Size(899, 450)
         Me.TabDados.TabIndex = 0
         Me.TabDados.Text = "Dados"
-        Me.TabDados.UseVisualStyleBackColor = True
         '
         'GrpBoxEndereco
         '
@@ -185,6 +186,8 @@ Partial Class Frm_Pedido
         'ComboEstado
         '
         Me.ComboEstado.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboEstado.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ComboEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboEstado.FormattingEnabled = True
         Me.ComboEstado.Items.AddRange(New Object() {" "})
         Me.ComboEstado.Location = New System.Drawing.Point(604, 154)
@@ -347,6 +350,7 @@ Partial Class Frm_Pedido
         'DtPckVenda
         '
         Me.DtPckVenda.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DtPckVenda.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DtPckVenda.CustomFormat = "dd/MM/yyyy hh:mm"
         Me.DtPckVenda.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DtPckVenda.Location = New System.Drawing.Point(691, 148)
@@ -368,6 +372,8 @@ Partial Class Frm_Pedido
         '
         Me.ComboVendedor.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboVendedor.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ComboVendedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboVendedor.FormattingEnabled = True
         Me.ComboVendedor.Location = New System.Drawing.Point(18, 148)
         Me.ComboVendedor.Name = "ComboVendedor"
@@ -379,6 +385,8 @@ Partial Class Frm_Pedido
         Me.ComboCliente.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ComboCliente.BackColor = System.Drawing.SystemColors.Window
+        Me.ComboCliente.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ComboCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboCliente.FormattingEnabled = True
         Me.ComboCliente.Location = New System.Drawing.Point(18, 101)
         Me.ComboCliente.Name = "ComboCliente"
@@ -434,12 +442,13 @@ Partial Class Frm_Pedido
         '
         'TabProduto
         '
+        Me.TabProduto.BackColor = System.Drawing.Color.Transparent
+        Me.TabProduto.Controls.Add(Me.BtnPesquisar)
         Me.TabProduto.Controls.Add(Me.BtnMaisInsere)
         Me.TabProduto.Controls.Add(Me.PictureBox1)
         Me.TabProduto.Controls.Add(Me.BtnComprar)
         Me.TabProduto.Controls.Add(Me.LblQtdCarrinho)
         Me.TabProduto.Controls.Add(Me.LblPrecoTotal)
-        Me.TabProduto.Controls.Add(Me.BtnPesquisar)
         Me.TabProduto.Controls.Add(Me.BtnMenosInsere)
         Me.TabProduto.Controls.Add(Me.TxtQtdInsere)
         Me.TabProduto.Controls.Add(Me.Label18)
@@ -458,10 +467,10 @@ Partial Class Frm_Pedido
         Me.TabProduto.Size = New System.Drawing.Size(899, 450)
         Me.TabProduto.TabIndex = 1
         Me.TabProduto.Text = "Produtos"
-        Me.TabProduto.UseVisualStyleBackColor = True
         '
         'BtnMaisInsere
         '
+        Me.BtnMaisInsere.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnMaisInsere.FlatAppearance.BorderSize = 0
         Me.BtnMaisInsere.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray
         Me.BtnMaisInsere.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
@@ -488,6 +497,7 @@ Partial Class Frm_Pedido
         '
         Me.BtnComprar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BtnComprar.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BtnComprar.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnComprar.FlatAppearance.BorderColor = System.Drawing.Color.Gray
         Me.BtnComprar.FlatAppearance.BorderSize = 0
         Me.BtnComprar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -521,21 +531,6 @@ Partial Class Frm_Pedido
         Me.LblPrecoTotal.TabIndex = 28
         Me.LblPrecoTotal.Text = "Preço Total"
         '
-        'BtnPesquisar
-        '
-        Me.BtnPesquisar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnPesquisar.FlatAppearance.BorderSize = 0
-        Me.BtnPesquisar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray
-        Me.BtnPesquisar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.BtnPesquisar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnPesquisar.ImageKey = "search.png"
-        Me.BtnPesquisar.ImageList = Me.ImageList1
-        Me.BtnPesquisar.Location = New System.Drawing.Point(862, 70)
-        Me.BtnPesquisar.Name = "BtnPesquisar"
-        Me.BtnPesquisar.Size = New System.Drawing.Size(34, 24)
-        Me.BtnPesquisar.TabIndex = 27
-        Me.BtnPesquisar.UseVisualStyleBackColor = True
-        '
         'ImageList1
         '
         Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
@@ -549,6 +544,7 @@ Partial Class Frm_Pedido
         '
         'BtnMenosInsere
         '
+        Me.BtnMenosInsere.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnMenosInsere.FlatAppearance.BorderSize = 0
         Me.BtnMenosInsere.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray
         Me.BtnMenosInsere.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
@@ -659,6 +655,7 @@ Partial Class Frm_Pedido
         Me.LstProd.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LstProd.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColCategoria, Me.ColDescricao, Me.ColPreco, Me.ColQtd})
+        Me.LstProd.Cursor = System.Windows.Forms.Cursors.Hand
         Me.LstProd.FullRowSelect = True
         Me.LstProd.GridLines = True
         Me.LstProd.LargeImageList = Me.ImageList1
@@ -692,6 +689,7 @@ Partial Class Frm_Pedido
         '
         'TabItens
         '
+        Me.TabItens.BackColor = System.Drawing.Color.Transparent
         Me.TabItens.Controls.Add(Me.TxtValorTotal)
         Me.TabItens.Controls.Add(Me.BtnDeletaItem)
         Me.TabItens.Controls.Add(Me.Label15)
@@ -709,7 +707,6 @@ Partial Class Frm_Pedido
         Me.TabItens.Size = New System.Drawing.Size(899, 450)
         Me.TabItens.TabIndex = 2
         Me.TabItens.Text = "Itens"
-        Me.TabItens.UseVisualStyleBackColor = True
         '
         'TxtValorTotal
         '
@@ -724,6 +721,7 @@ Partial Class Frm_Pedido
         'BtnDeletaItem
         '
         Me.BtnDeletaItem.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnDeletaItem.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnDeletaItem.FlatAppearance.BorderSize = 0
         Me.BtnDeletaItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnDeletaItem.ImageKey = "delete.png"
@@ -756,6 +754,7 @@ Partial Class Frm_Pedido
         'BtnMenos
         '
         Me.BtnMenos.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnMenos.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnMenos.FlatAppearance.BorderSize = 0
         Me.BtnMenos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray
         Me.BtnMenos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
@@ -770,6 +769,7 @@ Partial Class Frm_Pedido
         'BtnMais
         '
         Me.BtnMais.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnMais.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnMais.FlatAppearance.BorderSize = 0
         Me.BtnMais.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray
         Me.BtnMais.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
@@ -805,6 +805,7 @@ Partial Class Frm_Pedido
         'ChkPresente
         '
         Me.ChkPresente.AutoSize = True
+        Me.ChkPresente.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ChkPresente.Font = New System.Drawing.Font("Segoe UI", 9.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ChkPresente.Location = New System.Drawing.Point(11, 401)
         Me.ChkPresente.Name = "ChkPresente"
@@ -818,6 +819,7 @@ Partial Class Frm_Pedido
         Me.LstCarrinho.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LstCarrinho.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColDesc, Me.ColPrecoUnit, Me.ColQtd1, Me.ColPrecoTotal})
+        Me.LstCarrinho.Cursor = System.Windows.Forms.Cursors.Hand
         Me.LstCarrinho.FullRowSelect = True
         Me.LstCarrinho.GridLines = True
         Me.LstCarrinho.Location = New System.Drawing.Point(11, 49)
@@ -858,6 +860,16 @@ Partial Class Frm_Pedido
         Me.Label14.TabIndex = 13
         Me.Label14.Text = "Carrinho"
         '
+        'BtnPesquisar
+        '
+        Me.BtnPesquisar.Image = Global.Beyond.My.Resources.Resources.search
+        Me.BtnPesquisar.Location = New System.Drawing.Point(864, 69)
+        Me.BtnPesquisar.Name = "BtnPesquisar"
+        Me.BtnPesquisar.Size = New System.Drawing.Size(25, 25)
+        Me.BtnPesquisar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.BtnPesquisar.TabIndex = 33
+        Me.BtnPesquisar.TabStop = False
+        '
         'Frm_Pedido
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -885,6 +897,7 @@ Partial Class Frm_Pedido
         CType(Me.PicProd, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabItens.ResumeLayout(False)
         Me.TabItens.PerformLayout()
+        CType(Me.BtnPesquisar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -945,7 +958,6 @@ Partial Class Frm_Pedido
     Friend WithEvents ColQtd1 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColPrecoTotal As System.Windows.Forms.ColumnHeader
     Friend WithEvents LblPrecoTotal As System.Windows.Forms.Label
-    Friend WithEvents BtnPesquisar As System.Windows.Forms.Button
     Friend WithEvents BtnMenosInsere As System.Windows.Forms.Button
     Friend WithEvents TxtQtdInsere As System.Windows.Forms.TextBox
     Friend WithEvents Label18 As System.Windows.Forms.Label
@@ -957,5 +969,6 @@ Partial Class Frm_Pedido
     Friend WithEvents BtnMaisInsere As System.Windows.Forms.Button
     Friend WithEvents BtnDeletaItem As System.Windows.Forms.Button
     Friend WithEvents TxtValorTotal As System.Windows.Forms.Label
+    Friend WithEvents BtnPesquisar As System.Windows.Forms.PictureBox
 
 End Class

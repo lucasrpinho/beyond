@@ -47,6 +47,7 @@ Partial Class Frm_Usuario
         '
         Me.GrpBoxInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GrpBoxInfo.BackColor = System.Drawing.Color.Transparent
         Me.GrpBoxInfo.Controls.Add(Me.ComboNome)
         Me.GrpBoxInfo.Controls.Add(Me.ChkBoxAtivo)
         Me.GrpBoxInfo.Controls.Add(Me.TxtEmail)
@@ -81,6 +82,7 @@ Partial Class Frm_Usuario
         Me.ChkBoxAtivo.AutoSize = True
         Me.ChkBoxAtivo.Checked = True
         Me.ChkBoxAtivo.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ChkBoxAtivo.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ChkBoxAtivo.Font = New System.Drawing.Font("Verdana", 8.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ChkBoxAtivo.Location = New System.Drawing.Point(461, 181)
         Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
@@ -209,6 +211,7 @@ Partial Class Frm_Usuario
         '
         Me.GrpBoxCredenciais.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GrpBoxCredenciais.BackColor = System.Drawing.Color.Transparent
         Me.GrpBoxCredenciais.Controls.Add(Me.PictureBox1)
         Me.GrpBoxCredenciais.Controls.Add(Me.TxtLogin)
         Me.GrpBoxCredenciais.Controls.Add(Me.Label4)
@@ -239,7 +242,7 @@ Partial Class Frm_Usuario
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.Window
+        Me.BackColor = System.Drawing.SystemColors.Menu
         Me.ClientSize = New System.Drawing.Size(571, 490)
         Me.Controls.Add(Me.GrpBoxCredenciais)
         Me.Controls.Add(Me.GrpBoxInfo)

@@ -97,6 +97,8 @@ Partial Class Frm_Vendedor
         '
         Me.ComboCargo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboCargo.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ComboCargo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboCargo.FormattingEnabled = True
         Me.ComboCargo.Items.AddRange(New Object() {" "})
         Me.ComboCargo.Location = New System.Drawing.Point(11, 159)
@@ -121,6 +123,7 @@ Partial Class Frm_Vendedor
         Me.PicBoxFoto.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PicBoxFoto.Cursor = System.Windows.Forms.Cursors.Hand
         Me.PicBoxFoto.Location = New System.Drawing.Point(6, 24)
         Me.PicBoxFoto.Name = "PicBoxFoto"
         Me.PicBoxFoto.Size = New System.Drawing.Size(194, 170)
@@ -267,6 +270,8 @@ Partial Class Frm_Vendedor
         'ComboEstado
         '
         Me.ComboEstado.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboEstado.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ComboEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboEstado.FormattingEnabled = True
         Me.ComboEstado.Items.AddRange(New Object() {" "})
         Me.ComboEstado.Location = New System.Drawing.Point(548, 160)
@@ -392,7 +397,7 @@ Partial Class Frm_Vendedor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.Window
+        Me.BackColor = System.Drawing.SystemColors.Menu
         Me.ClientSize = New System.Drawing.Size(887, 559)
         Me.Controls.Add(Me.GrpBoxEndereco)
         Me.Controls.Add(Me.GrpBoxInfo)

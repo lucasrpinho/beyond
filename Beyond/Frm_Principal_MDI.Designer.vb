@@ -273,6 +273,7 @@ Partial Class Frm_Principal_MDI
         'BtnExpandir
         '
         Me.BtnExpandir.BackColor = System.Drawing.SystemColors.Window
+        Me.BtnExpandir.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnExpandir.Dock = System.Windows.Forms.DockStyle.Right
         Me.BtnExpandir.FlatAppearance.BorderSize = 0
         Me.BtnExpandir.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -332,7 +333,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.BeyondICON
-        Me.PictureBox1.Location = New System.Drawing.Point(239, 152)
+        Me.PictureBox1.Location = New System.Drawing.Point(240, 152)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(163, 149)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -361,6 +362,7 @@ Partial Class Frm_Principal_MDI
         'BtnUnPin
         '
         Me.BtnUnPin.BackColor = System.Drawing.SystemColors.Window
+        Me.BtnUnPin.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnUnPin.Dock = System.Windows.Forms.DockStyle.Left
         Me.BtnUnPin.FlatAppearance.BorderSize = 0
         Me.BtnUnPin.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -380,7 +382,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.UC_Toolstrip1.Dock = System.Windows.Forms.DockStyle.Top
         Me.UC_Toolstrip1.Location = New System.Drawing.Point(0, 24)
-        Me.UC_Toolstrip1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.UC_Toolstrip1.Margin = New System.Windows.Forms.Padding(4)
         Me.UC_Toolstrip1.Name = "UC_Toolstrip1"
         Me.UC_Toolstrip1.Size = New System.Drawing.Size(755, 25)
         Me.UC_Toolstrip1.TabIndex = 14
