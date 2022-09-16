@@ -72,7 +72,7 @@ Partial Class Frm_Principal_MDI
         '
         'MnStrip_Principal
         '
-        Me.MnStrip_Principal.BackColor = System.Drawing.Color.LightGray
+        Me.MnStrip_Principal.BackColor = System.Drawing.Color.LightSteelBlue
         Me.MnStrip_Principal.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AçõesToolStripMenuItem, Me.UsuáriosToolStripMenuItem, Me.ConsultasToolStripMenuItem, Me.AjudaToolStripMenuItem})
         Me.MnStrip_Principal.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         Me.MnStrip_Principal.Location = New System.Drawing.Point(0, 0)
@@ -204,6 +204,7 @@ Partial Class Frm_Principal_MDI
         '
         'StatusStrip1
         '
+        Me.StatusStrip1.BackColor = System.Drawing.Color.LightSteelBlue
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSL_Login, Me.TSL_Data, Me.TSL_Hora})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 449)
         Me.StatusStrip1.Name = "StatusStrip1"
@@ -331,7 +332,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.BeyondICON
-        Me.PictureBox1.Location = New System.Drawing.Point(235, 152)
+        Me.PictureBox1.Location = New System.Drawing.Point(239, 152)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(163, 149)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -379,7 +380,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.UC_Toolstrip1.Dock = System.Windows.Forms.DockStyle.Top
         Me.UC_Toolstrip1.Location = New System.Drawing.Point(0, 24)
-        Me.UC_Toolstrip1.Margin = New System.Windows.Forms.Padding(4)
+        Me.UC_Toolstrip1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.UC_Toolstrip1.Name = "UC_Toolstrip1"
         Me.UC_Toolstrip1.Size = New System.Drawing.Size(755, 25)
         Me.UC_Toolstrip1.TabIndex = 14
@@ -393,8 +394,8 @@ Partial Class Frm_Principal_MDI
         Me.Controls.Add(Me.SplitC1)
         Me.Controls.Add(Me.BtnUnPin)
         Me.Controls.Add(Me.UC_Toolstrip1)
-        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MnStrip_Principal)
+        Me.Controls.Add(Me.StatusStrip1)
         Me.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.IsMdiContainer = True

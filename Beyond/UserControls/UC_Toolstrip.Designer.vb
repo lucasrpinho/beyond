@@ -42,7 +42,7 @@ Partial Class UC_Toolstrip
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.BackColor = System.Drawing.Color.LightGray
+        Me.ToolStrip1.BackColor = System.Drawing.Color.LightSteelBlue
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnNovo, Me.BtnSalvar, Me.BtnPesquisar, Me.BtnAlterar, Me.BtnExcluir, Me.toolStripSeparator, Me.BtnAnterior, Me.BtnSeguinte, Me.BtnReverter, Me.toolStripSeparator1, Me.BtnFecharPag, Me.BtnInsereImagem, Me.BtnImprimir})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"

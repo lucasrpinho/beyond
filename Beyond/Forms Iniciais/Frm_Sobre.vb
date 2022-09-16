@@ -20,12 +20,6 @@ Public Class Frm_Sobre
         LblDataVersao.Text = FormatDateTime(LstSobre(3), DateFormat.ShortDate)
     End Sub
 
-    Private Sub BtnEntrar_Click(sender As System.Object, e As System.EventArgs)
-        Me.Close()
-        Dim FLogin As New Frm_Login()
-        FLogin.Show()
-    End Sub
-
     Private Sub Frm_Sobre_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
         If Application.OpenForms.Count > APENAS_FORM_PRINCIPAL_E_FORM_STARTUP Then

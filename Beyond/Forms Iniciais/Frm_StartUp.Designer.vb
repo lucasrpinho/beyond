@@ -32,7 +32,9 @@ Partial Class Frm_StartUp
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Frm_StartUp"
-        Me.Text = "Form1"
+        Me.ShowIcon = False
+        Me.ShowInTaskbar = False
+        Me.Text = "Teste"
         Me.ResumeLayout(False)
 
     End Sub

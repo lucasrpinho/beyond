@@ -366,4 +366,9 @@ Public Class Frm_Principal_MDI
         SplitC1.Panel1Collapsed = False
         BtnUnPin.ImageKey = ""
     End Sub
+
+    Private Sub VendedoresToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles VendedoresToolStripMenuItem.Click
+        Dim frmFiltro As New Frm_RelFiltro_Vendedores
+        frmFiltro.ShowDialog()
+    End Sub
 End Class
