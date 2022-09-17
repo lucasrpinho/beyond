@@ -147,7 +147,9 @@ Public Class Frm_Principal_MDI
                 frm.Enabled = True
                 For i As Integer = 0 To TCPrincipal.TabPages.Count - 1
                     If Not TCPrincipal.TabPages(i) Is TCPrincipal.SelectedTab Then
-                        TCPrincipal.TabPages(i).Controls.OfType(Of Form).FirstOrDefault.Enabled = False
+                        If TCPrincipal.TabPages(i).Controls.OfType(Of Form).FirstOrDefault IsNot Nothing Then
+                            TCPrincipal.TabPages(i).Controls.OfType(Of Form).FirstOrDefault.Enabled = False
+                        End If
                     End If
                 Next
             End If
@@ -180,9 +182,7 @@ Public Class Frm_Principal_MDI
             TP.Controls.Add(Frm)
             TP.Tag = Frm
             TP.Text = Frm.Text
-            TP.ImageIndex = 1
             TCPrincipal.TabPages.Add(TP)
-            TCPrincipal.SelectTab(TP)
             TCPrincipal.BringToFront()
             TCPrincipal.Visible = True
             Frm.Show()
@@ -211,7 +211,6 @@ Public Class Frm_Principal_MDI
             TP.Text = Frm.Text
             TP.BackColor = Frm.BackColor
             TP.Name = Frm.Name
-            TP.ImageIndex = 2
             TCPrincipal.TabPages.Add(TP)
             TCPrincipal.SelectedTab = TP
             TCPrincipal.BringToFront()
@@ -238,7 +237,6 @@ Public Class Frm_Principal_MDI
             TP.Text = Frm.Text
             TP.BackColor = Frm.BackColor
             TP.Name = Frm.Name
-            TP.ImageIndex = 3
             TCPrincipal.TabPages.Add(TP)
             TCPrincipal.SelectTab(TP)
             TCPrincipal.BringToFront()
@@ -271,7 +269,6 @@ Public Class Frm_Principal_MDI
             TP.Controls.Add(Frm)
             TP.Tag = Frm
             TP.Text = Frm.Text
-            TP.ImageIndex = 4
             TP.BackColor = Frm.BackColor
             TP.Name = Frm.Name
             TCPrincipal.TabPages.Add(TP)
@@ -308,7 +305,6 @@ Public Class Frm_Principal_MDI
             TP.Text = Frm.Text
             TP.BackColor = Frm.BackColor
             TP.Name = Frm.Name
-            TP.ImageIndex = 5
             TCPrincipal.TabPages.Add(TP)
             TCPrincipal.SelectTab(TP)
             TCPrincipal.BringToFront()
@@ -338,7 +334,6 @@ Public Class Frm_Principal_MDI
             TP.Controls.Add(Frm)
             TP.Tag = Frm
             TP.Text = Frm.Text
-            TP.ImageIndex = 1
             TCPrincipal.TabPages.Add(TP)
             TCPrincipal.SelectTab(TP)
             TCPrincipal.BringToFront()
@@ -370,5 +365,44 @@ Public Class Frm_Principal_MDI
     Private Sub VendedoresToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles VendedoresToolStripMenuItem.Click
         Dim frmFiltro As New Frm_RelFiltro_Vendedores
         frmFiltro.ShowDialog()
+    End Sub
+
+    Private Sub TCPrincipal_DrawItem(sender As System.Object, e As System.Windows.Forms.DrawItemEventArgs) Handles TCPrincipal.DrawItem
+        Dim TabPage = TCPrincipal.TabPages(e.Index)
+        Dim tabrect = TCPrincipal.GetTabRect(e.Index)
+        tabrect.Inflate(0, -5)
+        Dim imgFechar = My.Resources.closetab
+        e.Graphics.DrawImage(imgFechar,
+                    (tabrect.Right - imgFechar.Width),
+                    tabrect.Top + (tabrect.Height - imgFechar.Height) \ 2)
+
+        TextRenderer.DrawText(e.Graphics, tabpage.Text, tabpage.Font,
+        tabrect, tabpage.ForeColor, TextFormatFlags.HorizontalCenter)
+    End Sub
+
+    Private Sub SetTabEvents()
+        Me.TCPrincipal.DrawMode = TabDrawMode.OwnerDrawFixed
+    End Sub
+
+    Private Sub TCPrincipal_MouseDown(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles TCPrincipal.MouseDown
+        For i As Integer = 0 To TCPrincipal.TabPages.Count - 1
+            Dim tabrect = TCPrincipal.GetTabRect(i)
+            tabrect.Inflate(0, -5)
+            Dim imgFechar = My.Resources.closetab
+            Dim imgRect = New Rectangle((tabrect.Right - imgFechar.Width),
+                tabrect.Top + (tabrect.Height - imgFechar.Height) / 2,
+                imgFechar.Width,
+                imgFechar.Height)
+
+            If imgRect.Contains(e.Location) Then
+                Dim frm = Me.TCPrincipal.TabPages(i).Controls.OfType(Of Form).FirstOrDefault
+                If frm IsNot Nothing Then
+                    frm.Close()
+                    frm.Dispose()
+                End If
+                Me.TCPrincipal.TabPages.RemoveAt(i)
+                Exit For
+            End If
+        Next
     End Sub
 End Class

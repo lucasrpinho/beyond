@@ -40,7 +40,7 @@
     Public Sub PagAberta_HabilitarBotoes()
         Me.ToolStrip1.Enabled = True
         For Each item As ToolStripItem In ToolStrip1.Items
-            If (item Is BtnNovo) Or (item Is BtnPesquisar) Or (item Is BtnFecharPag) Then
+            If (item Is BtnNovo) Or (item Is BtnPesquisar) Then
                 item.Enabled = True
             Else
                 item.Enabled = False
@@ -70,8 +70,6 @@
             Modo = "ANTERIOR"
         ElseIf e.ClickedItem Is BtnReverter Then
             Modo = "REVERTER"
-        ElseIf e.ClickedItem Is BtnFecharPag Then
-            Modo = "FECHAR"
         ElseIf e.ClickedItem Is BtnInsereImagem Then
             Modo = "IMAGEM"
         ElseIf e.ClickedItem Is BtnImprimir Then
@@ -100,7 +98,7 @@
         ' Personaliza estado dos botões de acordo com o botão clicado
         If Modo = "NOVO" Then
             For Each item As ToolStripItem In ToolStrip1.Items
-                If item IsNot BtnSalvar AndAlso item IsNot BtnReverter AndAlso item IsNot BtnFecharPag Then
+                If item IsNot BtnSalvar AndAlso item IsNot BtnReverter Then
                     item.Enabled = False
                 Else
                     item.Enabled = True
@@ -108,7 +106,7 @@
             Next
         ElseIf Modo = "PESQUISAR" Then
             For Each item As ToolStripItem In ToolStrip1.Items
-                If item IsNot BtnSeguinte AndAlso item IsNot BtnAnterior AndAlso item IsNot BtnFecharPag _
+                If item IsNot BtnSeguinte AndAlso item IsNot BtnAnterior _
                     AndAlso item IsNot BtnNovo Then
                     item.Enabled = False
                 Else
@@ -117,7 +115,7 @@
             Next
         ElseIf Modo = "SALVAR" Then
             For Each item As ToolStripItem In ToolStrip1.Items
-                If item IsNot BtnReverter AndAlso item IsNot BtnNovo AndAlso item IsNot BtnPesquisar AndAlso item IsNot BtnFecharPag Then
+                If item IsNot BtnReverter AndAlso item IsNot BtnNovo AndAlso item IsNot BtnPesquisar Then
                     item.Enabled = False
                 Else
                     item.Enabled = True
@@ -125,7 +123,7 @@
             Next
         ElseIf Modo = "ALTERAR" Then
             For Each item As ToolStripItem In ToolStrip1.Items
-                If item IsNot BtnSalvar AndAlso item IsNot BtnReverter AndAlso item IsNot BtnFecharPag Then
+                If item IsNot BtnSalvar AndAlso item IsNot BtnReverter Then
                     item.Enabled = False
                 Else
                     item.Enabled = True
@@ -133,7 +131,7 @@
             Next
         ElseIf Modo = "EXCLUIR" Then
             For Each item As ToolStripItem In ToolStrip1.Items
-                If item IsNot BtnNovo AndAlso item IsNot BtnPesquisar AndAlso item IsNot BtnFecharPag AndAlso item IsNot BtnReverter Then
+                If item IsNot BtnNovo AndAlso item IsNot BtnPesquisar AndAlso item IsNot BtnReverter Then
                     item.Enabled = False
                 Else
                     item.Enabled = True
@@ -144,7 +142,7 @@
                 Modo = "PESQUISAR"
                 ModoAnterior = "REVERTER"
                 For Each item As ToolStripItem In ToolStrip1.Items
-                    If item IsNot BtnNovo AndAlso item IsNot BtnFecharPag AndAlso item IsNot BtnSeguinte AndAlso item IsNot BtnAnterior Then
+                    If item IsNot BtnNovo AndAlso item IsNot BtnSeguinte AndAlso item IsNot BtnAnterior Then
                         item.Enabled = False
                     Else
                         item.Enabled = True
@@ -152,19 +150,6 @@
                 Next
             ElseIf ModoAnterior = "NOVO" Then
                 Modo = "PADRÃO"
-            End If
-        ElseIf Modo = "FECHAR" Then
-            Dim mainForm = Application.OpenForms.OfType(Of Frm_Principal_MDI).FirstOrDefault
-            If mainForm.TCPrincipal.TabPages.Count > 0 Then
-                mainForm.TCPrincipal.TabPages(mainForm.TCPrincipal.SelectedTab.Name).Controls.OfType _
-                    (Of Form).FirstOrDefault.Close()
-                mainForm.TCPrincipal.TabPages.Remove(mainForm.TCPrincipal.SelectedTab)
-                If mainForm.TCPrincipal.TabCount > 0 Then
-                    mainForm.TCPrincipal.SelectTab(mainForm.TCPrincipal.TabPages.Count - 1)
-                End If
-                If Not mainForm.TCPrincipal.TabPages.Count > 0 Then
-                    Me.OnLoad(Nothing)
-                End If
             End If
         ElseIf Modo = "PADRÃO" Then
             Me.PagAberta_HabilitarBotoes()
@@ -182,7 +167,7 @@
 
     Public Sub AfterSuccessfulInsert()
         For Each item As ToolStripItem In ToolStrip1.Items
-            If item IsNot BtnFecharPag AndAlso item IsNot BtnNovo AndAlso item IsNot BtnPesquisar Then
+            If item IsNot BtnNovo AndAlso item IsNot BtnPesquisar Then
                 item.Enabled = False
             Else
                 item.Enabled = True
@@ -193,7 +178,7 @@
     Public Sub AfterSuccessfulUpdate()
         For Each item As ToolStripItem In ToolStrip1.Items
             If item IsNot BtnNovo AndAlso item IsNot BtnExcluir AndAlso item IsNot BtnPesquisar AndAlso _
-                item IsNot BtnAlterar AndAlso item IsNot BtnFecharPag Then
+                item IsNot BtnAlterar Then
                 item.Enabled = False
             Else
                 item.Enabled = True
@@ -203,7 +188,7 @@
 
     Public Sub AfterSuccessfulDelete()
         For Each item As ToolStripItem In ToolStrip1.Items
-            If item IsNot BtnNovo AndAlso item IsNot BtnFecharPag _
+            If item IsNot BtnNovo _
                 AndAlso item IsNot BtnPesquisar Then
                 item.Enabled = False
             Else

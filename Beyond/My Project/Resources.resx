@@ -172,4 +172,10 @@
   <data name="printof" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons Toolstrip\printof.ico_;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="addtab1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\addtab.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="closetab" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\closetab.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

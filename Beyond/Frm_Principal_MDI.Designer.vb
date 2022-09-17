@@ -26,23 +26,12 @@ Partial Class Frm_Principal_MDI
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_Principal_MDI))
         Me.MnStrip_Principal = New System.Windows.Forms.MenuStrip()
         Me.AçõesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FecharAbaSelecionadaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FecharSelecionadaMenu = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FecharTodasMenu = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SairToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UsuáriosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.UsuarioMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CargosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.VendedorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ProdutosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PedidoToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConsultasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PedidoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.VendedoresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProdutosToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.AjudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SobreToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BuscarAtualizaçãoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.TSL_Login = New System.Windows.Forms.ToolStripStatusLabel()
@@ -50,15 +39,26 @@ Partial Class Frm_Principal_MDI
         Me.TSL_Hora = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TimerClock = New System.Windows.Forms.Timer(Me.components)
         Me.SplitC1 = New System.Windows.Forms.SplitContainer()
-        Me.BtnExpandir = New System.Windows.Forms.Button()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.TCPrincipal = New System.Windows.Forms.TabControl()
         Me.LblOla = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.FecharUmaCtxMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.FecharTodasCtxMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.BtnUnPin = New System.Windows.Forms.Button()
+        Me.BtnExpandir = New System.Windows.Forms.Button()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.FecharAbaSelecionadaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FecharSelecionadaMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FecharTodasMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SairToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UsuarioMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CargosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.VendedorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ProdutosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PedidoToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SobreToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UC_Toolstrip1 = New Beyond.UC_Toolstrip()
         Me.MnStrip_Principal.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -66,8 +66,8 @@ Partial Class Frm_Principal_MDI
         Me.SplitC1.Panel1.SuspendLayout()
         Me.SplitC1.Panel2.SuspendLayout()
         Me.SplitC1.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MnStrip_Principal
@@ -90,73 +90,12 @@ Partial Class Frm_Principal_MDI
         Me.AçõesToolStripMenuItem.Size = New System.Drawing.Size(46, 22)
         Me.AçõesToolStripMenuItem.Text = "Ação"
         '
-        'FecharAbaSelecionadaToolStripMenuItem
-        '
-        Me.FecharAbaSelecionadaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FecharSelecionadaMenu, Me.FecharTodasMenu})
-        Me.FecharAbaSelecionadaToolStripMenuItem.Name = "FecharAbaSelecionadaToolStripMenuItem"
-        Me.FecharAbaSelecionadaToolStripMenuItem.Size = New System.Drawing.Size(148, 22)
-        Me.FecharAbaSelecionadaToolStripMenuItem.Text = "Fechar Página"
-        '
-        'FecharSelecionadaMenu
-        '
-        Me.FecharSelecionadaMenu.Name = "FecharSelecionadaMenu"
-        Me.FecharSelecionadaMenu.Size = New System.Drawing.Size(174, 22)
-        Me.FecharSelecionadaMenu.Text = "Fechar selecionada"
-        '
-        'FecharTodasMenu
-        '
-        Me.FecharTodasMenu.Name = "FecharTodasMenu"
-        Me.FecharTodasMenu.Size = New System.Drawing.Size(174, 22)
-        Me.FecharTodasMenu.Text = "Fechar todas"
-        '
-        'SairToolStripMenuItem
-        '
-        Me.SairToolStripMenuItem.Name = "SairToolStripMenuItem"
-        Me.SairToolStripMenuItem.Size = New System.Drawing.Size(148, 22)
-        Me.SairToolStripMenuItem.Text = "Sair"
-        '
         'UsuáriosToolStripMenuItem
         '
         Me.UsuáriosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UsuarioMenuItem, Me.CargosToolStripMenuItem, Me.VendedorToolStripMenuItem, Me.ClientesToolStripMenuItem, Me.ProdutosToolStripMenuItem, Me.PedidoToolStripMenuItem2})
         Me.UsuáriosToolStripMenuItem.Name = "UsuáriosToolStripMenuItem"
         Me.UsuáriosToolStripMenuItem.Size = New System.Drawing.Size(48, 22)
         Me.UsuáriosToolStripMenuItem.Text = "Exibir"
-        '
-        'UsuarioMenuItem
-        '
-        Me.UsuarioMenuItem.Name = "UsuarioMenuItem"
-        Me.UsuarioMenuItem.Size = New System.Drawing.Size(124, 22)
-        Me.UsuarioMenuItem.Text = "Usuário"
-        '
-        'CargosToolStripMenuItem
-        '
-        Me.CargosToolStripMenuItem.Name = "CargosToolStripMenuItem"
-        Me.CargosToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
-        Me.CargosToolStripMenuItem.Text = "Cargo"
-        '
-        'VendedorToolStripMenuItem
-        '
-        Me.VendedorToolStripMenuItem.Name = "VendedorToolStripMenuItem"
-        Me.VendedorToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
-        Me.VendedorToolStripMenuItem.Text = "Vendedor"
-        '
-        'ClientesToolStripMenuItem
-        '
-        Me.ClientesToolStripMenuItem.Name = "ClientesToolStripMenuItem"
-        Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
-        Me.ClientesToolStripMenuItem.Text = "Cliente"
-        '
-        'ProdutosToolStripMenuItem
-        '
-        Me.ProdutosToolStripMenuItem.Name = "ProdutosToolStripMenuItem"
-        Me.ProdutosToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
-        Me.ProdutosToolStripMenuItem.Text = "Produto"
-        '
-        'PedidoToolStripMenuItem2
-        '
-        Me.PedidoToolStripMenuItem2.Name = "PedidoToolStripMenuItem2"
-        Me.PedidoToolStripMenuItem2.Size = New System.Drawing.Size(124, 22)
-        Me.PedidoToolStripMenuItem2.Text = "Pedido"
         '
         'ConsultasToolStripMenuItem
         '
@@ -189,12 +128,6 @@ Partial Class Frm_Principal_MDI
         Me.AjudaToolStripMenuItem.Name = "AjudaToolStripMenuItem"
         Me.AjudaToolStripMenuItem.Size = New System.Drawing.Size(50, 22)
         Me.AjudaToolStripMenuItem.Text = "Ajuda"
-        '
-        'SobreToolStripMenuItem
-        '
-        Me.SobreToolStripMenuItem.Name = "SobreToolStripMenuItem"
-        Me.SobreToolStripMenuItem.Size = New System.Drawing.Size(173, 22)
-        Me.SobreToolStripMenuItem.Text = "Sobre"
         '
         'BuscarAtualizaçãoToolStripMenuItem
         '
@@ -270,25 +203,6 @@ Partial Class Frm_Principal_MDI
         Me.SplitC1.SplitterWidth = 1
         Me.SplitC1.TabIndex = 10
         '
-        'BtnExpandir
-        '
-        Me.BtnExpandir.BackColor = System.Drawing.SystemColors.Window
-        Me.BtnExpandir.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BtnExpandir.Dock = System.Windows.Forms.DockStyle.Right
-        Me.BtnExpandir.FlatAppearance.BorderSize = 0
-        Me.BtnExpandir.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnExpandir.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnExpandir.ForeColor = System.Drawing.SystemColors.Window
-        Me.BtnExpandir.ImageKey = "pinmenu.png"
-        Me.BtnExpandir.ImageList = Me.ImageList1
-        Me.BtnExpandir.Location = New System.Drawing.Point(131, 0)
-        Me.BtnExpandir.MinimumSize = New System.Drawing.Size(20, 402)
-        Me.BtnExpandir.Name = "BtnExpandir"
-        Me.BtnExpandir.Size = New System.Drawing.Size(20, 402)
-        Me.BtnExpandir.TabIndex = 0
-        Me.BtnExpandir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.BtnExpandir.UseVisualStyleBackColor = False
-        '
         'ImageList1
         '
         Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
@@ -297,21 +211,22 @@ Partial Class Frm_Principal_MDI
         Me.ImageList1.Images.SetKeyName(1, "user")
         Me.ImageList1.Images.SetKeyName(2, "cargo")
         Me.ImageList1.Images.SetKeyName(3, "vendedor")
-        Me.ImageList1.Images.SetKeyName(4, "clienteico")
+        Me.ImageList1.Images.SetKeyName(4, "cliente")
         Me.ImageList1.Images.SetKeyName(5, "produto")
-        Me.ImageList1.Images.SetKeyName(6, "mais.png")
-        Me.ImageList1.Images.SetKeyName(7, "menos.png")
-        Me.ImageList1.Images.SetKeyName(8, "unpinmenu.png")
-        Me.ImageList1.Images.SetKeyName(9, "pinmenu.png")
+        Me.ImageList1.Images.SetKeyName(6, "pedido")
+        Me.ImageList1.Images.SetKeyName(7, "unpinmenu.png")
+        Me.ImageList1.Images.SetKeyName(8, "pinmenu.png")
         '
         'TCPrincipal
         '
         Me.TCPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TCPrincipal.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed
         Me.TCPrincipal.ImageList = Me.ImageList1
         Me.TCPrincipal.ItemSize = New System.Drawing.Size(30, 30)
         Me.TCPrincipal.Location = New System.Drawing.Point(0, 0)
         Me.TCPrincipal.Margin = New System.Windows.Forms.Padding(3, 15, 3, 3)
         Me.TCPrincipal.Name = "TCPrincipal"
+        Me.TCPrincipal.Padding = New System.Drawing.Point(25, 4)
         Me.TCPrincipal.SelectedIndex = 0
         Me.TCPrincipal.Size = New System.Drawing.Size(585, 402)
         Me.TCPrincipal.TabIndex = 2
@@ -328,17 +243,6 @@ Partial Class Frm_Principal_MDI
         Me.LblOla.Size = New System.Drawing.Size(95, 26)
         Me.LblOla.TabIndex = 1
         Me.LblOla.Text = "Label1"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.BeyondICON
-        Me.PictureBox1.Location = New System.Drawing.Point(240, 152)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(163, 149)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 2
-        Me.PictureBox1.TabStop = False
         '
         'ContextMenuStrip1
         '
@@ -378,6 +282,112 @@ Partial Class Frm_Principal_MDI
         Me.BtnUnPin.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.BtnUnPin.UseVisualStyleBackColor = False
         '
+        'BtnExpandir
+        '
+        Me.BtnExpandir.BackColor = System.Drawing.SystemColors.Window
+        Me.BtnExpandir.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.BtnExpandir.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BtnExpandir.FlatAppearance.BorderSize = 0
+        Me.BtnExpandir.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnExpandir.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnExpandir.ForeColor = System.Drawing.SystemColors.Window
+        Me.BtnExpandir.ImageKey = "pinmenu.png"
+        Me.BtnExpandir.ImageList = Me.ImageList1
+        Me.BtnExpandir.Location = New System.Drawing.Point(131, 0)
+        Me.BtnExpandir.MinimumSize = New System.Drawing.Size(20, 402)
+        Me.BtnExpandir.Name = "BtnExpandir"
+        Me.BtnExpandir.Size = New System.Drawing.Size(20, 402)
+        Me.BtnExpandir.TabIndex = 0
+        Me.BtnExpandir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.BtnExpandir.UseVisualStyleBackColor = False
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.BeyondICON
+        Me.PictureBox1.Location = New System.Drawing.Point(241, 152)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(163, 149)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 2
+        Me.PictureBox1.TabStop = False
+        '
+        'FecharAbaSelecionadaToolStripMenuItem
+        '
+        Me.FecharAbaSelecionadaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FecharSelecionadaMenu, Me.FecharTodasMenu})
+        Me.FecharAbaSelecionadaToolStripMenuItem.Image = CType(resources.GetObject("FecharAbaSelecionadaToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.FecharAbaSelecionadaToolStripMenuItem.Name = "FecharAbaSelecionadaToolStripMenuItem"
+        Me.FecharAbaSelecionadaToolStripMenuItem.Size = New System.Drawing.Size(148, 22)
+        Me.FecharAbaSelecionadaToolStripMenuItem.Text = "Fechar Página"
+        '
+        'FecharSelecionadaMenu
+        '
+        Me.FecharSelecionadaMenu.Name = "FecharSelecionadaMenu"
+        Me.FecharSelecionadaMenu.Size = New System.Drawing.Size(174, 22)
+        Me.FecharSelecionadaMenu.Text = "Fechar selecionada"
+        '
+        'FecharTodasMenu
+        '
+        Me.FecharTodasMenu.Name = "FecharTodasMenu"
+        Me.FecharTodasMenu.Size = New System.Drawing.Size(174, 22)
+        Me.FecharTodasMenu.Text = "Fechar todas"
+        '
+        'SairToolStripMenuItem
+        '
+        Me.SairToolStripMenuItem.Image = CType(resources.GetObject("SairToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.SairToolStripMenuItem.Name = "SairToolStripMenuItem"
+        Me.SairToolStripMenuItem.Size = New System.Drawing.Size(148, 22)
+        Me.SairToolStripMenuItem.Text = "Sair"
+        '
+        'UsuarioMenuItem
+        '
+        Me.UsuarioMenuItem.Image = CType(resources.GetObject("UsuarioMenuItem.Image"), System.Drawing.Image)
+        Me.UsuarioMenuItem.Name = "UsuarioMenuItem"
+        Me.UsuarioMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.UsuarioMenuItem.Text = "Usuário"
+        '
+        'CargosToolStripMenuItem
+        '
+        Me.CargosToolStripMenuItem.Image = CType(resources.GetObject("CargosToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.CargosToolStripMenuItem.Name = "CargosToolStripMenuItem"
+        Me.CargosToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.CargosToolStripMenuItem.Text = "Cargo"
+        '
+        'VendedorToolStripMenuItem
+        '
+        Me.VendedorToolStripMenuItem.Image = CType(resources.GetObject("VendedorToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.VendedorToolStripMenuItem.Name = "VendedorToolStripMenuItem"
+        Me.VendedorToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.VendedorToolStripMenuItem.Text = "Vendedor"
+        '
+        'ClientesToolStripMenuItem
+        '
+        Me.ClientesToolStripMenuItem.Image = CType(resources.GetObject("ClientesToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.ClientesToolStripMenuItem.Name = "ClientesToolStripMenuItem"
+        Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ClientesToolStripMenuItem.Text = "Cliente"
+        '
+        'ProdutosToolStripMenuItem
+        '
+        Me.ProdutosToolStripMenuItem.Image = CType(resources.GetObject("ProdutosToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.ProdutosToolStripMenuItem.Name = "ProdutosToolStripMenuItem"
+        Me.ProdutosToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ProdutosToolStripMenuItem.Text = "Produto"
+        '
+        'PedidoToolStripMenuItem2
+        '
+        Me.PedidoToolStripMenuItem2.Image = CType(resources.GetObject("PedidoToolStripMenuItem2.Image"), System.Drawing.Image)
+        Me.PedidoToolStripMenuItem2.Name = "PedidoToolStripMenuItem2"
+        Me.PedidoToolStripMenuItem2.Size = New System.Drawing.Size(152, 22)
+        Me.PedidoToolStripMenuItem2.Text = "Pedido"
+        '
+        'SobreToolStripMenuItem
+        '
+        Me.SobreToolStripMenuItem.Image = CType(resources.GetObject("SobreToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.SobreToolStripMenuItem.Name = "SobreToolStripMenuItem"
+        Me.SobreToolStripMenuItem.Size = New System.Drawing.Size(173, 22)
+        Me.SobreToolStripMenuItem.Text = "Sobre"
+        '
         'UC_Toolstrip1
         '
         Me.UC_Toolstrip1.Dock = System.Windows.Forms.DockStyle.Top
@@ -416,8 +426,8 @@ Partial Class Frm_Principal_MDI
         Me.SplitC1.Panel2.PerformLayout()
         CType(Me.SplitC1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitC1.ResumeLayout(False)
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

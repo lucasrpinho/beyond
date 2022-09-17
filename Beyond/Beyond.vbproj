@@ -110,6 +110,11 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Relatorios\CrystalReport1.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -209,11 +214,6 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
-    </Compile>
-    <Compile Include="My Project\Resources.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="My Project\Settings.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -358,9 +358,12 @@
     <None Include="Icons Toolstrip\update.png" />
     <None Include="Icons Toolstrip\close.png" />
     <None Include="Icons Toolstrip\pinmenu.png" />
+    <None Include="Imagens\adicionar.png" />
+    <None Include="Imagens\addtab.png" />
     <Content Include="Imagens\BeyondICON.ico" />
     <Content Include="Imagens\BeyondICON.png" />
     <None Include="Imagens\InsertPicture.png" />
+    <None Include="Imagens\closetab.png" />
     <Content Include="Imagens\login.png" />
   </ItemGroup>
   <ItemGroup>

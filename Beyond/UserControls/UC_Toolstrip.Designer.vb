@@ -34,7 +34,6 @@ Partial Class UC_Toolstrip
         Me.BtnSeguinte = New System.Windows.Forms.ToolStripButton()
         Me.BtnReverter = New System.Windows.Forms.ToolStripButton()
         Me.toolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.BtnFecharPag = New System.Windows.Forms.ToolStripButton()
         Me.BtnInsereImagem = New System.Windows.Forms.ToolStripButton()
         Me.BtnImprimir = New System.Windows.Forms.ToolStripButton()
         Me.ToolStrip1.SuspendLayout()
@@ -43,7 +42,7 @@ Partial Class UC_Toolstrip
         'ToolStrip1
         '
         Me.ToolStrip1.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnNovo, Me.BtnSalvar, Me.BtnPesquisar, Me.BtnAlterar, Me.BtnExcluir, Me.toolStripSeparator, Me.BtnAnterior, Me.BtnSeguinte, Me.BtnReverter, Me.toolStripSeparator1, Me.BtnFecharPag, Me.BtnInsereImagem, Me.BtnImprimir})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnNovo, Me.BtnSalvar, Me.BtnPesquisar, Me.BtnAlterar, Me.BtnExcluir, Me.toolStripSeparator, Me.BtnAnterior, Me.BtnSeguinte, Me.BtnReverter, Me.toolStripSeparator1, Me.BtnInsereImagem, Me.BtnImprimir})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(473, 25)
@@ -134,16 +133,6 @@ Partial Class UC_Toolstrip
         Me.toolStripSeparator1.Name = "toolStripSeparator1"
         Me.toolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
-        'BtnFecharPag
-        '
-        Me.BtnFecharPag.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnFecharPag.Image = Global.Beyond.My.Resources.Resources.close
-        Me.BtnFecharPag.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnFecharPag.Name = "BtnFecharPag"
-        Me.BtnFecharPag.Size = New System.Drawing.Size(23, 22)
-        Me.BtnFecharPag.Text = "Fechar tela"
-        Me.BtnFecharPag.ToolTipText = "Fechar tela"
-        '
         'BtnInsereImagem
         '
         Me.BtnInsereImagem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -188,7 +177,6 @@ Partial Class UC_Toolstrip
     Friend WithEvents BtnAnterior As System.Windows.Forms.ToolStripButton
     Public WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents BtnAlterar As System.Windows.Forms.ToolStripButton
-    Friend WithEvents BtnFecharPag As System.Windows.Forms.ToolStripButton
     Friend WithEvents BtnInsereImagem As System.Windows.Forms.ToolStripButton
     Friend WithEvents BtnImprimir As System.Windows.Forms.ToolStripButton
 
