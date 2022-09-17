@@ -23,6 +23,12 @@ Partial Class Frm_ConsPedido
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GrpBoxFiltro = New System.Windows.Forms.GroupBox()
+        Me.ChkData = New System.Windows.Forms.CheckBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.DtFinal = New System.Windows.Forms.DateTimePicker()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.DtInicial = New System.Windows.Forms.DateTimePicker()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.BtnPesquisar = New System.Windows.Forms.Button()
         Me.ChkVendedor = New System.Windows.Forms.CheckBox()
         Me.ChkCliente = New System.Windows.Forms.CheckBox()
@@ -38,12 +44,6 @@ Partial Class Frm_ConsPedido
         Me.ColVendedor = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColDatVenda = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColDestinatario = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.DtInicial = New System.Windows.Forms.DateTimePicker()
-        Me.DtFinal = New System.Windows.Forms.DateTimePicker()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.ChkData = New System.Windows.Forms.CheckBox()
         Me.GrpBoxFiltro.SuspendLayout()
         Me.GrpBoxPedidos.SuspendLayout()
         Me.SuspendLayout()
@@ -70,6 +70,63 @@ Partial Class Frm_ConsPedido
         Me.GrpBoxFiltro.TabIndex = 0
         Me.GrpBoxFiltro.TabStop = False
         Me.GrpBoxFiltro.Text = "Filtros"
+        '
+        'ChkData
+        '
+        Me.ChkData.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ChkData.AutoSize = True
+        Me.ChkData.Location = New System.Drawing.Point(282, 159)
+        Me.ChkData.Name = "ChkData"
+        Me.ChkData.Size = New System.Drawing.Size(15, 14)
+        Me.ChkData.TabIndex = 51
+        Me.ChkData.UseVisualStyleBackColor = True
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(135, 157)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(15, 16)
+        Me.Label5.TabIndex = 50
+        Me.Label5.Text = "-"
+        '
+        'DtFinal
+        '
+        Me.DtFinal.CustomFormat = ""
+        Me.DtFinal.Enabled = False
+        Me.DtFinal.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DtFinal.Location = New System.Drawing.Point(156, 154)
+        Me.DtFinal.Name = "DtFinal"
+        Me.DtFinal.Size = New System.Drawing.Size(120, 23)
+        Me.DtFinal.TabIndex = 49
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(153, 135)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(74, 16)
+        Me.Label4.TabIndex = 48
+        Me.Label4.Text = "Data Final"
+        '
+        'DtInicial
+        '
+        Me.DtInicial.CustomFormat = ""
+        Me.DtInicial.Enabled = False
+        Me.DtInicial.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DtInicial.Location = New System.Drawing.Point(9, 154)
+        Me.DtInicial.Name = "DtInicial"
+        Me.DtInicial.Size = New System.Drawing.Size(120, 23)
+        Me.DtInicial.TabIndex = 47
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(9, 135)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(82, 16)
+        Me.Label3.TabIndex = 46
+        Me.Label3.Text = "Data Inicial"
         '
         'BtnPesquisar
         '
@@ -215,61 +272,6 @@ Partial Class Frm_ConsPedido
         '
         Me.ColDestinatario.Text = "Destinatário"
         Me.ColDestinatario.Width = 283
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(9, 135)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(82, 16)
-        Me.Label3.TabIndex = 46
-        Me.Label3.Text = "Data Inicial"
-        '
-        'DtInicial
-        '
-        Me.DtInicial.Enabled = False
-        Me.DtInicial.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DtInicial.Location = New System.Drawing.Point(9, 154)
-        Me.DtInicial.Name = "DtInicial"
-        Me.DtInicial.Size = New System.Drawing.Size(120, 23)
-        Me.DtInicial.TabIndex = 47
-        '
-        'DtFinal
-        '
-        Me.DtFinal.Enabled = False
-        Me.DtFinal.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DtFinal.Location = New System.Drawing.Point(156, 154)
-        Me.DtFinal.Name = "DtFinal"
-        Me.DtFinal.Size = New System.Drawing.Size(120, 23)
-        Me.DtFinal.TabIndex = 49
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(153, 135)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(74, 16)
-        Me.Label4.TabIndex = 48
-        Me.Label4.Text = "Data Final"
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(135, 157)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(15, 16)
-        Me.Label5.TabIndex = 50
-        Me.Label5.Text = "-"
-        '
-        'ChkData
-        '
-        Me.ChkData.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ChkData.AutoSize = True
-        Me.ChkData.Location = New System.Drawing.Point(282, 159)
-        Me.ChkData.Name = "ChkData"
-        Me.ChkData.Size = New System.Drawing.Size(15, 14)
-        Me.ChkData.TabIndex = 51
-        Me.ChkData.UseVisualStyleBackColor = True
         '
         'Frm_ConsPedido
         '

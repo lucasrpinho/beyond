@@ -109,7 +109,7 @@ Public Class Frm_ConsProduto
         End If
         ListView1.Items.Clear()
 
-        For Each p As Produto In LstProduto
+        For Each p As Produto In lst
             Dim lstViewItem As New ListViewItem(New String() {p.Nome, p.Preco.ToString("C"), p.Quantidade.ToString})
             lstViewItem.Tag = p
             ListView1.Items.Add(lstViewItem)
@@ -141,10 +141,10 @@ Public Class Frm_ConsProduto
 
     Private Sub ComboDesc_TextChanged(sender As System.Object, e As System.EventArgs) Handles ComboNome.TextChanged
         If ComboNome.Text <> String.Empty Then
-            Dim lstProduto As New List(Of Produto)
-            lstProduto = DAOProd.GetProdutoPorCategoriaOuNome(ComboCateg.Text, ComboNome.Text)
-            If lstProduto.Count > 0 Then
-                PopulateListView(lstProduto)
+            Dim lst As List(Of Produto)
+            lst = DAOProd.GetProdutoPorCategoriaOuNome(ComboCateg.Text, ComboNome.Text)
+            If lst.Count > 0 Then
+                PopulateListView(lst)
             Else
                 ListView1.Items.Clear()
             End If

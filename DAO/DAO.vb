@@ -1114,18 +1114,19 @@ Public Class DAO
 
     Public Overloads Function GetPedido(ByRef resposta As String, Optional codvendedor As Integer = 0, _
                                         Optional codcliente As Integer = 0, Optional nomecliente As String = "", _
-                                        Optional dtinicial As Date = Nothing, Optional dtfinal As Date = Nothing) As List(Of Pedido)
+                                        Optional dtinicial As DateTime = Nothing, Optional dtfinal As DateTime = Nothing) As List(Of Pedido)
 
-        If dtinicial = Date.MinValue AndAlso dtfinal = Date.MinValue Then
+        If dtinicial = DateTime.MinValue AndAlso dtfinal = DateTime.MinValue Then
             dtinicial = Data.SqlTypes.SqlDateTime.MinValue
             dtfinal = Data.SqlTypes.SqlDateTime.MaxValue
         End If
+
         Return _GetPedido("", resposta, codcliente, codvendedor, nomecliente, dtinicial, dtfinal)
     End Function
 
     Private Function _GetPedido(ByVal codpedido As String, ByRef resposta As String, _
                                 ByVal codcliente As Integer, ByVal codvendedor As Integer, ByVal nomecliente As String, _
-                                ByVal dtinicial As Date, ByVal dtfinal As Date) As List(Of Pedido)
+                                ByVal dtinicial As DateTime, ByVal dtfinal As DateTime) As List(Of Pedido)
         Dim lst As New List(Of Pedido)
         Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
         Using Cmd As New SqlCommand

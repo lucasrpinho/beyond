@@ -34,6 +34,18 @@
         Return txtvalido
     End Function
 
+    Public Shared Function PrecoFormatted(txt As String) As String
+        Dim dinheiroFormato As String = ""
+        If txt.Length > 0 Then
+            For i As Integer = 0 To txt.Length - 1
+                If Char.IsPunctuation(txt(i)) Or Char.IsDigit(txt(i)) Or txt(i) = "," Or txt(i) = "." Then
+                    dinheiroFormato += txt(i)
+                End If
+            Next
+        End If
+        Return dinheiroFormato
+    End Function
+
     Public Shared Function CurrencyType(txt As String) As String
         Dim txtdinheiro As String = ""
         If txt.Length > 0 Then

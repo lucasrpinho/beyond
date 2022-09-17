@@ -226,7 +226,7 @@ Public Class Frm_Produto
     End Sub
 
     Private Sub TxtPreco_Leave(sender As System.Object, e As System.EventArgs) Handles TxtPreco.Leave
-        Dim val = TxtPreco.Text
+        Dim val = StringHelper.PrecoFormatted(TxtPreco.Text)
         If val <> String.Empty Then
             TxtPreco.Text = Decimal.Parse(val).ToString("C")
         End If

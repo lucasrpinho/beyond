@@ -73,7 +73,6 @@ Public Class Frm_Cliente
         Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxEndereco.Controls)
         Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
         DtPckNasc.Value = Date.Now
-        objCliente = Nothing
     End Sub
 
     Private Function Insere() As Boolean
@@ -375,8 +374,10 @@ Public Class Frm_Cliente
 
     Private Sub ComboCargo_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboCargo.SelectedIndexChanged
         If objCliente IsNot Nothing Then
-            If objCliente.CodCargo = LstCargos(ComboCargo.SelectedIndex).CodCargo Then
-                Exit Sub
+            If ComboCargo.SelectedIndex > -1 Then
+                If objCliente.CodCargo = LstCargos(ComboCargo.SelectedIndex).CodCargo Then
+                    Exit Sub
+                End If
             End If
         End If
 

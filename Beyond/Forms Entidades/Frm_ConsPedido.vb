@@ -203,8 +203,8 @@ Public Class Frm_ConsPedido
         Dim codvendedor As Integer = 0
         Dim codcliente As Integer = 0
         Dim nomecliente As String = ""
-        Dim dtinicial As Date = Nothing
-        Dim dtfinal As Date = Nothing
+        Dim datIni As DateTime = DateTime.MinValue
+        Dim datFinal As DateTime = DateTime.MinValue
 
         If ComboVendedor.SelectedIndex > -1 Then
             codvendedor = LstVendedor(ComboVendedor.SelectedIndex).CodVendedor
@@ -219,11 +219,9 @@ Public Class Frm_ConsPedido
         End If
 
         If ChkData.Checked Then
-            dtinicial = Me.DtInicial.Value
-            dtfinal = Me.DtFinal.Value
+            datIni = DtInicial.Value
+            datFinal = DtFinal.Value
         End If
-
-
 
         Dim resposta As String = ""
 
@@ -249,7 +247,7 @@ Public Class Frm_ConsPedido
             End If
         End If
 
-        LstPedidos = DAOPed.GetPedido(resposta, codvendedor, codcliente, nomecliente, dtinicial, dtfinal)
+        LstPedidos = DAOPed.GetPedido(resposta, codvendedor, codcliente, nomecliente, datIni, datFinal)
 
         If Not LstPedidos.Count > 0 Then
             MsgBoxHelper.Alerta(Me, "A busca não encontrou resultados.", "Sem resultados")
