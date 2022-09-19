@@ -405,4 +405,14 @@ Public Class Frm_Principal_MDI
             End If
         Next
     End Sub
+
+    Private Sub ProdutosToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles ProdutosToolStripMenuItem1.Click
+        Dim frmFiltro As New Frm_RelFiltro_Produto
+        frmFiltro.ShowDialog()
+    End Sub
+
+    Private Sub PedidoToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles PedidoToolStripMenuItem.Click
+        Dim frmFiltro As New Frm_RelFiltro_Pedido
+        frmFiltro.Show()
+    End Sub
 End Class

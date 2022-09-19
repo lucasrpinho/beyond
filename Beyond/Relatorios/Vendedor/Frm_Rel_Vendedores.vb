@@ -17,8 +17,8 @@
     End Sub
 
     Private Sub Frm_Rel_Vendedores_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        Dim rpt As New CrystalReport1
-        rpt.Load("CrystalReport1.rpt")
+        Dim rpt As New Rpt_Vendedor
+        rpt.Load("Rpt_Vendedor.rpt")
         rpt.SetDataSource(dsVendedores)
         Me.CrystalReportViewer1.ReportSource = rpt
     End Sub

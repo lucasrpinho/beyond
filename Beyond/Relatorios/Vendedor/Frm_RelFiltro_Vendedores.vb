@@ -33,7 +33,6 @@ Public Class Frm_RelFiltro_Vendedores
     Private Sub BtnVisualizar_Click(sender As System.Object, e As System.EventArgs) Handles BtnVisualizar.Click
         Dim mostrarTodos = RdBtnTodos.Checked
         Dim ativos = RdBtnAtivo.Checked
-        Dim pathFile = "C:\Beyond\Beyond\Relatorios\CrystalReport1.rpt"
 
         Dim ds As VendedoresDS = GetVendedorDS(mostrarTodos, ativos)
 
@@ -52,7 +51,7 @@ Public Class Frm_RelFiltro_Vendedores
         Using Con As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
             Using Cmd As New SqlCommand
                 Cmd.Connection = Con
-                Cmd.CommandText = "SP_REL_VENDEDORES"
+                Cmd.CommandText = "SP_REL_VENDEDOR"
                 Cmd.CommandType = CommandType.StoredProcedure
                 Cmd.Parameters.AddWithValue("@TODOS", todos)
                 Cmd.Parameters.AddWithValue("@ATIVOS", ativos)

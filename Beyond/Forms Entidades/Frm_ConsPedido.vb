@@ -277,6 +277,5 @@ Public Class Frm_ConsPedido
         End If
 
         Return True
-
     End Function
 End Class

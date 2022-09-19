@@ -24,7 +24,7 @@ Partial Class Frm_Rel_Vendedores
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_Rel_Vendedores))
         Me.CrystalReportViewer1 = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
-        Me.CrystalReport11 = New Beyond.CrystalReport1()
+        Me.CrystalReport11 = New Beyond.Rpt_Vendedor()
         Me.SuspendLayout()
         '
         'CrystalReportViewer1
@@ -35,7 +35,7 @@ Partial Class Frm_Rel_Vendedores
         Me.CrystalReportViewer1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CrystalReportViewer1.Location = New System.Drawing.Point(0, 0)
         Me.CrystalReportViewer1.Name = "CrystalReportViewer1"
-        Me.CrystalReportViewer1.ReportSource = "C:\Beyond\Beyond\CrystalReport1.rpt"
+        Me.CrystalReportViewer1.ReportSource = "C:\Beyond\Beyond\Relatorios\Vendedor\Rpt_Vendedor.rpt"
         Me.CrystalReportViewer1.Size = New System.Drawing.Size(1003, 486)
         Me.CrystalReportViewer1.TabIndex = 0
         Me.CrystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
@@ -56,5 +56,5 @@ Partial Class Frm_Rel_Vendedores
 
     End Sub
     Friend WithEvents CrystalReportViewer1 As CrystalDecisions.Windows.Forms.CrystalReportViewer
-    Friend WithEvents CrystalReport11 As Beyond.CrystalReport1
+    Friend WithEvents CrystalReport11 As Beyond.Rpt_Vendedor
 End Class

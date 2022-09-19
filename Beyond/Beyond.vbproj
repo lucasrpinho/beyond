@@ -110,6 +110,22 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataSet\PedidosDS.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PedidosDS.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet\PedidosDS.vb">
+      <DependentUpon>PedidosDS.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet\ProdutosDS.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProdutosDS.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet\ProdutosDS.vb">
+      <DependentUpon>ProdutosDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataSet\VendedoresDS.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -120,19 +136,35 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="CrystalReport1.vb">
+    <Compile Include="Relatorios\Pedido\Frm_RelFiltro_Pedido.Designer.vb">
+      <DependentUpon>Frm_RelFiltro_Pedido.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Relatorios\Pedido\Frm_RelFiltro_Pedido.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Relatorios\Pedido\Frm_Rel_Pedidos.Designer.vb">
+      <DependentUpon>Frm_Rel_Pedidos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Relatorios\Pedido\Frm_Rel_Pedidos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Relatorios\Produto\Frm_RelFiltro_Produto.Designer.vb">
+      <DependentUpon>Frm_RelFiltro_Produto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Relatorios\Produto\Frm_RelFiltro_Produto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Relatorios\Produto\Frm_Rel_Produtos.Designer.vb">
+      <DependentUpon>Frm_Rel_Produtos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Relatorios\Produto\Frm_Rel_Produtos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Relatorios\Vendedor\Rpt_Vendedor.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrystalReport1.rpt</DependentUpon>
+      <DependentUpon>Rpt_Vendedor.rpt</DependentUpon>
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DataSet\DataSet1.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSet1.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DataSet\DataSet1.vb">
-      <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
     <Compile Include="EnderecoHelper.vb" />
     <Compile Include="Forms Entidades\Frm_Cargo.Designer.vb">
@@ -225,17 +257,29 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Frm_Rel_Vendedores.Designer.vb">
+    <Compile Include="Relatorios\Vendedor\Frm_Rel_Vendedores.Designer.vb">
       <DependentUpon>Frm_Rel_Vendedores.vb</DependentUpon>
     </Compile>
-    <Compile Include="Frm_Rel_Vendedores.vb">
+    <Compile Include="Relatorios\Vendedor\Frm_Rel_Vendedores.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Relatorios\Frm_RelFiltro_Vendedores.Designer.vb">
+    <Compile Include="Relatorios\Vendedor\Frm_RelFiltro_Vendedores.Designer.vb">
       <DependentUpon>Frm_RelFiltro_Vendedores.vb</DependentUpon>
     </Compile>
-    <Compile Include="Relatorios\Frm_RelFiltro_Vendedores.vb">
+    <Compile Include="Relatorios\Vendedor\Frm_RelFiltro_Vendedores.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Relatorios\Produto\Rpt_Produto.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_Produto.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Relatorios\Pedido\Rpt_Pedido.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_Pedido.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="UserControls\UC_Toolstrip.Designer.vb">
       <DependentUpon>UC_Toolstrip.vb</DependentUpon>
@@ -245,9 +289,21 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CrystalReport1.rpt">
+    <EmbeddedResource Include="Relatorios\Pedido\Frm_RelFiltro_Pedido.resx">
+      <DependentUpon>Frm_RelFiltro_Pedido.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Relatorios\Pedido\Frm_Rel_Pedidos.resx">
+      <DependentUpon>Frm_Rel_Pedidos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Relatorios\Produto\Frm_RelFiltro_Produto.resx">
+      <DependentUpon>Frm_RelFiltro_Produto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Relatorios\Produto\Frm_Rel_Produtos.resx">
+      <DependentUpon>Frm_Rel_Produtos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Relatorios\Vendedor\Rpt_Vendedor.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CrystalReport1.vb</LastGenOutput>
+      <LastGenOutput>Rpt_Vendedor.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms Entidades\Frm_Cargo.resx">
       <DependentUpon>Frm_Cargo.vb</DependentUpon>
@@ -296,11 +352,19 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Frm_Rel_Vendedores.resx">
+    <EmbeddedResource Include="Relatorios\Vendedor\Frm_Rel_Vendedores.resx">
       <DependentUpon>Frm_Rel_Vendedores.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Relatorios\Frm_RelFiltro_Vendedores.resx">
+    <EmbeddedResource Include="Relatorios\Vendedor\Frm_RelFiltro_Vendedores.resx">
       <DependentUpon>Frm_RelFiltro_Vendedores.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Relatorios\Produto\Rpt_Produto.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_Produto.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Relatorios\Pedido\Rpt_Pedido.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_Pedido.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UC_Toolstrip.resx">
       <DependentUpon>UC_Toolstrip.vb</DependentUpon>
@@ -310,16 +374,27 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="DataSet\DataSet1.xsc">
-      <DependentUpon>DataSet1.xsd</DependentUpon>
+    <None Include="DataSet\PedidosDS.xsc">
+      <DependentUpon>PedidosDS.xsd</DependentUpon>
     </None>
-    <None Include="DataSet\DataSet1.xsd">
+    <None Include="DataSet\PedidosDS.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSet1.Designer.vb</LastGenOutput>
+      <LastGenOutput>PedidosDS.Designer.vb</LastGenOutput>
     </None>
-    <None Include="DataSet\DataSet1.xss">
-      <DependentUpon>DataSet1.xsd</DependentUpon>
+    <None Include="DataSet\PedidosDS.xss">
+      <DependentUpon>PedidosDS.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\ProdutosDS.xsc">
+      <DependentUpon>ProdutosDS.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\ProdutosDS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ProdutosDS.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DataSet\ProdutosDS.xss">
+      <DependentUpon>ProdutosDS.xsd</DependentUpon>
     </None>
     <None Include="DataSet\VendedoresDS.xsc">
       <DependentUpon>VendedoresDS.xsd</DependentUpon>
