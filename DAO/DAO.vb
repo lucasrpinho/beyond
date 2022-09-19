@@ -516,6 +516,7 @@ Public Class DAO
         Return _GetVendedor(ativos, String.Empty, resposta, todos)
     End Function
 
+
     Private Function _GetVendedor(ativos As Boolean, codvendedor As String, ByRef resposta As String, todos As Boolean) As List(Of Vendedor)
 
         Dim lst As New List(Of Vendedor)
@@ -707,7 +708,7 @@ Public Class DAO
         Tr = Con.BeginTransaction
         Try
             If Not _RemoveCargoCliente(codcliente, login) Then
-                RollbackReleaseTransaction
+                RollbackReleaseTransaction()
             Else
                 Tr.Commit()
                 Return True
@@ -941,7 +942,7 @@ Public Class DAO
                 RollbackReleaseTransaction()
             End If
         Catch ex As Exception
-            RollbackReleaseTransaction
+            RollbackReleaseTransaction()
             resposta = ex.Message
         Finally
             CloseConAndTr()
@@ -1308,14 +1309,14 @@ Public Class DAO
 
     Private Function _AtualizaItensPedido(obj As PedidoItem, ByVal isExclusao As Boolean) As Boolean
         Using Cmd As New SqlCommand()
-                Cmd.Connection = Con
-                Cmd.Transaction = Tr
-                Cmd.CommandText = "SP_ATUALIZA_ITENS_PEDIDO"
-                Cmd.CommandType = CommandType.StoredProcedure
-                Cmd.Parameters.AddWithValue("@CODPEDIDO", obj.CodPedido)
-                Cmd.Parameters.AddWithValue("@CODPRODUTO", obj.CodProduto)
-                Cmd.Parameters.AddWithValue("@QTD", obj.Quantidade)
-                Cmd.Parameters.AddWithValue("@ISEXCLUSAO", isExclusao)
+            Cmd.Connection = Con
+            Cmd.Transaction = Tr
+            Cmd.CommandText = "SP_ATUALIZA_ITENS_PEDIDO"
+            Cmd.CommandType = CommandType.StoredProcedure
+            Cmd.Parameters.AddWithValue("@CODPEDIDO", obj.CodPedido)
+            Cmd.Parameters.AddWithValue("@CODPRODUTO", obj.CodProduto)
+            Cmd.Parameters.AddWithValue("@QTD", obj.Quantidade)
+            Cmd.Parameters.AddWithValue("@ISEXCLUSAO", isExclusao)
 
             If Cmd.ExecuteNonQuery > 0 Then
                 Return True

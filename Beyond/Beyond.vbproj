@@ -110,12 +110,17 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataSet\VendedoresDS.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VendedoresDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Relatorios\CrystalReport1.vb">
+    <Compile Include="CrystalReport1.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CrystalReport1.rpt</DependentUpon>
@@ -220,16 +225,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Relatorios\Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <Compile Include="Frm_Rel_Vendedores.Designer.vb">
+      <DependentUpon>Frm_Rel_Vendedores.vb</DependentUpon>
     </Compile>
-    <Compile Include="Relatorios\Form1.vb">
+    <Compile Include="Frm_Rel_Vendedores.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Relatorios\Forms Filtros\Frm_RelFiltro_Vendedores.Designer.vb">
+    <Compile Include="Relatorios\Frm_RelFiltro_Vendedores.Designer.vb">
       <DependentUpon>Frm_RelFiltro_Vendedores.vb</DependentUpon>
     </Compile>
-    <Compile Include="Relatorios\Forms Filtros\Frm_RelFiltro_Vendedores.vb">
+    <Compile Include="Relatorios\Frm_RelFiltro_Vendedores.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserControls\UC_Toolstrip.Designer.vb">
@@ -240,10 +245,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Relatorios\CrystalReport1.rpt">
+    <EmbeddedResource Include="CrystalReport1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CrystalReport1.vb</LastGenOutput>
-    </Compile>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms Entidades\Frm_Cargo.resx">
       <DependentUpon>Frm_Cargo.vb</DependentUpon>
     </EmbeddedResource>
@@ -291,10 +296,10 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Relatorios\Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <EmbeddedResource Include="Frm_Rel_Vendedores.resx">
+      <DependentUpon>Frm_Rel_Vendedores.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Relatorios\Forms Filtros\Frm_RelFiltro_Vendedores.resx">
+    <EmbeddedResource Include="Relatorios\Frm_RelFiltro_Vendedores.resx">
       <DependentUpon>Frm_RelFiltro_Vendedores.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UC_Toolstrip.resx">
@@ -315,6 +320,17 @@
     </None>
     <None Include="DataSet\DataSet1.xss">
       <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\VendedoresDS.xsc">
+      <DependentUpon>VendedoresDS.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\VendedoresDS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>VendedoresDS.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DataSet\VendedoresDS.xss">
+      <DependentUpon>VendedoresDS.xsd</DependentUpon>
     </None>
     <None Include="Icons Toolstrip\Back.png_" />
     <None Include="Icons Toolstrip\forward.png_" />

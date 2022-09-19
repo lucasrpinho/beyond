@@ -22,10 +22,13 @@ Partial Class Frm_RelFiltro_Vendedores
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_RelFiltro_Vendedores))
         Me.RdBtnAtivo = New System.Windows.Forms.RadioButton()
         Me.RdBtnTodos = New System.Windows.Forms.RadioButton()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BtnVisualizar = New System.Windows.Forms.Button()
+        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.SuspendLayout()
         '
         'RdBtnAtivo
@@ -54,10 +57,10 @@ Partial Class Frm_RelFiltro_Vendedores
         Me.Label1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Verdana", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(55, 9)
+        Me.Label1.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(73, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(196, 26)
+        Me.Label1.Size = New System.Drawing.Size(173, 23)
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Escolha um filtro"
         '
@@ -68,18 +71,28 @@ Partial Class Frm_RelFiltro_Vendedores
         Me.BtnVisualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnVisualizar.Font = New System.Drawing.Font("Verdana", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnVisualizar.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.BtnVisualizar.Location = New System.Drawing.Point(60, 148)
+        Me.BtnVisualizar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BtnVisualizar.ImageKey = "report.png"
+        Me.BtnVisualizar.ImageList = Me.ImageList1
+        Me.BtnVisualizar.Location = New System.Drawing.Point(77, 148)
         Me.BtnVisualizar.Name = "BtnVisualizar"
-        Me.BtnVisualizar.Size = New System.Drawing.Size(191, 36)
+        Me.BtnVisualizar.Size = New System.Drawing.Size(181, 36)
         Me.BtnVisualizar.TabIndex = 3
         Me.BtnVisualizar.Text = "Visualizar Relatório"
+        Me.BtnVisualizar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BtnVisualizar.UseVisualStyleBackColor = False
+        '
+        'ImageList1
+        '
+        Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
+        Me.ImageList1.Images.SetKeyName(0, "report.png")
         '
         'Frm_RelFiltro_Vendedores
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.Window
+        Me.BackColor = System.Drawing.SystemColors.Menu
         Me.ClientSize = New System.Drawing.Size(311, 196)
         Me.Controls.Add(Me.BtnVisualizar)
         Me.Controls.Add(Me.Label1)
@@ -102,4 +115,5 @@ Partial Class Frm_RelFiltro_Vendedores
     Friend WithEvents RdBtnTodos As System.Windows.Forms.RadioButton
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents BtnVisualizar As System.Windows.Forms.Button
+    Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
 End Class
