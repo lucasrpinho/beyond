@@ -67,6 +67,9 @@ Public Class Frm_Usuario
             Return False
         End If
 
+        Dim dlgSucc As New Uteis.Dlg_Success
+        dlgSucc.ShowDialog()
+
         Return True
     End Function
 

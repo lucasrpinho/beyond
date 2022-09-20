@@ -14,7 +14,6 @@ Public Class Frm_Sobre
     End Sub
 
     Private Sub Frm_Sobre_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        LblNomeSistema.Text = LstSobre(0).ToString
         LblNomeAutor.Text = LstSobre(1).ToString
         LblNumSistema.Text = LstSobre(2).ToString
         LblDataVersao.Text = FormatDateTime(LstSobre(3), DateFormat.ShortDate)

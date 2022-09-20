@@ -118,7 +118,7 @@ Public Class DAO
     End Function
 
 
-    Public Function GetUsuarios(ativo As Boolean, ByRef response As String) As List(Of Usuario)
+    Public Function GetUsuarios(ativo As Boolean, ByRef response As String, Optional ByVal todos As Boolean = True) As List(Of Usuario)
         Dim LstUsuario As New List(Of Usuario)
 
         Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
@@ -127,6 +127,7 @@ Public Class DAO
             Cmd.CommandText = "SP_GET_ALL_USUARIOS"
             Cmd.CommandType = CommandType.StoredProcedure
             Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = ativo
+            Cmd.Parameters.Add("@TODOS", SqlDbType.Bit).Value = todos
             Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
             Cmd.Parameters("@RESPONSE").Size = 255
             Try
@@ -604,10 +605,14 @@ Public Class DAO
             Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = vendedor.IsAtivo
             Cmd.Parameters.AddWithValue("@LOGINALTERACAO", loginupdate)
             Cmd.Parameters.AddWithValue("@ISDELETE", isExclusao)
+            Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+            Cmd.Parameters("@RESPONSE").Size = 255
 
             If Not Cmd.ExecuteNonQuery > 0 Then
+                resposta = Cmd.Parameters("@RESPONSE").Value
                 Return False
             Else
+                resposta = Cmd.Parameters("@RESPONSE").Value
                 Return True
             End If
         End Using

@@ -9,6 +9,7 @@ Public Class Frm_RelFiltro_Pedido
     Private LstClientes As List(Of Cliente)
     Private LstVendedores As List(Of Vendedor)
     Private DAOFiltroRelCliente As New DAO.DAO
+    Private CodPed As String = ""
 
     Private Sub ChkCliente_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChkCliente.CheckedChanged
         If ChkCliente.CheckState = CheckState.Checked Then
@@ -37,6 +38,12 @@ Public Class Frm_RelFiltro_Pedido
 
         ' Add any initialization after the InitializeComponent() call.
 
+    End Sub
+
+    Public Sub New(ByVal codpedido As String)
+        InitializeComponent()
+
+        CodPed = codpedido
     End Sub
 
     Private Sub Frm_RelFiltro_Pedido_Load(sender As Object, e As System.EventArgs) Handles Me.Load
@@ -75,11 +82,11 @@ Public Class Frm_RelFiltro_Pedido
     End Sub
 
     Private Function ValidaData() As Boolean
-            If DtInicial.Value.Date > DtFinal.Value.Date Then
-                MsgBoxHelper.Alerta(Me, "A data inicial não pode ser maior que a data final.", "Data inválida")
-                DtInicial.Focus()
-                Return False
-            End If
+        If DtInicial.Value.Date > DtFinal.Value.Date Then
+            MsgBoxHelper.Alerta(Me, "A data inicial não pode ser maior que a data final.", "Data inválida")
+            DtInicial.Focus()
+            Return False
+        End If
 
         Return True
     End Function
@@ -94,13 +101,20 @@ Public Class Frm_RelFiltro_Pedido
                 Cmd.Parameters.AddWithValue("@CODVENDEDOR", codvendedor)
                 Cmd.Parameters.AddWithValue("@DTINICIAL", dtinicial)
                 Cmd.Parameters.AddWithValue("@DTFINAL", dtfinal)
+                Cmd.Parameters.AddWithValue("@CODPEDIDO", CodPed)
                 Using Adp As New SqlDataAdapter(Cmd)
                     Using dsPedidos As New PedidosDS
                         Adp.Fill(dsPedidos, "DTPedido")
+
                         Cmd.Parameters.Clear()
                         Cmd.CommandText = "SP_REL_PEDIDO_ITENS"
                         Cmd.CommandType = CommandType.StoredProcedure
+                        Cmd.Parameters.AddWithValue("@CODPEDIDO", CodPed)
                         Adp.Fill(dsPedidos, "DTItensVendidos")
+
+                        Cmd.CommandText = "SP_REL_SOMA_PEDIDO"
+                        Cmd.CommandType = CommandType.StoredProcedure
+                        Adp.Fill(dsPedidos, "DTPedidosTotais")
                         Return dsPedidos
                     End Using
                 End Using
@@ -109,10 +123,15 @@ Public Class Frm_RelFiltro_Pedido
     End Function
 
     Private Sub BtnVisualizar_Click(sender As System.Object, e As System.EventArgs) Handles BtnVisualizar.Click
+
         If Not ValidaData() Then
             Exit Sub
         End If
 
+        VisualizarRel()
+    End Sub
+
+    Public Sub VisualizarRel()
         Dim codcliente As Integer = 0
         Dim codvendedor As Integer = 0
 
@@ -141,5 +160,9 @@ Public Class Frm_RelFiltro_Pedido
             Uteis.MsgBoxHelper.Msg(Me, "A busca não encontrou resultados.", "Informação")
             Exit Sub
         End If
+    End Sub
+
+    Private Sub ComboCliente_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboCliente.KeyPress
+        e.KeyChar = Char.ToUpper(e.KeyChar)
     End Sub
 End Class

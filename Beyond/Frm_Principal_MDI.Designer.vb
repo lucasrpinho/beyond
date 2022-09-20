@@ -43,7 +43,6 @@ Partial Class Frm_Principal_MDI
         Me.ProdutosToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.AjudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SobreToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BuscarAtualizaçãoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.TSL_Login = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TSL_Data = New System.Windows.Forms.ToolStripStatusLabel()
@@ -53,8 +52,8 @@ Partial Class Frm_Principal_MDI
         Me.BtnExpandir = New System.Windows.Forms.Button()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.TCPrincipal = New System.Windows.Forms.TabControl()
-        Me.LblOla = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.LblOla = New System.Windows.Forms.Label()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.FecharUmaCtxMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.FecharTodasCtxMenu = New System.Windows.Forms.ToolStripMenuItem()
@@ -87,7 +86,7 @@ Partial Class Frm_Principal_MDI
         Me.AçõesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FecharAbaSelecionadaToolStripMenuItem, Me.SairToolStripMenuItem})
         Me.AçõesToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Silver
         Me.AçõesToolStripMenuItem.Name = "AçõesToolStripMenuItem"
-        Me.AçõesToolStripMenuItem.Size = New System.Drawing.Size(46, 22)
+        Me.AçõesToolStripMenuItem.Size = New System.Drawing.Size(94, 22)
         Me.AçõesToolStripMenuItem.Text = "Ação"
         '
         'FecharAbaSelecionadaToolStripMenuItem
@@ -95,7 +94,7 @@ Partial Class Frm_Principal_MDI
         Me.FecharAbaSelecionadaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FecharSelecionadaMenu, Me.FecharTodasMenu})
         Me.FecharAbaSelecionadaToolStripMenuItem.Image = CType(resources.GetObject("FecharAbaSelecionadaToolStripMenuItem.Image"), System.Drawing.Image)
         Me.FecharAbaSelecionadaToolStripMenuItem.Name = "FecharAbaSelecionadaToolStripMenuItem"
-        Me.FecharAbaSelecionadaToolStripMenuItem.Size = New System.Drawing.Size(148, 22)
+        Me.FecharAbaSelecionadaToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.FecharAbaSelecionadaToolStripMenuItem.Text = "Fechar Página"
         '
         'FecharSelecionadaMenu
@@ -114,7 +113,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.SairToolStripMenuItem.Image = CType(resources.GetObject("SairToolStripMenuItem.Image"), System.Drawing.Image)
         Me.SairToolStripMenuItem.Name = "SairToolStripMenuItem"
-        Me.SairToolStripMenuItem.Size = New System.Drawing.Size(148, 22)
+        Me.SairToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.SairToolStripMenuItem.Text = "Sair"
         '
         'UsuáriosToolStripMenuItem
@@ -176,24 +175,24 @@ Partial Class Frm_Principal_MDI
         'PedidoToolStripMenuItem
         '
         Me.PedidoToolStripMenuItem.Name = "PedidoToolStripMenuItem"
-        Me.PedidoToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.PedidoToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
         Me.PedidoToolStripMenuItem.Text = "Pedido"
         '
         'VendedoresToolStripMenuItem
         '
         Me.VendedoresToolStripMenuItem.Name = "VendedoresToolStripMenuItem"
-        Me.VendedoresToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.VendedoresToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
         Me.VendedoresToolStripMenuItem.Text = "Vendedores"
         '
         'ProdutosToolStripMenuItem1
         '
         Me.ProdutosToolStripMenuItem1.Name = "ProdutosToolStripMenuItem1"
-        Me.ProdutosToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.ProdutosToolStripMenuItem1.Size = New System.Drawing.Size(135, 22)
         Me.ProdutosToolStripMenuItem1.Text = "Produtos"
         '
         'AjudaToolStripMenuItem
         '
-        Me.AjudaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SobreToolStripMenuItem, Me.BuscarAtualizaçãoToolStripMenuItem})
+        Me.AjudaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SobreToolStripMenuItem})
         Me.AjudaToolStripMenuItem.Name = "AjudaToolStripMenuItem"
         Me.AjudaToolStripMenuItem.Size = New System.Drawing.Size(50, 22)
         Me.AjudaToolStripMenuItem.Text = "Ajuda"
@@ -202,14 +201,8 @@ Partial Class Frm_Principal_MDI
         '
         Me.SobreToolStripMenuItem.Image = CType(resources.GetObject("SobreToolStripMenuItem.Image"), System.Drawing.Image)
         Me.SobreToolStripMenuItem.Name = "SobreToolStripMenuItem"
-        Me.SobreToolStripMenuItem.Size = New System.Drawing.Size(173, 22)
+        Me.SobreToolStripMenuItem.Size = New System.Drawing.Size(104, 22)
         Me.SobreToolStripMenuItem.Text = "Sobre"
-        '
-        'BuscarAtualizaçãoToolStripMenuItem
-        '
-        Me.BuscarAtualizaçãoToolStripMenuItem.Name = "BuscarAtualizaçãoToolStripMenuItem"
-        Me.BuscarAtualizaçãoToolStripMenuItem.Size = New System.Drawing.Size(173, 22)
-        Me.BuscarAtualizaçãoToolStripMenuItem.Text = "Buscar Atualização"
         '
         'StatusStrip1
         '
@@ -272,8 +265,8 @@ Partial Class Frm_Principal_MDI
         '
         Me.SplitC1.Panel2.BackColor = System.Drawing.Color.DimGray
         Me.SplitC1.Panel2.Controls.Add(Me.TCPrincipal)
-        Me.SplitC1.Panel2.Controls.Add(Me.LblOla)
         Me.SplitC1.Panel2.Controls.Add(Me.PictureBox1)
+        Me.SplitC1.Panel2.Controls.Add(Me.LblOla)
         Me.SplitC1.Size = New System.Drawing.Size(737, 402)
         Me.SplitC1.SplitterDistance = 151
         Me.SplitC1.SplitterWidth = 1
@@ -327,6 +320,17 @@ Partial Class Frm_Principal_MDI
         Me.TCPrincipal.TabIndex = 2
         Me.TCPrincipal.Visible = False
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(172, 106)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(252, 219)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.PictureBox1.TabIndex = 3
+        Me.PictureBox1.TabStop = False
+        '
         'LblOla
         '
         Me.LblOla.AutoEllipsis = True
@@ -338,17 +342,6 @@ Partial Class Frm_Principal_MDI
         Me.LblOla.Size = New System.Drawing.Size(95, 26)
         Me.LblOla.TabIndex = 1
         Me.LblOla.Text = "Label1"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.BeyondICON
-        Me.PictureBox1.Location = New System.Drawing.Point(243, 152)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(163, 149)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 2
-        Me.PictureBox1.TabStop = False
         '
         'ContextMenuStrip1
         '
@@ -443,7 +436,6 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents ProdutosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AjudaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SobreToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents BuscarAtualizaçãoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents TSL_Login As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents TSL_Data As System.Windows.Forms.ToolStripStatusLabel
@@ -460,7 +452,6 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents ConsultasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TCPrincipal As System.Windows.Forms.TabControl
     Public WithEvents UC_Toolstrip1 As Beyond.UC_Toolstrip
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
     Friend WithEvents PedidoToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PedidoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -468,4 +459,5 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents ProdutosToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents BtnExpandir As System.Windows.Forms.Button
     Friend WithEvents BtnUnPin As System.Windows.Forms.Button
+    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
 End Class

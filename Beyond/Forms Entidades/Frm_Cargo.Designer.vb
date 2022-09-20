@@ -37,11 +37,10 @@ Partial Class Frm_Cargo
         '
         'GrpBoxCfg
         '
-        Me.GrpBoxCfg.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GrpBoxCfg.BackColor = System.Drawing.Color.Transparent
         Me.GrpBoxCfg.Controls.Add(Me.ChkVendedor)
         Me.GrpBoxCfg.Controls.Add(Me.ChkBoxAtivo)
-        Me.GrpBoxCfg.Location = New System.Drawing.Point(591, 23)
+        Me.GrpBoxCfg.Location = New System.Drawing.Point(12, 23)
         Me.GrpBoxCfg.Name = "GrpBoxCfg"
         Me.GrpBoxCfg.Size = New System.Drawing.Size(159, 227)
         Me.GrpBoxCfg.TabIndex = 0
@@ -82,7 +81,7 @@ Partial Class Frm_Cargo
         Me.GrpBoxInfo.Controls.Add(Me.TxtDesc)
         Me.GrpBoxInfo.Controls.Add(Me.Label2)
         Me.GrpBoxInfo.Controls.Add(Me.Label1)
-        Me.GrpBoxInfo.Location = New System.Drawing.Point(12, 23)
+        Me.GrpBoxInfo.Location = New System.Drawing.Point(179, 23)
         Me.GrpBoxInfo.Name = "GrpBoxInfo"
         Me.GrpBoxInfo.Size = New System.Drawing.Size(568, 227)
         Me.GrpBoxInfo.TabIndex = 1

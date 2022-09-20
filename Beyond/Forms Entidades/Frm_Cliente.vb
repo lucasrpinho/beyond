@@ -132,6 +132,8 @@ Public Class Frm_Cliente
             Return False
         End If
 
+        Dim frmSucc As New Dlg_Success
+        frmSucc.ShowDialog()
         Return True
     End Function
 
@@ -220,6 +222,7 @@ Public Class Frm_Cliente
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                     MsgBoxHelper.Alerta(Me, resposta, "Erro")
                 Else
+                    MsgBoxHelper.Msg(Me, "Cliente atualizado com sucesso.", "Informação")
                     Desativa_Campos()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
                 End If

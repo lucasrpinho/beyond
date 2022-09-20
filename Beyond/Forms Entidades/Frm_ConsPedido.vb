@@ -103,7 +103,7 @@ Public Class Frm_ConsPedido
             Dim pedItem As New ListViewItem(New String() {p.CodPedido, _
                 LstCliente.Find(Function(c As Cliente) c.CodCliente = p.CodCliente).Nome, _
                 LstVendedor.Find(Function(v As Vendedor) v.CodVendedor = p.CodVendedor).NomeCompleto, _
-                ped.DatVenda.ToString("dd/MM/yyyy hh:mm"), _
+                ped.DatVenda.ToString("dd/MM/yyyy HH:mm"), _
                 ped.Destinatario})
 
             pedItem.Tag = ped
@@ -278,4 +278,8 @@ Public Class Frm_ConsPedido
 
         Return True
     End Function
+
+    Private Sub ComboCliente_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboCliente.KeyPress
+        e.KeyChar = Char.ToUpper(e.KeyChar)
+    End Sub
 End Class

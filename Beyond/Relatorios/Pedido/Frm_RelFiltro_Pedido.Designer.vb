@@ -81,7 +81,7 @@ Partial Class Frm_RelFiltro_Pedido
         Me.DtFinal.Location = New System.Drawing.Point(156, 154)
         Me.DtFinal.Name = "DtFinal"
         Me.DtFinal.Size = New System.Drawing.Size(120, 24)
-        Me.DtFinal.TabIndex = 49
+        Me.DtFinal.TabIndex = 6
         '
         'Label4
         '
@@ -99,7 +99,7 @@ Partial Class Frm_RelFiltro_Pedido
         Me.DtInicial.Location = New System.Drawing.Point(9, 154)
         Me.DtInicial.Name = "DtInicial"
         Me.DtInicial.Size = New System.Drawing.Size(120, 24)
-        Me.DtInicial.TabIndex = 47
+        Me.DtInicial.TabIndex = 5
         '
         'Label3
         '
@@ -117,17 +117,17 @@ Partial Class Frm_RelFiltro_Pedido
         Me.ChkVendedor.Location = New System.Drawing.Point(657, 108)
         Me.ChkVendedor.Name = "ChkVendedor"
         Me.ChkVendedor.Size = New System.Drawing.Size(15, 14)
-        Me.ChkVendedor.TabIndex = 14
+        Me.ChkVendedor.TabIndex = 4
         Me.ChkVendedor.UseVisualStyleBackColor = True
         '
         'ChkCliente
         '
         Me.ChkCliente.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ChkCliente.AutoSize = True
-        Me.ChkCliente.Location = New System.Drawing.Point(657, 62)
+        Me.ChkCliente.Location = New System.Drawing.Point(657, 57)
         Me.ChkCliente.Name = "ChkCliente"
         Me.ChkCliente.Size = New System.Drawing.Size(15, 14)
-        Me.ChkCliente.TabIndex = 13
+        Me.ChkCliente.TabIndex = 2
         Me.ChkCliente.UseVisualStyleBackColor = True
         '
         'ComboVendedor

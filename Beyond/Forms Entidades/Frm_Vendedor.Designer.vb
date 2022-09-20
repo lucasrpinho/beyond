@@ -165,16 +165,17 @@ Partial Class Frm_Vendedor
         '
         'TxtObs
         '
-        Me.TxtObs.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.TxtObs.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtObs.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtObs.Location = New System.Drawing.Point(11, 249)
         Me.TxtObs.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtObs.MaxLength = 255
+        Me.TxtObs.MaxLength = 3000
         Me.TxtObs.Multiline = True
         Me.TxtObs.Name = "TxtObs"
         Me.TxtObs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TxtObs.Size = New System.Drawing.Size(608, 54)
+        Me.TxtObs.Size = New System.Drawing.Size(826, 54)
         Me.TxtObs.TabIndex = 4
         '
         'TxtSobrenome
@@ -243,7 +244,7 @@ Partial Class Frm_Vendedor
         Me.TxtCidade.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtCidade.Location = New System.Drawing.Point(14, 162)
         Me.TxtCidade.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtCidade.MaxLength = 50
+        Me.TxtCidade.MaxLength = 100
         Me.TxtCidade.Name = "TxtCidade"
         Me.TxtCidade.Size = New System.Drawing.Size(605, 24)
         Me.TxtCidade.TabIndex = 10
@@ -311,7 +312,7 @@ Partial Class Frm_Vendedor
         Me.TxtBairro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtBairro.Location = New System.Drawing.Point(11, 107)
         Me.TxtBairro.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtBairro.MaxLength = 30
+        Me.TxtBairro.MaxLength = 100
         Me.TxtBairro.Name = "TxtBairro"
         Me.TxtBairro.Size = New System.Drawing.Size(608, 24)
         Me.TxtBairro.TabIndex = 8

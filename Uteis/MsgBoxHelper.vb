@@ -60,7 +60,7 @@ Public Class MsgBoxHelper
         tooltip.ToolTipIcon = icon
         tooltip.IsBalloon = True
         tooltip.SetToolTip(window, msg)
-        tooltip.Show(msg, window, 3000)
+        tooltip.Show(msg, window, 2000)
     End Sub
 
 

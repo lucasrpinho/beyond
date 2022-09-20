@@ -127,6 +127,9 @@ Public Class Frm_Vendedor
             Return False
         End If
 
+        Dim dlgSucc As New Dlg_Success
+        dlgSucc.ShowDialog()
+
         Return True
     End Function
 
@@ -242,6 +245,7 @@ Public Class Frm_Vendedor
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                     MsgBoxHelper.Alerta(Me, resposta, "Erro")
                 Else
+                    MsgBoxHelper.Msg(Me, resposta, "Informação")
                     DesativaCampos()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
                 End If
@@ -280,10 +284,11 @@ Public Class Frm_Vendedor
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
-                If DAOVendedor.AtualizaVendedor(ObjVendedorFromList, "", True, loginusuario) Then
-                    LimpaCampos_Desativa()
+                If DAOVendedor.AtualizaVendedor(ObjVendedorFromList, resposta, True, loginusuario) Then
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
                 End If
+                LimpaCampos_Desativa()
+                MsgBoxHelper.Msg(Me, resposta, "Informação")
             Else
                 Exit Sub
             End If
@@ -436,4 +441,5 @@ Public Class Frm_Vendedor
             e.KeyChar = ""
         End If
     End Sub
+
 End Class

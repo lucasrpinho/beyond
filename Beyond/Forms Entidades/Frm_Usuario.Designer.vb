@@ -225,11 +225,11 @@ Partial Class Frm_Usuario
         Me.GrpBoxCredenciais.Controls.Add(Me.TxtSenhaConfirmar)
         Me.GrpBoxCredenciais.Controls.Add(Me.Label3)
         Me.GrpBoxCredenciais.Controls.Add(Me.TxtSenha)
-        Me.GrpBoxCredenciais.Location = New System.Drawing.Point(13, 283)
+        Me.GrpBoxCredenciais.Location = New System.Drawing.Point(16, 283)
         Me.GrpBoxCredenciais.Margin = New System.Windows.Forms.Padding(4)
         Me.GrpBoxCredenciais.Name = "GrpBoxCredenciais"
         Me.GrpBoxCredenciais.Padding = New System.Windows.Forms.Padding(4)
-        Me.GrpBoxCredenciais.Size = New System.Drawing.Size(542, 231)
+        Me.GrpBoxCredenciais.Size = New System.Drawing.Size(539, 231)
         Me.GrpBoxCredenciais.TabIndex = 11
         Me.GrpBoxCredenciais.TabStop = False
         Me.GrpBoxCredenciais.Text = "Credenciais"

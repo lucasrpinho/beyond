@@ -66,6 +66,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dlg_Success.Designer.vb">
+      <DependentUpon>Dlg_Success.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg_Success.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SYSConsts.vb" />
     <Compile Include="ControlsHelper.vb" />
     <Compile Include="MsgBoxHelper.vb" />
@@ -88,6 +94,9 @@
     <Compile Include="StringHelper.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Dlg_Success.resx">
+      <DependentUpon>Dlg_Success.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>

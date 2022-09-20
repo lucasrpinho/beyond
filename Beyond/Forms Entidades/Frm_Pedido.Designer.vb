@@ -102,14 +102,16 @@ Partial Class Frm_Pedido
         '
         'TCPedido
         '
+        Me.TCPedido.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TCPedido.Controls.Add(Me.TabDados)
         Me.TCPedido.Controls.Add(Me.TabProduto)
         Me.TCPedido.Controls.Add(Me.TabItens)
-        Me.TCPedido.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCPedido.Location = New System.Drawing.Point(0, 0)
+        Me.TCPedido.Location = New System.Drawing.Point(0, 12)
         Me.TCPedido.Name = "TCPedido"
         Me.TCPedido.SelectedIndex = 0
-        Me.TCPedido.Size = New System.Drawing.Size(907, 547)
+        Me.TCPedido.Size = New System.Drawing.Size(907, 568)
         Me.TCPedido.TabIndex = 0
         '
         'TabDados
@@ -120,7 +122,7 @@ Partial Class Frm_Pedido
         Me.TabDados.Location = New System.Drawing.Point(4, 25)
         Me.TabDados.Name = "TabDados"
         Me.TabDados.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabDados.Size = New System.Drawing.Size(899, 518)
+        Me.TabDados.Size = New System.Drawing.Size(899, 539)
         Me.TabDados.TabIndex = 0
         Me.TabDados.Text = "Dados"
         '
@@ -154,21 +156,22 @@ Partial Class Frm_Pedido
         Me.TxtCidade.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtCidade.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtCidade.Location = New System.Drawing.Point(395, 100)
+        Me.TxtCidade.Location = New System.Drawing.Point(15, 154)
         Me.TxtCidade.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.TxtCidade.MaxLength = 50
+        Me.TxtCidade.MaxLength = 100
         Me.TxtCidade.Name = "TxtCidade"
-        Me.TxtCidade.Size = New System.Drawing.Size(453, 24)
-        Me.TxtCidade.TabIndex = 9
+        Me.TxtCidade.Size = New System.Drawing.Size(643, 24)
+        Me.TxtCidade.TabIndex = 10
         '
         'TxtNum
         '
+        Me.TxtNum.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtNum.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtNum.Location = New System.Drawing.Point(15, 100)
+        Me.TxtNum.Location = New System.Drawing.Point(677, 46)
         Me.TxtNum.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.TxtNum.MaxLength = 5
         Me.TxtNum.Name = "TxtNum"
-        Me.TxtNum.Size = New System.Drawing.Size(98, 24)
+        Me.TxtNum.Size = New System.Drawing.Size(171, 24)
         Me.TxtNum.TabIndex = 7
         '
         'TxtCEP
@@ -186,18 +189,18 @@ Partial Class Frm_Pedido
         Me.ComboEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboEstado.FormattingEnabled = True
         Me.ComboEstado.Items.AddRange(New Object() {" "})
-        Me.ComboEstado.Location = New System.Drawing.Point(604, 154)
+        Me.ComboEstado.Location = New System.Drawing.Point(677, 154)
         Me.ComboEstado.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.ComboEstado.MaxLength = 2
         Me.ComboEstado.Name = "ComboEstado"
-        Me.ComboEstado.Size = New System.Drawing.Size(244, 24)
+        Me.ComboEstado.Size = New System.Drawing.Size(176, 24)
         Me.ComboEstado.TabIndex = 11
         '
         'Label8
         '
         Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(601, 135)
+        Me.Label8.Location = New System.Drawing.Point(674, 133)
         Me.Label8.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(57, 17)
@@ -213,7 +216,7 @@ Partial Class Frm_Pedido
         Me.TxtLogradouro.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.TxtLogradouro.MaxLength = 100
         Me.TxtLogradouro.Name = "TxtLogradouro"
-        Me.TxtLogradouro.Size = New System.Drawing.Size(725, 24)
+        Me.TxtLogradouro.Size = New System.Drawing.Size(535, 24)
         Me.TxtLogradouro.TabIndex = 6
         '
         'TxtBairro
@@ -221,27 +224,28 @@ Partial Class Frm_Pedido
         Me.TxtBairro.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtBairro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtBairro.Location = New System.Drawing.Point(15, 154)
+        Me.TxtBairro.Location = New System.Drawing.Point(15, 101)
         Me.TxtBairro.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.TxtBairro.MaxLength = 30
+        Me.TxtBairro.MaxLength = 100
         Me.TxtBairro.Name = "TxtBairro"
-        Me.TxtBairro.Size = New System.Drawing.Size(579, 24)
-        Me.TxtBairro.TabIndex = 10
+        Me.TxtBairro.Size = New System.Drawing.Size(643, 24)
+        Me.TxtBairro.TabIndex = 8
         '
         'TxtComplemento
         '
+        Me.TxtComplemento.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtComplemento.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtComplemento.Location = New System.Drawing.Point(123, 100)
+        Me.TxtComplemento.Location = New System.Drawing.Point(677, 101)
         Me.TxtComplemento.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.TxtComplemento.MaxLength = 30
         Me.TxtComplemento.Name = "TxtComplemento"
-        Me.TxtComplemento.Size = New System.Drawing.Size(262, 24)
-        Me.TxtComplemento.TabIndex = 8
+        Me.TxtComplemento.Size = New System.Drawing.Size(176, 24)
+        Me.TxtComplemento.TabIndex = 9
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(392, 80)
+        Me.Label3.Location = New System.Drawing.Point(15, 135)
         Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(55, 17)
@@ -251,7 +255,7 @@ Partial Class Frm_Pedido
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(12, 135)
+        Me.Label7.Location = New System.Drawing.Point(15, 84)
         Me.Label7.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(50, 17)
@@ -261,7 +265,7 @@ Partial Class Frm_Pedido
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(122, 81)
+        Me.Label9.Location = New System.Drawing.Point(674, 80)
         Me.Label9.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(105, 17)
@@ -271,7 +275,7 @@ Partial Class Frm_Pedido
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(11, 81)
+        Me.Label10.Location = New System.Drawing.Point(674, 28)
         Me.Label10.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(63, 17)
@@ -456,7 +460,7 @@ Partial Class Frm_Pedido
         Me.TabProduto.Location = New System.Drawing.Point(4, 25)
         Me.TabProduto.Name = "TabProduto"
         Me.TabProduto.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabProduto.Size = New System.Drawing.Size(899, 518)
+        Me.TabProduto.Size = New System.Drawing.Size(899, 539)
         Me.TabProduto.TabIndex = 1
         Me.TabProduto.Text = "Produtos"
         '
@@ -469,7 +473,7 @@ Partial Class Frm_Pedido
         Me.BtnMenosInsere.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.BtnMenosInsere.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnMenosInsere.Image = Global.Beyond.My.Resources.Resources.menos
-        Me.BtnMenosInsere.Location = New System.Drawing.Point(602, 477)
+        Me.BtnMenosInsere.Location = New System.Drawing.Point(602, 498)
         Me.BtnMenosInsere.Name = "BtnMenosInsere"
         Me.BtnMenosInsere.Size = New System.Drawing.Size(25, 25)
         Me.BtnMenosInsere.TabIndex = 24
@@ -497,7 +501,7 @@ Partial Class Frm_Pedido
         Me.BtnMaisInsere.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.BtnMaisInsere.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnMaisInsere.Image = Global.Beyond.My.Resources.Resources.mais
-        Me.BtnMaisInsere.Location = New System.Drawing.Point(693, 478)
+        Me.BtnMaisInsere.Location = New System.Drawing.Point(693, 499)
         Me.BtnMaisInsere.Name = "BtnMaisInsere"
         Me.BtnMaisInsere.Size = New System.Drawing.Size(26, 24)
         Me.BtnMaisInsere.TabIndex = 47
@@ -513,7 +517,7 @@ Partial Class Frm_Pedido
         Me.BtnComprar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnComprar.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnComprar.ForeColor = System.Drawing.SystemColors.Window
-        Me.BtnComprar.Location = New System.Drawing.Point(738, 469)
+        Me.BtnComprar.Location = New System.Drawing.Point(738, 490)
         Me.BtnComprar.Name = "BtnComprar"
         Me.BtnComprar.Size = New System.Drawing.Size(153, 32)
         Me.BtnComprar.TabIndex = 6
@@ -525,7 +529,7 @@ Partial Class Frm_Pedido
         Me.LblPrecoTotal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LblPrecoTotal.AutoSize = True
         Me.LblPrecoTotal.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblPrecoTotal.Location = New System.Drawing.Point(212, 472)
+        Me.LblPrecoTotal.Location = New System.Drawing.Point(212, 493)
         Me.LblPrecoTotal.Name = "LblPrecoTotal"
         Me.LblPrecoTotal.Size = New System.Drawing.Size(77, 17)
         Me.LblPrecoTotal.TabIndex = 28
@@ -534,7 +538,7 @@ Partial Class Frm_Pedido
         'TxtQtdInsere
         '
         Me.TxtQtdInsere.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TxtQtdInsere.Location = New System.Drawing.Point(633, 477)
+        Me.TxtQtdInsere.Location = New System.Drawing.Point(633, 498)
         Me.TxtQtdInsere.Name = "TxtQtdInsere"
         Me.TxtQtdInsere.ReadOnly = True
         Me.TxtQtdInsere.Size = New System.Drawing.Size(54, 24)
@@ -546,7 +550,7 @@ Partial Class Frm_Pedido
         '
         Me.Label18.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(618, 457)
+        Me.Label18.Location = New System.Drawing.Point(618, 478)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(88, 17)
         Me.Label18.TabIndex = 21
@@ -696,7 +700,7 @@ Partial Class Frm_Pedido
         Me.TabItens.Location = New System.Drawing.Point(4, 25)
         Me.TabItens.Name = "TabItens"
         Me.TabItens.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabItens.Size = New System.Drawing.Size(899, 518)
+        Me.TabItens.Size = New System.Drawing.Size(899, 539)
         Me.TabItens.TabIndex = 2
         Me.TabItens.Text = "Carrinho (0)"
         '
@@ -859,11 +863,12 @@ Partial Class Frm_Pedido
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.Window
-        Me.ClientSize = New System.Drawing.Size(907, 547)
+        Me.BackColor = System.Drawing.SystemColors.Menu
+        Me.ClientSize = New System.Drawing.Size(907, 576)
         Me.Controls.Add(Me.TCPedido)
         Me.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.MaximizeBox = False
         Me.MinimizeBox = False

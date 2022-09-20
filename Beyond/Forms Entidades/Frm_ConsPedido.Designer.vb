@@ -22,6 +22,7 @@ Partial Class Frm_ConsPedido
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_ConsPedido))
         Me.GrpBoxFiltro = New System.Windows.Forms.GroupBox()
         Me.ChkData = New System.Windows.Forms.CheckBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -78,7 +79,7 @@ Partial Class Frm_ConsPedido
         Me.ChkData.Location = New System.Drawing.Point(282, 159)
         Me.ChkData.Name = "ChkData"
         Me.ChkData.Size = New System.Drawing.Size(15, 14)
-        Me.ChkData.TabIndex = 51
+        Me.ChkData.TabIndex = 7
         Me.ChkData.UseVisualStyleBackColor = True
         '
         'Label5
@@ -98,7 +99,7 @@ Partial Class Frm_ConsPedido
         Me.DtFinal.Location = New System.Drawing.Point(156, 154)
         Me.DtFinal.Name = "DtFinal"
         Me.DtFinal.Size = New System.Drawing.Size(120, 23)
-        Me.DtFinal.TabIndex = 49
+        Me.DtFinal.TabIndex = 6
         '
         'Label4
         '
@@ -117,7 +118,7 @@ Partial Class Frm_ConsPedido
         Me.DtInicial.Location = New System.Drawing.Point(9, 154)
         Me.DtInicial.Name = "DtInicial"
         Me.DtInicial.Size = New System.Drawing.Size(120, 23)
-        Me.DtInicial.TabIndex = 47
+        Me.DtInicial.TabIndex = 5
         '
         'Label3
         '
@@ -133,7 +134,7 @@ Partial Class Frm_ConsPedido
         Me.BtnPesquisar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BtnPesquisar.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnPesquisar.FlatAppearance.BorderColor = System.Drawing.SystemColors.Window
-        Me.BtnPesquisar.Image = Global.Beyond.My.Resources.Resources.search
+        Me.BtnPesquisar.Image = CType(resources.GetObject("BtnPesquisar.Image"), System.Drawing.Image)
         Me.BtnPesquisar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BtnPesquisar.Location = New System.Drawing.Point(1023, 154)
         Me.BtnPesquisar.Name = "BtnPesquisar"
@@ -150,7 +151,7 @@ Partial Class Frm_ConsPedido
         Me.ChkVendedor.Location = New System.Drawing.Point(741, 103)
         Me.ChkVendedor.Name = "ChkVendedor"
         Me.ChkVendedor.Size = New System.Drawing.Size(15, 14)
-        Me.ChkVendedor.TabIndex = 14
+        Me.ChkVendedor.TabIndex = 4
         Me.ChkVendedor.UseVisualStyleBackColor = True
         '
         'ChkCliente
@@ -160,7 +161,7 @@ Partial Class Frm_ConsPedido
         Me.ChkCliente.Location = New System.Drawing.Point(741, 57)
         Me.ChkCliente.Name = "ChkCliente"
         Me.ChkCliente.Size = New System.Drawing.Size(15, 14)
-        Me.ChkCliente.TabIndex = 13
+        Me.ChkCliente.TabIndex = 2
         Me.ChkCliente.UseVisualStyleBackColor = True
         '
         'ComboVendedor
@@ -282,13 +283,13 @@ Partial Class Frm_ConsPedido
         Me.Controls.Add(Me.GrpBoxPedidos)
         Me.Controls.Add(Me.GrpBoxFiltro)
         Me.Font = New System.Drawing.Font("Verdana", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MaximumSize = New System.Drawing.Size(1180, 600)
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(800, 520)
         Me.Name = "Frm_ConsPedido"
-        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Consultar Pedidos"
         Me.GrpBoxFiltro.ResumeLayout(False)

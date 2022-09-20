@@ -27,11 +27,11 @@ Partial Class Frm_Cliente_Cargo
         Me.GrpInfo = New System.Windows.Forms.GroupBox()
         Me.ChkAtivo = New System.Windows.Forms.CheckBox()
         Me.BtnDesvincular = New System.Windows.Forms.Button()
+        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.TxtCargo = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TxtCliente = New System.Windows.Forms.TextBox()
         Me.Label999 = New System.Windows.Forms.Label()
-        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.GrpInfo.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -78,6 +78,12 @@ Partial Class Frm_Cliente_Cargo
         Me.BtnDesvincular.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BtnDesvincular.UseVisualStyleBackColor = True
         '
+        'ImageList1
+        '
+        Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
+        Me.ImageList1.Images.SetKeyName(0, "close.png")
+        '
         'TxtCargo
         '
         Me.TxtCargo.Location = New System.Drawing.Point(16, 115)
@@ -111,12 +117,6 @@ Partial Class Frm_Cliente_Cargo
         Me.Label999.Size = New System.Drawing.Size(53, 16)
         Me.Label999.TabIndex = 0
         Me.Label999.Text = "Cliente"
-        '
-        'ImageList1
-        '
-        Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
-        Me.ImageList1.Images.SetKeyName(0, "close.png")
         '
         'Frm_Cliente_Cargo
         '

@@ -35,14 +35,14 @@ Partial Class UC_Toolstrip
         Me.BtnReverter = New System.Windows.Forms.ToolStripButton()
         Me.toolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnInsereImagem = New System.Windows.Forms.ToolStripButton()
-        Me.BtnImprimir = New System.Windows.Forms.ToolStripButton()
+        Me.BtnVisualizarRel = New System.Windows.Forms.ToolStripButton()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolStrip1
         '
         Me.ToolStrip1.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnNovo, Me.BtnSalvar, Me.BtnPesquisar, Me.BtnAlterar, Me.BtnExcluir, Me.toolStripSeparator, Me.BtnAnterior, Me.BtnSeguinte, Me.BtnReverter, Me.toolStripSeparator1, Me.BtnInsereImagem, Me.BtnImprimir})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnNovo, Me.BtnSalvar, Me.BtnPesquisar, Me.BtnAlterar, Me.BtnExcluir, Me.toolStripSeparator, Me.BtnAnterior, Me.BtnSeguinte, Me.BtnReverter, Me.toolStripSeparator1, Me.BtnInsereImagem, Me.BtnVisualizarRel})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(473, 25)
@@ -71,7 +71,7 @@ Partial Class UC_Toolstrip
         'BtnPesquisar
         '
         Me.BtnPesquisar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnPesquisar.Image = Global.Beyond.My.Resources.Resources.search
+        Me.BtnPesquisar.Image = CType(resources.GetObject("BtnPesquisar.Image"), System.Drawing.Image)
         Me.BtnPesquisar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.BtnPesquisar.Name = "BtnPesquisar"
         Me.BtnPesquisar.Size = New System.Drawing.Size(23, 22)
@@ -143,15 +143,15 @@ Partial Class UC_Toolstrip
         Me.BtnInsereImagem.Size = New System.Drawing.Size(23, 22)
         Me.BtnInsereImagem.Text = "Inserir Imagem"
         '
-        'BtnImprimir
+        'BtnVisualizarRel
         '
-        Me.BtnImprimir.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnImprimir.Enabled = False
-        Me.BtnImprimir.Image = CType(resources.GetObject("BtnImprimir.Image"), System.Drawing.Image)
-        Me.BtnImprimir.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnImprimir.Name = "BtnImprimir"
-        Me.BtnImprimir.Size = New System.Drawing.Size(23, 22)
-        Me.BtnImprimir.Text = "Imprimir"
+        Me.BtnVisualizarRel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnVisualizarRel.Enabled = False
+        Me.BtnVisualizarRel.Image = CType(resources.GetObject("BtnVisualizarRel.Image"), System.Drawing.Image)
+        Me.BtnVisualizarRel.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnVisualizarRel.Name = "BtnVisualizarRel"
+        Me.BtnVisualizarRel.Size = New System.Drawing.Size(23, 22)
+        Me.BtnVisualizarRel.Text = "Imprimir"
         '
         'UC_Toolstrip
         '
@@ -178,6 +178,6 @@ Partial Class UC_Toolstrip
     Public WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents BtnAlterar As System.Windows.Forms.ToolStripButton
     Friend WithEvents BtnInsereImagem As System.Windows.Forms.ToolStripButton
-    Friend WithEvents BtnImprimir As System.Windows.Forms.ToolStripButton
+    Friend WithEvents BtnVisualizarRel As System.Windows.Forms.ToolStripButton
 
 End Class

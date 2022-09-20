@@ -331,6 +331,7 @@ Public Class Frm_Principal_MDI
             Frm.FormBorderStyle = Windows.Forms.FormBorderStyle.None
             Frm.MdiParent = Me
             Frm.Dock = DockStyle.Fill
+            Frm.BackColor = Color.White
             TP.Controls.Add(Frm)
             TP.Tag = Frm
             TP.Text = Frm.Text
@@ -370,14 +371,15 @@ Public Class Frm_Principal_MDI
     Private Sub TCPrincipal_DrawItem(sender As System.Object, e As System.Windows.Forms.DrawItemEventArgs) Handles TCPrincipal.DrawItem
         Dim TabPage = TCPrincipal.TabPages(e.Index)
         Dim tabrect = TCPrincipal.GetTabRect(e.Index)
+
         tabrect.Inflate(0, -5)
         Dim imgFechar = My.Resources.closetab
         e.Graphics.DrawImage(imgFechar,
                     (tabrect.Right - imgFechar.Width),
                     tabrect.Top + (tabrect.Height - imgFechar.Height) \ 2)
 
-        TextRenderer.DrawText(e.Graphics, tabpage.Text, tabpage.Font,
-        tabrect, tabpage.ForeColor, TextFormatFlags.HorizontalCenter)
+        TextRenderer.DrawText(e.Graphics, TabPage.Text, TabPage.Font,
+        tabrect, TabPage.ForeColor, TextFormatFlags.HorizontalCenter)
     End Sub
 
     Private Sub SetTabEvents()
@@ -415,4 +417,5 @@ Public Class Frm_Principal_MDI
         Dim frmFiltro As New Frm_RelFiltro_Pedido
         frmFiltro.Show()
     End Sub
+
 End Class

@@ -52,10 +52,16 @@ Public Class Frm_Cargo
             Return False
         End If
 
+        Dim dlgSucc As New Dlg_Success
+        dlgSucc.ShowDialog()
+
         Return True
     End Function
 
     Private Sub CarregaCargos()
+        If Not MyModo.UniqueModo = "PESQUISAR" Then
+            Exit Sub
+        End If
         ComboNome.Items.Clear()
         Dim resposta As String = ""
 
@@ -78,6 +84,7 @@ Public Class Frm_Cargo
         ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
         ControlsHelper.SetControlsEnabled(GrpBoxCfg.Controls)
         ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
+        AlternarControle()
     End Sub
 
     Private Sub Desativa_Campos()

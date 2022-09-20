@@ -65,7 +65,8 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Imagens\BeyondICON.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
@@ -437,24 +438,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Imagens\shopcar1.png" />
-    <None Include="Imagens\shopcar.png" />
     <None Include="Imagens\menos.png" />
     <None Include="Imagens\mais.png" />
     <None Include="Imagens\password.png" />
     <None Include="Icons Toolstrip\confirm.png" />
     <None Include="Icons Toolstrip\delete.png" />
     <None Include="Icons Toolstrip\rollback.png" />
-    <None Include="Imagens\backgroundmdi.png" />
     <None Include="Icons Toolstrip\update.png" />
     <None Include="Icons Toolstrip\close.png" />
     <None Include="Icons Toolstrip\pinmenu.png" />
-    <None Include="Imagens\adicionar.png" />
-    <None Include="Imagens\addtab.png" />
-    <Content Include="Imagens\BeyondICON.ico" />
-    <Content Include="Imagens\BeyondICON.png" />
+    <None Include="Imagens\beyondICO.ico" />
+    <None Include="Icons Toolstrip\search.png" />
     <None Include="Imagens\InsertPicture.png" />
     <None Include="Imagens\closetab.png" />
+    <None Include="Imagens\beyondImagem.png" />
     <Content Include="Imagens\login.png" />
   </ItemGroup>
   <ItemGroup>

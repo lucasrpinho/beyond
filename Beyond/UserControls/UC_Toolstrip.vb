@@ -72,8 +72,8 @@
             Modo = "REVERTER"
         ElseIf e.ClickedItem Is BtnInsereImagem Then
             Modo = "IMAGEM"
-        ElseIf e.ClickedItem Is BtnImprimir Then
-            Modo = "IMPRIMIR"
+        ElseIf e.ClickedItem Is BtnVisualizarRel Then
+            Modo = "RELATORIO"
         End If
         ToolbarItemsState()
     End Sub

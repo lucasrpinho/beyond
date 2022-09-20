@@ -95,6 +95,9 @@ Public Class Frm_Produto
             Return False
         End If
 
+        Dim dlgSucc As New Dlg_Success
+        dlgSucc.ShowDialog()
+
         objProduto = prod
         Return True
     End Function

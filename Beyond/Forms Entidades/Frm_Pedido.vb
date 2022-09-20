@@ -17,6 +17,7 @@ Public Class Frm_Pedido
     Private objProdSelecionado As Produto
     Friend objPedido As Pedido
     Private LstPedidoItem As List(Of PedidoItem)
+    Private flagImprimir As Boolean = False
 
     Public Sub New(frm As Frm_Principal_MDI)
 
@@ -181,6 +182,7 @@ Public Class Frm_Pedido
         CarregaProdutos()
         CarregaVendedores()
         ComboCliente.Focus()
+        TxtCod.Enabled = False
     End Sub
 
     Private Sub ClearLists()
@@ -373,7 +375,7 @@ Public Class Frm_Pedido
         pedido.LoginCriacao = loginusuario
         pedido.ValorTotal = Decimal.Parse(TxtValorTotal.Text.Replace("R$", String.Empty))
 
-        pedido.CodPedido = DateTime.Now.Year.ToString + DateTime.Now.Month.ToString + "PED" + _
+        pedido.CodPedido = DateTime.Now.Year.ToString + DateTime.Now.Month.ToString + DateTime.Now.Day.ToString + "PED" + _
             pedido.CodCliente.ToString + pedido.CodVendedor.ToString + pedido.LstProduto.First.CodProduto.ToString
 
         Dim resposta As String = ""
@@ -400,6 +402,13 @@ Public Class Frm_Pedido
             Return False
         End If
 
+        If flagImprimir Then
+            Cursor.Current = Cursors.WaitCursor
+            Dim relPedido As New Frm_RelFiltro_Pedido(pedido.CodPedido)
+            relPedido.VisualizarRel()
+            Cursor.Current = Cursors.Arrow
+        End If
+
         Return True
     End Function
 
@@ -414,6 +423,11 @@ Public Class Frm_Pedido
 
         If MyModo.UniqueModo = "SALVAR" Then
             If UC_Toolstrip.ModoAnterior = "NOVO" Then
+                If MessageBox.Show("Deseja imprimir o pedido?", "Pedido", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+                    flagImprimir = True
+                Else
+                    flagImprimir = False
+                End If
                 If Insere() Then
                     LimpaCampos_Desativa()
                     ClearLists()
@@ -472,10 +486,22 @@ Public Class Frm_Pedido
                 Exit Sub
             End If
 
-        ElseIf MyModo.UniqueModo = "PADRÃO" Then
-            LimpaCampos_Desativa()
-            frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
-        End If
+        ElseIf MyModo.UniqueModo = "RELATORIO" Then
+            If MsgBoxHelper.MsgTemCerteza(Me, "Deseja imprimir o pedido?", "Imprimir") Then
+                Cursor.Current = Cursors.WaitCursor
+                If objPedido IsNot Nothing Then
+                    Dim relPed As New Frm_RelFiltro_Pedido(objPedido.CodPedido)
+                    relPed.VisualizarRel()
+                    Cursor.Current = Cursors.Arrow
+                End If
+            Else
+                Exit Sub
+            End If
+
+            ElseIf MyModo.UniqueModo = "PADRÃO" Then
+                LimpaCampos_Desativa()
+                frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
+            End If
     End Sub
 
     Private Sub LimpaCampos_Desativa()
@@ -529,6 +555,7 @@ Public Class Frm_Pedido
             frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnSeguinte").Enabled = False
             CarregaProdutosDoPedido()
             PopulateCarrinho()
+            frmPrincipal.UC_Toolstrip1.BtnVisualizarRel.Enabled = True
         Else
             frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
         End If
@@ -629,7 +656,7 @@ Public Class Frm_Pedido
 
         For i As Integer = 0 To LstPedidoItem.Count - 1
             Dim index = i
-            LstItens.Add(LstProduto.First(Function(p As Produto) p.CodProduto = LstPedidoItem(index).CodProduto))
+            LstItens.Add(LstProduto.FirstOrDefault(Function(p As Produto) p.CodProduto = LstPedidoItem(index).CodProduto))
             LstItens(i).Quantidade = LstPedidoItem(i).Quantidade
         Next
     End Sub
