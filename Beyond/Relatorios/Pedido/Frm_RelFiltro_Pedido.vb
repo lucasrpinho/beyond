@@ -112,9 +112,9 @@ Public Class Frm_RelFiltro_Pedido
                         Cmd.Parameters.AddWithValue("@CODPEDIDO", CodPed)
                         Adp.Fill(dsPedidos, "DTItensVendidos")
 
-                        Cmd.CommandText = "SP_REL_SOMA_PEDIDO"
-                        Cmd.CommandType = CommandType.StoredProcedure
-                        Adp.Fill(dsPedidos, "DTPedidosTotais")
+                        'Cmd.CommandText = "SP_REL_SOMA_PEDIDO"
+                        'Cmd.CommandType = CommandType.StoredProcedure
+                        'Adp.Fill(dsPedidos, "DTPedidosTotais")
                         Return dsPedidos
                     End Using
                 End Using

@@ -423,7 +423,7 @@ Public Class Frm_Pedido
 
         If MyModo.UniqueModo = "SALVAR" Then
             If UC_Toolstrip.ModoAnterior = "NOVO" Then
-                If MessageBox.Show("Deseja imprimir o pedido?", "Pedido", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+                If MessageBox.Show("Deseja visualizar o pedido em formato de impressão?", "Pedido", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
                     flagImprimir = True
                 Else
                     flagImprimir = False

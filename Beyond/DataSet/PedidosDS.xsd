@@ -14,7 +14,7 @@
   <xs:element name="PedidosDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="PedidosDS" msprop:Generator_UserDSName="PedidosDS">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="DTItensVendidos" msprop:Generator_TableClassName="DTItensVendidosDataTable" msprop:Generator_TableVarName="tableDTItensVendidos" msprop:Generator_TablePropName="DTItensVendidos" msprop:Generator_RowDeletingName="DTItensVendidosRowDeleting" msprop:Generator_RowChangingName="DTItensVendidosRowChanging" msprop:Generator_RowEvHandlerName="DTItensVendidosRowChangeEventHandler" msprop:Generator_RowDeletedName="DTItensVendidosRowDeleted" msprop:Generator_UserTableName="DTItensVendidos" msprop:Generator_RowChangedName="DTItensVendidosRowChanged" msprop:Generator_RowEvArgName="DTItensVendidosRowChangeEvent" msprop:Generator_RowClassName="DTItensVendidosRow">
+        <xs:element name="DTItensVendidos" msprop:Generator_TableClassName="DTItensVendidosDataTable" msprop:Generator_TableVarName="tableDTItensVendidos" msprop:Generator_RowChangedName="DTItensVendidosRowChanged" msprop:Generator_TablePropName="DTItensVendidos" msprop:Generator_RowDeletingName="DTItensVendidosRowDeleting" msprop:Generator_RowChangingName="DTItensVendidosRowChanging" msprop:Generator_RowEvHandlerName="DTItensVendidosRowChangeEventHandler" msprop:Generator_RowDeletedName="DTItensVendidosRowDeleted" msprop:Generator_RowClassName="DTItensVendidosRow" msprop:Generator_UserTableName="DTItensVendidos" msprop:Generator_RowEvArgName="DTItensVendidosRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="nome_produto" msprop:Generator_ColumnVarNameInTable="columnnome_produto" msprop:Generator_ColumnPropNameInRow="nome_produto" msprop:Generator_ColumnPropNameInTable="nome_produtoColumn" msprop:Generator_UserColumnName="nome_produto" type="xs:string" minOccurs="0" />
@@ -22,19 +22,12 @@
               <xs:element name="cod_pedido" msprop:Generator_ColumnVarNameInTable="columncod_pedido" msprop:Generator_ColumnPropNameInRow="cod_pedido" msprop:Generator_ColumnPropNameInTable="cod_pedidoColumn" msprop:Generator_UserColumnName="cod_pedido" type="xs:string" />
               <xs:element name="de_categoria" msprop:Generator_ColumnVarNameInTable="columnde_categoria" msprop:Generator_ColumnPropNameInRow="de_categoria" msprop:Generator_ColumnPropNameInTable="de_categoriaColumn" msprop:Generator_UserColumnName="de_categoria" type="xs:string" minOccurs="0" />
               <xs:element name="cod_produto" msprop:Generator_ColumnVarNameInTable="columncod_produto" msprop:Generator_ColumnPropNameInRow="cod_produto" msprop:Generator_ColumnPropNameInTable="cod_produtoColumn" msprop:Generator_UserColumnName="cod_produto" type="xs:int" minOccurs="0" />
-              <xs:element name="nu_preco" msprop:Generator_ColumnVarNameInTable="columnnu_preco" msprop:Generator_ColumnPropNameInRow="nu_preco" msprop:Generator_ColumnPropNameInTable="nu_precoColumn" msprop:Generator_UserColumnName="nu_preco" type="xs:int" minOccurs="0" />
+              <xs:element name="nu_preco" msprop:Generator_ColumnVarNameInTable="columnnu_preco" msprop:Generator_ColumnPropNameInRow="nu_preco" msprop:Generator_ColumnPropNameInTable="nu_precoColumn" msprop:Generator_UserColumnName="nu_preco" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valor_total_item" msprop:Generator_ColumnVarNameInTable="columnvalor_total_item" msprop:Generator_ColumnPropNameInRow="valor_total_item" msprop:Generator_ColumnPropNameInTable="valor_total_itemColumn" msprop:Generator_UserColumnName="valor_total_item" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="DTPedidosTotais" msprop:Generator_TableClassName="DTPedidosTotaisDataTable" msprop:Generator_TableVarName="tableDTPedidosTotais" msprop:Generator_RowChangedName="DTPedidosTotaisRowChanged" msprop:Generator_TablePropName="DTPedidosTotais" msprop:Generator_RowDeletingName="DTPedidosTotaisRowDeleting" msprop:Generator_RowChangingName="DTPedidosTotaisRowChanging" msprop:Generator_RowEvHandlerName="DTPedidosTotaisRowChangeEventHandler" msprop:Generator_RowDeletedName="DTPedidosTotaisRowDeleted" msprop:Generator_RowClassName="DTPedidosTotaisRow" msprop:Generator_UserTableName="DTPedidosTotais" msprop:Generator_RowEvArgName="DTPedidosTotaisRowChangeEvent">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="nu_qtd_pedidos" msprop:Generator_ColumnVarNameInTable="columnnu_qtd_pedidos" msprop:Generator_ColumnPropNameInRow="nu_qtd_pedidos" msprop:Generator_ColumnPropNameInTable="nu_qtd_pedidosColumn" msprop:Generator_UserColumnName="nu_qtd_pedidos" type="xs:long" minOccurs="0" />
-              <xs:element name="nu_valor_total_pedidos" msprop:Generator_ColumnVarNameInTable="columnnu_valor_total_pedidos" msprop:Generator_ColumnPropNameInRow="nu_valor_total_pedidos" msprop:Generator_ColumnPropNameInTable="nu_valor_total_pedidosColumn" msprop:Generator_UserColumnName="nu_valor_total_pedidos" type="xs:decimal" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="DTPedido" msprop:Generator_TableClassName="DTPedidoDataTable" msprop:Generator_TableVarName="tableDTPedido" msprop:Generator_TablePropName="DTPedido" msprop:Generator_RowDeletingName="DTPedidoRowDeleting" msprop:Generator_RowChangingName="DTPedidoRowChanging" msprop:Generator_RowEvHandlerName="DTPedidoRowChangeEventHandler" msprop:Generator_RowDeletedName="DTPedidoRowDeleted" msprop:Generator_UserTableName="DTPedido" msprop:Generator_RowChangedName="DTPedidoRowChanged" msprop:Generator_RowEvArgName="DTPedidoRowChangeEvent" msprop:Generator_RowClassName="DTPedidoRow">
+        <xs:element name="DTPedido" msprop:Generator_TableClassName="DTPedidoDataTable" msprop:Generator_TableVarName="tableDTPedido" msprop:Generator_RowChangedName="DTPedidoRowChanged" msprop:Generator_TablePropName="DTPedido" msprop:Generator_RowDeletingName="DTPedidoRowDeleting" msprop:Generator_RowChangingName="DTPedidoRowChanging" msprop:Generator_RowEvHandlerName="DTPedidoRowChangeEventHandler" msprop:Generator_RowDeletedName="DTPedidoRowDeleted" msprop:Generator_RowClassName="DTPedidoRow" msprop:Generator_UserTableName="DTPedido" msprop:Generator_RowEvArgName="DTPedidoRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="cod_pedido" msprop:Generator_ColumnVarNameInTable="columncod_pedido" msprop:Generator_ColumnPropNameInRow="cod_pedido" msprop:Generator_ColumnPropNameInTable="cod_pedidoColumn" msprop:Generator_UserColumnName="cod_pedido" type="xs:string" />
@@ -51,7 +44,7 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="DTPedido_DTItensVendidos" msdata:parent="DTPedido" msdata:child="DTItensVendidos" msdata:parentkey="cod_pedido" msdata:childkey="cod_pedido" msprop:Generator_UserChildTable="DTItensVendidos" msprop:Generator_ChildPropName="GetDTItensVendidosRows" msprop:Generator_UserRelationName="DTPedido_DTItensVendidos" msprop:Generator_ParentPropName="DTPedidoRow" msprop:Generator_RelationVarName="relationDTPedido_DTItensVendidos" msprop:Generator_UserParentTable="DTPedido" />
+      <msdata:Relationship name="DTPedido_DTItensVendidos" msdata:parent="DTItensVendidos" msdata:child="DTPedido" msdata:parentkey="cod_pedido" msdata:childkey="cod_pedido" msprop:Generator_UserChildTable="DTPedido" msprop:Generator_ChildPropName="GetDTPedidoRows" msprop:Generator_UserRelationName="DTPedido_DTItensVendidos" msprop:Generator_ParentPropName="DTItensVendidosRow" msprop:Generator_RelationVarName="relationDTPedido_DTItensVendidos" msprop:Generator_UserParentTable="DTItensVendidos" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -27,8 +27,6 @@ Partial Public Class PedidosDS
     
     Private tableDTItensVendidos As DTItensVendidosDataTable
     
-    Private tableDTPedidosTotais As DTPedidosTotaisDataTable
-    
     Private tableDTPedido As DTPedidoDataTable
     
     Private relationDTPedido_DTItensVendidos As Global.System.Data.DataRelation
@@ -65,9 +63,6 @@ Partial Public Class PedidosDS
             If (Not (ds.Tables("DTItensVendidos")) Is Nothing) Then
                 MyBase.Tables.Add(New DTItensVendidosDataTable(ds.Tables("DTItensVendidos")))
             End If
-            If (Not (ds.Tables("DTPedidosTotais")) Is Nothing) Then
-                MyBase.Tables.Add(New DTPedidosTotaisDataTable(ds.Tables("DTPedidosTotais")))
-            End If
             If (Not (ds.Tables("DTPedido")) Is Nothing) Then
                 MyBase.Tables.Add(New DTPedidoDataTable(ds.Tables("DTPedido")))
             End If
@@ -95,16 +90,6 @@ Partial Public Class PedidosDS
     Public ReadOnly Property DTItensVendidos() As DTItensVendidosDataTable
         Get
             Return Me.tableDTItensVendidos
-        End Get
-    End Property
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-     Global.System.ComponentModel.Browsable(false),  _
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
-    Public ReadOnly Property DTPedidosTotais() As DTPedidosTotaisDataTable
-        Get
-            Return Me.tableDTPedidosTotais
         End Get
     End Property
     
@@ -188,9 +173,6 @@ Partial Public Class PedidosDS
             If (Not (ds.Tables("DTItensVendidos")) Is Nothing) Then
                 MyBase.Tables.Add(New DTItensVendidosDataTable(ds.Tables("DTItensVendidos")))
             End If
-            If (Not (ds.Tables("DTPedidosTotais")) Is Nothing) Then
-                MyBase.Tables.Add(New DTPedidosTotaisDataTable(ds.Tables("DTPedidosTotais")))
-            End If
             If (Not (ds.Tables("DTPedido")) Is Nothing) Then
                 MyBase.Tables.Add(New DTPedidoDataTable(ds.Tables("DTPedido")))
             End If
@@ -232,12 +214,6 @@ Partial Public Class PedidosDS
                 Me.tableDTItensVendidos.InitVars
             End If
         End If
-        Me.tableDTPedidosTotais = CType(MyBase.Tables("DTPedidosTotais"),DTPedidosTotaisDataTable)
-        If (initTable = true) Then
-            If (Not (Me.tableDTPedidosTotais) Is Nothing) Then
-                Me.tableDTPedidosTotais.InitVars
-            End If
-        End If
         Me.tableDTPedido = CType(MyBase.Tables("DTPedido"),DTPedidoDataTable)
         If (initTable = true) Then
             If (Not (Me.tableDTPedido) Is Nothing) Then
@@ -257,23 +233,15 @@ Partial Public Class PedidosDS
         Me.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
         Me.tableDTItensVendidos = New DTItensVendidosDataTable()
         MyBase.Tables.Add(Me.tableDTItensVendidos)
-        Me.tableDTPedidosTotais = New DTPedidosTotaisDataTable()
-        MyBase.Tables.Add(Me.tableDTPedidosTotais)
         Me.tableDTPedido = New DTPedidoDataTable()
         MyBase.Tables.Add(Me.tableDTPedido)
-        Me.relationDTPedido_DTItensVendidos = New Global.System.Data.DataRelation("DTPedido_DTItensVendidos", New Global.System.Data.DataColumn() {Me.tableDTPedido.cod_pedidoColumn}, New Global.System.Data.DataColumn() {Me.tableDTItensVendidos.cod_pedidoColumn}, false)
+        Me.relationDTPedido_DTItensVendidos = New Global.System.Data.DataRelation("DTPedido_DTItensVendidos", New Global.System.Data.DataColumn() {Me.tableDTItensVendidos.cod_pedidoColumn}, New Global.System.Data.DataColumn() {Me.tableDTPedido.cod_pedidoColumn}, false)
         Me.Relations.Add(Me.relationDTPedido_DTItensVendidos)
     End Sub
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Private Function ShouldSerializeDTItensVendidos() As Boolean
-        Return false
-    End Function
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-    Private Function ShouldSerializeDTPedidosTotais() As Boolean
         Return false
     End Function
     
@@ -345,9 +313,6 @@ Partial Public Class PedidosDS
     Public Delegate Sub DTItensVendidosRowChangeEventHandler(ByVal sender As Object, ByVal e As DTItensVendidosRowChangeEvent)
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-    Public Delegate Sub DTPedidosTotaisRowChangeEventHandler(ByVal sender As Object, ByVal e As DTPedidosTotaisRowChangeEvent)
-    
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Delegate Sub DTPedidoRowChangeEventHandler(ByVal sender As Object, ByVal e As DTPedidoRowChangeEvent)
     
     '''<summary>
@@ -369,6 +334,8 @@ Partial Public Class PedidosDS
         Private columncod_produto As Global.System.Data.DataColumn
         
         Private columnnu_preco As Global.System.Data.DataColumn
+        
+        Private columnvalor_total_item As Global.System.Data.DataColumn
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -454,6 +421,14 @@ Partial Public Class PedidosDS
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property valor_total_itemColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnvalor_total_item
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -490,12 +465,9 @@ Partial Public Class PedidosDS
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function AddDTItensVendidosRow(ByVal nome_produto As String, ByVal quantidade As Integer, ByVal parentDTPedidoRowByDTPedido_DTItensVendidos As DTPedidoRow, ByVal de_categoria As String, ByVal cod_produto As Integer, ByVal nu_preco As Integer) As DTItensVendidosRow
+        Public Overloads Function AddDTItensVendidosRow(ByVal nome_produto As String, ByVal quantidade As Integer, ByVal cod_pedido As String, ByVal de_categoria As String, ByVal cod_produto As Integer, ByVal nu_preco As Decimal, ByVal valor_total_item As Decimal) As DTItensVendidosRow
             Dim rowDTItensVendidosRow As DTItensVendidosRow = CType(Me.NewRow,DTItensVendidosRow)
-            Dim columnValuesArray() As Object = New Object() {nome_produto, quantidade, Nothing, de_categoria, cod_produto, nu_preco}
-            If (Not (parentDTPedidoRowByDTPedido_DTItensVendidos) Is Nothing) Then
-                columnValuesArray(2) = parentDTPedidoRowByDTPedido_DTItensVendidos(0)
-            End If
+            Dim columnValuesArray() As Object = New Object() {nome_produto, quantidade, cod_pedido, de_categoria, cod_produto, nu_preco, valor_total_item}
             rowDTItensVendidosRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowDTItensVendidosRow)
             Return rowDTItensVendidosRow
@@ -524,6 +496,7 @@ Partial Public Class PedidosDS
             Me.columnde_categoria = MyBase.Columns("de_categoria")
             Me.columncod_produto = MyBase.Columns("cod_produto")
             Me.columnnu_preco = MyBase.Columns("nu_preco")
+            Me.columnvalor_total_item = MyBase.Columns("valor_total_item")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -539,8 +512,10 @@ Partial Public Class PedidosDS
             MyBase.Columns.Add(Me.columnde_categoria)
             Me.columncod_produto = New Global.System.Data.DataColumn("cod_produto", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columncod_produto)
-            Me.columnnu_preco = New Global.System.Data.DataColumn("nu_preco", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            Me.columnnu_preco = New Global.System.Data.DataColumn("nu_preco", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnnu_preco)
+            Me.columnvalor_total_item = New Global.System.Data.DataColumn("valor_total_item", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnvalor_total_item)
             Me.columncod_pedido.AllowDBNull = false
         End Sub
         
@@ -628,271 +603,6 @@ Partial Public Class PedidosDS
             Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
             attribute2.Name = "tableTypeName"
             attribute2.FixedValue = "DTItensVendidosDataTable"
-            type.Attributes.Add(attribute2)
-            type.Particle = sequence
-            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
-            If xs.Contains(dsSchema.TargetNamespace) Then
-                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try 
-                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
-                    dsSchema.Write(s1)
-                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
-                    Do While schemas.MoveNext
-                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
-                        s2.SetLength(0)
-                        schema.Write(s2)
-                        If (s1.Length = s2.Length) Then
-                            s1.Position = 0
-                            s2.Position = 0
-                            
-                            Do While ((s1.Position <> s1.Length)  _
-                                        AndAlso (s1.ReadByte = s2.ReadByte))
-                                
-                                
-                            Loop
-                            If (s1.Position = s1.Length) Then
-                                Return type
-                            End If
-                        End If
-                        
-                    Loop
-                Finally
-                    If (Not (s1) Is Nothing) Then
-                        s1.Close
-                    End If
-                    If (Not (s2) Is Nothing) Then
-                        s2.Close
-                    End If
-                End Try
-            End If
-            xs.Add(dsSchema)
-            Return type
-        End Function
-    End Class
-    
-    '''<summary>
-    '''Represents the strongly named DataTable class.
-    '''</summary>
-    <Global.System.Serializable(),  _
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
-    Partial Public Class DTPedidosTotaisDataTable
-        Inherits Global.System.Data.TypedTableBase(Of DTPedidosTotaisRow)
-        
-        Private columnnu_qtd_pedidos As Global.System.Data.DataColumn
-        
-        Private columnnu_valor_total_pedidos As Global.System.Data.DataColumn
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub New()
-            MyBase.New
-            Me.TableName = "DTPedidosTotais"
-            Me.BeginInit
-            Me.InitClass
-            Me.EndInit
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Sub New(ByVal table As Global.System.Data.DataTable)
-            MyBase.New
-            Me.TableName = table.TableName
-            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
-                Me.CaseSensitive = table.CaseSensitive
-            End If
-            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
-                Me.Locale = table.Locale
-            End If
-            If (table.Namespace <> table.DataSet.Namespace) Then
-                Me.Namespace = table.Namespace
-            End If
-            Me.Prefix = table.Prefix
-            Me.MinimumCapacity = table.MinimumCapacity
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
-            MyBase.New(info, context)
-            Me.InitVars
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property nu_qtd_pedidosColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnnu_qtd_pedidos
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property nu_valor_total_pedidosColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnnu_valor_total_pedidos
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Browsable(false)>  _
-        Public ReadOnly Property Count() As Integer
-            Get
-                Return Me.Rows.Count
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Default ReadOnly Property Item(ByVal index As Integer) As DTPedidosTotaisRow
-            Get
-                Return CType(Me.Rows(index),DTPedidosTotaisRow)
-            End Get
-        End Property
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event DTPedidosTotaisRowChanging As DTPedidosTotaisRowChangeEventHandler
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event DTPedidosTotaisRowChanged As DTPedidosTotaisRowChangeEventHandler
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event DTPedidosTotaisRowDeleting As DTPedidosTotaisRowChangeEventHandler
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event DTPedidosTotaisRowDeleted As DTPedidosTotaisRowChangeEventHandler
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Sub AddDTPedidosTotaisRow(ByVal row As DTPedidosTotaisRow)
-            Me.Rows.Add(row)
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function AddDTPedidosTotaisRow(ByVal nu_qtd_pedidos As Long, ByVal nu_valor_total_pedidos As Decimal) As DTPedidosTotaisRow
-            Dim rowDTPedidosTotaisRow As DTPedidosTotaisRow = CType(Me.NewRow,DTPedidosTotaisRow)
-            Dim columnValuesArray() As Object = New Object() {nu_qtd_pedidos, nu_valor_total_pedidos}
-            rowDTPedidosTotaisRow.ItemArray = columnValuesArray
-            Me.Rows.Add(rowDTPedidosTotaisRow)
-            Return rowDTPedidosTotaisRow
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As DTPedidosTotaisDataTable = CType(MyBase.Clone,DTPedidosTotaisDataTable)
-            cln.InitVars
-            Return cln
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
-            Return New DTPedidosTotaisDataTable()
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Sub InitVars()
-            Me.columnnu_qtd_pedidos = MyBase.Columns("nu_qtd_pedidos")
-            Me.columnnu_valor_total_pedidos = MyBase.Columns("nu_valor_total_pedidos")
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Private Sub InitClass()
-            Me.columnnu_qtd_pedidos = New Global.System.Data.DataColumn("nu_qtd_pedidos", GetType(Long), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnnu_qtd_pedidos)
-            Me.columnnu_valor_total_pedidos = New Global.System.Data.DataColumn("nu_valor_total_pedidos", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnnu_valor_total_pedidos)
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function NewDTPedidosTotaisRow() As DTPedidosTotaisRow
-            Return CType(Me.NewRow,DTPedidosTotaisRow)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
-            Return New DTPedidosTotaisRow(builder)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Function GetRowType() As Global.System.Type
-            Return GetType(DTPedidosTotaisRow)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowChanged(e)
-            If (Not (Me.DTPedidosTotaisRowChangedEvent) Is Nothing) Then
-                RaiseEvent DTPedidosTotaisRowChanged(Me, New DTPedidosTotaisRowChangeEvent(CType(e.Row,DTPedidosTotaisRow), e.Action))
-            End If
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowChanging(e)
-            If (Not (Me.DTPedidosTotaisRowChangingEvent) Is Nothing) Then
-                RaiseEvent DTPedidosTotaisRowChanging(Me, New DTPedidosTotaisRowChangeEvent(CType(e.Row,DTPedidosTotaisRow), e.Action))
-            End If
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowDeleted(e)
-            If (Not (Me.DTPedidosTotaisRowDeletedEvent) Is Nothing) Then
-                RaiseEvent DTPedidosTotaisRowDeleted(Me, New DTPedidosTotaisRowChangeEvent(CType(e.Row,DTPedidosTotaisRow), e.Action))
-            End If
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowDeleting(e)
-            If (Not (Me.DTPedidosTotaisRowDeletingEvent) Is Nothing) Then
-                RaiseEvent DTPedidosTotaisRowDeleting(Me, New DTPedidosTotaisRowChangeEvent(CType(e.Row,DTPedidosTotaisRow), e.Action))
-            End If
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub RemoveDTPedidosTotaisRow(ByVal row As DTPedidosTotaisRow)
-            Me.Rows.Remove(row)
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
-            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
-            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
-            Dim ds As PedidosDS = New PedidosDS()
-            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
-            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
-            any1.MinOccurs = New Decimal(0)
-            any1.MaxOccurs = Decimal.MaxValue
-            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
-            sequence.Items.Add(any1)
-            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
-            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
-            any2.MinOccurs = New Decimal(1)
-            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
-            sequence.Items.Add(any2)
-            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
-            attribute1.Name = "namespace"
-            attribute1.FixedValue = ds.Namespace
-            type.Attributes.Add(attribute1)
-            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
-            attribute2.Name = "tableTypeName"
-            attribute2.FixedValue = "DTPedidosTotaisDataTable"
             type.Attributes.Add(attribute2)
             type.Particle = sequence
             Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
@@ -1076,9 +786,12 @@ Partial Public Class PedidosDS
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function AddDTPedidoRow(ByVal cod_pedido As String, ByVal dat_venda As Date, ByVal nome_cliente As String, ByVal nome_vendedor As String, ByVal cidade As String, ByVal valor_total As Decimal) As DTPedidoRow
+        Public Overloads Function AddDTPedidoRow(ByVal parentDTItensVendidosRowByDTPedido_DTItensVendidos As DTItensVendidosRow, ByVal dat_venda As Date, ByVal nome_cliente As String, ByVal nome_vendedor As String, ByVal cidade As String, ByVal valor_total As Decimal) As DTPedidoRow
             Dim rowDTPedidoRow As DTPedidoRow = CType(Me.NewRow,DTPedidoRow)
-            Dim columnValuesArray() As Object = New Object() {cod_pedido, dat_venda, nome_cliente, nome_vendedor, cidade, valor_total}
+            Dim columnValuesArray() As Object = New Object() {Nothing, dat_venda, nome_cliente, nome_vendedor, cidade, valor_total}
+            If (Not (parentDTItensVendidosRowByDTPedido_DTItensVendidos) Is Nothing) Then
+                columnValuesArray(0) = parentDTItensVendidosRowByDTPedido_DTItensVendidos(2)
+            End If
             rowDTPedidoRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowDTPedidoRow)
             Return rowDTPedidoRow
@@ -1342,10 +1055,10 @@ Partial Public Class PedidosDS
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property nu_preco() As Integer
+        Public Property nu_preco() As Decimal
             Get
                 Try 
-                    Return CType(Me(Me.tableDTItensVendidos.nu_precoColumn),Integer)
+                    Return CType(Me(Me.tableDTItensVendidos.nu_precoColumn),Decimal)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'nu_preco' in table 'DTItensVendidos' is DBNull.", e)
                 End Try
@@ -1357,12 +1070,16 @@ Partial Public Class PedidosDS
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property DTPedidoRow() As DTPedidoRow
+        Public Property valor_total_item() As Decimal
             Get
-                Return CType(Me.GetParentRow(Me.Table.ParentRelations("DTPedido_DTItensVendidos")),DTPedidoRow)
+                Try 
+                    Return CType(Me(Me.tableDTItensVendidos.valor_total_itemColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'valor_total_item' in table 'DTItensVendidos' is DBNull.", e)
+                End Try
             End Get
             Set
-                Me.SetParentRow(value, Me.Table.ParentRelations("DTPedido_DTItensVendidos"))
+                Me(Me.tableDTItensVendidos.valor_total_itemColumn) = value
             End Set
         End Property
         
@@ -1425,77 +1142,28 @@ Partial Public Class PedidosDS
         Public Sub Setnu_precoNull()
             Me(Me.tableDTItensVendidos.nu_precoColumn) = Global.System.Convert.DBNull
         End Sub
-    End Class
-    
-    '''<summary>
-    '''Represents strongly named DataRow class.
-    '''</summary>
-    Partial Public Class DTPedidosTotaisRow
-        Inherits Global.System.Data.DataRow
-        
-        Private tableDTPedidosTotais As DTPedidosTotaisDataTable
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
-            MyBase.New(rb)
-            Me.tableDTPedidosTotais = CType(Me.Table,DTPedidosTotaisDataTable)
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property nu_qtd_pedidos() As Long
-            Get
-                Try 
-                    Return CType(Me(Me.tableDTPedidosTotais.nu_qtd_pedidosColumn),Long)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'nu_qtd_pedidos' in table 'DTPedidosTotais' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableDTPedidosTotais.nu_qtd_pedidosColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property nu_valor_total_pedidos() As Decimal
-            Get
-                Try 
-                    Return CType(Me(Me.tableDTPedidosTotais.nu_valor_total_pedidosColumn),Decimal)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'nu_valor_total_pedidos' in table 'DTPedidosTotais' is DBNul"& _ 
-                            "l.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableDTPedidosTotais.nu_valor_total_pedidosColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function Isnu_qtd_pedidosNull() As Boolean
-            Return Me.IsNull(Me.tableDTPedidosTotais.nu_qtd_pedidosColumn)
+        Public Function Isvalor_total_itemNull() As Boolean
+            Return Me.IsNull(Me.tableDTItensVendidos.valor_total_itemColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub Setnu_qtd_pedidosNull()
-            Me(Me.tableDTPedidosTotais.nu_qtd_pedidosColumn) = Global.System.Convert.DBNull
+        Public Sub Setvalor_total_itemNull()
+            Me(Me.tableDTItensVendidos.valor_total_itemColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function Isnu_valor_total_pedidosNull() As Boolean
-            Return Me.IsNull(Me.tableDTPedidosTotais.nu_valor_total_pedidosColumn)
+        Public Function GetDTPedidoRows() As DTPedidoRow()
+            If (Me.Table.ChildRelations("DTPedido_DTItensVendidos") Is Nothing) Then
+                Return New DTPedidoRow(-1) {}
+            Else
+                Return CType(MyBase.GetChildRows(Me.Table.ChildRelations("DTPedido_DTItensVendidos")),DTPedidoRow())
+            End If
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub Setnu_valor_total_pedidosNull()
-            Me(Me.tableDTPedidosTotais.nu_valor_total_pedidosColumn) = Global.System.Convert.DBNull
-        End Sub
     End Class
     
     '''<summary>
@@ -1601,6 +1269,17 @@ Partial Public Class PedidosDS
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DTItensVendidosRow() As DTItensVendidosRow
+            Get
+                Return CType(Me.GetParentRow(Me.Table.ParentRelations("DTPedido_DTItensVendidos")),DTItensVendidosRow)
+            End Get
+            Set
+                Me.SetParentRow(value, Me.Table.ParentRelations("DTPedido_DTItensVendidos"))
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function Isdat_vendaNull() As Boolean
             Return Me.IsNull(Me.tableDTPedido.dat_vendaColumn)
         End Function
@@ -1658,16 +1337,6 @@ Partial Public Class PedidosDS
         Public Sub Setvalor_totalNull()
             Me(Me.tableDTPedido.valor_totalColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function GetDTItensVendidosRows() As DTItensVendidosRow()
-            If (Me.Table.ChildRelations("DTPedido_DTItensVendidos") Is Nothing) Then
-                Return New DTItensVendidosRow(-1) {}
-            Else
-                Return CType(MyBase.GetChildRows(Me.Table.ChildRelations("DTPedido_DTItensVendidos")),DTItensVendidosRow())
-            End If
-        End Function
     End Class
     
     '''<summary>
@@ -1692,42 +1361,6 @@ Partial Public Class PedidosDS
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property Row() As DTItensVendidosRow
-            Get
-                Return Me.eventRow
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
-            Get
-                Return Me.eventAction
-            End Get
-        End Property
-    End Class
-    
-    '''<summary>
-    '''Row event argument class
-    '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-    Public Class DTPedidosTotaisRowChangeEvent
-        Inherits Global.System.EventArgs
-        
-        Private eventRow As DTPedidosTotaisRow
-        
-        Private eventAction As Global.System.Data.DataRowAction
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub New(ByVal row As DTPedidosTotaisRow, ByVal action As Global.System.Data.DataRowAction)
-            MyBase.New
-            Me.eventRow = row
-            Me.eventAction = action
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property Row() As DTPedidosTotaisRow
             Get
                 Return Me.eventRow
             End Get
