@@ -103,13 +103,14 @@ Partial Class Frm_Produto
         Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(3, 89)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(149, 17)
+        Me.Label5.Size = New System.Drawing.Size(148, 17)
         Me.Label5.TabIndex = 11
-        Me.Label5.Text = "Imagem do produto"
+        Me.Label5.Text = "Imagem do Produto"
         '
         'PicBoxFoto
         '
         Me.PicBoxFoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PicBoxFoto.Cursor = System.Windows.Forms.Cursors.Hand
         Me.PicBoxFoto.Location = New System.Drawing.Point(6, 108)
         Me.PicBoxFoto.Name = "PicBoxFoto"
         Me.PicBoxFoto.Size = New System.Drawing.Size(174, 155)

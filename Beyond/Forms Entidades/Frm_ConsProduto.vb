@@ -13,6 +13,13 @@ Public Class Frm_ConsProduto
         Me.Dispose()
     End Sub
 
+    Private Sub CarregaFechamento()
+        Cursor.Current = Cursors.WaitCursor
+        Threading.Thread.Sleep(2000)
+        Cursor.Current = Cursors.Default
+        Me.Close()
+    End Sub
+
 
     Private Sub Frm_ConsProduto_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         CarregaProdutos()
@@ -30,7 +37,8 @@ Public Class Frm_ConsProduto
         LstCategoria = DAOProd.GetCategoriasProduto(resposta)
 
         If Not LstCategoria.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            MsgBoxHelper.Alerta(Me, "A busca não encontrou resultados.", "Sem resultados")
+            CarregaFechamento()
             Exit Sub
         End If
 
@@ -50,7 +58,7 @@ Public Class Frm_ConsProduto
         LstProduto = DAOProd.GetProdutos(resposta, True)
 
         If Not LstProduto.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, "A busca não encontrou resultados.", "Erro")
+            MsgBoxHelper.Alerta(Me, "A busca não encontrou resultados.", "Sem resultados")
             Exit Sub
         End If
 
@@ -71,7 +79,7 @@ Public Class Frm_ConsProduto
         LstProduto = DAOProd.GetProdutosPorCategoria(ComboCateg.Text, resposta, True)
 
         If Not LstProduto.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, "A busca não encontrou resultados.", "Erro")
+            MsgBoxHelper.Alerta(Me, "A busca não encontrou resultados.", "Sem resultados")
             Exit Sub
         End If
 

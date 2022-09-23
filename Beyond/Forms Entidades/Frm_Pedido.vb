@@ -30,7 +30,7 @@ Public Class Frm_Pedido
 
     Private Sub Frm_Pedido_EnabledChanged(sender As Object, e As System.EventArgs) Handles Me.EnabledChanged
         If Me.Enabled Then
-            frmPrincipal.UC_Toolstrip1.ToolbarItemsState(MyModo.UniqueModo)
+            frmPrincipal.UC_Toolstrip1.ToolbarItemsState(MyModo.UniqueModo, , TxtCod.Text <> String.Empty)
         End If
     End Sub
 
@@ -76,7 +76,7 @@ Public Class Frm_Pedido
         ComboVendedor.Items.Clear()
 
         Dim resposta As String = ""
-        LstVendedor = DAOPedido.GetVendedor(True, resposta)
+        LstVendedor = DAOPedido.GetVendedor(True, resposta, True)
 
         If Not LstVendedor.Count > 0 Then
             MsgBoxHelper.Alerta(Me, resposta, "Erro")
@@ -460,12 +460,12 @@ Public Class Frm_Pedido
             ModoNovo()
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
+            frmPrincipal.UC_Toolstrip1.BtnPesquisar.Enabled = True
             If UC_Toolstrip.ModoAnterior = "REVERTER" Then
                 ModoPesquisaPreenchido()
                 Exit Sub
             End If
             ModoPesquisa()
-
 
         ElseIf MyModo.UniqueModo = "REVERTER" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
@@ -479,8 +479,11 @@ Public Class Frm_Pedido
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
                 If DAOPedido.AtualizaPedido(GetPedidoForOperation, LstPedidoItem _
                                             , resposta, True) Then
-                    LimpaCampos_Ativa()
+                    MsgBoxHelper.Msg(Me, "O pedido foi excluído com sucesso e os itens foram estornados.", "Sucesso")
+                    AposSalvarComSucesso()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
+                Else
+                    MsgBoxHelper.Erro(Me, resposta + vbNewLine + vbNewLine + "Contate a equipe responsável e informe o problema.", "Erro")
                 End If
             Else
                 Exit Sub
@@ -553,6 +556,7 @@ Public Class Frm_Pedido
             frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
             frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnAnterior").Enabled = False
             frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnSeguinte").Enabled = False
+            CarregaProdutos()
             CarregaProdutosDoPedido()
             PopulateCarrinho()
             frmPrincipal.UC_Toolstrip1.BtnVisualizarRel.Enabled = True
@@ -644,6 +648,8 @@ Public Class Frm_Pedido
     End Sub
 
     Private Sub CarregaProdutosDoPedido()
+        LstItens.Clear()
+
         Dim resposta As String = ""
         If objPedido IsNot Nothing Then
             LstPedidoItem = DAOPedido.GetItemPedido(objPedido.CodPedido, resposta)
@@ -653,6 +659,8 @@ Public Class Frm_Pedido
             MsgBoxHelper.Alerta(Me, "A busca não encontrou os itens do pedido " + objPedido.CodPedido + ".", "Alerta")
             Exit Sub
         End If
+
+        TabItens.Text = TabItens.Text.Replace("0", LstPedidoItem.Count.ToString)
 
         For i As Integer = 0 To LstPedidoItem.Count - 1
             Dim index = i
@@ -721,7 +729,7 @@ Public Class Frm_Pedido
         qtd = qtd + 1
         TxtQtd.Text = qtd.ToString
         If Integer.Parse(TxtQtd.Text) > obj.Quantidade Then
-            MsgBoxHelper.Alerta(Me, "A quantidade desejada é maior do que o disponível em estoque.", "Estoque insuficiente")
+            MsgBoxHelper.Alerta(Me, "A quantidade desejada é maior do que a disponível em estoque.", "Estoque insuficiente")
             TxtQtd.Text = (Integer.Parse(TxtQtd.Text) - 1).ToString
             Exit Sub
         End If
@@ -849,6 +857,10 @@ Public Class Frm_Pedido
         ElseIf ComboVendedor.Text = String.Empty Then
             MsgBoxHelper.CustomTooltip(GrpBoxInfo, ComboVendedor, "Necessário selecionar um vendedor.", _
                                        "Preenchimento incompleto")
+
+        ElseIf ComboVendedor.Text <> String.Empty AndAlso Not LstVendedor(ComboVendedor.SelectedIndex).IsAtivo Then
+            MsgBoxHelper.CustomTooltip(GrpBoxInfo, ComboVendedor, "Vendedores inativos não podem ser usados no cadastro de novos pedidos.", _
+                                       "Preenchimento inválido", ToolTipIcon.Error)
             ComboVendedor.Focus()
             Return False
 

@@ -229,7 +229,7 @@ Public Class Frm_Usuario
                 Return False
             ElseIf Not Uteis.StringHelper.IsNull(TxtSenhaConfirmar.Text) Then
                 If TxtSenha.Text.ToUpper <> TxtSenhaConfirmar.Text.ToUpper Then
-                    Uteis.MsgBoxHelper.Alerta(Me, "Senhas diferentes.", "Erro")
+                    Uteis.MsgBoxHelper.Erro(Me, "Senhas diferentes.", "Erro")
                 Else
                     Return True
                 End If

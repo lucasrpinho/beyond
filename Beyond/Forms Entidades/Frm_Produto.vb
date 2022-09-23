@@ -143,6 +143,7 @@ Public Class Frm_Produto
             TxtCategoria.Focus()
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
+            frmPrincipal.UC_Toolstrip1.BtnPesquisar.Enabled = True
             If UC_Toolstrip.ModoAnterior = "REVERTER" Then
                 ModoPesquisaPreenchido()
                 Exit Sub
@@ -287,4 +288,7 @@ Public Class Frm_Produto
         frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnSeguinte").Enabled = False
     End Sub
 
+    Private Sub PicBoxFoto_Click(sender As System.Object, e As System.EventArgs) Handles PicBoxFoto.Click
+        CarregaImagem()
+    End Sub
 End Class

@@ -185,6 +185,7 @@ Public Class Frm_Principal_MDI
             TCPrincipal.TabPages.Add(TP)
             TCPrincipal.BringToFront()
             TCPrincipal.Visible = True
+            TCPrincipal.SelectedTab = TP
             Frm.Show()
             UC_Toolstrip1.PagAberta_HabilitarBotoes()
             Me.Refresh()

@@ -63,7 +63,7 @@ Public Class Frm_ConsPedido
         LstVendedor = DAOPed.GetVendedor(True, "")
 
         If Not LstCliente.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, "Ocorreu um erro ao buscar os clientes.", "Erro")
+            MsgBoxHelper.Alerta(Me, "A busca não encontrou resultados.", "Sem resultados")
             CarregaFechamento()
             Exit Sub
         End If
@@ -83,7 +83,7 @@ Public Class Frm_ConsPedido
         LstVendedor = DAOPed.GetVendedor(True, resposta, True)
 
         If Not LstVendedor.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            MsgBoxHelper.Alerta(Me, "A busca não encontrou resultados.", "Sem resultados")
             CarregaFechamento()
             Exit Sub
         End If

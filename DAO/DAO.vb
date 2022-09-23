@@ -1268,7 +1268,7 @@ Public Class DAO
         Tr = Con.BeginTransaction
 
         Try
-            If _AtualizaPedido(obj, isExclusao) AndAlso lstItens.All(Function(pi As PedidoItem) _AtualizaItensPedido(pi, isExclusao) = True) Then
+            If lstItens.All(Function(pi As PedidoItem) _AtualizaItensPedido(pi, isExclusao) = True) AndAlso _AtualizaPedido(obj, isExclusao) Then
                 Tr.Commit()
                 Return True
             End If

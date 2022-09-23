@@ -9,6 +9,7 @@ Public Class EnderecoHelper
         Dim url As String = "https://viacep.com.br/ws/" + Uteis.StringHelper.NumericOnly(cep) + "/json/"
         Try
             Dim wc As New Net.WebClient
+            wc.Encoding = System.Text.Encoding.UTF8
             Dim json As String = ""
             json = wc.DownloadString(url)
             If json.Length > 0 Then

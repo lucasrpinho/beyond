@@ -174,18 +174,21 @@ Partial Class Frm_Principal_MDI
         '
         'PedidoToolStripMenuItem
         '
+        Me.PedidoToolStripMenuItem.Image = CType(resources.GetObject("PedidoToolStripMenuItem.Image"), System.Drawing.Image)
         Me.PedidoToolStripMenuItem.Name = "PedidoToolStripMenuItem"
         Me.PedidoToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
         Me.PedidoToolStripMenuItem.Text = "Pedido"
         '
         'VendedoresToolStripMenuItem
         '
+        Me.VendedoresToolStripMenuItem.Image = CType(resources.GetObject("VendedoresToolStripMenuItem.Image"), System.Drawing.Image)
         Me.VendedoresToolStripMenuItem.Name = "VendedoresToolStripMenuItem"
         Me.VendedoresToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
         Me.VendedoresToolStripMenuItem.Text = "Vendedores"
         '
         'ProdutosToolStripMenuItem1
         '
+        Me.ProdutosToolStripMenuItem1.Image = CType(resources.GetObject("ProdutosToolStripMenuItem1.Image"), System.Drawing.Image)
         Me.ProdutosToolStripMenuItem1.Name = "ProdutosToolStripMenuItem1"
         Me.ProdutosToolStripMenuItem1.Size = New System.Drawing.Size(135, 22)
         Me.ProdutosToolStripMenuItem1.Text = "Produtos"
@@ -324,7 +327,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(172, 106)
+        Me.PictureBox1.Location = New System.Drawing.Point(173, 106)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(252, 219)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage

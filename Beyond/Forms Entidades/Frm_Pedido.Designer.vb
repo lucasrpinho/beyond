@@ -264,6 +264,7 @@ Partial Class Frm_Pedido
         '
         'Label9
         '
+        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label9.AutoSize = True
         Me.Label9.Location = New System.Drawing.Point(674, 80)
         Me.Label9.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -274,6 +275,7 @@ Partial Class Frm_Pedido
         '
         'Label10
         '
+        Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label10.AutoSize = True
         Me.Label10.Location = New System.Drawing.Point(674, 28)
         Me.Label10.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -350,7 +352,7 @@ Partial Class Frm_Pedido
         'DtPckVenda
         '
         Me.DtPckVenda.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.DtPckVenda.CustomFormat = "dd/MM/yyyy hh:mm"
+        Me.DtPckVenda.CustomFormat = "dd/MM/yyyy HH:mm"
         Me.DtPckVenda.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DtPckVenda.Location = New System.Drawing.Point(18, 242)
         Me.DtPckVenda.Name = "DtPckVenda"

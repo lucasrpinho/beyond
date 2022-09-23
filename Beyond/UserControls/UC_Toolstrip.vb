@@ -3,10 +3,12 @@
     Private Shared _Modo As String
     Public Shared ModoAnterior As String = ""
     Public Event itemclick()
+    'Private IsModoEscuro As Boolean = False
 
 
     Public Class UniqueModo
         Private _UniqueModo As String
+        Public PesquisaItemPreenchido As Boolean = False
 
         Property UniqueModo As String
             Get
@@ -74,6 +76,8 @@
             Modo = "IMAGEM"
         ElseIf e.ClickedItem Is BtnVisualizarRel Then
             Modo = "RELATORIO"
+            'ElseIf e.ClickedItem Is BtnEscuro Then
+            '    AlternaCores()
         End If
         ToolbarItemsState()
     End Sub
@@ -84,7 +88,8 @@
         RaiseEvent itemclick()
     End Sub
 
-    Public Sub ToolbarItemsState(Optional ByVal modoAposAtivarPagina As String = "", Optional succ As Boolean = True)
+    Public Sub ToolbarItemsState(Optional ByVal modoAposAtivarPagina As String = "", Optional succ As Boolean = True, _
+                                 Optional ByVal haviaItemPesquisado As Boolean = False)
 
         ' Toolstrip captura o MODO em que a página estava quando perdeu o foco, e retoma o estado dos itens de acordo com o respectivo modo
         If Not String.IsNullOrWhiteSpace(modoAposAtivarPagina) Then
@@ -113,6 +118,8 @@
                     item.Enabled = True
                 End If
             Next
+            BtnAlterar.Enabled = haviaItemPesquisado
+            BtnExcluir.Enabled = haviaItemPesquisado
         ElseIf Modo = "SALVAR" Then
             For Each item As ToolStripItem In ToolStrip1.Items
                 If item IsNot BtnReverter AndAlso item IsNot BtnNovo AndAlso item IsNot BtnPesquisar Then
@@ -201,5 +208,53 @@
         Me.ToolStrip1.Items("BtnAlterar").Enabled = estado
         Me.ToolStrip1.Items("BtnExcluir").Enabled = estado
     End Sub
+
+    'Private Sub AlternaCores()
+    '    If Not IsModoEscuro Then
+    '        Dim mainForm = Application.OpenForms.OfType(Of Frm_Principal_MDI).First
+    '        For Each c As Control In mainForm.Controls
+    '            c.ForeColor = Color.White
+    '            c.BackColor = Color.Black
+    '        Next
+    '        For Each page As TabPage In mainForm.TCPrincipal.TabPages
+    '            For Each frm As Form In page.Controls
+    '                frm.BackColor = Color.Black
+    '                frm.ForeColor = Color.White
+    '                Dim ctrls = frm.Controls
+    '                For Each ctrl As Control In ctrls
+    '                    ctrl.ForeColor = Color.White
+    '                    If ctrl.HasChildren Then
+    '                        For Each c As Control In ctrl.Controls
+    '                            c.ForeColor = Color.White
+    '                        Next
+    '                    End If
+    '                Next
+    '            Next
+    '        Next
+    '        IsModoEscuro = True
+    '    Else
+    '        Dim mainForm = Application.OpenForms.OfType(Of Frm_Principal_MDI).First
+    '        For Each c As Control In mainForm.Controls
+    '            c.ForeColor = Color.Black
+    '            c.BackColor = Color.LightSteelBlue
+    '        Next
+    '        For Each page As TabPage In mainForm.TCPrincipal.TabPages
+    '            For Each frm As Form In page.Controls
+    '                frm.BackColor = Color.Lavender
+    '                frm.ForeColor = Color.Black
+    '                Dim ctrls = frm.Controls
+    '                For Each ctrl As Control In ctrls
+    '                    ctrl.ForeColor = Color.Black
+    '                    If ctrl.HasChildren Then
+    '                        For Each c As Control In ctrl.Controls
+    '                            c.ForeColor = Color.Black
+    '                        Next
+    '                    End If
+    '                Next
+    '            Next
+    '        Next
+    '        IsModoEscuro = False
+    '    End If
+    'End Sub
 
 End Class

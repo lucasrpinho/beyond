@@ -59,7 +59,7 @@ Public Class MsgBoxHelper
         tooltip.ToolTipTitle = titulo
         tooltip.ToolTipIcon = icon
         tooltip.IsBalloon = True
-        tooltip.SetToolTip(window, msg)
+        tooltip.SetToolTip(control, msg)
         tooltip.Show(msg, window, 2000)
     End Sub
 

@@ -24,7 +24,7 @@ Public Class Frm_Vendedor
 
     Private Sub Frm_Vendedor_EnabledChanged(sender As Object, e As System.EventArgs) Handles Me.EnabledChanged
         If Me.Enabled Then
-            frmPrincipal.UC_Toolstrip1.ToolbarItemsState(MyModo.UniqueModo)
+            frmPrincipal.UC_Toolstrip1.ToolbarItemsState(MyModo.UniqueModo, , ComboNome.Text <> String.Empty)
         End If
     End Sub
 
@@ -82,12 +82,18 @@ Public Class Frm_Vendedor
     Private Function Insere() As Boolean
 
         If TxtNum.Text = String.Empty Then
-            Uteis.MsgBoxHelper.CustomTooltip(Me, TxtNum, "Número vazio.", "Alerta de preenchimento")
+            Uteis.MsgBoxHelper.CustomTooltip(GrpBoxEndereco, TxtNum, "Número vazio.", "Alerta de preenchimento")
             Return False
         End If
 
         If PicBoxFoto.Image Is Nothing Then
-            Uteis.MsgBoxHelper.CustomTooltip(Me, PicBoxFoto, "Vendedor precisa ter uma foto no cadastro.", _
+            Uteis.MsgBoxHelper.CustomTooltip(PicBoxFoto, PicBoxFoto, "Vendedor precisa ter uma foto no cadastro.", _
+                                                "Preenchimento incompleto")
+            Return False
+        End If
+
+        If ComboCargo.Text = String.Empty Then
+            Uteis.MsgBoxHelper.CustomTooltip(GrpBoxInfo, ComboCargo, "Vendedor precisa ter um cargo.", _
                                                 "Preenchimento incompleto")
             Return False
         End If
@@ -442,4 +448,7 @@ Public Class Frm_Vendedor
         End If
     End Sub
 
+    Private Sub PicBoxFoto_Click(sender As System.Object, e As System.EventArgs) Handles PicBoxFoto.Click
+        CarregaImagem()
+    End Sub
 End Class
