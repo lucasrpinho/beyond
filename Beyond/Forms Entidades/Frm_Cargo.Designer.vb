@@ -54,7 +54,7 @@ Partial Class Frm_Cargo
         Me.ChkVendedor.Location = New System.Drawing.Point(6, 79)
         Me.ChkVendedor.Name = "ChkVendedor"
         Me.ChkVendedor.Size = New System.Drawing.Size(94, 21)
-        Me.ChkVendedor.TabIndex = 4
+        Me.ChkVendedor.TabIndex = 2
         Me.ChkVendedor.Text = "Vendedor"
         Me.ChkVendedor.UseVisualStyleBackColor = True
         '
@@ -68,7 +68,7 @@ Partial Class Frm_Cargo
         Me.ChkBoxAtivo.Location = New System.Drawing.Point(6, 52)
         Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
         Me.ChkBoxAtivo.Size = New System.Drawing.Size(67, 21)
-        Me.ChkBoxAtivo.TabIndex = 3
+        Me.ChkBoxAtivo.TabIndex = 1
         Me.ChkBoxAtivo.Text = "Ativo"
         Me.ChkBoxAtivo.UseVisualStyleBackColor = True
         '
@@ -99,7 +99,7 @@ Partial Class Frm_Cargo
         Me.ComboNome.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboNome.Name = "ComboNome"
         Me.ComboNome.Size = New System.Drawing.Size(547, 24)
-        Me.ComboNome.TabIndex = 1
+        Me.ComboNome.TabIndex = 3
         '
         'TxtDesc
         '
@@ -113,7 +113,7 @@ Partial Class Frm_Cargo
         Me.TxtDesc.Name = "TxtDesc"
         Me.TxtDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.TxtDesc.Size = New System.Drawing.Size(547, 93)
-        Me.TxtDesc.TabIndex = 2
+        Me.TxtDesc.TabIndex = 4
         '
         'Label2
         '

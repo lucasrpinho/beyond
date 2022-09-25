@@ -76,7 +76,7 @@ Partial Class Frm_Produto
         Me.TxtNome.MaxLength = 60
         Me.TxtNome.Name = "TxtNome"
         Me.TxtNome.Size = New System.Drawing.Size(444, 24)
-        Me.TxtNome.TabIndex = 15
+        Me.TxtNome.TabIndex = 3
         '
         'Label6
         '
@@ -96,7 +96,7 @@ Partial Class Frm_Produto
         Me.TxtCategoria.MaxLength = 60
         Me.TxtCategoria.Name = "TxtCategoria"
         Me.TxtCategoria.Size = New System.Drawing.Size(444, 24)
-        Me.TxtCategoria.TabIndex = 13
+        Me.TxtCategoria.TabIndex = 2
         '
         'Label5
         '
@@ -128,7 +128,7 @@ Partial Class Frm_Produto
         Me.ChkAtivo.Location = New System.Drawing.Point(6, 47)
         Me.ChkAtivo.Name = "ChkAtivo"
         Me.ChkAtivo.Size = New System.Drawing.Size(60, 18)
-        Me.ChkAtivo.TabIndex = 8
+        Me.ChkAtivo.TabIndex = 1
         Me.ChkAtivo.Text = "Ativo"
         Me.ChkAtivo.UseVisualStyleBackColor = True
         '
@@ -137,7 +137,7 @@ Partial Class Frm_Produto
         Me.TxtQtd.Location = New System.Drawing.Point(6, 333)
         Me.TxtQtd.Name = "TxtQtd"
         Me.TxtQtd.Size = New System.Drawing.Size(107, 24)
-        Me.TxtQtd.TabIndex = 4
+        Me.TxtQtd.TabIndex = 6
         Me.TxtQtd.Text = "0"
         '
         'TxtDesc
@@ -151,14 +151,14 @@ Partial Class Frm_Produto
         Me.TxtDesc.Name = "TxtDesc"
         Me.TxtDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.TxtDesc.Size = New System.Drawing.Size(444, 61)
-        Me.TxtDesc.TabIndex = 2
+        Me.TxtDesc.TabIndex = 4
         '
         'TxtPreco
         '
         Me.TxtPreco.Location = New System.Drawing.Point(6, 286)
         Me.TxtPreco.Name = "TxtPreco"
         Me.TxtPreco.Size = New System.Drawing.Size(162, 24)
-        Me.TxtPreco.TabIndex = 3
+        Me.TxtPreco.TabIndex = 5
         Me.TxtPreco.Text = "0,00"
         '
         'Label4

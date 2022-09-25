@@ -70,7 +70,7 @@ Partial Class Frm_Cliente
         Me.ComboCargo.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboCargo.Name = "ComboCargo"
         Me.ComboCargo.Size = New System.Drawing.Size(369, 24)
-        Me.ComboCargo.TabIndex = 6
+        Me.ComboCargo.TabIndex = 7
         '
         'Label9
         '
@@ -92,7 +92,7 @@ Partial Class Frm_Cliente
         Me.ChkBoxAtivo.Location = New System.Drawing.Point(7, 39)
         Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
         Me.ChkBoxAtivo.Size = New System.Drawing.Size(60, 18)
-        Me.ChkBoxAtivo.TabIndex = 8
+        Me.ChkBoxAtivo.TabIndex = 1
         Me.ChkBoxAtivo.Text = "Ativo"
         Me.ChkBoxAtivo.UseVisualStyleBackColor = True
         '
@@ -108,7 +108,7 @@ Partial Class Frm_Cliente
         Me.TxtObs.Name = "TxtObs"
         Me.TxtObs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.TxtObs.Size = New System.Drawing.Size(943, 56)
-        Me.TxtObs.TabIndex = 7
+        Me.TxtObs.TabIndex = 8
         '
         'Label17
         '
@@ -173,7 +173,7 @@ Partial Class Frm_Cliente
         Me.DtPckNasc.MinDate = New Date(1922, 1, 1, 0, 0, 0, 0)
         Me.DtPckNasc.Name = "DtPckNasc"
         Me.DtPckNasc.Size = New System.Drawing.Size(118, 24)
-        Me.DtPckNasc.TabIndex = 2
+        Me.DtPckNasc.TabIndex = 3
         '
         'TxtCelular
         '
@@ -181,7 +181,7 @@ Partial Class Frm_Cliente
         Me.TxtCelular.Mask = "(00) 00000-0000"
         Me.TxtCelular.Name = "TxtCelular"
         Me.TxtCelular.Size = New System.Drawing.Size(147, 24)
-        Me.TxtCelular.TabIndex = 3
+        Me.TxtCelular.TabIndex = 4
         '
         'TxtEmpresa
         '
@@ -193,7 +193,7 @@ Partial Class Frm_Cliente
         Me.TxtEmpresa.MaxLength = 50
         Me.TxtEmpresa.Name = "TxtEmpresa"
         Me.TxtEmpresa.Size = New System.Drawing.Size(547, 24)
-        Me.TxtEmpresa.TabIndex = 5
+        Me.TxtEmpresa.TabIndex = 6
         '
         'Label3
         '
@@ -226,7 +226,7 @@ Partial Class Frm_Cliente
         Me.TxtEmail.MaxLength = 100
         Me.TxtEmail.Name = "TxtEmail"
         Me.TxtEmail.Size = New System.Drawing.Size(778, 24)
-        Me.TxtEmail.TabIndex = 4
+        Me.TxtEmail.TabIndex = 5
         '
         'Label10
         '
@@ -260,7 +260,7 @@ Partial Class Frm_Cliente
         Me.ComboNome.MaxLength = 90
         Me.ComboNome.Name = "ComboNome"
         Me.ComboNome.Size = New System.Drawing.Size(803, 24)
-        Me.ComboNome.TabIndex = 1
+        Me.ComboNome.TabIndex = 2
         '
         'Label1
         '

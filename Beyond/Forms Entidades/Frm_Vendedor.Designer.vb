@@ -89,7 +89,7 @@ Partial Class Frm_Vendedor
         Me.ChkBoxAtivo.Location = New System.Drawing.Point(11, 48)
         Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
         Me.ChkBoxAtivo.Size = New System.Drawing.Size(60, 18)
-        Me.ChkBoxAtivo.TabIndex = 5
+        Me.ChkBoxAtivo.TabIndex = 1
         Me.ChkBoxAtivo.Text = "Ativo"
         Me.ChkBoxAtivo.UseVisualStyleBackColor = True
         '
@@ -105,7 +105,7 @@ Partial Class Frm_Vendedor
         Me.ComboCargo.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboCargo.Name = "ComboCargo"
         Me.ComboCargo.Size = New System.Drawing.Size(608, 24)
-        Me.ComboCargo.TabIndex = 3
+        Me.ComboCargo.TabIndex = 4
         '
         'GroupBox1
         '
@@ -151,7 +151,7 @@ Partial Class Frm_Vendedor
         Me.ComboNome.MaxLength = 30
         Me.ComboNome.Name = "ComboNome"
         Me.ComboNome.Size = New System.Drawing.Size(608, 24)
-        Me.ComboNome.TabIndex = 1
+        Me.ComboNome.TabIndex = 2
         '
         'Label17
         '
@@ -176,7 +176,7 @@ Partial Class Frm_Vendedor
         Me.TxtObs.Name = "TxtObs"
         Me.TxtObs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.TxtObs.Size = New System.Drawing.Size(826, 54)
-        Me.TxtObs.TabIndex = 4
+        Me.TxtObs.TabIndex = 5
         '
         'TxtSobrenome
         '
@@ -188,7 +188,7 @@ Partial Class Frm_Vendedor
         Me.TxtSobrenome.MaxLength = 50
         Me.TxtSobrenome.Name = "TxtSobrenome"
         Me.TxtSobrenome.Size = New System.Drawing.Size(608, 24)
-        Me.TxtSobrenome.TabIndex = 2
+        Me.TxtSobrenome.TabIndex = 3
         '
         'Label2
         '
@@ -247,7 +247,7 @@ Partial Class Frm_Vendedor
         Me.TxtCidade.MaxLength = 100
         Me.TxtCidade.Name = "TxtCidade"
         Me.TxtCidade.Size = New System.Drawing.Size(605, 24)
-        Me.TxtCidade.TabIndex = 10
+        Me.TxtCidade.TabIndex = 11
         '
         'TxtNum
         '
@@ -258,7 +258,7 @@ Partial Class Frm_Vendedor
         Me.TxtNum.MaxLength = 5
         Me.TxtNum.Name = "TxtNum"
         Me.TxtNum.Size = New System.Drawing.Size(212, 24)
-        Me.TxtNum.TabIndex = 7
+        Me.TxtNum.TabIndex = 8
         '
         'TxtCEP
         '
@@ -280,7 +280,7 @@ Partial Class Frm_Vendedor
         Me.ComboEstado.MaxLength = 2
         Me.ComboEstado.Name = "ComboEstado"
         Me.ComboEstado.Size = New System.Drawing.Size(212, 24)
-        Me.ComboEstado.TabIndex = 11
+        Me.ComboEstado.TabIndex = 12
         '
         'Label8
         '
@@ -303,7 +303,7 @@ Partial Class Frm_Vendedor
         Me.TxtLogradouro.MaxLength = 100
         Me.TxtLogradouro.Name = "TxtLogradouro"
         Me.TxtLogradouro.Size = New System.Drawing.Size(488, 24)
-        Me.TxtLogradouro.TabIndex = 6
+        Me.TxtLogradouro.TabIndex = 7
         '
         'TxtBairro
         '
@@ -315,7 +315,7 @@ Partial Class Frm_Vendedor
         Me.TxtBairro.MaxLength = 100
         Me.TxtBairro.Name = "TxtBairro"
         Me.TxtBairro.Size = New System.Drawing.Size(608, 24)
-        Me.TxtBairro.TabIndex = 8
+        Me.TxtBairro.TabIndex = 9
         '
         'TxtComplemento
         '
@@ -326,7 +326,7 @@ Partial Class Frm_Vendedor
         Me.TxtComplemento.MaxLength = 30
         Me.TxtComplemento.Name = "TxtComplemento"
         Me.TxtComplemento.Size = New System.Drawing.Size(212, 24)
-        Me.TxtComplemento.TabIndex = 9
+        Me.TxtComplemento.TabIndex = 10
         '
         'Label3
         '

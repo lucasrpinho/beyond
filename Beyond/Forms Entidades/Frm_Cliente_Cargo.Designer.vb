@@ -72,7 +72,7 @@ Partial Class Frm_Cliente_Cargo
         Me.BtnDesvincular.ImageList = Me.ImageList1
         Me.BtnDesvincular.Location = New System.Drawing.Point(434, 115)
         Me.BtnDesvincular.Name = "BtnDesvincular"
-        Me.BtnDesvincular.Size = New System.Drawing.Size(118, 32)
+        Me.BtnDesvincular.Size = New System.Drawing.Size(108, 23)
         Me.BtnDesvincular.TabIndex = 6
         Me.BtnDesvincular.Text = "Desvincular"
         Me.BtnDesvincular.TextAlign = System.Drawing.ContentAlignment.MiddleLeft

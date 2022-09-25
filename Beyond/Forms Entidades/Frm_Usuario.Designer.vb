@@ -76,7 +76,7 @@ Partial Class Frm_Usuario
         Me.ComboNome.MaxLength = 30
         Me.ComboNome.Name = "ComboNome"
         Me.ComboNome.Size = New System.Drawing.Size(338, 24)
-        Me.ComboNome.TabIndex = 1
+        Me.ComboNome.TabIndex = 2
         '
         'ChkBoxAtivo
         '
@@ -88,7 +88,7 @@ Partial Class Frm_Usuario
         Me.ChkBoxAtivo.Location = New System.Drawing.Point(12, 41)
         Me.ChkBoxAtivo.Name = "ChkBoxAtivo"
         Me.ChkBoxAtivo.Size = New System.Drawing.Size(60, 18)
-        Me.ChkBoxAtivo.TabIndex = 10
+        Me.ChkBoxAtivo.TabIndex = 1
         Me.ChkBoxAtivo.Text = "Ativo"
         Me.ChkBoxAtivo.UseVisualStyleBackColor = True
         '
@@ -103,7 +103,7 @@ Partial Class Frm_Usuario
         Me.TxtEmail.MaxLength = 254
         Me.TxtEmail.Name = "TxtEmail"
         Me.TxtEmail.Size = New System.Drawing.Size(338, 24)
-        Me.TxtEmail.TabIndex = 3
+        Me.TxtEmail.TabIndex = 4
         '
         'Label6
         '
@@ -125,7 +125,7 @@ Partial Class Frm_Usuario
         Me.TxtSobrenome.MaxLength = 50
         Me.TxtSobrenome.Name = "TxtSobrenome"
         Me.TxtSobrenome.Size = New System.Drawing.Size(338, 24)
-        Me.TxtSobrenome.TabIndex = 2
+        Me.TxtSobrenome.TabIndex = 3
         '
         'Label2
         '
@@ -156,7 +156,7 @@ Partial Class Frm_Usuario
         Me.TxtLogin.MaxLength = 16
         Me.TxtLogin.Name = "TxtLogin"
         Me.TxtLogin.Size = New System.Drawing.Size(205, 24)
-        Me.TxtLogin.TabIndex = 4
+        Me.TxtLogin.TabIndex = 5
         '
         'Label3
         '
@@ -177,7 +177,7 @@ Partial Class Frm_Usuario
         Me.TxtSenha.MaxLength = 20
         Me.TxtSenha.Name = "TxtSenha"
         Me.TxtSenha.Size = New System.Drawing.Size(205, 24)
-        Me.TxtSenha.TabIndex = 5
+        Me.TxtSenha.TabIndex = 6
         Me.TxtSenha.UseSystemPasswordChar = True
         '
         'Label4
@@ -199,7 +199,7 @@ Partial Class Frm_Usuario
         Me.TxtSenhaConfirmar.MaxLength = 20
         Me.TxtSenhaConfirmar.Name = "TxtSenhaConfirmar"
         Me.TxtSenhaConfirmar.Size = New System.Drawing.Size(205, 24)
-        Me.TxtSenhaConfirmar.TabIndex = 6
+        Me.TxtSenhaConfirmar.TabIndex = 7
         Me.TxtSenhaConfirmar.UseSystemPasswordChar = True
         '
         'Label5
@@ -238,9 +238,9 @@ Partial Class Frm_Usuario
         '
         Me.PictureBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.password
-        Me.PictureBox1.Location = New System.Drawing.Point(220, 120)
+        Me.PictureBox1.Location = New System.Drawing.Point(220, 119)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(25, 23)
+        Me.PictureBox1.Size = New System.Drawing.Size(24, 24)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 9
         Me.PictureBox1.TabStop = False

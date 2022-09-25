@@ -491,7 +491,7 @@ Partial Class Frm_Pedido
         Me.TxtDesc.Name = "TxtDesc"
         Me.TxtDesc.ReadOnly = True
         Me.TxtDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TxtDesc.Size = New System.Drawing.Size(678, 75)
+        Me.TxtDesc.Size = New System.Drawing.Size(678, 63)
         Me.TxtDesc.TabIndex = 48
         '
         'BtnMaisInsere
@@ -531,7 +531,7 @@ Partial Class Frm_Pedido
         Me.LblPrecoTotal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LblPrecoTotal.AutoSize = True
         Me.LblPrecoTotal.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblPrecoTotal.Location = New System.Drawing.Point(212, 493)
+        Me.LblPrecoTotal.Location = New System.Drawing.Point(212, 472)
         Me.LblPrecoTotal.Name = "LblPrecoTotal"
         Me.LblPrecoTotal.Size = New System.Drawing.Size(77, 17)
         Me.LblPrecoTotal.TabIndex = 28
@@ -540,6 +540,7 @@ Partial Class Frm_Pedido
         'TxtQtdInsere
         '
         Me.TxtQtdInsere.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TxtQtdInsere.Enabled = False
         Me.TxtQtdInsere.Location = New System.Drawing.Point(633, 498)
         Me.TxtQtdInsere.Name = "TxtQtdInsere"
         Me.TxtQtdInsere.ReadOnly = True
@@ -589,7 +590,7 @@ Partial Class Frm_Pedido
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(7, 76)
+        Me.Label13.Location = New System.Drawing.Point(8, 82)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(132, 17)
         Me.Label13.TabIndex = 4
@@ -785,6 +786,7 @@ Partial Class Frm_Pedido
         'TxtQtd
         '
         Me.TxtQtd.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TxtQtd.Enabled = False
         Me.TxtQtd.Location = New System.Drawing.Point(799, 297)
         Me.TxtQtd.Name = "TxtQtd"
         Me.TxtQtd.ReadOnly = True

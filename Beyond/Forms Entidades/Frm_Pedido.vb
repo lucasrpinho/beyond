@@ -741,21 +741,6 @@ Public Class Frm_Pedido
         AtualizaValorTotalDoPedido()
     End Sub
 
-    Private Sub LstCarrinho_MouseClick(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles LstCarrinho.MouseClick
-        If objProdSelecionado IsNot Nothing Then
-            objProdSelecionado = Nothing
-            BtnDeletaItem.Visible = False
-        End If
-        If LstCarrinho.SelectedItems.Count > 0 Then
-            objProdSelecionado = LstCarrinho.SelectedItems(0).Tag
-            TxtQtd.Text = LstCarrinho.SelectedItems(0).SubItems("QTD").Text
-            BtnDeletaItem.Visible = True
-        Else
-            BtnDeletaItem.Visible = False
-        End If
-    End Sub
-
-
     Private Sub BtnMenosInsere_Click(sender As System.Object, e As System.EventArgs) Handles BtnMenosInsere.Click
         If Not LstProd.Items.Count > 0 Then
             Exit Sub
@@ -830,7 +815,8 @@ Public Class Frm_Pedido
             Exit Sub
         End If
 
-        Dim qtd = Integer.Parse(TxtQtd.Text)
+        Dim qtd As Int32
+        Int32.TryParse(TxtQtd.Text, qtd)
         qtd = qtd - 1
         TxtQtd.Text = qtd.ToString
         If TxtQtd.Text <= 0 Then
@@ -839,8 +825,8 @@ Public Class Frm_Pedido
             Exit Sub
         End If
 
-        LstCarrinho.Items(objProdSelecionado.CodProduto.ToString).SubItems("QTD").Text = TxtQtd.Text
-        Dim precoQtd = objProdSelecionado.Preco * Integer.Parse(TxtQtd.Text)
+        LstCarrinho.Items(objProdSelecionado.CodProduto.ToString).SubItems("QTD").Text = qtd.ToString
+        Dim precoQtd = objProdSelecionado.Preco * qtd
         LstCarrinho.Items(objProdSelecionado.CodProduto.ToString).SubItems("PRECOTOTAL").Text = precoQtd.ToString("C")
 
         LstItens.First(Function(i) i.CodProduto = objProdSelecionado.CodProduto).Quantidade = qtd
@@ -1033,6 +1019,7 @@ Public Class Frm_Pedido
         If Not LstProd.Items.Count > 0 Then
             Exit Sub
         End If
+
         If objProdSelecionado Is Nothing Then
             MsgBoxHelper.Msg(Me, "Selecione um produto da lista.", "Produto indefinido")
             Exit Sub
@@ -1040,7 +1027,7 @@ Public Class Frm_Pedido
 
         TxtQtdInsere.Text = (Integer.Parse(TxtQtdInsere.Text) + 1).ToString
         If Integer.Parse(TxtQtdInsere.Text) > objProdSelecionado.Quantidade Then
-            MsgBoxHelper.Alerta(Me, "A quantidade desejada é maior do que o disponível em estoque.", "Estoque insuficiente")
+            MsgBoxHelper.Alerta(Me, "A quantidade desejada é maior do que a disponível em estoque.", "Estoque insuficiente")
             TxtQtdInsere.Text = (Integer.Parse(TxtQtdInsere.Text) - 1).ToString
             Exit Sub
         End If
@@ -1050,5 +1037,26 @@ Public Class Frm_Pedido
     Private Sub BtnDeletaItem_MouseEnter(sender As System.Object, e As System.EventArgs) Handles BtnDeletaItem.MouseEnter
         Dim tooltip As New ToolTip
         tooltip.SetToolTip(BtnDeletaItem, "Deletar produto")
+    End Sub
+
+    Private Sub TxtQtdInsere_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtQtdInsere.KeyPress
+        If Char.IsLetter(e.KeyChar) Or Char.IsSeparator(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or _
+            e.KeyChar = "-" Then
+            e.KeyChar = ""
+        End If
+    End Sub
+
+    Private Sub LstCarrinho_Click(sender As System.Object, e As System.EventArgs) Handles LstCarrinho.Click
+        If objProdSelecionado IsNot Nothing Then
+            objProdSelecionado = Nothing
+            BtnDeletaItem.Visible = False
+        End If
+        If LstCarrinho.SelectedItems.Count > 0 Then
+            objProdSelecionado = LstCarrinho.SelectedItems(0).Tag
+            TxtQtd.Text = LstCarrinho.SelectedItems(0).SubItems("QTD").Text
+            BtnDeletaItem.Visible = True
+        Else
+            BtnDeletaItem.Visible = False
+        End If
     End Sub
 End Class
