@@ -86,7 +86,7 @@ Partial Class Frm_Principal_MDI
         Me.AçõesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FecharAbaSelecionadaToolStripMenuItem, Me.SairToolStripMenuItem})
         Me.AçõesToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Silver
         Me.AçõesToolStripMenuItem.Name = "AçõesToolStripMenuItem"
-        Me.AçõesToolStripMenuItem.Size = New System.Drawing.Size(94, 22)
+        Me.AçõesToolStripMenuItem.Size = New System.Drawing.Size(46, 22)
         Me.AçõesToolStripMenuItem.Text = "Ação"
         '
         'FecharAbaSelecionadaToolStripMenuItem
@@ -94,7 +94,7 @@ Partial Class Frm_Principal_MDI
         Me.FecharAbaSelecionadaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FecharSelecionadaMenu, Me.FecharTodasMenu})
         Me.FecharAbaSelecionadaToolStripMenuItem.Image = CType(resources.GetObject("FecharAbaSelecionadaToolStripMenuItem.Image"), System.Drawing.Image)
         Me.FecharAbaSelecionadaToolStripMenuItem.Name = "FecharAbaSelecionadaToolStripMenuItem"
-        Me.FecharAbaSelecionadaToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.FecharAbaSelecionadaToolStripMenuItem.Size = New System.Drawing.Size(148, 22)
         Me.FecharAbaSelecionadaToolStripMenuItem.Text = "Fechar Página"
         '
         'FecharSelecionadaMenu
@@ -113,7 +113,7 @@ Partial Class Frm_Principal_MDI
         '
         Me.SairToolStripMenuItem.Image = CType(resources.GetObject("SairToolStripMenuItem.Image"), System.Drawing.Image)
         Me.SairToolStripMenuItem.Name = "SairToolStripMenuItem"
-        Me.SairToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.SairToolStripMenuItem.Size = New System.Drawing.Size(148, 22)
         Me.SairToolStripMenuItem.Text = "Sair"
         '
         'UsuáriosToolStripMenuItem
@@ -266,7 +266,7 @@ Partial Class Frm_Principal_MDI
         '
         'SplitC1.Panel2
         '
-        Me.SplitC1.Panel2.BackColor = System.Drawing.Color.DimGray
+        Me.SplitC1.Panel2.BackColor = System.Drawing.Color.LightSteelBlue
         Me.SplitC1.Panel2.Controls.Add(Me.TCPrincipal)
         Me.SplitC1.Panel2.Controls.Add(Me.PictureBox1)
         Me.SplitC1.Panel2.Controls.Add(Me.LblOla)
@@ -327,22 +327,23 @@ Partial Class Frm_Principal_MDI
         '
         Me.PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(173, 106)
+        Me.PictureBox1.Location = New System.Drawing.Point(116, 3)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(252, 219)
+        Me.PictureBox1.Size = New System.Drawing.Size(375, 305)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PictureBox1.TabIndex = 3
         Me.PictureBox1.TabStop = False
         '
         'LblOla
         '
+        Me.LblOla.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LblOla.AutoEllipsis = True
         Me.LblOla.AutoSize = True
-        Me.LblOla.Font = New System.Drawing.Font("Verdana", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblOla.ForeColor = System.Drawing.SystemColors.Window
-        Me.LblOla.Location = New System.Drawing.Point(20, 41)
+        Me.LblOla.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblOla.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.LblOla.Location = New System.Drawing.Point(5, 362)
         Me.LblOla.Name = "LblOla"
-        Me.LblOla.Size = New System.Drawing.Size(95, 26)
+        Me.LblOla.Size = New System.Drawing.Size(73, 23)
         Me.LblOla.TabIndex = 1
         Me.LblOla.Text = "Label1"
         '

@@ -107,7 +107,7 @@ Public Class DAO
             Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
             Cmd.Parameters("@RESPONSE").Size = 255
             If Not Cmd.ExecuteNonQuery > 0 Then
-                Throw New Exception("A inclusão falhou")
+                Throw New Exception("A inclusão falhou.")
                 succ = False
             Else
                 succ = True
@@ -1017,6 +1017,9 @@ Public Class DAO
             Cmd.CommandText = "SP_ATUALIZA_PRODUTO"
             Cmd.CommandType = CommandType.StoredProcedure
             Cmd.Parameters.AddWithValue("@CODPRODUTO", produto.CodProduto)
+            Cmd.Parameters.AddWithValue("@CATEGORIA", produto.Categoria)
+            Cmd.Parameters.AddWithValue("@NOME", produto.Nome)
+            Cmd.Parameters.AddWithValue("@DESC", produto.Descricao)
             Cmd.Parameters.AddWithValue("@PRECO", produto.Preco)
             Cmd.Parameters.AddWithValue("@QTD", produto.Quantidade)
             Cmd.Parameters.AddWithValue("@ATIVO", produto.IsAtivo)

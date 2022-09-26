@@ -119,6 +119,7 @@ Public Class Frm_Cargo
                 If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
                     If Not DAOCargo.AtualizaCargo(CargoObjForUpdate, resposta, False, loginusuario) Then
                         frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                        MsgBoxHelper.Erro(Me, resposta, "Erro")
                     Else
                         Desativa_Campos()
                         frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
@@ -157,11 +158,12 @@ Public Class Frm_Cargo
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
-                If DAOCargo.AtualizaCargo(CargoObjForUpdate, "", True, loginusuario) Then
+                If DAOCargo.AtualizaCargo(CargoObjForUpdate, resposta, True, loginusuario) Then
                     LimpaCampos()
                     Desativa_Campos()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
                 End If
+                MsgBoxHelper.Msg(Me, resposta, "Exclusão")
             Else
                 Exit Sub
             End If
@@ -226,6 +228,8 @@ Public Class Frm_Cargo
     Private Sub ComboNome_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboNome.KeyPress
         If Char.IsLetter(e.KeyChar) Then
             e.KeyChar = Char.ToUpper(e.KeyChar)
+        ElseIf e.KeyChar = "´" Or e.KeyChar = "^" Or e.KeyChar = "~" Then
+            e.KeyChar = ""
         End If
     End Sub
 
@@ -261,4 +265,9 @@ Public Class Frm_Cargo
         CarregaCargos()
     End Sub
 
+    Private Sub TxtDesc_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtDesc.KeyPress
+        If e.KeyChar = "´" Or e.KeyChar = "^" Or e.KeyChar = "~" Then
+            e.KeyChar = ""
+        End If
+    End Sub
 End Class

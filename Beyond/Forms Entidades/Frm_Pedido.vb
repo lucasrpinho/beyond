@@ -398,7 +398,7 @@ Public Class Frm_Pedido
         Next
 
         If Not DAOPedido.InserePedido(pedido, LstPedidoItem, resposta) Then
-            MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            MsgBoxHelper.Erro(Me, resposta, "Erro")
             Return False
         End If
 
@@ -442,7 +442,7 @@ Public Class Frm_Pedido
                 GetLstItensForOperation(ped.LstProduto)
                 If Not DAOPedido.AtualizaPedido(ped, LstPedidoItem, resposta, False) Then
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                    MsgBoxHelper.Alerta(Me, resposta, "Erro")
+                    MsgBoxHelper.Erro(Me, resposta, "Erro")
                 Else
                     DesabilitaPages()
                     ControlsHelper.SetControlsEnabled(TCPedido.Controls)
@@ -640,6 +640,7 @@ Public Class Frm_Pedido
     Private Sub ModoPesquisaPreenchido()
         TCPedido.SelectTab(TabDados)
         LimpaCampos_Desativa()
+        CarregaProdutos()
         CarregaProdutosDoPedido()
         PreencheCampos(objPedido)
         frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)

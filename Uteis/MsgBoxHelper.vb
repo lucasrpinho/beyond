@@ -55,6 +55,7 @@ Public Class MsgBoxHelper
     ' Msg de erro em balão (Tooltip)
     Public Shared Sub CustomTooltip(control As Control, window As IWin32Window, msg As String, titulo As String, Optional icon As  _
                                     ToolTipIcon = ToolTipIcon.Warning)
+
         Dim tooltip As New ToolTip
         tooltip.ToolTipTitle = titulo
         tooltip.ToolTipIcon = icon

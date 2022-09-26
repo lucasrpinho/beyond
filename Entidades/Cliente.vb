@@ -15,11 +15,11 @@ Public Class Cliente
     Public LoginCriacao As String
     Public IsAtivo As Boolean
 
-    Public Property CodCliente()
+    Public Property CodCliente() As Integer
         Get
             Return _CodCliente
         End Get
-        Set(value)
+        Set(value As Integer)
             _CodCliente = value
         End Set
     End Property

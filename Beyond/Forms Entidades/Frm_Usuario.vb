@@ -63,7 +63,7 @@ Public Class Frm_Usuario
         Dim resposta As String = String.Empty
 
         If Not DAOUsuario.InsertUsuario(usuario, resposta) Then
-            Uteis.MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
             Return False
         End If
 
@@ -95,6 +95,7 @@ Public Class Frm_Usuario
                 If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
                     If Not DAOUsuario.AtualizaUsuario(GetUsuarioForOperation, resposta) Then
                         frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                        Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
                     Else
                         Desativa_Campos()
                         frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()

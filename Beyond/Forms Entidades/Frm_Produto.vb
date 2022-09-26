@@ -91,7 +91,7 @@ Public Class Frm_Produto
         End If
 
         If Not DAOProd.InsereProduto(prod, resposta) Then
-            Uteis.MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
             Return False
         End If
 
@@ -124,7 +124,7 @@ Public Class Frm_Produto
             Else
                 If Not DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, loginusuario) Then
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                    MsgBoxHelper.Alerta(Me, resposta, "Erro")
+                    MsgBoxHelper.Erro(Me, resposta, "Erro")
                 Else
                     Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
@@ -161,11 +161,12 @@ Public Class Frm_Produto
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
-                If DAOProd.AtualizaProduto(GetProdutoForOperation, "", loginusuario, True) Then
+                If DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, loginusuario, True) Then
                     LimpaCampos_AtivaControles()
                     Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
                 End If
+                MsgBoxHelper.Msg(Me, resposta, "Informação")
             Else
                 Exit Sub
             End If
@@ -249,7 +250,10 @@ Public Class Frm_Produto
             prod = objProduto
         End If
 
+        prod.Categoria = TxtCategoria.Text
+        prod.Nome = TxtNome.Text
         prod.Preco = Convert.ToDecimal(StringHelper.CurrencyType(TxtPreco.Text))
+        prod.Descricao = TxtDesc.Text
         prod.Quantidade = TxtQtd.Text
         prod.IsAtivo = ChkAtivo.Checked
 
@@ -258,9 +262,7 @@ Public Class Frm_Produto
 
     Private Sub ModoAlterar()
         ControlsHelper.SetControlsEnabled(Me.GrpBoxInfo.Controls)
-        TxtCategoria.Enabled = False
         PicBoxFoto.Enabled = False
-        TxtDesc.Enabled = False
     End Sub
 
     Private Sub ModoPesquisa()

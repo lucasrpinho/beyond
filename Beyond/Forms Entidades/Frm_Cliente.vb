@@ -128,7 +128,7 @@ Public Class Frm_Cliente
         Dim resposta As String = ""
 
         If Not DAOCliente.InsereCliente(cliente, resposta) Then
-            Uteis.MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
             Return False
         End If
 
@@ -220,7 +220,7 @@ Public Class Frm_Cliente
             Else
                 If Not DAOCliente.AtualizaCliente(GetClienteForOperation, resposta, False, loginusuario) Then
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                    MsgBoxHelper.Alerta(Me, resposta, "Erro")
+                    MsgBoxHelper.Erro(Me, resposta, "Erro")
                 Else
                     MsgBoxHelper.Msg(Me, "Cliente atualizado com sucesso.", "Informação")
                     Desativa_Campos()
@@ -265,13 +265,14 @@ Public Class Frm_Cliente
 
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
+            If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Deseja excluir o item?", "Exclusão") Then
                 If DAOCliente.AtualizaCliente(GetClienteForOperation, "", True, loginusuario) Then
                     LimpaCampos_AtivaControles()
                     Desativa_Campos()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
                     objCliente = Nothing
                 End If
+                MsgBoxHelper.Msg(Me, resposta, "Exclusão")
             Else
                 Exit Sub
             End If
@@ -313,6 +314,9 @@ Public Class Frm_Cliente
         If cargo IsNot Nothing Then
             ComboCargo.SelectedItem = cargo
             ComboCargo.Text = cargo.Nome
+        Else
+            ComboCargo.Text = String.Empty
+            ComboCargo.SelectedIndex = -1
         End If
         TxtEmail.Text = cliente.Email
         TxtEmpresa.Text = cliente.Empresa
@@ -388,7 +392,7 @@ Public Class Frm_Cliente
         If ComboCargo.Enabled Then
             If ComboCargo.Text <> String.Empty Then
                 If DAOCliente.ChecaCargoCliente(LstCargos(ComboCargo.SelectedIndex).CodCargo, existe) Then
-                    MsgBoxHelper.CustomTooltip(GrpBoxInfo, ComboCargo, "Outro cliente já possui esse cargo.", "Alerta")
+                    MsgBoxHelper.CustomTooltip(ComboCargo, ComboCargo, "Outro cliente já possui esse cargo.", "Alerta")
                     BtnConsCargo.Visible = True
                 Else
                     BtnConsCargo.Visible = False

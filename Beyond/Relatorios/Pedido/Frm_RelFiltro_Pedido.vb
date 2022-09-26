@@ -135,8 +135,12 @@ Public Class Frm_RelFiltro_Pedido
         Dim codcliente As Integer = 0
         Dim codvendedor As Integer = 0
 
+        If Not ValidaCliEVend() Then
+            Exit Sub
+        End If
+
         If ChkCliente.Checked Then
-            Dim c = LstClientes.FirstOrDefault(Function(cc) cc.CodCliente = ComboCliente.SelectedValue)
+            Dim c = LstClientes(ComboCliente.SelectedIndex)
             If c IsNot Nothing Then
                 codcliente = c.CodCliente
             End If
@@ -165,4 +169,16 @@ Public Class Frm_RelFiltro_Pedido
     Private Sub ComboCliente_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboCliente.KeyPress
         e.KeyChar = Char.ToUpper(e.KeyChar)
     End Sub
+
+    Private Function ValidaCliEVend() As Boolean
+        If ChkCliente.Checked AndAlso (ComboCliente.SelectedIndex = -1 Or ComboCliente.Text = String.Empty) Then
+            MsgBoxHelper.CustomTooltip(ComboCliente, ComboCliente, "Selecione um cliente ou desmarque a checkbox.", "Preenchimento inválido.")
+            Return False
+        ElseIf ChkVendedor.Checked AndAlso (ComboVendedor.SelectedIndex = -1 Or ComboVendedor.Text = String.Empty) Then
+            MsgBoxHelper.CustomTooltip(ComboVendedor, ComboVendedor, "Selecione um vendedor ou desmarque a checkbox.", "Preenchimento inválido.")
+            Return False
+        End If
+
+        Return True
+    End Function
 End Class

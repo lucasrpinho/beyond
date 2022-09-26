@@ -97,6 +97,7 @@ Partial Class Frm_Cargo
         Me.ComboNome.Items.AddRange(New Object() {" "})
         Me.ComboNome.Location = New System.Drawing.Point(7, 59)
         Me.ComboNome.Margin = New System.Windows.Forms.Padding(4)
+        Me.ComboNome.MaxLength = 100
         Me.ComboNome.Name = "ComboNome"
         Me.ComboNome.Size = New System.Drawing.Size(547, 24)
         Me.ComboNome.TabIndex = 3

@@ -65,8 +65,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Imagens\beyondICO.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
@@ -452,6 +451,7 @@
     <None Include="Imagens\InsertPicture.png" />
     <None Include="Imagens\closetab.png" />
     <None Include="Imagens\beyondImagem.png" />
+    <Content Include="beyondICO.ico" />
     <Content Include="Imagens\login.png" />
   </ItemGroup>
   <ItemGroup>

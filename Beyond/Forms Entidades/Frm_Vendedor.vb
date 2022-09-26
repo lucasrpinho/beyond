@@ -101,8 +101,8 @@ Public Class Frm_Vendedor
         Dim vendedor As New Vendedor
 
         vendedor.CodCargo = LstCargos(ComboCargo.SelectedIndex).CodCargo
-        vendedor.Nome = ComboNome.Text.ToUpper
-        vendedor.Sobrenome = TxtSobrenome.Text.ToUpper
+        vendedor.Nome = RTrim(ComboNome.Text.ToUpper)
+        vendedor.Sobrenome = LTrim(TxtSobrenome.Text.ToUpper)
         vendedor.NomeCompleto = vendedor.Nome + " " + vendedor.Sobrenome
 
         vendedor.ObjEndereco = New Endereco()
@@ -129,7 +129,7 @@ Public Class Frm_Vendedor
         Dim resposta As String = ""
 
         If Not DAOVendedor.InsereVendedor(vendedor, resposta) Then
-            Uteis.MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
             Return False
         End If
 
@@ -249,9 +249,8 @@ Public Class Frm_Vendedor
             Else
                 If Not DAOVendedor.AtualizaVendedor(ObjVendedorFromList, resposta, False, loginusuario) Then
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                    MsgBoxHelper.Alerta(Me, resposta, "Erro")
+                    MsgBoxHelper.Erro(Me, resposta, "Erro")
                 Else
-                    MsgBoxHelper.Msg(Me, resposta, "Informação")
                     DesativaCampos()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
                 End If
@@ -289,12 +288,12 @@ Public Class Frm_Vendedor
             End If
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
+            If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Deseja excluir o item?", "Exclusão") Then
                 If DAOVendedor.AtualizaVendedor(ObjVendedorFromList, resposta, True, loginusuario) Then
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
+                    LimpaCampos_Desativa()
                 End If
-                LimpaCampos_Desativa()
-                MsgBoxHelper.Msg(Me, resposta, "Informação")
+                MsgBoxHelper.Msg(Me, resposta, "Exclusão")
             Else
                 Exit Sub
             End If
