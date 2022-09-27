@@ -122,8 +122,6 @@ Public Class Frm_ConsProduto
             lstViewItem.Tag = p
             ListView1.Items.Add(lstViewItem)
         Next
-
-        ListView1.Sorting = SortOrder.Descending
     End Sub
 
     Public Sub New(ByVal frm As Frm_Produto)
@@ -164,15 +162,19 @@ Public Class Frm_ConsProduto
     Private Sub ChkCateg_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChkCateg.CheckedChanged
         If ChkCateg.CheckState = CheckState.Checked Then
             ComboCateg.Enabled = True
+            ComboCateg.Focus()
         Else
             ComboCateg.Text = ""
             ComboCateg.Enabled = False
+            ComboNome.Text = String.Empty
+            CarregaProdutos()
         End If
     End Sub
 
     Private Sub ChkDesc_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChkDesc.CheckedChanged
         If ChkDesc.CheckState = CheckState.Checked Then
             ComboNome.Enabled = True
+            ComboNome.Focus()
         Else
             ComboNome.Text = ""
             ComboNome.Enabled = False

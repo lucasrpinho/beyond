@@ -415,7 +415,7 @@ Public Class Frm_Vendedor
 
         Dim resposta As String = ""
 
-        If Not vendedor.IsValid(resposta) Then
+        If Not vendedor.ObjEndereco.IsEnderecoValid(resposta) Then
             MsgBoxHelper.Alerta(Me, resposta, "")
             Return Nothing
         End If

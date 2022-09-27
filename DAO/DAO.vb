@@ -845,6 +845,7 @@ Public Class DAO
             Cmd.Parameters("@RESPONSE").Size = 255
 
             If Not Cmd.ExecuteNonQuery > 0 Then
+                resposta = Cmd.Parameters("@RESPONSE").Value
                 Return False
             Else
                 Return True
@@ -995,7 +996,7 @@ Public Class DAO
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If _AtualizaProduto(obj, isDelete, login) Then
+            If _AtualizaProduto(obj, isDelete, login, resposta) Then
                 Tr.Commit()
                 Return True
             Else
@@ -1011,7 +1012,7 @@ Public Class DAO
     End Function
 
     Private Function _AtualizaProduto(produto As Produto, isDelete As Boolean, _
-                                             login As String) As Boolean
+                                             login As String, ByRef resposta As String) As Boolean
 
         Dim succ As Boolean = False
         Using Cmd As New SqlCommand
@@ -1028,12 +1029,15 @@ Public Class DAO
             Cmd.Parameters.AddWithValue("@ATIVO", produto.IsAtivo)
             Cmd.Parameters.AddWithValue("@LOGINALTERACAO", login)
             Cmd.Parameters.AddWithValue("@ISEXCLUSAO", isDelete)
+            Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+            Cmd.Parameters("@RESPONSE").Size = 255
 
             If Cmd.ExecuteNonQuery > 0 Then
                 succ = True
             Else
                 succ = False
             End If
+            resposta = Cmd.Parameters("@RESPONSE").Value
         End Using
         Return succ
     End Function
@@ -1294,10 +1298,6 @@ Public Class DAO
             Cmd.CommandText = "SP_ATUALIZA_PEDIDO"
             Cmd.CommandType = CommandType.StoredProcedure
             Cmd.Parameters.AddWithValue("@CODPEDIDO", obj.CodPedido)
-            Cmd.Parameters.AddWithValue("@CODCLIENTE", obj.CodCliente)
-            Cmd.Parameters.AddWithValue("@CODVENDEDOR", obj.CodVendedor)
-            Cmd.Parameters.AddWithValue("@DESTINATARIO", obj.Destinatario)
-            Cmd.Parameters.AddWithValue("@DATVENDA", obj.DatVenda)
             Cmd.Parameters.AddWithValue("@CEP", obj.ObjEndereco.CEP)
             Cmd.Parameters.AddWithValue("@LOGRADOURO", obj.ObjEndereco.Logradouro)
             Cmd.Parameters.Add("@NUM", SqlDbType.SmallInt).Value = obj.ObjEndereco.NumeroEndereco

@@ -465,8 +465,12 @@ Public Class Frm_Cliente
         ElseIf ComboEstado.SelectedIndex = -1 Then
             Uteis.MsgBoxHelper.CustomTooltip(ComboEstado, ComboEstado, "Selecione um estado.", "Alerta de preenchimento")
             Return False
-        End If
 
+        Elseif TxtBairro.Text = String.Empty Then
+            Uteis.MsgBoxHelper.CustomTooltip(TxtBairro, TxtBairro, "É necessário digitar o bairro.", "Alerta de preenchimento")
+            Return False
+
+        End If
         Return True
     End Function
 End Class
