@@ -81,6 +81,13 @@ Public Class Frm_Pedido
         If Not LstVendedor.Count > 0 Then
             MsgBoxHelper.Alerta(Me, resposta, "Erro")
         Else
+
+            For i As Integer = 0 To LstVendedor.Count - 1
+                If Not LstVendedor(i).IsAtivo Then
+                    LstVendedor(i).NomeCompleto += " (INATIVO)"
+                End If
+            Next
+
             ComboVendedor.BeginUpdate()
             ComboVendedor.Items.AddRange(LstVendedor.ToArray)
             ComboVendedor.DisplayMember = "NomeCompleto"
@@ -346,6 +353,7 @@ Public Class Frm_Pedido
             Return False
         End If
 
+
         Dim pedido As New Pedido
         Dim cliente = LstCliente(ComboCliente.SelectedIndex)
         pedido.CodCliente = cliente.CodCliente
@@ -375,14 +383,14 @@ Public Class Frm_Pedido
         pedido.LoginCriacao = loginusuario
         pedido.ValorTotal = Decimal.Parse(TxtValorTotal.Text.Replace("R$", String.Empty))
 
-        pedido.CodPedido = DateTime.Now.Year.ToString + DateTime.Now.Month.ToString + DateTime.Now.Day.ToString + "PED" + _
-            pedido.CodCliente.ToString + pedido.CodVendedor.ToString + pedido.LstProduto.First.CodProduto.ToString
-
         Dim resposta As String = ""
         If Not pedido.IsValid(resposta) Then
             MsgBoxHelper.Alerta(Me, resposta, "Preenchimento")
             Return False
         End If
+
+        pedido.CodPedido = DateTime.Now.Year.ToString + DateTime.Now.Month.ToString + DateTime.Now.Day.ToString + "PED" + _
+            pedido.CodCliente.ToString + pedido.CodVendedor.ToString + pedido.LstProduto.First.CodProduto.ToString
 
         If LstPedidoItem Is Nothing Then
             LstPedidoItem = New List(Of PedidoItem)
@@ -400,6 +408,12 @@ Public Class Frm_Pedido
         If Not DAOPedido.InserePedido(pedido, LstPedidoItem, resposta) Then
             MsgBoxHelper.Erro(Me, resposta, "Erro")
             Return False
+        End If
+
+        If MessageBox.Show("Deseja visualizar o pedido em formato de impressão?", "Pedido", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+            flagImprimir = True
+        Else
+            flagImprimir = False
         End If
 
         If flagImprimir Then
@@ -423,11 +437,6 @@ Public Class Frm_Pedido
 
         If MyModo.UniqueModo = "SALVAR" Then
             If UC_Toolstrip.ModoAnterior = "NOVO" Then
-                If MessageBox.Show("Deseja visualizar o pedido em formato de impressão?", "Pedido", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-                    flagImprimir = True
-                Else
-                    flagImprimir = False
-                End If
                 If Insere() Then
                     LimpaCampos_Desativa()
                     ClearLists()
@@ -439,14 +448,18 @@ Public Class Frm_Pedido
                 End If
             Else
                 Dim ped = GetPedidoForOperation()
+                If ped Is Nothing Then
+                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                    Exit Sub
+                End If
                 GetLstItensForOperation(ped.LstProduto)
                 If Not DAOPedido.AtualizaPedido(ped, LstPedidoItem, resposta, False) Then
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                     MsgBoxHelper.Erro(Me, resposta, "Erro")
                 Else
+                    TCPedido.SelectTab(TabDados)
                     DesabilitaPages()
                     ControlsHelper.SetControlsEnabled(TCPedido.Controls)
-                    TCPedido.SelectTab(TabDados)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
                 End If
             End If
@@ -671,7 +684,8 @@ Public Class Frm_Pedido
     End Sub
 
     Private Function GetPedidoForOperation() As Pedido
-        If objPedido Is Nothing Then
+
+        If objPedido Is Nothing Or Not ValidaPreenchimento() Then
             Return Nothing
         End If
         Dim obj = objPedido
@@ -693,6 +707,11 @@ Public Class Frm_Pedido
         obj.ObjEndereco.NumeroEndereco = StringHelper.NumericOnly(TxtNum.Text)
         obj.ValorTotal = Decimal.Parse(TxtValorTotal.Text.Replace("R$", ""))
         obj.LstProduto = LstItens
+        Dim resposta As String = ""
+        If Not obj.ObjEndereco.IsEnderecoValid(resposta) Then
+            MsgBoxHelper.Alerta(Me, resposta, "Preenchimento inválido")
+            Return Nothing
+        End If
         Return obj
     End Function
 
@@ -836,36 +855,57 @@ Public Class Frm_Pedido
 
     Private Function ValidaPreenchimento() As Boolean
         If ComboCliente.Text = String.Empty Then
-            MsgBoxHelper.CustomTooltip(GrpBoxInfo, ComboCliente, "Necessário selecionar um cliente.", _
+            TCPedido.SelectTab(TabDados)
+            MsgBoxHelper.CustomTooltip(ComboCliente, ComboCliente, "Necessário selecionar um cliente.", _
                                        "Preenchimento incompleto")
             ComboCliente.Focus()
             Return False
 
-        ElseIf ComboVendedor.Text = String.Empty Then
-            MsgBoxHelper.CustomTooltip(GrpBoxInfo, ComboVendedor, "Necessário selecionar um vendedor.", _
-                                       "Preenchimento incompleto")
+        ElseIf ComboCliente.Text <> "" AndAlso ComboCliente.SelectedIndex = -1 Then
+            TCPedido.SelectTab(TabDados)
+            MsgBoxHelper.CustomTooltip(ComboCliente, ComboCliente, "Necessário selecionar um cliente.", _
+                                           "Preenchimento incompleto")
+            ComboCliente.Focus()
+            Return False
 
-        ElseIf ComboVendedor.Text <> String.Empty AndAlso Not LstVendedor(ComboVendedor.SelectedIndex).IsAtivo Then
-            MsgBoxHelper.CustomTooltip(GrpBoxInfo, ComboVendedor, "Vendedores inativos não podem ser usados no cadastro de novos pedidos.", _
-                                       "Preenchimento inválido", ToolTipIcon.Error)
+        ElseIf ComboVendedor.Text = String.Empty Then
+            TCPedido.SelectTab(TabDados)
+            MsgBoxHelper.CustomTooltip(ComboVendedor, ComboVendedor, "Necessário selecionar um vendedor.", _
+                                       "Preenchimento incompleto")
             ComboVendedor.Focus()
             Return False
 
+        ElseIf ComboVendedor.Text <> "" AndAlso ComboVendedor.SelectedIndex = -1 Then
+            MsgBoxHelper.CustomTooltip(ComboVendedor, ComboVendedor, "Necessário selecionar um vendedor.", _
+                                           "Preenchimento incompleto")
+            ComboVendedor.Focus()
+            Return False
+
+        ElseIf (ComboVendedor.Text <> String.Empty AndAlso ComboVendedor.SelectedIndex <> -1) AndAlso _
+            Not LstVendedor(ComboVendedor.SelectedIndex).IsAtivo Then
+                TCPedido.SelectTab(TabDados)
+                MsgBoxHelper.CustomTooltip(ComboVendedor, ComboVendedor, "Vendedores inativos não podem ser usados no cadastro de novos pedidos.", _
+                                           "Preenchimento inválido", ToolTipIcon.Error)
+                ComboVendedor.Focus()
+                Return False
+
         ElseIf TxtDestinatario.Text = String.Empty Then
-            MsgBoxHelper.CustomTooltip(GrpBoxInfo, TxtDestinatario, "Necessário informar um destinatário.", _
-                                       "Preenchimento incompleto")
+            TCPedido.SelectTab(TabDados)
+            MsgBoxHelper.CustomTooltip(TxtDestinatario, TxtDestinatario, "Necessário informar um destinatário.", _
+                                        "Preenchimento incompleto")
             TxtDestinatario.Focus()
             Return False
 
-        ElseIf TxtCEP.Text = String.Empty Then
-            MsgBoxHelper.CustomTooltip(GrpBoxEndereco, TxtCEP, "Necessário informar um CEP.", _
+        ElseIf Not TxtCEP.MaskCompleted Then
+            TCPedido.SelectTab(TabDados)
+            MsgBoxHelper.CustomTooltip(TxtCEP, TxtCEP, "Necessário informar um CEP.", _
                                        "Preenchimento incompleto")
             TxtCEP.Focus()
-
             Return False
 
-        ElseIf TxtCEP.Text <> String.Empty AndAlso TxtNum.Text = String.Empty Then
-            MsgBoxHelper.CustomTooltip(GrpBoxEndereco, TxtNum, "Necessário informar o número do endereço.", _
+        ElseIf TxtCEP.MaskCompleted AndAlso TxtNum.Text = String.Empty Then
+            TCPedido.SelectTab(TabDados)
+            MsgBoxHelper.CustomTooltip(TxtNum, TxtNum, "Necessário informar o número do endereço.", _
                                        "Preenchimento incompleto")
             TxtNum.Focus()
             Return False
@@ -877,7 +917,7 @@ Public Class Frm_Pedido
 
         End If
 
-        Return True
+            Return True
     End Function
 
     Private Sub ChkDestinatario_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChkDestinatario.CheckedChanged
@@ -1058,6 +1098,20 @@ Public Class Frm_Pedido
             BtnDeletaItem.Visible = True
         Else
             BtnDeletaItem.Visible = False
+        End If
+    End Sub
+
+    Private Sub ComboVendedor_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ComboVendedor.SelectedIndexChanged
+        If LstVendedor.Count > 0 AndAlso ComboVendedor.SelectedIndex <> -1 AndAlso ComboVendedor.Text <> String.Empty Then
+            If Not LstVendedor(ComboVendedor.SelectedIndex).IsAtivo Then
+                MsgBoxHelper.CustomTooltip(ComboVendedor, ComboVendedor, "Vendedor selecionado precisa estar ativo.", "Preenchimento inválido")
+            End If
+        End If
+    End Sub
+
+    Private Sub TxtNum_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtNum.KeyPress
+        If Char.IsLetter(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or Char.IsSeparator(e.KeyChar) Then
+            e.KeyChar = ""
         End If
     End Sub
 End Class

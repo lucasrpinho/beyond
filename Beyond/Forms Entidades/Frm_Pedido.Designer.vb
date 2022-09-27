@@ -368,19 +368,19 @@ Partial Class Frm_Pedido
         Me.TxtDestinatario.MaxLength = 100
         Me.TxtDestinatario.Name = "TxtDestinatario"
         Me.TxtDestinatario.Size = New System.Drawing.Size(830, 24)
-        Me.TxtDestinatario.TabIndex = 2
+        Me.TxtDestinatario.TabIndex = 3
         '
         'ComboVendedor
         '
         Me.ComboVendedor.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboVendedor.BackColor = System.Drawing.SystemColors.Window
         Me.ComboVendedor.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ComboVendedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboVendedor.FormattingEnabled = True
         Me.ComboVendedor.Location = New System.Drawing.Point(18, 148)
         Me.ComboVendedor.Name = "ComboVendedor"
         Me.ComboVendedor.Size = New System.Drawing.Size(830, 24)
-        Me.ComboVendedor.TabIndex = 3
+        Me.ComboVendedor.TabIndex = 2
         '
         'ComboCliente
         '
@@ -388,7 +388,6 @@ Partial Class Frm_Pedido
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ComboCliente.BackColor = System.Drawing.SystemColors.Window
         Me.ComboCliente.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ComboCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboCliente.FormattingEnabled = True
         Me.ComboCliente.Location = New System.Drawing.Point(18, 101)
         Me.ComboCliente.Name = "ComboCliente"

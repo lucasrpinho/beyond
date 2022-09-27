@@ -56,6 +56,8 @@
 
         If Me.LstProduto.Count = 0 Then
             strError = "O pedido está sem produtos no carrinho."
+        ElseIf Me.CodPedido <> String.Empty Then
+            strError = "O código do pedido não pode conter um valor. Será  preenchido automaticamente."
         ElseIf Not Me.LstProduto.Any(Function(p As Produto) p.IsAtivo = False) Then
             strError = "Produtos inativos não podem ser inseridos no pedido."
         ElseIf Me.CodCliente = 0 Then

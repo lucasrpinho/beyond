@@ -76,19 +76,7 @@ Public Class Frm_Cliente
     End Sub
 
     Private Function Insere() As Boolean
-
-        If Not Uteis.RegexValidation.IsEmailValid(TxtEmail.Text) Then
-            Uteis.MsgBoxHelper.CustomTooltip(Me, TxtEmail, "E-mail inválido.", "Alerta de preenchimento")
-            Return False
-        End If
-
-        If Not Uteis.RegexValidation.IsTelefoneValid(StringHelper.NumericOnly(TxtCelular.Text)) Then
-            Uteis.MsgBoxHelper.CustomTooltip(Me, TxtCelular, "Telefone inválido.", "Alerta de preenchimento")
-            Return False
-        End If
-
-        If TxtNum.Text = String.Empty Then
-            Uteis.MsgBoxHelper.CustomTooltip(Me, TxtNum, "Número vazio.", "Alerta de preenchimento")
+        If Not ValidaCampos() Then
             Return False
         End If
 
@@ -218,6 +206,11 @@ Public Class Frm_Cliente
                     frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
                 End If
             Else
+                Dim cli = GetClienteForOperation()
+                If cli Is Nothing Then
+                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                    Exit Sub
+                End If
                 If Not DAOCliente.AtualizaCliente(GetClienteForOperation, resposta, False, loginusuario) Then
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                     MsgBoxHelper.Erro(Me, resposta, "Erro")
@@ -373,7 +366,7 @@ Public Class Frm_Cliente
     End Sub
 
     Private Sub TxtNum_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtNum.KeyPress
-        If Char.IsPunctuation(e.KeyChar) Then
+        If Char.IsPunctuation(e.KeyChar) Or Char.IsLetter(e.KeyChar) Or Char.IsSeparator(e.KeyChar) Then
             e.KeyChar = ""
         End If
     End Sub
@@ -402,6 +395,10 @@ Public Class Frm_Cliente
     End Sub
 
     Private Function GetClienteForOperation() As Cliente
+        If Not ValidaCampos() Then
+            Return Nothing
+        End If
+
         Dim cliente As New Cliente
         If ComboNome.Text <> String.Empty Then
             cliente = objCliente
@@ -442,4 +439,34 @@ Public Class Frm_Cliente
         Dim frm As New Frm_Cliente_Cargo(frmPrincipal, LstCargos(ComboCargo.SelectedIndex).CodCargo)
         frm.ShowDialog()
     End Sub
+
+    Private Function ValidaCampos() As Boolean
+
+        If TxtNum.Text = String.Empty Then
+            Uteis.MsgBoxHelper.CustomTooltip(TxtNum, TxtNum, "Número precisa ter um valor.", "Alerta de preenchimento")
+            Return False
+
+        ElseIf Not Uteis.RegexValidation.IsEmailValid(TxtEmail.Text) Then
+            Uteis.MsgBoxHelper.CustomTooltip(TxtEmail, TxtEmail, "E-mail inválido.", "Alerta de preenchimento")
+            Return False
+
+        ElseIf Not Uteis.RegexValidation.IsTelefoneValid(StringHelper.NumericOnly(TxtCelular.Text)) Then
+            Uteis.MsgBoxHelper.CustomTooltip(TxtCelular, TxtCelular, "Telefone inválido.", "Alerta de preenchimento")
+            Return False
+
+        ElseIf Not TxtCEP.MaskCompleted Then
+            Uteis.MsgBoxHelper.CustomTooltip(TxtCEP, TxtCEP, "CEP inválido.", "Alerta de preenchimento")
+            Return False
+
+        ElseIf TxtCidade.Text = String.Empty Then
+            Uteis.MsgBoxHelper.CustomTooltip(TxtCidade, TxtCidade, "Cidade precisa ter um valor.", "Alerta de preenchimento")
+            Return False
+
+        ElseIf ComboEstado.SelectedIndex = -1 Then
+            Uteis.MsgBoxHelper.CustomTooltip(ComboEstado, ComboEstado, "Selecione um estado.", "Alerta de preenchimento")
+            Return False
+        End If
+
+        Return True
+    End Function
 End Class

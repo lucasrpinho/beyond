@@ -163,7 +163,7 @@ Public Class Frm_Cargo
                     Desativa_Campos()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
                 End If
-                MsgBoxHelper.Msg(Me, resposta, "Exclusão")
+                MsgBoxHelper.Msg(Me, resposta, "Informação")
             Else
                 Exit Sub
             End If

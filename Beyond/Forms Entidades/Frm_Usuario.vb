@@ -35,6 +35,12 @@ Public Class Frm_Usuario
     End Sub
 
     Private Function InsereUsuario() As Boolean
+        If TxtSenha.Text <> TxtSenhaConfirmar.Text Then
+            Uteis.MsgBoxHelper.Erro(Me, "As senhas estão diferentes.", "Preenchimento inválido")
+            TxtSenhaConfirmar.Focus()
+            Return False
+        End If
+
         Dim usuario As New Usuario
         usuario.Nome = ComboNome.Text.ToUpper
         usuario.Sobrenome = TxtSobrenome.Text.ToUpper
@@ -52,7 +58,7 @@ Public Class Frm_Usuario
         End If
 
         If Not Uteis.RegexValidation.IsEmailValid(TxtEmail.Text) Then
-            Uteis.MsgBoxHelper.CustomTooltip(Me, TxtEmail, "E-mail inválido.", "Erro de preenchimento")
+            Uteis.MsgBoxHelper.CustomTooltip(TxtEmail, TxtEmail, "E-mail inválido.", "Erro de preenchimento")
             Return False
         End If
 
@@ -225,11 +231,11 @@ Public Class Frm_Usuario
     Private Function ValidaSenha() As Boolean
         If Not Uteis.StringHelper.IsNull(TxtSenha.Text) Then
             If Not Uteis.RegexValidation.IsSenhaValida(TxtSenha.Text) Then
-                Uteis.MsgBoxHelper.Alerta(Me, "Senha deve conter de 5 a 16 caracteres." + vbNewLine +
+                Uteis.MsgBoxHelper.Alerta(Me, "Senha deve conter de 5 a 16 caracteres." + vbNewLine + vbNewLine +
                     "Uma letra maiuscula, uma letra minúscula e um número.", "Senha inválida")
                 Return False
             ElseIf Not Uteis.StringHelper.IsNull(TxtSenhaConfirmar.Text) Then
-                If TxtSenha.Text.ToUpper <> TxtSenhaConfirmar.Text.ToUpper Then
+                If TxtSenha.Text <> TxtSenhaConfirmar.Text Then
                     Uteis.MsgBoxHelper.Erro(Me, "Senhas diferentes.", "Erro")
                 Else
                     Return True

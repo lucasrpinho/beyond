@@ -45,11 +45,13 @@ Public Class Cliente
         strError = ""
         If Me.CodCliente <> 0 Then
             strError = "Código do cliente deve ser zero pois será gerado"
-        ElseIf Me.ObjEndereco.CEP = "" Then
-            strError = "CEP precisa ser preenchido"
-        ElseIf Me.ObjEndereco.Logradouro = "" Or Me.ObjEndereco.Bairro = "" Or Me.ObjEndereco.Cidade = "" _
-            Or Me.ObjEndereco.UF = "" Or Me.ObjEndereco.NumeroEndereco = 0 Then
-            strError = "Informações incompletas no endereço"
+        ElseIf Not Me.ObjEndereco.IsEnderecoValid(strError) Then
+            Return False
+            'ElseIf Me.ObjEndereco.CEP = "" Then
+            '    strError = "CEP precisa ser preenchido"
+            'ElseIf Me.ObjEndereco.Logradouro = "" Or Me.ObjEndereco.Bairro = "" Or Me.ObjEndereco.Cidade = "" _
+            '    Or Me.ObjEndereco.UF = "" Or Me.ObjEndereco.NumeroEndereco = 0 Then
+            'strError = "Informações incompletas no endereço"
         ElseIf Me.Telefone = "" Then
             strError = "Telefone precisa ser preenchido"
         ElseIf Me.Telefone.Length <> 11 Then

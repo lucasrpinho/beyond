@@ -65,8 +65,8 @@ Public Class Vendedor
             strError = "Nome precisa estar preenchido."
         ElseIf Me.Sobrenome = "" Then
             strError = "Sobrenome precisa estar preenchido."
-        ElseIf Me.ObjEndereco.CEP = "" Or Me.ObjEndereco.CEP.ToString.Length > 8 Then
-            strError = "CEP não pode ser vazio."
+        ElseIf Me.ObjEndereco.CEP = "" Or Me.ObjEndereco.CEP.ToString.Length <> 8 Then
+            strError = "CEP está inválido."
         ElseIf Me.ObjEndereco.Bairro = "" Then
             strError = "Bairro precisa ser preenchido."
         ElseIf Me.ObjEndereco.Cidade = "" Then

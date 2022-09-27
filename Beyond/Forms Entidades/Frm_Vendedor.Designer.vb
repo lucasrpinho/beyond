@@ -120,13 +120,11 @@ Partial Class Frm_Vendedor
         '
         'PicBoxFoto
         '
-        Me.PicBoxFoto.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PicBoxFoto.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicBoxFoto.Location = New System.Drawing.Point(6, 24)
+        Me.PicBoxFoto.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PicBoxFoto.Location = New System.Drawing.Point(3, 20)
         Me.PicBoxFoto.Name = "PicBoxFoto"
-        Me.PicBoxFoto.Size = New System.Drawing.Size(194, 170)
+        Me.PicBoxFoto.Size = New System.Drawing.Size(200, 177)
         Me.PicBoxFoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PicBoxFoto.TabIndex = 36
         Me.PicBoxFoto.TabStop = False

@@ -414,10 +414,13 @@ Public Class DAO
                 End If
                 Cmd.Parameters.AddWithValue("@VENDEDOR", cargo.IsVendedor)
                 Cmd.Parameters.AddWithValue("@LOGINALTERACAO", loginupdate)
+                Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+                Cmd.Parameters("@RESPONSE").Size = 255
 
                 If Not Cmd.ExecuteNonQuery > 0 Then
                     Return False
                 Else
+                    resposta = Cmd.Parameters("@RESPONSE").Value
                     Return True
                 End If
             End Using

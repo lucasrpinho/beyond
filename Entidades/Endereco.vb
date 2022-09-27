@@ -93,6 +93,24 @@ Public Class Endereco
 
     End Sub
 
+    Public Function IsEnderecoValid(ByRef str As String) As Boolean
+        If CEP.ToString.Length <> 8 Then
+            str = "CEP inválido."
+        ElseIf Logradouro.ToString = String.Empty Then
+            str = "Logradouro não pode ser vazio."
+        ElseIf Bairro.ToString = String.Empty Then
+            str = "Bairro não pode ser vazio."
+        ElseIf UF.ToString.Length <> 2 Then
+            str = "Estado não pode ser vazio."
+        ElseIf NumeroEndereco.ToString = String.Empty Then
+            str = "Número não pode ser vazio"
+        ElseIf Cidade.ToString = String.Empty Then
+            str = "Cidade não pode ser vazia."
+        End If
+
+        Return String.IsNullOrWhiteSpace(str)
+    End Function
+
     Public Sub Carrega(row As Data.DataRow)
         Me.UF = row.Field(Of String)("uf_estado")
         Me.Bairro = row.Field(Of String)("de_bairro")

@@ -81,20 +81,7 @@ Public Class Frm_Vendedor
 
     Private Function Insere() As Boolean
 
-        If TxtNum.Text = String.Empty Then
-            Uteis.MsgBoxHelper.CustomTooltip(GrpBoxEndereco, TxtNum, "Número vazio.", "Alerta de preenchimento")
-            Return False
-        End If
-
-        If PicBoxFoto.Image Is Nothing Then
-            Uteis.MsgBoxHelper.CustomTooltip(PicBoxFoto, PicBoxFoto, "Vendedor precisa ter uma foto no cadastro.", _
-                                                "Preenchimento incompleto")
-            Return False
-        End If
-
-        If ComboCargo.Text = String.Empty Then
-            Uteis.MsgBoxHelper.CustomTooltip(GrpBoxInfo, ComboCargo, "Vendedor precisa ter um cargo.", _
-                                                "Preenchimento incompleto")
+        If Not ValidaEndereco() Then
             Return False
         End If
 
@@ -143,14 +130,20 @@ Public Class Frm_Vendedor
         LstCargos.Clear()
         ComboCargo.Items.Clear()
 
-        LstCargos = DAOVendedor.GetCargo(True)
+        LstCargos = DAOVendedor.GetCargo(True, True)
 
         If Not LstCargos.Count > 0 Then
             MsgBoxHelper.Alerta(Me, "O sistema não conseguiu buscar os cargos.", "Erro")
             Exit Sub
         End If
 
-        LstCargos.RemoveAll(Function(c As Cargo) c.IsVendedor = False)
+        LstCargos.RemoveAll(Function(c) c.IsVendedor = False)
+
+        For I As Integer = 0 To LstCargos.Count - 1
+            If Not LstCargos(I).IsAtivo Then
+                LstCargos(I).Nome += " (INATIVO)"
+            End If
+        Next
 
         ComboCargo.BeginUpdate()
         ComboCargo.Items.AddRange(LstCargos.ToArray)
@@ -247,6 +240,11 @@ Public Class Frm_Vendedor
                     frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
                 End If
             Else
+                Dim vendedor = ObjVendedorFromList()
+                If vendedor Is Nothing Then
+                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                    Exit Sub
+                End If
                 If Not DAOVendedor.AtualizaVendedor(ObjVendedorFromList, resposta, False, loginusuario) Then
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                     MsgBoxHelper.Erro(Me, resposta, "Erro")
@@ -394,6 +392,11 @@ Public Class Frm_Vendedor
     End Sub
 
     Private Function ObjVendedorFromList() As Vendedor
+
+        If Not ValidaEndereco() Then
+            Return Nothing
+        End If
+
         Dim vendedor As New Vendedor
         If ComboNome.Text <> String.Empty Then
             vendedor = objVendedor
@@ -409,6 +412,14 @@ Public Class Frm_Vendedor
         vendedor.ObjEndereco.NumeroEndereco = Convert.ToInt16(TxtNum.Text)
         vendedor.Observacao = TxtObs.Text
         vendedor.IsAtivo = ChkBoxAtivo.Checked
+
+        Dim resposta As String = ""
+
+        If Not vendedor.IsValid(resposta) Then
+            MsgBoxHelper.Alerta(Me, resposta, "")
+            Return Nothing
+        End If
+
         Return vendedor
     End Function
 
@@ -450,4 +461,36 @@ Public Class Frm_Vendedor
     Private Sub PicBoxFoto_Click(sender As System.Object, e As System.EventArgs) Handles PicBoxFoto.Click
         CarregaImagem()
     End Sub
+
+    Private Function ValidaEndereco() As Boolean
+        If ComboCargo.Text = String.Empty Then
+            Uteis.MsgBoxHelper.CustomTooltip(ComboCargo, ComboCargo, "Vendedor precisa ter um cargo.", _
+                                                "Preenchimento incompleto")
+            Return False
+
+        ElseIf Not LstCargos(ComboCargo.SelectedIndex).IsAtivo Then
+            Uteis.MsgBoxHelper.CustomTooltip(ComboCargo, ComboCargo, "O cargo selecionado está inativado.", _
+                                                "Preenchimento inválido")
+            Return False
+
+        ElseIf PicBoxFoto.Image Is Nothing Then
+            Uteis.MsgBoxHelper.CustomTooltip(PicBoxFoto, PicBoxFoto, "Vendedor precisa ter uma foto no cadastro.", _
+                                                "Preenchimento incompleto")
+            Return False
+
+        ElseIf TxtNum.Text = String.Empty Then
+            Uteis.MsgBoxHelper.CustomTooltip(TxtNum, TxtNum, "Número vazio.", "Alerta de preenchimento")
+            Return False
+
+        ElseIf Not TxtCEP.MaskCompleted Then
+            Uteis.MsgBoxHelper.CustomTooltip(TxtCEP, TxtCEP, "CEP inválido.", "Alerta de preenchimento")
+            Return False
+
+        ElseIf ComboEstado.SelectedIndex = -1 Then
+            Uteis.MsgBoxHelper.CustomTooltip(ComboEstado, ComboEstado, "Selecione um estado.", "Alerta de preenchimento")
+            Return False
+        End If
+
+        Return True
+    End Function
 End Class
