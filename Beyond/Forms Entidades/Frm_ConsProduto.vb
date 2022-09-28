@@ -182,9 +182,8 @@ Public Class Frm_ConsProduto
     End Sub
 
     Private Sub ComboCateg_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboCateg.KeyPress
-        If Char.IsLetter(e.KeyChar) Or Char.IsDigit(e.KeyChar) Or Char.IsSeparator(e.KeyChar) Or
-            Char.IsPunctuation(e.KeyChar) Then
-            e.KeyChar = ""
+        If Char.IsLetter(e.KeyChar)Then
+            e.KeyChar = Char.ToUpper(e.KeyChar)
         End If
     End Sub
 

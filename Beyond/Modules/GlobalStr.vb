@@ -1,5 +1,5 @@
 ﻿Module GlobalStr
 
-    Public loginusuario As String
+    Public codusuario As Int32
 
 End Module

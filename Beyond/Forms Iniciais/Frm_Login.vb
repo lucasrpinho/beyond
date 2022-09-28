@@ -18,14 +18,10 @@ Public Class Frm_Login
     Private Function ValidaCampos() As Boolean
         If StringHelper.IsNull(TxtLogin.Text) Then
             MsgBoxHelper.CustomTooltip(TxtLogin, TxtLogin, "Campo de login precisa ser preenchido.", "Login", ToolTipIcon.Info)
+            TxtLogin.Focus()
         ElseIf StringHelper.IsNull(TxtSenha.Text) Then
             MsgBoxHelper.CustomTooltip(TxtSenha, TxtSenha, "Campo de senha precisa ser preenchido.", "Senha", ToolTipIcon.Info)
-        ElseIf Not StringHelper.MinLength(TxtLogin.Text, 5) Then
-            _ToolTip.IsBalloon = True
-            _ToolTip.ToolTipTitle = "Login inválido"
-            _ToolTip.ToolTipIcon = ToolTipIcon.Info
-            _ToolTip.SetToolTip(TxtLogin, "Login muito curto.")
-            _ToolTip.Show("Login muito curto.", TxtLogin, 2000)
+            TxtSenha.Focus()
         Else
             Return True
         End If
@@ -49,6 +45,7 @@ Public Class Frm_Login
             BtnAcessa.Enabled = False
             TxtSenhaInvalida.Visible = True
             TxtSenhaInvalida.Text = "Formato de login inválido."
+            TxtLogin.Focus()
         End If
     End Sub
 

@@ -8,6 +8,7 @@ Public Class Frm_Produto
     Private DAOProd As New DAO.DAO
     Private MyModo As New UC_Toolstrip.UniqueModo
     Friend objProduto As Produto
+    Private LstCategoria As List(Of String)
 
 
     Public Sub New(ByVal frm As Frm_Principal_MDI)
@@ -36,12 +37,33 @@ Public Class Frm_Produto
         AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
         MyModo.UniqueModo = "PADRÃO"
         PicBoxFoto.Image = Nothing
+        CarregaCategoria()
+    End Sub
+
+    Private Sub CarregaCategoria()
+        ComboCategoria.Items.Clear()
+        If LstCategoria IsNot Nothing Then
+            LstCategoria.Clear()
+        End If
+
+        Dim resposta As String = ""
+
+        LstCategoria = DAOProd.GetCategoriasProduto(resposta)
+
+        If Not LstCategoria.Count > 0 Then
+            Exit Sub
+        End If
+
+        For Each Str As String In LstCategoria
+            ComboCategoria.Items.Add(Str)
+        Next
     End Sub
 
     Private Sub LimpaCampos_AtivaControles()
         Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
         Uteis.ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
         Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
+        ChkAtivo.Checked = True
         ClearImg()
     End Sub
 
@@ -50,8 +72,8 @@ Public Class Frm_Produto
     End Sub
 
     Private Function ChecaPreenchimento() As Control
-        If TxtCategoria.Text = String.Empty Then
-            Return TxtCategoria
+        If ComboCategoria.Text = String.Empty Then
+            Return ComboCategoria
         ElseIf TxtNome.Text = String.Empty Then
             Return TxtNome
         ElseIf TxtDesc.Text = String.Empty Then
@@ -70,18 +92,18 @@ Public Class Frm_Produto
         Dim controlNaoPreenchido = ChecaPreenchimento()
 
         If controlNaoPreenchido IsNot Nothing Then
-            MsgBoxHelper.CustomTooltip(Me, controlNaoPreenchido, "Campo não pode ser vazio.", "Campo não foi preenchido")
+            MsgBoxHelper.CustomTooltip(controlNaoPreenchido, controlNaoPreenchido, "Campo não pode ser vazio.", "Preenchimento incompleto")
+            controlNaoPreenchido.Focus()
             Return False
         End If
 
         prod.Nome = TxtNome.Text.ToUpper
         prod.Descricao = TxtDesc.Text.ToUpper
-        prod.Categoria = TxtCategoria.Text.ToUpper
+        prod.Categoria = ComboCategoria.Text.ToUpper
         prod.Preco = Convert.ToDecimal(StringHelper.CurrencyType(TxtPreco.Text))
         prod.Quantidade = Convert.ToInt32(TxtQtd.Text)
         prod.IsAtivo = ChkAtivo.Checked
         prod.Imagem = StrImgPath
-        prod.LoginCriacao = loginusuario
 
         Dim resposta As String = ""
 
@@ -90,7 +112,7 @@ Public Class Frm_Produto
             Return False
         End If
 
-        If Not DAOProd.InsereProduto(prod, resposta) Then
+        If Not DAOProd.InsereProduto(prod, resposta, codusuario) Then
             Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
             Return False
         End If
@@ -115,6 +137,9 @@ Public Class Frm_Produto
             If UC_Toolstrip.ModoAnterior = "NOVO" Then
                 If Insere() Then
                     LimpaCampos_AtivaControles()
+                    If objProduto IsNot Nothing Then
+                        objProduto = Nothing
+                    End If
                     Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
                 Else
@@ -122,10 +147,11 @@ Public Class Frm_Produto
                     frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
                 End If
             Else
-                If Not DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, loginusuario) Then
+                If Not DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, codusuario) Then
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                     MsgBoxHelper.Erro(Me, resposta, "Erro")
                 Else
+                    LimpaCampos_AtivaControles()
                     Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
                 End If
@@ -137,10 +163,11 @@ Public Class Frm_Produto
 
 
         ElseIf MyModo.UniqueModo = "NOVO" Then
+            CarregaCategoria()
             LimpaCampos_AtivaControles()
             frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
             ClearImg()
-            TxtCategoria.Focus()
+            ComboCategoria.Focus()
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
             frmPrincipal.UC_Toolstrip1.BtnPesquisar.Enabled = True
@@ -161,7 +188,7 @@ Public Class Frm_Produto
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
-                If DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, loginusuario, True) Then
+                If DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, codusuario, True) Then
                     LimpaCampos_AtivaControles()
                     Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
@@ -175,15 +202,15 @@ Public Class Frm_Produto
             CarregaImagem()
 
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
-        LimpaCampos_AtivaControles()
-        frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
+            LimpaCampos_AtivaControles()
+            frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
             Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
         End If
 
     End Sub
 
     Private Sub PreencheCampos(ByVal prod As Produto)
-        TxtCategoria.Text = prod.Categoria
+        ComboCategoria.Text = prod.Categoria
         TxtNome.Text = prod.Nome
         TxtDesc.Text = prod.Descricao
         TxtPreco.Text = prod.Preco.ToString("C")
@@ -246,11 +273,11 @@ Public Class Frm_Produto
     Private Function GetProdutoForOperation() As Produto
         Dim prod As New Produto
 
-        If TxtCategoria.Text <> String.Empty AndAlso TxtDesc.Text <> String.Empty Then
+        If ComboCategoria.Text <> String.Empty AndAlso TxtDesc.Text <> String.Empty Then
             prod = objProduto
         End If
 
-        prod.Categoria = TxtCategoria.Text
+        prod.Categoria = ComboCategoria.Text
         prod.Nome = TxtNome.Text
         prod.Preco = Convert.ToDecimal(StringHelper.CurrencyType(TxtPreco.Text))
         prod.Descricao = TxtDesc.Text
@@ -263,6 +290,7 @@ Public Class Frm_Produto
     Private Sub ModoAlterar()
         ControlsHelper.SetControlsEnabled(Me.GrpBoxInfo.Controls)
         PicBoxFoto.Enabled = False
+        BtnInsereImagem.Enabled = False
     End Sub
 
     Private Sub ModoPesquisa()
@@ -292,5 +320,18 @@ Public Class Frm_Produto
 
     Private Sub PicBoxFoto_Click(sender As System.Object, e As System.EventArgs) Handles PicBoxFoto.Click
         CarregaImagem()
+    End Sub
+
+    Private Sub BtnInsereImagem_Click(sender As System.Object, e As System.EventArgs) Handles BtnInsereImagem.Click
+        CarregaImagem()
+    End Sub
+
+    Private Sub ComboCategoria_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboCategoria.KeyPress
+        If Char.IsPunctuation(e.KeyChar) Or Char.IsSymbol(e.KeyChar) Then
+            e.KeyChar = ""
+            e.Handled = True
+        Else
+            e.KeyChar = Char.ToUpper(e.KeyChar)
+        End If
     End Sub
 End Class

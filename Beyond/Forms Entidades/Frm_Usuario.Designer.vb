@@ -27,8 +27,6 @@ Partial Class Frm_Usuario
         Me.ChkBoxAtivo = New System.Windows.Forms.CheckBox()
         Me.TxtEmail = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.TxtSobrenome = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TxtLogin = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -52,14 +50,12 @@ Partial Class Frm_Usuario
         Me.GrpBoxInfo.Controls.Add(Me.ChkBoxAtivo)
         Me.GrpBoxInfo.Controls.Add(Me.TxtEmail)
         Me.GrpBoxInfo.Controls.Add(Me.Label6)
-        Me.GrpBoxInfo.Controls.Add(Me.TxtSobrenome)
-        Me.GrpBoxInfo.Controls.Add(Me.Label2)
         Me.GrpBoxInfo.Controls.Add(Me.Label1)
         Me.GrpBoxInfo.Location = New System.Drawing.Point(16, 15)
         Me.GrpBoxInfo.Margin = New System.Windows.Forms.Padding(4)
         Me.GrpBoxInfo.Name = "GrpBoxInfo"
         Me.GrpBoxInfo.Padding = New System.Windows.Forms.Padding(4)
-        Me.GrpBoxInfo.Size = New System.Drawing.Size(539, 246)
+        Me.GrpBoxInfo.Size = New System.Drawing.Size(539, 193)
         Me.GrpBoxInfo.TabIndex = 0
         Me.GrpBoxInfo.TabStop = False
         Me.GrpBoxInfo.Text = "Informações"
@@ -68,14 +64,17 @@ Partial Class Frm_Usuario
         '
         Me.ComboNome.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboNome.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboNome.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboNome.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple
         Me.ComboNome.FormattingEnabled = True
+        Me.ComboNome.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.ComboNome.Items.AddRange(New Object() {" "})
         Me.ComboNome.Location = New System.Drawing.Point(12, 94)
         Me.ComboNome.Margin = New System.Windows.Forms.Padding(4)
-        Me.ComboNome.MaxLength = 30
+        Me.ComboNome.MaxLength = 150
         Me.ComboNome.Name = "ComboNome"
-        Me.ComboNome.Size = New System.Drawing.Size(338, 24)
+        Me.ComboNome.Size = New System.Drawing.Size(519, 24)
         Me.ComboNome.TabIndex = 2
         '
         'ChkBoxAtivo
@@ -98,44 +97,22 @@ Partial Class Frm_Usuario
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtEmail.BackColor = System.Drawing.SystemColors.Window
         Me.TxtEmail.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtEmail.Location = New System.Drawing.Point(12, 210)
+        Me.TxtEmail.Location = New System.Drawing.Point(12, 143)
         Me.TxtEmail.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtEmail.MaxLength = 254
+        Me.TxtEmail.MaxLength = 150
         Me.TxtEmail.Name = "TxtEmail"
-        Me.TxtEmail.Size = New System.Drawing.Size(338, 24)
+        Me.TxtEmail.Size = New System.Drawing.Size(519, 24)
         Me.TxtEmail.TabIndex = 4
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(9, 189)
+        Me.Label6.Location = New System.Drawing.Point(9, 122)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(51, 17)
         Me.Label6.TabIndex = 4
         Me.Label6.Text = "E-mail"
-        '
-        'TxtSobrenome
-        '
-        Me.TxtSobrenome.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TxtSobrenome.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtSobrenome.Location = New System.Drawing.Point(12, 152)
-        Me.TxtSobrenome.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtSobrenome.MaxLength = 50
-        Me.TxtSobrenome.Name = "TxtSobrenome"
-        Me.TxtSobrenome.Size = New System.Drawing.Size(338, 24)
-        Me.TxtSobrenome.TabIndex = 3
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(9, 131)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(89, 17)
-        Me.Label2.TabIndex = 2
-        Me.Label2.Text = "Sobrenome"
         '
         'Label1
         '
@@ -143,26 +120,26 @@ Partial Class Frm_Usuario
         Me.Label1.Location = New System.Drawing.Point(9, 73)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(48, 17)
+        Me.Label1.Size = New System.Drawing.Size(120, 17)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Nome"
+        Me.Label1.Text = "Nome Completo"
         '
         'TxtLogin
         '
         Me.TxtLogin.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.TxtLogin.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtLogin.Location = New System.Drawing.Point(8, 57)
+        Me.TxtLogin.Location = New System.Drawing.Point(8, 46)
         Me.TxtLogin.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtLogin.MaxLength = 16
+        Me.TxtLogin.MaxLength = 30
         Me.TxtLogin.Name = "TxtLogin"
-        Me.TxtLogin.Size = New System.Drawing.Size(205, 24)
+        Me.TxtLogin.Size = New System.Drawing.Size(523, 24)
         Me.TxtLogin.TabIndex = 5
         '
         'Label3
         '
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(8, 36)
+        Me.Label3.Location = New System.Drawing.Point(8, 25)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(46, 17)
@@ -172,11 +149,11 @@ Partial Class Frm_Usuario
         'TxtSenha
         '
         Me.TxtSenha.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.TxtSenha.Location = New System.Drawing.Point(8, 119)
+        Me.TxtSenha.Location = New System.Drawing.Point(8, 95)
         Me.TxtSenha.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtSenha.MaxLength = 20
         Me.TxtSenha.Name = "TxtSenha"
-        Me.TxtSenha.Size = New System.Drawing.Size(205, 24)
+        Me.TxtSenha.Size = New System.Drawing.Size(304, 24)
         Me.TxtSenha.TabIndex = 6
         Me.TxtSenha.UseSystemPasswordChar = True
         '
@@ -184,7 +161,7 @@ Partial Class Frm_Usuario
         '
         Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(8, 98)
+        Me.Label4.Location = New System.Drawing.Point(8, 74)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(52, 17)
@@ -194,11 +171,11 @@ Partial Class Frm_Usuario
         'TxtSenhaConfirmar
         '
         Me.TxtSenhaConfirmar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.TxtSenhaConfirmar.Location = New System.Drawing.Point(8, 181)
+        Me.TxtSenhaConfirmar.Location = New System.Drawing.Point(8, 152)
         Me.TxtSenhaConfirmar.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtSenhaConfirmar.MaxLength = 20
         Me.TxtSenhaConfirmar.Name = "TxtSenhaConfirmar"
-        Me.TxtSenhaConfirmar.Size = New System.Drawing.Size(205, 24)
+        Me.TxtSenhaConfirmar.Size = New System.Drawing.Size(304, 24)
         Me.TxtSenhaConfirmar.TabIndex = 7
         Me.TxtSenhaConfirmar.UseSystemPasswordChar = True
         '
@@ -206,7 +183,7 @@ Partial Class Frm_Usuario
         '
         Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(8, 152)
+        Me.Label5.Location = New System.Drawing.Point(8, 131)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(131, 17)
@@ -225,11 +202,11 @@ Partial Class Frm_Usuario
         Me.GrpBoxCredenciais.Controls.Add(Me.TxtSenhaConfirmar)
         Me.GrpBoxCredenciais.Controls.Add(Me.Label3)
         Me.GrpBoxCredenciais.Controls.Add(Me.TxtSenha)
-        Me.GrpBoxCredenciais.Location = New System.Drawing.Point(16, 283)
+        Me.GrpBoxCredenciais.Location = New System.Drawing.Point(16, 241)
         Me.GrpBoxCredenciais.Margin = New System.Windows.Forms.Padding(4)
         Me.GrpBoxCredenciais.Name = "GrpBoxCredenciais"
         Me.GrpBoxCredenciais.Padding = New System.Windows.Forms.Padding(4)
-        Me.GrpBoxCredenciais.Size = New System.Drawing.Size(539, 231)
+        Me.GrpBoxCredenciais.Size = New System.Drawing.Size(539, 202)
         Me.GrpBoxCredenciais.TabIndex = 11
         Me.GrpBoxCredenciais.TabStop = False
         Me.GrpBoxCredenciais.Text = "Credenciais"
@@ -238,7 +215,7 @@ Partial Class Frm_Usuario
         '
         Me.PictureBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.PictureBox1.Image = Global.Beyond.My.Resources.Resources.password
-        Me.PictureBox1.Location = New System.Drawing.Point(220, 119)
+        Me.PictureBox1.Location = New System.Drawing.Point(319, 95)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(24, 24)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -250,7 +227,7 @@ Partial Class Frm_Usuario
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Menu
-        Me.ClientSize = New System.Drawing.Size(571, 527)
+        Me.ClientSize = New System.Drawing.Size(571, 473)
         Me.Controls.Add(Me.GrpBoxCredenciais)
         Me.Controls.Add(Me.GrpBoxInfo)
         Me.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -273,8 +250,6 @@ Partial Class Frm_Usuario
     End Sub
     Friend WithEvents GrpBoxInfo As System.Windows.Forms.GroupBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents TxtSobrenome As System.Windows.Forms.TextBox
-    Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents ChkBoxAtivo As System.Windows.Forms.CheckBox
     Friend WithEvents TxtSenhaConfirmar As System.Windows.Forms.TextBox
     Friend WithEvents Label5 As System.Windows.Forms.Label

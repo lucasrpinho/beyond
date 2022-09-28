@@ -184,8 +184,7 @@
 
     Public Sub AfterSuccessfulUpdate()
         For Each item As ToolStripItem In ToolStrip1.Items
-            If item IsNot BtnNovo AndAlso item IsNot BtnExcluir AndAlso item IsNot BtnPesquisar AndAlso _
-                item IsNot BtnAlterar Then
+            If item IsNot BtnNovo AndAlso item IsNot BtnPesquisar Then
                 item.Enabled = False
             Else
                 item.Enabled = True

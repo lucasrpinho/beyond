@@ -70,12 +70,12 @@ Public Class DAO
 
 #Region "Usuário"
 
-    Public Function InsertUsuario(usuario As Usuario, ByRef response As String) As Boolean
+    Public Function InsertUsuario(usuario As Usuario, ByRef response As String, codusuarioCriacao As Int32) As Boolean
 
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If _InsertUsuario(Con, usuario, response) Then
+            If _InsertUsuario(Con, usuario, response, codUsuarioCriacao) Then
                 Tr.Commit()
                 Return True
             Else
@@ -90,20 +90,18 @@ Public Class DAO
         Return False
     End Function
 
-    Private Function _InsertUsuario(con As SqlConnection, ByVal usuario As Usuario, ByRef response As String) As Boolean
+    Private Function _InsertUsuario(con As SqlConnection, ByVal usuario As Usuario, ByRef response As String, _
+                                    codusuarioCriacao As Int32) As Boolean
         Dim succ As Boolean
         Using Cmd As New SqlClient.SqlCommand
             Cmd.Connection = con
             Cmd.Transaction = Tr
             Cmd.CommandText = "SP_INSERE_USUARIO"
             Cmd.CommandType = CommandType.StoredProcedure
-            Cmd.Parameters.Add("@NOME", SqlDbType.VarChar).Value = usuario.Nome
-            Cmd.Parameters.Add("@SOBRENOME", SqlDbType.VarChar).Value = usuario.Sobrenome
             Cmd.Parameters.Add("@NOMECOMPLETO", SqlDbType.VarChar).Value = usuario.NomeCompleto
             Cmd.Parameters.Add("@EMAIL", SqlDbType.VarChar).Value = usuario.Email
             Cmd.Parameters.Add("@LOGIN", SqlDbType.VarChar).Value = usuario.Login
             Cmd.Parameters.Add("@SENHA", SqlDbType.VarChar).Value = usuario.Senha
-            Cmd.Parameters.Add("@LOGINCRIACAO", SqlDbType.VarChar).Value = usuario.LoginCriacao
             Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
             Cmd.Parameters("@RESPONSE").Size = 255
             If Not Cmd.ExecuteNonQuery > 0 Then
@@ -265,12 +263,12 @@ Public Class DAO
         End Using
     End Function
 
-    Public Function InsereCargo(cargo As Cargo, ByRef resposta As String) As Boolean
+    Public Function InsereCargo(cargo As Cargo, ByRef resposta As String, ByVal codusuario As Int32) As Boolean
 
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If _InsereCargo(cargo) Then
+            If _InsereCargo(cargo, codusuario, resposta) Then
                 Tr.Commit()
                 Return True
             Else
@@ -333,7 +331,7 @@ Public Class DAO
         Return lst
     End Function
 
-    Private Function _InsereCargo(cargo As Cargo) As Boolean
+    Private Function _InsereCargo(cargo As Cargo, codusuario As Int32, ByRef resposta As String) As Boolean
         Using Cmd As New SqlCommand()
             Cmd.Connection = Con
             Cmd.Transaction = Tr
@@ -343,23 +341,27 @@ Public Class DAO
             Cmd.Parameters.Add("@DESC", SqlDbType.VarChar).Value = cargo.Descricao
             Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = cargo.IsAtivo
             Cmd.Parameters.Add("@VENDEDOR", SqlDbType.Bit).Value = cargo.IsVendedor
-            Cmd.Parameters.Add("@LOGINCRIACAO", SqlDbType.VarChar).Value = cargo.LoginCriacao
+            Cmd.Parameters.Add("@CODUSUARIOCRIACAO", SqlDbType.VarChar).Value = codusuario
+            Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
+            Cmd.Parameters("@RESPONSE").Size = 255
 
             If Not Cmd.ExecuteNonQuery > 0 Then
+                resposta = Cmd.Parameters("@RESPONSE").Value
                 Return False
             Else
+                resposta = Cmd.Parameters("@RESPONSE").Value
                 Return True
             End If
         End Using
     End Function
 
     Public Function AtualizaCargo(cargo As Cargo, ByRef resposta As String, _
-        ByVal isExclusao As Boolean, login As String) As Boolean
+        ByVal isExclusao As Boolean, codusuario As Int32) As Boolean
 
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If Not _AtualizaCargo(cargo, isExclusao, resposta, login) Then
+            If Not _AtualizaCargo(cargo, isExclusao, resposta, codusuario) Then
                 RollbackReleaseTransaction()
             Else
                 Tr.Commit()
@@ -375,7 +377,7 @@ Public Class DAO
     End Function
 
     Private Function _AtualizaCargo(cargo As Cargo, isExclusao As Boolean, _
-        ByRef resposta As String, ByVal loginupdate As String) As Boolean
+        ByRef resposta As String, ByVal codusuario As Int32) As Boolean
 
         ' Deleta se nao usado em outras rotinas e inativa se usado em outras rotinas
         If isExclusao And Not IsCargoUsado(cargo.CodCargo) Then
@@ -413,7 +415,7 @@ Public Class DAO
                     Cmd.Parameters.AddWithValue("@ATIVO", False)
                 End If
                 Cmd.Parameters.AddWithValue("@VENDEDOR", cargo.IsVendedor)
-                Cmd.Parameters.AddWithValue("@LOGINALTERACAO", loginupdate)
+                Cmd.Parameters.AddWithValue("@CODUSUARIOALTERACAO", codusuario)
                 Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
                 Cmd.Parameters("@RESPONSE").Size = 255
 
@@ -460,12 +462,12 @@ Public Class DAO
 
 #Region "Vendedor"
 
-    Public Function InsereVendedor(vendedor As Vendedor, ByRef resposta As String) As Boolean
+    Public Function InsereVendedor(vendedor As Vendedor, ByRef resposta As String, codusuarioCriacao As Int32) As Boolean
 
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If _InsereVendedor(vendedor) Then
+            If _InsereVendedor(vendedor, codusuarioCriacao) Then
                 Tr.Commit()
                 Return True
             Else
@@ -480,7 +482,7 @@ Public Class DAO
         Return False
     End Function
 
-    Private Function _InsereVendedor(vendedor As Vendedor) As Boolean
+    Private Function _InsereVendedor(vendedor As Vendedor, codusuarioCriacao As Int32) As Boolean
         Using Cmd As New SqlCommand()
             Dim fotoByte = System.Text.Encoding.UTF8.GetBytes(vendedor.Foto)
 
@@ -489,12 +491,10 @@ Public Class DAO
             Cmd.CommandText = "SP_INSERE_VENDEDOR"
             Cmd.CommandType = CommandType.StoredProcedure
             Cmd.Parameters.Add("@CODCARGO", SqlDbType.SmallInt).Value = vendedor.CodCargo
-            Cmd.Parameters.Add("@NOME", SqlDbType.VarChar).Value = vendedor.Nome
-            Cmd.Parameters.AddWithValue("@SOBRENOME", vendedor.Sobrenome)
             Cmd.Parameters.AddWithValue("@NOMECOMPLETO", vendedor.NomeCompleto)
             Cmd.Parameters.AddWithValue("@CEP", vendedor.ObjEndereco.CEP)
             Cmd.Parameters.AddWithValue("@LOGRADOURO", vendedor.ObjEndereco.Logradouro)
-            Cmd.Parameters.Add("@NUM", SqlDbType.SmallInt).Value = vendedor.ObjEndereco.NumeroEndereco
+            Cmd.Parameters.Add("@NUMENDERECO", SqlDbType.VarChar).Value = vendedor.ObjEndereco.NumeroEndereco
             Cmd.Parameters.AddWithValue("@COMPLEMENTO", vendedor.ObjEndereco.Complemento)
             Cmd.Parameters.AddWithValue("@BAIRRO", vendedor.ObjEndereco.Bairro)
             Cmd.Parameters.AddWithValue("@CIDADE", vendedor.ObjEndereco.Cidade)
@@ -502,7 +502,7 @@ Public Class DAO
             Cmd.Parameters.Add("@OBS", SqlDbType.VarChar).Value = vendedor.Observacao
             Cmd.Parameters.Add("@FOTO", SqlDbType.VarBinary).Value = fotoByte
             Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = vendedor.IsAtivo
-            Cmd.Parameters.Add("@LOGINCRIACAO", SqlDbType.VarChar).Value = vendedor.LoginCriacao
+            Cmd.Parameters.Add("@CODUSUARIOCRIACAO", SqlDbType.VarChar).Value = codusuarioCriacao
 
             If Not Cmd.ExecuteNonQuery > 0 Then
                 Return False
@@ -568,12 +568,12 @@ Public Class DAO
     End Function
 
     Public Function AtualizaVendedor(vendedor As Vendedor, ByRef resposta As String, _
-        ByVal isExclusao As Boolean, login As String) As Boolean
+        ByVal isExclusao As Boolean, codusuario As Int32) As Boolean
 
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If Not _AtualizaVendedor(vendedor, isExclusao, resposta, login) Then
+            If Not _AtualizaVendedor(vendedor, isExclusao, resposta, codusuario) Then
                 RollbackReleaseTransaction()
             Else
                 Tr.Commit()
@@ -589,7 +589,7 @@ Public Class DAO
     End Function
 
     Private Function _AtualizaVendedor(vendedor As Vendedor, isExclusao As Boolean, _
-        ByRef resposta As String, ByVal loginupdate As String) As Boolean
+        ByRef resposta As String, ByVal codusuarioAlteracao As Int32) As Boolean
         Using Cmd As New SqlCommand
             Cmd.Connection = Con
             Cmd.Transaction = Tr
@@ -599,14 +599,14 @@ Public Class DAO
             Cmd.Parameters.Add("@CODCARGO", SqlDbType.SmallInt).Value = vendedor.CodCargo
             Cmd.Parameters.AddWithValue("@CEP", vendedor.ObjEndereco.CEP)
             Cmd.Parameters.AddWithValue("@LOGRADOURO", vendedor.ObjEndereco.Logradouro)
-            Cmd.Parameters.Add("@NUM", SqlDbType.SmallInt).Value = vendedor.ObjEndereco.NumeroEndereco
+            Cmd.Parameters.Add("@NUMENDERECO", SqlDbType.VarChar).Value = vendedor.ObjEndereco.NumeroEndereco
             Cmd.Parameters.AddWithValue("@COMPLEMENTO", vendedor.ObjEndereco.Complemento)
             Cmd.Parameters.AddWithValue("@BAIRRO", vendedor.ObjEndereco.Bairro)
             Cmd.Parameters.AddWithValue("@CIDADE", vendedor.ObjEndereco.Cidade)
             Cmd.Parameters.AddWithValue("@UF", vendedor.ObjEndereco.UF)
             Cmd.Parameters.Add("@OBS", SqlDbType.VarChar).Value = vendedor.Observacao
             Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = vendedor.IsAtivo
-            Cmd.Parameters.AddWithValue("@LOGINALTERACAO", loginupdate)
+            Cmd.Parameters.AddWithValue("@CODUSUARIOALTERACAO", codusuarioAlteracao)
             Cmd.Parameters.AddWithValue("@ISDELETE", isExclusao)
             Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
             Cmd.Parameters("@RESPONSE").Size = 255
@@ -633,6 +633,43 @@ Public Class DAO
         ByRef resposta As String) As Cliente
 
         Return _GetCliente(codcliente, ativos, resposta).FirstOrDefault
+    End Function
+
+    Public Function GetClientePorNome(ByVal nome As String, ByRef resposta As String) As Cliente
+        Dim cli As Cliente
+        Dim Connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ConnString").ConnectionString)
+        Using Cmd As New SqlCommand()
+            Try
+                Cmd.Connection = Connection
+                Cmd.CommandText = "SP_GET_CLIENTE_POR_NOME"
+                Cmd.CommandType = CommandType.StoredProcedure
+                Cmd.Parameters.AddWithValue("@NOME", nome)
+                Dim Adp As New SqlDataAdapter(Cmd)
+                Dim Tbl As New DataTable
+                Adp.Fill(Tbl)
+
+                If Tbl.Rows.Count > 0 Then
+                    Dim cliente As New Cliente
+                    cliente.Carrega(Tbl.Rows(0))
+                    cli = cliente
+                End If
+                If Not Adp Is Nothing Then
+                    Adp.Dispose()
+                End If
+                If Not Tbl Is Nothing Then
+                    Tbl.Dispose()
+                End If
+            Catch ex As Exception
+                resposta = ex.Message
+            Finally
+                If Connection.State = ConnectionState.Open Then
+                    Connection.Close()
+                    Connection.Dispose()
+                    Connection = Nothing
+                End If
+            End Try
+        End Using
+        Return cli
     End Function
 
     Private Function _GetCliente(ByVal codcliente As Integer, ByVal ativos As Boolean, _
@@ -710,12 +747,12 @@ Public Class DAO
         Return cliente
     End Function
 
-    Public Function RemoveCargoCliente(ByVal codcliente As Int32, ByVal login As String, ByRef resposta As String) As Boolean
+    Public Function RemoveCargoCliente(ByVal codcliente As Int32, ByVal codusuario As Int32, ByRef resposta As String) As Boolean
 
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If Not _RemoveCargoCliente(codcliente, login) Then
+            If Not _RemoveCargoCliente(codcliente, codusuario) Then
                 RollbackReleaseTransaction()
             Else
                 Tr.Commit()
@@ -731,24 +768,24 @@ Public Class DAO
     End Function
 
 
-    Private Function _RemoveCargoCliente(ByVal codcliente As Int32, ByVal login As String) As Boolean
+    Private Function _RemoveCargoCliente(ByVal codcliente As Int32, ByVal codusuario As Int32) As Boolean
         Using Cmd As New SqlCommand
             Cmd.Connection = Con
             Cmd.Transaction = Tr
             Cmd.CommandText = "SP_REMOVE_CARGO_CLIENTE"
             Cmd.CommandType = CommandType.StoredProcedure
             Cmd.Parameters.AddWithValue("@CODCLIENTE", codcliente)
-            Cmd.Parameters.AddWithValue("@LOGINALTERACAO", login)
+            Cmd.Parameters.AddWithValue("@CODUSUARIOALTERACAO", codusuario)
             Return Cmd.ExecuteNonQuery > 0
         End Using
     End Function
 
-    Public Function InsereCliente(ByVal cliente As Cliente, ByRef resposta As String) As Boolean
+    Public Function InsereCliente(ByVal cliente As Cliente, ByRef resposta As String, ByVal codusuario As Int32) As Boolean
 
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If _InsereCliente(cliente, resposta) Then
+            If _InsereCliente(cliente, resposta, codusuario) Then
                 Tr.Commit()
                 Return True
             Else
@@ -763,7 +800,7 @@ Public Class DAO
         Return False
     End Function
 
-    Private Function _InsereCliente(cliente As Cliente, ByRef resposta As String) As Boolean
+    Private Function _InsereCliente(cliente As Cliente, ByRef resposta As String, ByVal codusuario As Int32) As Boolean
         Using Cmd As New SqlCommand()
             Cmd.Connection = Con
             Cmd.Transaction = Tr
@@ -775,7 +812,7 @@ Public Class DAO
             Cmd.Parameters.Add("@EMPRESA", SqlDbType.VarChar).Value = cliente.Empresa
             Cmd.Parameters.AddWithValue("@CEP", cliente.ObjEndereco.CEP)
             Cmd.Parameters.AddWithValue("@LOGRADOURO", cliente.ObjEndereco.Logradouro)
-            Cmd.Parameters.Add("@NUMCASA", SqlDbType.SmallInt).Value = cliente.ObjEndereco.NumeroEndereco
+            Cmd.Parameters.Add("@NUMENDERECO", SqlDbType.VarChar).Value = cliente.ObjEndereco.NumeroEndereco
             Cmd.Parameters.AddWithValue("@COMPLEMENTO", cliente.ObjEndereco.Complemento)
             Cmd.Parameters.AddWithValue("@BAIRRO", cliente.ObjEndereco.Bairro)
             Cmd.Parameters.AddWithValue("@CIDADE", cliente.ObjEndereco.Cidade)
@@ -784,7 +821,7 @@ Public Class DAO
             Cmd.Parameters.AddWithValue("@EMAIL", cliente.Email)
             Cmd.Parameters.Add("@OBS", SqlDbType.VarChar).Value = cliente.Descricao
             Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = cliente.IsAtivo
-            Cmd.Parameters.Add("@LOGINCRIACAO", SqlDbType.VarChar).Value = cliente.LoginCriacao
+            Cmd.Parameters.AddWithValue("@CODUSUARIOCRIACAO", codusuario)
             Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
             Cmd.Parameters("@RESPONSE").Size = 255
 
@@ -798,12 +835,12 @@ Public Class DAO
     End Function
 
     Public Function AtualizaCliente(cliente As Cliente, ByRef resposta As String, _
-        ByVal isExclusao As Boolean, login As String) As Boolean
+        ByVal isExclusao As Boolean, ByVal codusuario As Int32) As Boolean
 
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If Not _AtualizaCliente(cliente, isExclusao, resposta, login) Then
+            If Not _AtualizaCliente(cliente, isExclusao, resposta, codusuario) Then
                 RollbackReleaseTransaction()
             Else
                 Tr.Commit()
@@ -819,7 +856,7 @@ Public Class DAO
     End Function
 
     Private Function _AtualizaCliente(cliente As Cliente, isExclusao As Boolean, _
-        ByRef resposta As String, ByVal loginupdate As String) As Boolean
+        ByRef resposta As String, ByVal codusuario As Int32) As Boolean
         Using Cmd As New SqlCommand
             Cmd.Connection = Con
             Cmd.Transaction = Tr
@@ -830,7 +867,7 @@ Public Class DAO
             Cmd.Parameters.AddWithValue("@EMPRESA", cliente.Empresa)
             Cmd.Parameters.AddWithValue("@CEP", cliente.ObjEndereco.CEP)
             Cmd.Parameters.AddWithValue("@LOGRADOURO", cliente.ObjEndereco.Logradouro)
-            Cmd.Parameters.AddWithValue("@NUMCASA", cliente.ObjEndereco.NumeroEndereco)
+            Cmd.Parameters.AddWithValue("@NUMENDERECO", cliente.ObjEndereco.NumeroEndereco)
             Cmd.Parameters.AddWithValue("@BAIRRO", cliente.ObjEndereco.Bairro)
             Cmd.Parameters.AddWithValue("@CIDADE", cliente.ObjEndereco.Cidade)
             Cmd.Parameters.AddWithValue("@COMPLEMENTO", cliente.ObjEndereco.Complemento)
@@ -839,7 +876,7 @@ Public Class DAO
             Cmd.Parameters.AddWithValue("@EMAIL", cliente.Email)
             Cmd.Parameters.Add("@OBS", SqlDbType.VarChar).Value = cliente.Descricao
             Cmd.Parameters.Add("@ATIVO", SqlDbType.Bit).Value = cliente.IsAtivo
-            Cmd.Parameters.AddWithValue("@LOGINALTERACAO", loginupdate)
+            Cmd.Parameters.AddWithValue("@CODUSUARIOALTERACAO", codusuario)
             Cmd.Parameters.AddWithValue("@ISEXCLUSAO", isExclusao)
             Cmd.Parameters.AddWithValue("@RESPONSE", resposta).Direction = ParameterDirection.Output
             Cmd.Parameters("@RESPONSE").Size = 255
@@ -848,6 +885,7 @@ Public Class DAO
                 resposta = Cmd.Parameters("@RESPONSE").Value
                 Return False
             Else
+                resposta = Cmd.Parameters("@RESPONSE").Value
                 Return True
             End If
         End Using
@@ -939,12 +977,12 @@ Public Class DAO
         Return Lst
     End Function
 
-    Public Function InsereProduto(ByVal obj As Produto, ByRef resposta As String) As Boolean
+    Public Function InsereProduto(ByVal obj As Produto, ByRef resposta As String, ByVal codusuario As Int32) As Boolean
 
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If _InsereProduto(obj, resposta) Then
+            If _InsereProduto(obj, resposta, codusuario) Then
                 Tr.Commit()
                 Return True
             Else
@@ -959,7 +997,7 @@ Public Class DAO
         Return False
     End Function
 
-    Private Function _InsereProduto(produto As Produto, ByRef resposta As String) As Boolean
+    Private Function _InsereProduto(produto As Produto, ByRef resposta As String, ByVal codusuario As Int32) As Boolean
         Using Cmd As New SqlCommand
             Dim imgByte As Byte()
             If produto.Imagem <> String.Empty Then
@@ -978,25 +1016,25 @@ Public Class DAO
             Cmd.Parameters.AddWithValue("@QTD", produto.Quantidade)
             Cmd.Parameters.Add("@IMAGEM", SqlDbType.VarBinary).Value = imgByte
             Cmd.Parameters.AddWithValue("@ATIVO", produto.IsAtivo)
-            Cmd.Parameters.AddWithValue("@LOGINCRIACAO", produto.LoginCriacao)
+            Cmd.Parameters.AddWithValue("@CODUSUARIOCRIACAO", codusuario)
             Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
             Cmd.Parameters("@RESPONSE").Size = 255
 
             If Cmd.ExecuteNonQuery > 0 Then
                 Return True
             Else
+                resposta = Cmd.Parameters("@RESPONSE").Value
                 Return False
             End If
-            resposta = Cmd.Parameters("@RESPONSE").Value
         End Using
     End Function
 
     Public Function AtualizaProduto(ByVal obj As Produto, ByRef resposta As String, _
-                                    ByVal login As String, Optional isDelete As Boolean = False)
+                                    ByVal codusuario As Int32, Optional isDelete As Boolean = False)
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If _AtualizaProduto(obj, isDelete, login, resposta) Then
+            If _AtualizaProduto(obj, isDelete, codusuario, resposta) Then
                 Tr.Commit()
                 Return True
             Else
@@ -1012,7 +1050,7 @@ Public Class DAO
     End Function
 
     Private Function _AtualizaProduto(produto As Produto, isDelete As Boolean, _
-                                             login As String, ByRef resposta As String) As Boolean
+                                             ByVal codusuario As Int32, ByRef resposta As String) As Boolean
 
         Dim succ As Boolean = False
         Using Cmd As New SqlCommand
@@ -1027,7 +1065,7 @@ Public Class DAO
             Cmd.Parameters.AddWithValue("@PRECO", produto.Preco)
             Cmd.Parameters.AddWithValue("@QTD", produto.Quantidade)
             Cmd.Parameters.AddWithValue("@ATIVO", produto.IsAtivo)
-            Cmd.Parameters.AddWithValue("@LOGINALTERACAO", login)
+            Cmd.Parameters.AddWithValue("@CODUSUARIOALTERACAO", codusuario)
             Cmd.Parameters.AddWithValue("@ISEXCLUSAO", isDelete)
             Cmd.Parameters.Add("@RESPONSE", SqlDbType.VarChar).Direction = ParameterDirection.Output
             Cmd.Parameters("@RESPONSE").Size = 255
@@ -1183,11 +1221,12 @@ Public Class DAO
         Return lst
     End Function
 
-    Public Function InserePedido(ByVal obj As Pedido, ByVal lstItens As List(Of PedidoItem), ByRef resposta As String) As Boolean
+    Public Function InserePedido(ByVal obj As Pedido, ByVal lstItens As List(Of PedidoItem), _
+                                 ByVal codusuario As Int32, ByRef resposta As String) As Boolean
         Con.Open()
         Tr = Con.BeginTransaction
         Try
-            If _InserePedido(obj) AndAlso lstItens.All(Function(pi As PedidoItem) _
+            If _InserePedido(obj, codusuario) AndAlso lstItens.All(Function(pi As PedidoItem) _
                                                 _InserePedidoItem(pi)) Then
                 Tr.Commit()
                 Return True
@@ -1203,7 +1242,7 @@ Public Class DAO
         Return False
     End Function
 
-    Private Function _InserePedido(obj As Pedido) As Boolean
+    Private Function _InserePedido(obj As Pedido, ByVal codusuario As Int32) As Boolean
         Using Cmd As New SqlCommand
             Cmd.Connection = Con
             Cmd.Transaction = Tr
@@ -1215,7 +1254,7 @@ Public Class DAO
             Cmd.Parameters.AddWithValue("@DESTINATARIO", obj.Destinatario)
             Cmd.Parameters.AddWithValue("@CEP", obj.ObjEndereco.CEP)
             Cmd.Parameters.AddWithValue("@LOGRADOURO", obj.ObjEndereco.Logradouro)
-            Cmd.Parameters.Add("@NUM", SqlDbType.SmallInt).Value = Convert.ToInt16(obj.ObjEndereco.NumeroEndereco)
+            Cmd.Parameters.AddWithValue("@NUMENDERECO", obj.ObjEndereco.NumeroEndereco)
             Cmd.Parameters.AddWithValue("@BAIRRO", obj.ObjEndereco.Bairro)
             Cmd.Parameters.AddWithValue("@CIDADE", obj.ObjEndereco.Cidade)
             Cmd.Parameters.AddWithValue("@COMPLEMENTO", obj.ObjEndereco.Complemento)
@@ -1224,7 +1263,8 @@ Public Class DAO
             Cmd.Parameters.AddWithValue("@OBS", obj.Observacao)
             Cmd.Parameters.AddWithValue("@VALORTOTAL", obj.ValorTotal)
             Cmd.Parameters.AddWithValue("@ISPRESENTE", obj.IsPresente)
-            Cmd.Parameters.AddWithValue("@LOGINCRIACAO", obj.LoginCriacao)
+            Cmd.Parameters.AddWithValue("@CODUSUARIOCRIACAO", codusuario)
+            Cmd.Parameters.AddWithValue("@CLIENTEDESTINATARIO", obj.IsClienteDestinatario)
 
             If Cmd.ExecuteNonQuery > 0 Then
                 Return True
@@ -1247,6 +1287,7 @@ Public Class DAO
                 Cmd.Parameters.AddWithValue("@CODPEDIDO", obj.CodPedido)
                 Cmd.Parameters.AddWithValue("@CODPRODUTO", obj.CodProduto)
                 Cmd.Parameters.AddWithValue("@QTD", obj.Quantidade)
+                Cmd.Parameters.AddWithValue("@PRECO", obj.Preco)
 
                 If Cmd.ExecuteNonQuery > 0 Then
                     'tr.Commit()
@@ -1273,12 +1314,12 @@ Public Class DAO
     End Function
 
     Public Function AtualizaPedido(obj As Pedido, lstItens As List(Of PedidoItem), ByRef resposta As String, _
-                                   Optional isExclusao As Boolean = False) As Boolean
+                                   ByVal codusuario As Int32, Optional isExclusao As Boolean = False) As Boolean
         Con.Open()
         Tr = Con.BeginTransaction
 
         Try
-            If lstItens.All(Function(pi As PedidoItem) _AtualizaItensPedido(pi, isExclusao) = True) AndAlso _AtualizaPedido(obj, isExclusao) Then
+            If lstItens.All(Function(pi As PedidoItem) _AtualizaItensPedido(pi, isExclusao) = True) AndAlso _AtualizaPedido(obj, isExclusao, codusuario) Then
                 Tr.Commit()
                 Return True
             End If
@@ -1291,7 +1332,7 @@ Public Class DAO
         Return False
     End Function
 
-    Private Function _AtualizaPedido(obj As Pedido, isExclusao As Boolean) As Boolean
+    Private Function _AtualizaPedido(obj As Pedido, isExclusao As Boolean, ByVal codusuario As Int32) As Boolean
         Using Cmd As New SqlCommand()
             Cmd.Connection = Con
             Cmd.Transaction = Tr
@@ -1300,7 +1341,7 @@ Public Class DAO
             Cmd.Parameters.AddWithValue("@CODPEDIDO", obj.CodPedido)
             Cmd.Parameters.AddWithValue("@CEP", obj.ObjEndereco.CEP)
             Cmd.Parameters.AddWithValue("@LOGRADOURO", obj.ObjEndereco.Logradouro)
-            Cmd.Parameters.Add("@NUM", SqlDbType.SmallInt).Value = obj.ObjEndereco.NumeroEndereco
+            Cmd.Parameters.Add("@NUMENDERECO", SqlDbType.VarChar).Value = obj.ObjEndereco.NumeroEndereco
             Cmd.Parameters.AddWithValue("@COMPLEMENTO", obj.ObjEndereco.Complemento)
             Cmd.Parameters.AddWithValue("@BAIRRO", obj.ObjEndereco.Bairro)
             Cmd.Parameters.AddWithValue("@CIDADE", obj.ObjEndereco.Cidade)
@@ -1309,6 +1350,7 @@ Public Class DAO
             Cmd.Parameters.AddWithValue("@ISPRESENTE", obj.IsPresente)
             Cmd.Parameters.AddWithValue("@VALORTOTAL", obj.ValorTotal)
             Cmd.Parameters.AddWithValue("@ISEXCLUSAO", isExclusao)
+            Cmd.Parameters.AddWithValue("@CODUSUARIOALTERACAO", codusuario)
 
             If Cmd.ExecuteNonQuery > 0 Then
                 Return True

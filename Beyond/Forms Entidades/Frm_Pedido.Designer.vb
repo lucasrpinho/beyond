@@ -158,7 +158,7 @@ Partial Class Frm_Pedido
         Me.TxtCidade.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtCidade.Location = New System.Drawing.Point(15, 154)
         Me.TxtCidade.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.TxtCidade.MaxLength = 100
+        Me.TxtCidade.MaxLength = 300
         Me.TxtCidade.Name = "TxtCidade"
         Me.TxtCidade.Size = New System.Drawing.Size(643, 24)
         Me.TxtCidade.TabIndex = 10
@@ -214,7 +214,7 @@ Partial Class Frm_Pedido
         Me.TxtLogradouro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtLogradouro.Location = New System.Drawing.Point(123, 46)
         Me.TxtLogradouro.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.TxtLogradouro.MaxLength = 100
+        Me.TxtLogradouro.MaxLength = 300
         Me.TxtLogradouro.Name = "TxtLogradouro"
         Me.TxtLogradouro.Size = New System.Drawing.Size(535, 24)
         Me.TxtLogradouro.TabIndex = 6
@@ -226,7 +226,7 @@ Partial Class Frm_Pedido
         Me.TxtBairro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtBairro.Location = New System.Drawing.Point(15, 101)
         Me.TxtBairro.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.TxtBairro.MaxLength = 100
+        Me.TxtBairro.MaxLength = 300
         Me.TxtBairro.Name = "TxtBairro"
         Me.TxtBairro.Size = New System.Drawing.Size(643, 24)
         Me.TxtBairro.TabIndex = 8
@@ -245,7 +245,7 @@ Partial Class Frm_Pedido
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(15, 135)
+        Me.Label3.Location = New System.Drawing.Point(12, 133)
         Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(55, 17)
@@ -255,7 +255,7 @@ Partial Class Frm_Pedido
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(15, 84)
+        Me.Label7.Location = New System.Drawing.Point(12, 80)
         Me.Label7.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(50, 17)
@@ -374,8 +374,10 @@ Partial Class Frm_Pedido
         '
         Me.ComboVendedor.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboVendedor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboVendedor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboVendedor.BackColor = System.Drawing.SystemColors.Window
-        Me.ComboVendedor.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ComboVendedor.Cursor = System.Windows.Forms.Cursors.Default
         Me.ComboVendedor.FormattingEnabled = True
         Me.ComboVendedor.Location = New System.Drawing.Point(18, 148)
         Me.ComboVendedor.Name = "ComboVendedor"
@@ -386,8 +388,10 @@ Partial Class Frm_Pedido
         '
         Me.ComboCliente.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboCliente.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboCliente.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboCliente.BackColor = System.Drawing.SystemColors.Window
-        Me.ComboCliente.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ComboCliente.Cursor = System.Windows.Forms.Cursors.Default
         Me.ComboCliente.FormattingEnabled = True
         Me.ComboCliente.Location = New System.Drawing.Point(18, 101)
         Me.ComboCliente.Name = "ComboCliente"
@@ -502,7 +506,7 @@ Partial Class Frm_Pedido
         Me.BtnMaisInsere.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.BtnMaisInsere.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnMaisInsere.Image = Global.Beyond.My.Resources.Resources.mais
-        Me.BtnMaisInsere.Location = New System.Drawing.Point(693, 499)
+        Me.BtnMaisInsere.Location = New System.Drawing.Point(693, 498)
         Me.BtnMaisInsere.Name = "BtnMaisInsere"
         Me.BtnMaisInsere.Size = New System.Drawing.Size(26, 24)
         Me.BtnMaisInsere.TabIndex = 47
@@ -542,7 +546,6 @@ Partial Class Frm_Pedido
         Me.TxtQtdInsere.Enabled = False
         Me.TxtQtdInsere.Location = New System.Drawing.Point(633, 498)
         Me.TxtQtdInsere.Name = "TxtQtdInsere"
-        Me.TxtQtdInsere.ReadOnly = True
         Me.TxtQtdInsere.Size = New System.Drawing.Size(54, 24)
         Me.TxtQtdInsere.TabIndex = 5
         Me.TxtQtdInsere.Text = "0"
@@ -788,7 +791,6 @@ Partial Class Frm_Pedido
         Me.TxtQtd.Enabled = False
         Me.TxtQtd.Location = New System.Drawing.Point(799, 297)
         Me.TxtQtd.Name = "TxtQtd"
-        Me.TxtQtd.ReadOnly = True
         Me.TxtQtd.Size = New System.Drawing.Size(65, 24)
         Me.TxtQtd.TabIndex = 1
         Me.TxtQtd.Text = "0"

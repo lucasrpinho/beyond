@@ -28,7 +28,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>http://localhost/Beyond/</UpdateUrl>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -388,7 +388,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Beyond_TemporaryKey.pfx" />
     <None Include="DataSet\PedidosDS.xsc">
       <DependentUpon>PedidosDS.xsd</DependentUpon>
     </None>
@@ -467,6 +466,7 @@
     <None Include="Imagens\closetab.png" />
     <None Include="Imagens\beyondImagem.png" />
     <Content Include="beyondICO.ico" />
+    <None Include="Icons Toolstrip\update.ico" />
     <Content Include="Imagens\login.png" />
   </ItemGroup>
   <ItemGroup>

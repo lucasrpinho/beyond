@@ -76,7 +76,7 @@ Partial Class Frm_ConsPedido
         '
         Me.ChkData.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ChkData.AutoSize = True
-        Me.ChkData.Location = New System.Drawing.Point(282, 159)
+        Me.ChkData.Location = New System.Drawing.Point(285, 159)
         Me.ChkData.Name = "ChkData"
         Me.ChkData.Size = New System.Drawing.Size(15, 14)
         Me.ChkData.TabIndex = 7
@@ -85,7 +85,7 @@ Partial Class Frm_ConsPedido
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(135, 157)
+        Me.Label5.Location = New System.Drawing.Point(138, 157)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(15, 16)
         Me.Label5.TabIndex = 50
@@ -96,7 +96,7 @@ Partial Class Frm_ConsPedido
         Me.DtFinal.CustomFormat = ""
         Me.DtFinal.Enabled = False
         Me.DtFinal.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DtFinal.Location = New System.Drawing.Point(156, 154)
+        Me.DtFinal.Location = New System.Drawing.Point(159, 154)
         Me.DtFinal.Name = "DtFinal"
         Me.DtFinal.Size = New System.Drawing.Size(120, 23)
         Me.DtFinal.TabIndex = 6
@@ -104,7 +104,7 @@ Partial Class Frm_ConsPedido
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(153, 135)
+        Me.Label4.Location = New System.Drawing.Point(156, 135)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(74, 16)
         Me.Label4.TabIndex = 48
@@ -115,7 +115,7 @@ Partial Class Frm_ConsPedido
         Me.DtInicial.CustomFormat = ""
         Me.DtInicial.Enabled = False
         Me.DtInicial.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DtInicial.Location = New System.Drawing.Point(9, 154)
+        Me.DtInicial.Location = New System.Drawing.Point(12, 154)
         Me.DtInicial.Name = "DtInicial"
         Me.DtInicial.Size = New System.Drawing.Size(120, 23)
         Me.DtInicial.TabIndex = 5
@@ -123,7 +123,7 @@ Partial Class Frm_ConsPedido
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(9, 135)
+        Me.Label3.Location = New System.Drawing.Point(12, 135)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(82, 16)
         Me.Label3.TabIndex = 46
@@ -148,7 +148,7 @@ Partial Class Frm_ConsPedido
         '
         Me.ChkVendedor.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ChkVendedor.AutoSize = True
-        Me.ChkVendedor.Location = New System.Drawing.Point(741, 103)
+        Me.ChkVendedor.Location = New System.Drawing.Point(744, 103)
         Me.ChkVendedor.Name = "ChkVendedor"
         Me.ChkVendedor.Size = New System.Drawing.Size(15, 14)
         Me.ChkVendedor.TabIndex = 4
@@ -158,7 +158,7 @@ Partial Class Frm_ConsPedido
         '
         Me.ChkCliente.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ChkCliente.AutoSize = True
-        Me.ChkCliente.Location = New System.Drawing.Point(741, 57)
+        Me.ChkCliente.Location = New System.Drawing.Point(744, 57)
         Me.ChkCliente.Name = "ChkCliente"
         Me.ChkCliente.Size = New System.Drawing.Size(15, 14)
         Me.ChkCliente.TabIndex = 2
@@ -168,10 +168,12 @@ Partial Class Frm_ConsPedido
         '
         Me.ComboVendedor.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ComboVendedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboVendedor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboVendedor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboVendedor.Enabled = False
         Me.ComboVendedor.FormattingEnabled = True
-        Me.ComboVendedor.Location = New System.Drawing.Point(9, 98)
+        Me.ComboVendedor.Location = New System.Drawing.Point(12, 98)
+        Me.ComboVendedor.MaxLength = 300
         Me.ComboVendedor.Name = "ComboVendedor"
         Me.ComboVendedor.Size = New System.Drawing.Size(726, 24)
         Me.ComboVendedor.TabIndex = 3
@@ -179,7 +181,7 @@ Partial Class Frm_ConsPedido
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(6, 79)
+        Me.Label2.Location = New System.Drawing.Point(9, 79)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(69, 16)
         Me.Label2.TabIndex = 2
@@ -189,10 +191,13 @@ Partial Class Frm_ConsPedido
         '
         Me.ComboCliente.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboCliente.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboCliente.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboCliente.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ComboCliente.Enabled = False
         Me.ComboCliente.FormattingEnabled = True
-        Me.ComboCliente.Location = New System.Drawing.Point(9, 52)
+        Me.ComboCliente.Location = New System.Drawing.Point(12, 52)
+        Me.ComboCliente.MaxLength = 300
         Me.ComboCliente.Name = "ComboCliente"
         Me.ComboCliente.Size = New System.Drawing.Size(726, 24)
         Me.ComboCliente.TabIndex = 1
@@ -200,7 +205,7 @@ Partial Class Frm_ConsPedido
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(6, 33)
+        Me.Label1.Location = New System.Drawing.Point(9, 33)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(53, 16)
         Me.Label1.TabIndex = 0

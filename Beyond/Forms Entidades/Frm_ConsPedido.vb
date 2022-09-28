@@ -33,7 +33,6 @@ Public Class Frm_ConsPedido
     Private Sub Frm_ConsPedido_Shown(sender As Object, e As System.EventArgs) Handles Me.Shown
         CarregaClientes()
         CarregaVendedores()
-        CarregaPedidos()
         ComboCliente.Focus()
         DtInicial.Value = DateTime.Now.Date
         DtFinal.Value = DateTime.Now.Date
@@ -63,7 +62,7 @@ Public Class Frm_ConsPedido
         LstVendedor = DAOPed.GetVendedor(True, "")
 
         If Not LstCliente.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, "A busca não encontrou resultados.", "Sem resultados")
+            MsgBoxHelper.Msg(Me, "A busca não encontrou clientes.", "Sem resultados")
             CarregaFechamento()
             Exit Sub
         End If
@@ -83,7 +82,7 @@ Public Class Frm_ConsPedido
         LstVendedor = DAOPed.GetVendedor(True, resposta, True)
 
         If Not LstVendedor.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, "A busca não encontrou resultados.", "Sem resultados")
+            MsgBoxHelper.Msg(Me, "A busca não encontrou vendedores.", "Sem resultados")
             CarregaFechamento()
             Exit Sub
         End If
@@ -280,6 +279,10 @@ Public Class Frm_ConsPedido
     End Function
 
     Private Sub ComboCliente_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboCliente.KeyPress
+        If Not Char.IsControl(e.KeyChar) Or Not Char.IsLetter(e.KeyChar) Then
+            e.KeyChar = ""
+        End If
+
         e.KeyChar = Char.ToUpper(e.KeyChar)
     End Sub
 End Class

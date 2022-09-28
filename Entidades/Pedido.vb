@@ -12,7 +12,6 @@
     Public IsPresente As Boolean
     Public IsClienteDestinatario As Boolean
     Public DatCriacao As DateTime
-    Public LoginCriacao As String
 
     Public Property CodPedido() As String
         Get
@@ -81,7 +80,6 @@
         Me.CodCliente = row.Field(Of Integer)("cod_cliente")
         Me.CodVendedor = row.Field(Of Integer)("cod_vendedor")
         Me.DatCriacao = row.Field(Of DateTime)("dat_criacao")
-        Me.LoginCriacao = row.Field(Of String)("de_login_criacao")
         Me.DatVenda = row.Field(Of DateTime)("dat_venda")
         Me.Destinatario = row.Field(Of String)("de_destinatario")
         Me.IsPresente = row.Field(Of Boolean)("ct_presente")

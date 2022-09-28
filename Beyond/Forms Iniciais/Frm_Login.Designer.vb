@@ -78,7 +78,7 @@ Partial Class Frm_Login
         Me.TxtSenha.Font = New System.Drawing.Font("Verdana", 9.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TxtSenha.Location = New System.Drawing.Point(131, 107)
         Me.TxtSenha.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtSenha.MaxLength = 25
+        Me.TxtSenha.MaxLength = 0
         Me.TxtSenha.Name = "TxtSenha"
         Me.TxtSenha.Size = New System.Drawing.Size(292, 22)
         Me.TxtSenha.TabIndex = 2
@@ -118,7 +118,7 @@ Partial Class Frm_Login
         Me.TxtLogin.Font = New System.Drawing.Font("Verdana", 9.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TxtLogin.Location = New System.Drawing.Point(131, 54)
         Me.TxtLogin.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtLogin.MaxLength = 16
+        Me.TxtLogin.MaxLength = 0
         Me.TxtLogin.Name = "TxtLogin"
         Me.TxtLogin.Size = New System.Drawing.Size(291, 22)
         Me.TxtLogin.TabIndex = 1

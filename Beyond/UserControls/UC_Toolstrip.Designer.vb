@@ -24,16 +24,16 @@ Partial Class UC_Toolstrip
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(UC_Toolstrip))
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.toolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
+        Me.toolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnNovo = New System.Windows.Forms.ToolStripButton()
         Me.BtnSalvar = New System.Windows.Forms.ToolStripButton()
         Me.BtnPesquisar = New System.Windows.Forms.ToolStripButton()
         Me.BtnAlterar = New System.Windows.Forms.ToolStripButton()
         Me.BtnExcluir = New System.Windows.Forms.ToolStripButton()
-        Me.toolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnAnterior = New System.Windows.Forms.ToolStripButton()
         Me.BtnSeguinte = New System.Windows.Forms.ToolStripButton()
         Me.BtnReverter = New System.Windows.Forms.ToolStripButton()
-        Me.toolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnInsereImagem = New System.Windows.Forms.ToolStripButton()
         Me.BtnVisualizarRel = New System.Windows.Forms.ToolStripButton()
         Me.ToolStrip1.SuspendLayout()
@@ -48,6 +48,16 @@ Partial Class UC_Toolstrip
         Me.ToolStrip1.Size = New System.Drawing.Size(473, 25)
         Me.ToolStrip1.TabIndex = 0
         Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'toolStripSeparator
+        '
+        Me.toolStripSeparator.Name = "toolStripSeparator"
+        Me.toolStripSeparator.Size = New System.Drawing.Size(6, 25)
+        '
+        'toolStripSeparator1
+        '
+        Me.toolStripSeparator1.Name = "toolStripSeparator1"
+        Me.toolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
         'BtnNovo
         '
@@ -84,7 +94,7 @@ Partial Class UC_Toolstrip
         Me.BtnAlterar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.BtnAlterar.Name = "BtnAlterar"
         Me.BtnAlterar.Size = New System.Drawing.Size(23, 22)
-        Me.BtnAlterar.Text = "Alterar"
+        Me.BtnAlterar.Text = "&Alterar"
         '
         'BtnExcluir
         '
@@ -96,11 +106,6 @@ Partial Class UC_Toolstrip
         Me.BtnExcluir.Text = "&Excluir"
         Me.BtnExcluir.ToolTipText = "Excluir"
         '
-        'toolStripSeparator
-        '
-        Me.toolStripSeparator.Name = "toolStripSeparator"
-        Me.toolStripSeparator.Size = New System.Drawing.Size(6, 25)
-        '
         'BtnAnterior
         '
         Me.BtnAnterior.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -108,7 +113,7 @@ Partial Class UC_Toolstrip
         Me.BtnAnterior.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.BtnAnterior.Name = "BtnAnterior"
         Me.BtnAnterior.Size = New System.Drawing.Size(23, 22)
-        Me.BtnAnterior.Text = "Anterior"
+        Me.BtnAnterior.Text = "&Anterior"
         '
         'BtnSeguinte
         '
@@ -117,7 +122,7 @@ Partial Class UC_Toolstrip
         Me.BtnSeguinte.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.BtnSeguinte.Name = "BtnSeguinte"
         Me.BtnSeguinte.Size = New System.Drawing.Size(23, 22)
-        Me.BtnSeguinte.Text = "Seguinte"
+        Me.BtnSeguinte.Text = "&Seguinte"
         '
         'BtnReverter
         '
@@ -128,11 +133,6 @@ Partial Class UC_Toolstrip
         Me.BtnReverter.Size = New System.Drawing.Size(23, 22)
         Me.BtnReverter.Text = "&Reverter"
         '
-        'toolStripSeparator1
-        '
-        Me.toolStripSeparator1.Name = "toolStripSeparator1"
-        Me.toolStripSeparator1.Size = New System.Drawing.Size(6, 25)
-        '
         'BtnInsereImagem
         '
         Me.BtnInsereImagem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -141,7 +141,7 @@ Partial Class UC_Toolstrip
         Me.BtnInsereImagem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.BtnInsereImagem.Name = "BtnInsereImagem"
         Me.BtnInsereImagem.Size = New System.Drawing.Size(23, 22)
-        Me.BtnInsereImagem.Text = "Inserir Imagem"
+        Me.BtnInsereImagem.Text = "&Inserir Imagem"
         '
         'BtnVisualizarRel
         '
@@ -151,7 +151,7 @@ Partial Class UC_Toolstrip
         Me.BtnVisualizarRel.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.BtnVisualizarRel.Name = "BtnVisualizarRel"
         Me.BtnVisualizarRel.Size = New System.Drawing.Size(23, 22)
-        Me.BtnVisualizarRel.Text = "Imprimir"
+        Me.BtnVisualizarRel.Text = "&Imprimir"
         '
         'UC_Toolstrip
         '

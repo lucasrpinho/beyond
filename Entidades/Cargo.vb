@@ -8,7 +8,6 @@ Public Class Cargo
     Public IsAtivo As Boolean
     Public IsVendedor As Boolean
     Public DatCriacao As DateTime
-    Public LoginCriacao As String
 
     Public Property CodCargo()
         Get
@@ -32,11 +31,9 @@ Public Class Cargo
         strError = ""
 
         If Me.CodCargo <> 0 Then
-            strError = "Código do cargo deve ser zero pois será gerado"
+            strError = "Código do cargo deve ser zero pois será gerado."
         ElseIf Me.Nome = "" Then
-            strError = "Cargo precisa ter um nome"
-        ElseIf Me.Descricao = "" Then
-            strError = "Descrição do cargo precisa ser preenchida"
+            strError = "Cargo precisa ter um nome."
         End If
 
         Return String.IsNullOrWhiteSpace(strError)
@@ -47,7 +44,6 @@ Public Class Cargo
         Me.Descricao = row.Field(Of String)("de_descricao")
         Me.Nome = row.Field(Of String)("de_nome")
         Me.IsAtivo = row.Field(Of Boolean)("ct_ativo")
-        Me.LoginCriacao = row.Field(Of String)("de_login_criacao")
         Me.IsVendedor = row.Field(Of Boolean)("ct_vendedor")
         Me.DatCriacao = row.Field(Of DateTime)("dat_criacao")
     End Sub

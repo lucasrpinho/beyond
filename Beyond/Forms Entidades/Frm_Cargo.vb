@@ -38,7 +38,6 @@ Public Class Frm_Cargo
         cargo.Descricao = Me.TxtDesc.Text.ToUpper
         cargo.IsAtivo = Me.ChkBoxAtivo.Checked
         cargo.IsVendedor = Me.ChkVendedor.Checked
-        cargo.LoginCriacao = loginusuario
 
         Dim str As String = ""
 
@@ -47,7 +46,7 @@ Public Class Frm_Cargo
             Return False
         End If
 
-        If Not DAOCargo.InsereCargo(cargo, str) Then
+        If Not DAOCargo.InsereCargo(cargo, str, codusuario) Then
             Uteis.MsgBoxHelper.Erro(Me, str, "Erro")
             Return False
         End If
@@ -68,7 +67,7 @@ Public Class Frm_Cargo
         LstCargo = DAOCargo.GetCargo(True, True)
 
         If Not LstCargo.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, "O sistema não conseguiu buscar os cargos.", "Erro")
+            MsgBoxHelper.Alerta(Me, "O sistema não encontrou cargos.", "Sem resultados")
             Exit Sub
         Else
             ComboNome.BeginUpdate()
@@ -85,6 +84,7 @@ Public Class Frm_Cargo
         ControlsHelper.SetControlsEnabled(GrpBoxCfg.Controls)
         ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
         AlternarControle()
+        ComboNome.AutoCompleteMode = AutoCompleteMode.None
     End Sub
 
     Private Sub Desativa_Campos()
@@ -117,10 +117,11 @@ Public Class Frm_Cargo
                 End If
             Else
                 If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
-                    If Not DAOCargo.AtualizaCargo(CargoObjForUpdate, resposta, False, loginusuario) Then
+                    If Not DAOCargo.AtualizaCargo(CargoObjForUpdate, resposta, False, codusuario) Then
                         frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                         MsgBoxHelper.Erro(Me, resposta, "Erro")
                     Else
+                        LimpaCampos()
                         Desativa_Campos()
                         frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
                     End If
@@ -158,7 +159,7 @@ Public Class Frm_Cargo
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
-                If DAOCargo.AtualizaCargo(CargoObjForUpdate, resposta, True, loginusuario) Then
+                If DAOCargo.AtualizaCargo(CargoObjForUpdate, resposta, True, codusuario) Then
                     LimpaCampos()
                     Desativa_Campos()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
@@ -177,7 +178,7 @@ Public Class Frm_Cargo
 
     Private Sub AlternarControle()
         If MyModo.UniqueModo = "PESQUISAR" Then
-            ComboNome.DropDownStyle = ComboBoxStyle.DropDownList
+            ComboNome.DropDownStyle = ComboBoxStyle.DropDown
         ElseIf MyModo.UniqueModo = "NOVO" Then
             ComboNome.DropDownStyle = ComboBoxStyle.Simple
         End If
@@ -186,6 +187,9 @@ Public Class Frm_Cargo
     Private Sub LimpaCampos()
         ControlsHelper.SetTextsEmpty(GrpBoxCfg.Controls)
         ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
+        ChkVendedor.Checked = False
+        ChkBoxAtivo.Checked = True
+        LstCargo.Clear()
     End Sub
 
     Protected Overrides Sub Finalize()
@@ -256,7 +260,7 @@ Public Class Frm_Cargo
     Private Sub ModoPesquisar()
         ControlsHelper.SetControlsEnabled(Me.Controls)
         ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
-
+        ComboNome.AutoCompleteMode = AutoCompleteMode.Suggest
         TxtDesc.Enabled = False
         ChkVendedor.Enabled = False
         ChkBoxAtivo.Enabled = False

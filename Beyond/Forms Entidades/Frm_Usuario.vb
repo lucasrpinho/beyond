@@ -42,13 +42,10 @@ Public Class Frm_Usuario
         End If
 
         Dim usuario As New Usuario
-        usuario.Nome = ComboNome.Text.ToUpper
-        usuario.Sobrenome = TxtSobrenome.Text.ToUpper
-        usuario.NomeCompleto = usuario.Nome.ToUpper + " " + usuario.Sobrenome.ToUpper
+        usuario.NomeCompleto = RTrim(ComboNome.Text.ToUpper)
         usuario.Email = TxtEmail.Text.ToUpper
         usuario.Login = TxtLogin.Text.ToUpper
         usuario.Senha = TxtSenhaConfirmar.Text.ToUpper
-        usuario.LoginCriacao = loginusuario.ToUpper
         usuario.IsAtivo = ChkBoxAtivo.Checked
 
         Dim strError As String = ""
@@ -68,7 +65,7 @@ Public Class Frm_Usuario
 
         Dim resposta As String = String.Empty
 
-        If Not DAOUsuario.InsertUsuario(usuario, resposta) Then
+        If Not DAOUsuario.InsertUsuario(usuario, resposta, codusuario) Then
             Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
             Return False
         End If
@@ -103,6 +100,7 @@ Public Class Frm_Usuario
                         frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                         Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
                     Else
+                        LimpaCampos_AtivaControles()
                         Desativa_Campos()
                         frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
                     End If
@@ -116,7 +114,6 @@ Public Class Frm_Usuario
 
 
         ElseIf MyModo.UniqueModo = "ALTERAR" Then
-            CarregaUsuarios()
             ModoAlterar()
 
 
@@ -169,9 +166,8 @@ Public Class Frm_Usuario
     End Sub
 
     Private Sub PreencheCampos(ByVal usuario As Usuario)
-        ComboNome.Text = usuario.Nome
+        ComboNome.Text = usuario.NomeCompleto
         TxtEmail.Text = usuario.Email
-        TxtSobrenome.Text = usuario.Sobrenome
         TxtLogin.Text = usuario.Login
         TxtSenha.Text = String.Empty
         TxtSenhaConfirmar.Text = String.Empty
@@ -182,10 +178,12 @@ Public Class Frm_Usuario
 
     Private Sub AlternarControle()
         If MyModo.UniqueModo = "PESQUISAR" Then
-            ComboNome.DropDownStyle = ComboBoxStyle.DropDownList
+            ComboNome.DropDownStyle = ComboBoxStyle.DropDown
+            ComboNome.AutoCompleteMode = AutoCompleteMode.Suggest
             TxtSenha.Enabled = False
             TxtSenhaConfirmar.Enabled = False
         ElseIf MyModo.UniqueModo = "NOVO" Then
+            ComboNome.AutoCompleteMode = AutoCompleteMode.None
             ComboNome.DropDownStyle = ComboBoxStyle.Simple
             TxtSenha.Enabled = True
             TxtSenhaConfirmar.Enabled = True
@@ -251,6 +249,8 @@ Public Class Frm_Usuario
         Uteis.ControlsHelper.SetControlsEnabled(GrpBoxCredenciais.Controls)
         Uteis.ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
         Uteis.ControlsHelper.SetTextsEmpty(GrpBoxCredenciais.Controls)
+        ChkBoxAtivo.Checked = True
+        LstUsuario.Clear()
     End Sub
 
     Private Sub AtivaControles()
@@ -305,7 +305,7 @@ Public Class Frm_Usuario
         Return usuario
     End Function
 
-    Private Sub TxtSobrenome_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtSobrenome.KeyPress
+    Private Sub TxtSobrenome_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs)
         If Char.IsLetter(e.KeyChar) Then
             e.KeyChar = Char.ToUpper(e.KeyChar)
         End If
@@ -340,7 +340,6 @@ Public Class Frm_Usuario
     Private Sub ModoAlterar()
         Uteis.ControlsHelper.SetControlsEnabled(Me.Controls)
         ComboNome.Enabled = False
-        TxtSobrenome.Enabled = False
         TxtLogin.Enabled = False
         TxtEmail.Enabled = True
         ChkBoxAtivo.Enabled = True
@@ -365,4 +364,10 @@ Public Class Frm_Usuario
             e.KeyChar = ""
         End If
     End Sub
+
+    'Private Sub ComboNome_TextUpdate(sender As System.Object, e As System.EventArgs) Handles ComboNome.TextUpdate
+    '    If ComboNome.Text <> String.Empty Then
+    '        ComboNome.SelectedItem = ComboNome.FindStringExact(ComboNome.Text)
+    '    End If
+    'End Sub
 End Class

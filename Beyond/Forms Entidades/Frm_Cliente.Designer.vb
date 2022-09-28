@@ -62,12 +62,14 @@ Partial Class Frm_Cliente
         'ComboCargo
         '
         Me.ComboCargo.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboCargo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboCargo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboCargo.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ComboCargo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboCargo.FormattingEnabled = True
         Me.ComboCargo.Items.AddRange(New Object() {" "})
         Me.ComboCargo.Location = New System.Drawing.Point(581, 212)
         Me.ComboCargo.Margin = New System.Windows.Forms.Padding(4)
+        Me.ComboCargo.MaxLength = 60
         Me.ComboCargo.Name = "ComboCargo"
         Me.ComboCargo.Size = New System.Drawing.Size(369, 24)
         Me.ComboCargo.TabIndex = 7
@@ -254,10 +256,12 @@ Partial Class Frm_Cliente
         '
         Me.ComboNome.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboNome.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboNome.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboNome.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple
         Me.ComboNome.FormattingEnabled = True
         Me.ComboNome.Location = New System.Drawing.Point(7, 93)
-        Me.ComboNome.MaxLength = 90
+        Me.ComboNome.MaxLength = 300
         Me.ComboNome.Name = "ComboNome"
         Me.ComboNome.Size = New System.Drawing.Size(803, 24)
         Me.ComboNome.TabIndex = 2
@@ -305,7 +309,7 @@ Partial Class Frm_Cliente
         Me.TxtCidade.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtCidade.Location = New System.Drawing.Point(13, 164)
         Me.TxtCidade.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtCidade.MaxLength = 50
+        Me.TxtCidade.MaxLength = 300
         Me.TxtCidade.Name = "TxtCidade"
         Me.TxtCidade.Size = New System.Drawing.Size(713, 24)
         Me.TxtCidade.TabIndex = 14
@@ -316,7 +320,7 @@ Partial Class Frm_Cliente
         Me.TxtNum.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtNum.Location = New System.Drawing.Point(752, 49)
         Me.TxtNum.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtNum.MaxLength = 5
+        Me.TxtNum.MaxLength = 20
         Me.TxtNum.Name = "TxtNum"
         Me.TxtNum.Size = New System.Drawing.Size(196, 24)
         Me.TxtNum.TabIndex = 11
@@ -361,7 +365,7 @@ Partial Class Frm_Cliente
         Me.TxtLogradouro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtLogradouro.Location = New System.Drawing.Point(129, 49)
         Me.TxtLogradouro.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtLogradouro.MaxLength = 100
+        Me.TxtLogradouro.MaxLength = 300
         Me.TxtLogradouro.Name = "TxtLogradouro"
         Me.TxtLogradouro.Size = New System.Drawing.Size(597, 24)
         Me.TxtLogradouro.TabIndex = 10
@@ -373,7 +377,7 @@ Partial Class Frm_Cliente
         Me.TxtBairro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtBairro.Location = New System.Drawing.Point(13, 106)
         Me.TxtBairro.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtBairro.MaxLength = 30
+        Me.TxtBairro.MaxLength = 300
         Me.TxtBairro.Name = "TxtBairro"
         Me.TxtBairro.Size = New System.Drawing.Size(713, 24)
         Me.TxtBairro.TabIndex = 12

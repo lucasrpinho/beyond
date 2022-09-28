@@ -5,6 +5,7 @@ Public Class PedidoItem
     Public CodPedido As String
     Public CodProduto As Integer
     Public Quantidade As Integer
+    Public Preco As Decimal
 
     Public Function IsValid(ByRef strError As String) As Boolean
         strError = ""
@@ -15,6 +16,8 @@ Public Class PedidoItem
             strError = "Pedido deve conter um produto."
         ElseIf Quantidade <= 0 Then
             strError = "Quantidade deve ser maior que zero."
+        ElseIf Preco <= 0 Then
+            strError = "Preço deve ser maior que zero."
         End If
         Return String.IsNullOrWhiteSpace(strError)
     End Function
@@ -23,6 +26,7 @@ Public Class PedidoItem
         Me.CodPedido = row.Field(Of String)("cod_pedido")
         Me.CodProduto = row.Field(Of Integer)("cod_produto")
         Me.Quantidade = row.Field(Of Integer)("nu_quantidade")
+        Me.Preco = row.Field(Of Decimal)("nu_preco")
     End Sub
 
 End Class

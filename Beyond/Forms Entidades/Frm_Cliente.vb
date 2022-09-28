@@ -41,8 +41,10 @@ Public Class Frm_Cliente
 
     Private Sub AlternarControle()
         If MyModo.UniqueModo = "PESQUISAR" Then
-            ComboNome.DropDownStyle = ComboBoxStyle.DropDownList
+            ComboNome.DropDownStyle = ComboBoxStyle.DropDown
+            ComboNome.AutoCompleteMode = AutoCompleteMode.Suggest
         ElseIf MyModo.UniqueModo = "NOVO" Then
+            ComboNome.AutoCompleteMode = AutoCompleteMode.None
             ComboNome.DropDownStyle = ComboBoxStyle.Simple
         End If
     End Sub
@@ -72,6 +74,7 @@ Public Class Frm_Cliente
         ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
         Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxEndereco.Controls)
         Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
+        ChkBoxAtivo.Checked = True
         DtPckNasc.Value = Date.Now
     End Sub
 
@@ -103,7 +106,6 @@ Public Class Frm_Cliente
         cliente.ObjEndereco.NumeroEndereco = StringHelper.NumericOnly(TxtNum.Text)
 
         cliente.Descricao = TxtObs.Text.ToUpper
-        cliente.LoginCriacao = loginusuario
         cliente.IsAtivo = ChkBoxAtivo.Checked
 
         Dim strError As String = ""
@@ -115,7 +117,7 @@ Public Class Frm_Cliente
 
         Dim resposta As String = ""
 
-        If Not DAOCliente.InsereCliente(cliente, resposta) Then
+        If Not DAOCliente.InsereCliente(cliente, resposta, codusuario) Then
             Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
             Return False
         End If
@@ -211,18 +213,18 @@ Public Class Frm_Cliente
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                     Exit Sub
                 End If
-                If Not DAOCliente.AtualizaCliente(GetClienteForOperation, resposta, False, loginusuario) Then
+                If Not DAOCliente.AtualizaCliente(GetClienteForOperation, resposta, False, codusuario) Then
                     frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
                     MsgBoxHelper.Erro(Me, resposta, "Erro")
                 Else
                     MsgBoxHelper.Msg(Me, "Cliente atualizado com sucesso.", "Informação")
+                    LimpaCampos_AtivaControles()
                     Desativa_Campos()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
                 End If
             End If
 
         ElseIf MyModo.UniqueModo = "ALTERAR" Then
-            CarregaClientes()
             ModoAlterar()
 
 
@@ -230,6 +232,9 @@ Public Class Frm_Cliente
             LimpaCampos_AtivaControles()
             CarregaCargos()
             AlternarControle()
+            If objCliente IsNot Nothing Then
+                objCliente = Nothing
+            End If
             ComboNome.Focus()
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
@@ -259,7 +264,7 @@ Public Class Frm_Cliente
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Deseja excluir o item?", "Exclusão") Then
-                If DAOCliente.AtualizaCliente(GetClienteForOperation, "", True, loginusuario) Then
+                If DAOCliente.AtualizaCliente(GetClienteForOperation, resposta, True, codusuario) Then
                     LimpaCampos_AtivaControles()
                     Desativa_Campos()
                     frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
@@ -366,7 +371,7 @@ Public Class Frm_Cliente
     End Sub
 
     Private Sub TxtNum_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtNum.KeyPress
-        If Char.IsPunctuation(e.KeyChar) Or Char.IsLetter(e.KeyChar) Or Char.IsSeparator(e.KeyChar) Then
+        If Not RegexValidation.NumEnderecoCaracteres(e.KeyChar.ToString) AndAlso Not Char.IsControl(e.KeyChar) Then
             e.KeyChar = ""
         End If
     End Sub
@@ -376,11 +381,11 @@ Public Class Frm_Cliente
         If objCliente IsNot Nothing Then
             If ComboCargo.SelectedIndex > -1 Then
                 If objCliente.CodCargo = LstCargos(ComboCargo.SelectedIndex).CodCargo Then
+                    BtnConsCargo.Visible = False
                     Exit Sub
                 End If
             End If
         End If
-
         Dim existe As Boolean
         If ComboCargo.Enabled Then
             If ComboCargo.Text <> String.Empty Then
@@ -442,20 +447,36 @@ Public Class Frm_Cliente
 
     Private Function ValidaCampos() As Boolean
 
-        If TxtNum.Text = String.Empty Then
-            Uteis.MsgBoxHelper.CustomTooltip(TxtNum, TxtNum, "Número precisa ter um valor.", "Alerta de preenchimento")
+        If ComboNome.Text = String.Empty Then
+            Uteis.MsgBoxHelper.CustomTooltip(ComboNome, ComboNome, "Nome precisa ser preenchido.", "Alerta de preenchimento")
             Return False
 
-        ElseIf Not Uteis.RegexValidation.IsEmailValid(TxtEmail.Text) Then
-            Uteis.MsgBoxHelper.CustomTooltip(TxtEmail, TxtEmail, "E-mail inválido.", "Alerta de preenchimento")
+        ElseIf DtPckNasc.Value >= DateTime.Today Then
+            Uteis.MsgBoxHelper.CustomTooltip(DtPckNasc, DtPckNasc, "Data de nascimento inválida.", "Alerta de preenchimento")
             Return False
 
         ElseIf Not Uteis.RegexValidation.IsTelefoneValid(StringHelper.NumericOnly(TxtCelular.Text)) Then
             Uteis.MsgBoxHelper.CustomTooltip(TxtCelular, TxtCelular, "Telefone inválido.", "Alerta de preenchimento")
             Return False
 
+        ElseIf Not Uteis.RegexValidation.IsEmailValid(TxtEmail.Text) Then
+            Uteis.MsgBoxHelper.CustomTooltip(TxtEmail, TxtEmail, "E-mail inválido.", "Alerta de preenchimento")
+            Return False
+
         ElseIf Not TxtCEP.MaskCompleted Then
             Uteis.MsgBoxHelper.CustomTooltip(TxtCEP, TxtCEP, "CEP inválido.", "Alerta de preenchimento")
+            Return False
+
+        ElseIf TxtLogradouro.Text = String.Empty Then
+            Uteis.MsgBoxHelper.CustomTooltip(TxtLogradouro, TxtLogradouro, "Logradouro precisa ser preenchido.", "Alerta de preenchimento")
+            Return False
+
+        ElseIf TxtNum.Text = String.Empty Then
+            Uteis.MsgBoxHelper.CustomTooltip(TxtNum, TxtNum, "Número precisa ter um valor.", "Alerta de preenchimento")
+            Return False
+
+        ElseIf TxtBairro.Text = String.Empty Then
+            Uteis.MsgBoxHelper.CustomTooltip(TxtBairro, TxtBairro, "É necessário digitar o bairro.", "Alerta de preenchimento")
             Return False
 
         ElseIf TxtCidade.Text = String.Empty Then
@@ -466,11 +487,17 @@ Public Class Frm_Cliente
             Uteis.MsgBoxHelper.CustomTooltip(ComboEstado, ComboEstado, "Selecione um estado.", "Alerta de preenchimento")
             Return False
 
-        Elseif TxtBairro.Text = String.Empty Then
-            Uteis.MsgBoxHelper.CustomTooltip(TxtBairro, TxtBairro, "É necessário digitar o bairro.", "Alerta de preenchimento")
-            Return False
-
         End If
         Return True
     End Function
+
+    Private Sub ComboCargo_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboCargo.KeyPress
+        e.KeyChar = Char.ToUpper(e.KeyChar)
+    End Sub
+
+    Private Sub ComboCargo_TextUpdate(sender As System.Object, e As System.EventArgs) Handles ComboCargo.TextUpdate
+        If ComboCargo.Text = String.Empty Then
+            BtnConsCargo.Visible = False
+        End If
+    End Sub
 End Class

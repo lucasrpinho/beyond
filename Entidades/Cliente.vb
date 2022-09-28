@@ -12,7 +12,6 @@ Public Class Cliente
     Public Email As String
     Public Descricao As String
     Public DatCriacao As DateTime
-    Public LoginCriacao As String
     Public IsAtivo As Boolean
 
     Public Property CodCliente() As Integer
@@ -44,7 +43,7 @@ Public Class Cliente
     Public Function IsValid(ByRef strError As String) As Boolean
         strError = ""
         If Me.CodCliente <> 0 Then
-            strError = "Código do cliente deve ser zero pois será gerado"
+            strError = "Código do cliente deve ser zero pois será gerado."
         ElseIf Not Me.ObjEndereco.IsEnderecoValid(strError) Then
             Return False
             'ElseIf Me.ObjEndereco.CEP = "" Then
@@ -53,13 +52,11 @@ Public Class Cliente
             '    Or Me.ObjEndereco.UF = "" Or Me.ObjEndereco.NumeroEndereco = 0 Then
             'strError = "Informações incompletas no endereço"
         ElseIf Me.Telefone = "" Then
-            strError = "Telefone precisa ser preenchido"
+            strError = "Telefone precisa ser preenchido."
         ElseIf Me.Telefone.Length <> 11 Then
-            strError = "Telefone precisa conter DDD e 9 dígitos"
+            strError = "Telefone precisa conter DDD e 9 dígitos."
         ElseIf Me.DatNasc = Nothing Then
-            strError = "Data de nascimento precisa ser preenchida"
-        ElseIf Me.LoginCriacao = String.Empty Then
-            strError = "O sistema não encontrou o login de quem está inserindo o cliente"
+            strError = "Data de nascimento precisa ser preenchida."
         End If
 
         Return String.IsNullOrWhiteSpace(strError)
@@ -82,7 +79,6 @@ Public Class Cliente
         Me.Descricao = row.Field(Of String)("de_observacao")
         Me.IsAtivo = row.Field(Of Boolean)("ct_ativo")
         Me.DatCriacao = row.Field(Of DateTime)("dat_criacao")
-        Me.LoginCriacao = row.Field(Of String)("de_login_criacao")
 
         Me.ObjEndereco.Carrega(row)
     End Sub

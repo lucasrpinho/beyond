@@ -92,12 +92,14 @@ Partial Class Frm_Cargo
         '
         Me.ComboNome.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboNome.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboNome.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboNome.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple
         Me.ComboNome.FormattingEnabled = True
         Me.ComboNome.Items.AddRange(New Object() {" "})
         Me.ComboNome.Location = New System.Drawing.Point(7, 59)
         Me.ComboNome.Margin = New System.Windows.Forms.Padding(4)
-        Me.ComboNome.MaxLength = 100
+        Me.ComboNome.MaxLength = 60
         Me.ComboNome.Name = "ComboNome"
         Me.ComboNome.Size = New System.Drawing.Size(547, 24)
         Me.ComboNome.TabIndex = 3
@@ -109,7 +111,7 @@ Partial Class Frm_Cargo
         Me.TxtDesc.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtDesc.Location = New System.Drawing.Point(6, 115)
         Me.TxtDesc.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtDesc.MaxLength = 1000
+        Me.TxtDesc.MaxLength = 250
         Me.TxtDesc.Multiline = True
         Me.TxtDesc.Name = "TxtDesc"
         Me.TxtDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical

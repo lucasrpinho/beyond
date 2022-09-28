@@ -6,6 +6,11 @@ Public Class RegexValidation
         Return reg.IsMatch(Texto)
     End Function
 
+    Public Shared Function NumEnderecoCaracteres(ByVal txt As String) As Boolean
+        Dim reg As New Regex("^([a-zA-Z0-9])*$")
+        Return reg.IsMatch(txt)
+    End Function
+
     Public Shared Function IsSenhaValida(ByVal senha As String) As Boolean
         Dim reg As New Regex("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{5,16}$")
         Return reg.IsMatch(senha)

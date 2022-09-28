@@ -11,7 +11,6 @@ Public Class Produto
     Public Imagem As String
     Public IsAtivo As Boolean
     Public DatCriacao As DateTime
-    Public LoginCriacao As String
 
     Public Property CodProduto() As Integer
         Get
@@ -44,9 +43,9 @@ Public Class Produto
         strError = ""
 
         If Me.CodProduto <> 0 Then
-            strError = "Código do produto deve ser zero pois será gerado automaticamente"
+            strError = "Código do produto deve ser zero pois será gerado automaticamente."
         ElseIf Me.Descricao = "" Then
-            strError = "A descrição do produto precisa ser preenchida"
+            strError = "A descrição do produto precisa ser preenchida."
         ElseIf Not IsNumeric(Me.Preco) Then
             strError = "Preço precisa ser numérico."
         ElseIf Not IsNumeric(Me.Quantidade) Then
@@ -66,7 +65,6 @@ Public Class Produto
         Me.Imagem = If(row.Field(Of Byte())("fl_imagem") Is Nothing, "", System.Text.Encoding.UTF8.GetString(row.Field(Of Byte())("fl_imagem")))
         Me.IsAtivo = row.Field(Of Boolean)("ct_ativo")
         Me.DatCriacao = row.Field(Of DateTime)("dat_criacao")
-        Me.LoginCriacao = row.Field(Of String)("de_login_criacao")
     End Sub
 
     Protected Overrides Sub Finalize()
@@ -86,7 +84,6 @@ Public Class Produto
         Me.Preco = obj.Preco
         Me.Quantidade = obj.Quantidade
         Me.DatCriacao = obj.DatCriacao
-        Me.LoginCriacao = obj.LoginCriacao
         Me.Imagem = obj.Imagem
     End Sub
 End Class

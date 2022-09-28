@@ -24,6 +24,7 @@ Partial Class Frm_Vendedor
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_Vendedor))
         Me.GrpBoxInfo = New System.Windows.Forms.GroupBox()
+        Me.BtnInsereImagem = New System.Windows.Forms.Button()
         Me.ChkBoxAtivo = New System.Windows.Forms.CheckBox()
         Me.ComboCargo = New System.Windows.Forms.ComboBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -32,8 +33,6 @@ Partial Class Frm_Vendedor
         Me.ComboNome = New System.Windows.Forms.ComboBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.TxtObs = New System.Windows.Forms.TextBox()
-        Me.TxtSobrenome = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GrpBoxEndereco = New System.Windows.Forms.GroupBox()
         Me.TxtCidade = New System.Windows.Forms.TextBox()
@@ -61,6 +60,7 @@ Partial Class Frm_Vendedor
         '
         Me.GrpBoxInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GrpBoxInfo.Controls.Add(Me.BtnInsereImagem)
         Me.GrpBoxInfo.Controls.Add(Me.ChkBoxAtivo)
         Me.GrpBoxInfo.Controls.Add(Me.ComboCargo)
         Me.GrpBoxInfo.Controls.Add(Me.GroupBox1)
@@ -68,17 +68,26 @@ Partial Class Frm_Vendedor
         Me.GrpBoxInfo.Controls.Add(Me.ComboNome)
         Me.GrpBoxInfo.Controls.Add(Me.Label17)
         Me.GrpBoxInfo.Controls.Add(Me.TxtObs)
-        Me.GrpBoxInfo.Controls.Add(Me.TxtSobrenome)
-        Me.GrpBoxInfo.Controls.Add(Me.Label2)
         Me.GrpBoxInfo.Controls.Add(Me.Label1)
-        Me.GrpBoxInfo.Location = New System.Drawing.Point(13, 0)
+        Me.GrpBoxInfo.Location = New System.Drawing.Point(13, 23)
         Me.GrpBoxInfo.Margin = New System.Windows.Forms.Padding(4)
         Me.GrpBoxInfo.Name = "GrpBoxInfo"
         Me.GrpBoxInfo.Padding = New System.Windows.Forms.Padding(4)
-        Me.GrpBoxInfo.Size = New System.Drawing.Size(861, 314)
+        Me.GrpBoxInfo.Size = New System.Drawing.Size(861, 327)
         Me.GrpBoxInfo.TabIndex = 0
         Me.GrpBoxInfo.TabStop = False
         Me.GrpBoxInfo.Text = "Informações"
+        '
+        'BtnInsereImagem
+        '
+        Me.BtnInsereImagem.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnInsereImagem.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.BtnInsereImagem.Location = New System.Drawing.Point(651, 215)
+        Me.BtnInsereImagem.Name = "BtnInsereImagem"
+        Me.BtnInsereImagem.Size = New System.Drawing.Size(200, 27)
+        Me.BtnInsereImagem.TabIndex = 41
+        Me.BtnInsereImagem.Text = "Inserir Imagem"
+        Me.BtnInsereImagem.UseVisualStyleBackColor = True
         '
         'ChkBoxAtivo
         '
@@ -97,21 +106,23 @@ Partial Class Frm_Vendedor
         '
         Me.ComboCargo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboCargo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboCargo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboCargo.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ComboCargo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboCargo.FormattingEnabled = True
         Me.ComboCargo.Items.AddRange(New Object() {" "})
-        Me.ComboCargo.Location = New System.Drawing.Point(11, 200)
+        Me.ComboCargo.Location = New System.Drawing.Point(11, 159)
         Me.ComboCargo.Margin = New System.Windows.Forms.Padding(4)
+        Me.ComboCargo.MaxLength = 60
         Me.ComboCargo.Name = "ComboCargo"
         Me.ComboCargo.Size = New System.Drawing.Size(608, 24)
-        Me.ComboCargo.TabIndex = 4
+        Me.ComboCargo.TabIndex = 3
         '
         'GroupBox1
         '
         Me.GroupBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.PicBoxFoto)
-        Me.GroupBox1.Location = New System.Drawing.Point(637, 24)
+        Me.GroupBox1.Location = New System.Drawing.Point(648, 12)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(206, 200)
         Me.GroupBox1.TabIndex = 40
@@ -132,7 +143,7 @@ Partial Class Frm_Vendedor
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(9, 179)
+        Me.Label9.Location = New System.Drawing.Point(9, 138)
         Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(50, 17)
@@ -143,10 +154,12 @@ Partial Class Frm_Vendedor
         '
         Me.ComboNome.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboNome.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboNome.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboNome.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple
         Me.ComboNome.FormattingEnabled = True
         Me.ComboNome.Location = New System.Drawing.Point(11, 103)
-        Me.ComboNome.MaxLength = 30
+        Me.ComboNome.MaxLength = 150
         Me.ComboNome.Name = "ComboNome"
         Me.ComboNome.Size = New System.Drawing.Size(608, 24)
         Me.ComboNome.TabIndex = 2
@@ -173,30 +186,8 @@ Partial Class Frm_Vendedor
         Me.TxtObs.Multiline = True
         Me.TxtObs.Name = "TxtObs"
         Me.TxtObs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TxtObs.Size = New System.Drawing.Size(826, 54)
+        Me.TxtObs.Size = New System.Drawing.Size(840, 67)
         Me.TxtObs.TabIndex = 5
-        '
-        'TxtSobrenome
-        '
-        Me.TxtSobrenome.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TxtSobrenome.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtSobrenome.Location = New System.Drawing.Point(11, 151)
-        Me.TxtSobrenome.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtSobrenome.MaxLength = 50
-        Me.TxtSobrenome.Name = "TxtSobrenome"
-        Me.TxtSobrenome.Size = New System.Drawing.Size(608, 24)
-        Me.TxtSobrenome.TabIndex = 3
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(9, 130)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(89, 17)
-        Me.Label2.TabIndex = 9
-        Me.Label2.Text = "Sobrenome"
         '
         'Label1
         '
@@ -204,9 +195,9 @@ Partial Class Frm_Vendedor
         Me.Label1.Location = New System.Drawing.Point(8, 83)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(48, 17)
+        Me.Label1.Size = New System.Drawing.Size(120, 17)
         Me.Label1.TabIndex = 8
-        Me.Label1.Text = "Nome"
+        Me.Label1.Text = "Nome Completo"
         '
         'GrpBoxEndereco
         '
@@ -226,7 +217,7 @@ Partial Class Frm_Vendedor
         Me.GrpBoxEndereco.Controls.Add(Me.Label5)
         Me.GrpBoxEndereco.Controls.Add(Me.Label4)
         Me.GrpBoxEndereco.Controls.Add(Me.LblCep)
-        Me.GrpBoxEndereco.Location = New System.Drawing.Point(13, 335)
+        Me.GrpBoxEndereco.Location = New System.Drawing.Point(13, 358)
         Me.GrpBoxEndereco.Margin = New System.Windows.Forms.Padding(4)
         Me.GrpBoxEndereco.Name = "GrpBoxEndereco"
         Me.GrpBoxEndereco.Padding = New System.Windows.Forms.Padding(4)
@@ -240,11 +231,11 @@ Partial Class Frm_Vendedor
         Me.TxtCidade.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtCidade.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TxtCidade.Location = New System.Drawing.Point(14, 162)
+        Me.TxtCidade.Location = New System.Drawing.Point(11, 162)
         Me.TxtCidade.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtCidade.MaxLength = 100
+        Me.TxtCidade.MaxLength = 300
         Me.TxtCidade.Name = "TxtCidade"
-        Me.TxtCidade.Size = New System.Drawing.Size(605, 24)
+        Me.TxtCidade.Size = New System.Drawing.Size(608, 24)
         Me.TxtCidade.TabIndex = 11
         '
         'TxtNum
@@ -253,7 +244,7 @@ Partial Class Frm_Vendedor
         Me.TxtNum.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtNum.Location = New System.Drawing.Point(643, 61)
         Me.TxtNum.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtNum.MaxLength = 5
+        Me.TxtNum.MaxLength = 20
         Me.TxtNum.Name = "TxtNum"
         Me.TxtNum.Size = New System.Drawing.Size(212, 24)
         Me.TxtNum.TabIndex = 8
@@ -284,7 +275,7 @@ Partial Class Frm_Vendedor
         '
         Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(640, 139)
+        Me.Label8.Location = New System.Drawing.Point(640, 140)
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(57, 17)
@@ -298,7 +289,7 @@ Partial Class Frm_Vendedor
         Me.TxtLogradouro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtLogradouro.Location = New System.Drawing.Point(131, 60)
         Me.TxtLogradouro.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtLogradouro.MaxLength = 100
+        Me.TxtLogradouro.MaxLength = 300
         Me.TxtLogradouro.Name = "TxtLogradouro"
         Me.TxtLogradouro.Size = New System.Drawing.Size(488, 24)
         Me.TxtLogradouro.TabIndex = 7
@@ -310,7 +301,7 @@ Partial Class Frm_Vendedor
         Me.TxtBairro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtBairro.Location = New System.Drawing.Point(11, 107)
         Me.TxtBairro.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtBairro.MaxLength = 100
+        Me.TxtBairro.MaxLength = 300
         Me.TxtBairro.Name = "TxtBairro"
         Me.TxtBairro.Size = New System.Drawing.Size(608, 24)
         Me.TxtBairro.TabIndex = 9
@@ -350,7 +341,7 @@ Partial Class Frm_Vendedor
         '
         Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(640, 86)
+        Me.Label6.Location = New System.Drawing.Point(640, 89)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(105, 17)
@@ -397,7 +388,7 @@ Partial Class Frm_Vendedor
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Menu
-        Me.ClientSize = New System.Drawing.Size(887, 548)
+        Me.ClientSize = New System.Drawing.Size(887, 571)
         Me.Controls.Add(Me.GrpBoxEndereco)
         Me.Controls.Add(Me.GrpBoxInfo)
         Me.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -418,8 +409,6 @@ Partial Class Frm_Vendedor
 
     End Sub
     Friend WithEvents GrpBoxInfo As System.Windows.Forms.GroupBox
-    Friend WithEvents TxtSobrenome As System.Windows.Forms.TextBox
-    Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents GrpBoxEndereco As System.Windows.Forms.GroupBox
     Friend WithEvents TxtObs As System.Windows.Forms.TextBox
@@ -445,4 +434,5 @@ Partial Class Frm_Vendedor
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents LblCep As System.Windows.Forms.Label
+    Friend WithEvents BtnInsereImagem As System.Windows.Forms.Button
 End Class

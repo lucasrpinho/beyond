@@ -78,6 +78,7 @@ Partial Class Frm_ConsProduto
         Me.ComboCateg.FormattingEnabled = True
         Me.ComboCateg.Location = New System.Drawing.Point(18, 38)
         Me.ComboCateg.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ComboCateg.MaxLength = 60
         Me.ComboCateg.Name = "ComboCateg"
         Me.ComboCateg.Size = New System.Drawing.Size(491, 22)
         Me.ComboCateg.TabIndex = 1
@@ -106,6 +107,7 @@ Partial Class Frm_ConsProduto
         Me.ComboNome.FormattingEnabled = True
         Me.ComboNome.Location = New System.Drawing.Point(18, 89)
         Me.ComboNome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ComboNome.MaxLength = 60
         Me.ComboNome.Name = "ComboNome"
         Me.ComboNome.Size = New System.Drawing.Size(491, 22)
         Me.ComboNome.TabIndex = 5

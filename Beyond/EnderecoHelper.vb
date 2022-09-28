@@ -19,7 +19,10 @@ Public Class EnderecoHelper
                 Return Nothing
             End If
         Catch ex As Exception
-            Throw ex
+#If DEBUG Then
+            Throw
+#End If
+            MessageBox.Show("Ocorreu um erro durante a busca. Verifique o formato do CEP digitado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Function
 

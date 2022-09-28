@@ -147,13 +147,14 @@ Partial Class Frm_Sobre
         'BtnOK
         '
         Me.BtnOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnOK.BackColor = System.Drawing.SystemColors.ButtonShadow
+        Me.BtnOK.BackColor = System.Drawing.SystemColors.Window
         Me.BtnOK.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnOK.FlatAppearance.BorderColor = System.Drawing.Color.DarkCyan
         Me.BtnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnOK.Font = New System.Drawing.Font("Verdana", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnOK.Image = Global.Beyond.My.Resources.Resources.closetab
         Me.BtnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BtnOK.Location = New System.Drawing.Point(465, 433)
+        Me.BtnOK.Location = New System.Drawing.Point(462, 433)
         Me.BtnOK.Name = "BtnOK"
         Me.BtnOK.Size = New System.Drawing.Size(83, 27)
         Me.BtnOK.TabIndex = 13

@@ -22,7 +22,7 @@ Public Class Frm_Principal_MDI
 
         ' Add any initialization after the InitializeComponent() call.
         Me.usuario = usuario
-        loginusuario = usuario.Login
+        codusuario = usuario.CodUsuario
     End Sub
 
     Private Sub Frm_Principal_MDI_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
@@ -30,7 +30,7 @@ Public Class Frm_Principal_MDI
     End Sub
 
     Private Sub Frm_Principal_MDI_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        TSL_Login.Text = loginusuario
+        TSL_Login.Text = usuario.NomeCompleto
         TSL_Data.Text = DateTime.Now.ToLongDateString
         LblOla.Text = "Olá, " + usuario.NomeCompleto
     End Sub

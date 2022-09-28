@@ -79,8 +79,11 @@ Public Class Frm_Pedido
         LstVendedor = DAOPedido.GetVendedor(True, resposta, True)
 
         If Not LstVendedor.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            ComboVendedor.Text = "NENHUM VENDEDOR ENCONTRADO. CADASTRE UM VENDEDOR PARA PODER REALIZAR UM PEDIDO."
+            ComboVendedor.ForeColor = Color.Red
+            ComboVendedor.Enabled = False
         Else
+            ComboVendedor.ForeColor = Color.Black
             LstVendedor.RemoveAll(Function(v) v.IsAtivo = False)
             ComboVendedor.BeginUpdate()
             ComboVendedor.Items.AddRange(LstVendedor.ToArray)
@@ -99,13 +102,14 @@ Public Class Frm_Pedido
         LstVendedor = DAOPedido.GetVendedor(True, resposta, True)
 
         If Not LstVendedor.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            ComboVendedor.Text = "NENHUM VENDEDOR ENCONTRADO."
         Else
             For i As Integer = 0 To LstVendedor.Count - 1
                 If LstVendedor(i).IsAtivo = False Then
                     LstVendedor(i).NomeCompleto += " (INATIVO)"
                 End If
             Next
+            ComboVendedor.ForeColor = Color.Black
             ComboVendedor.BeginUpdate()
             ComboVendedor.Items.AddRange(LstVendedor.ToArray)
             ComboVendedor.DisplayMember = "NomeCompleto"
@@ -123,13 +127,16 @@ Public Class Frm_Pedido
         LstCliente = DAOPedido.GetCliente(True, resposta)
 
         If Not LstCliente.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            ComboCliente.ForeColor = Color.Red
+            ComboCliente.Text = "NENHUM CLIENTE ENCONTRADO."
+            ComboCliente.Enabled = False
         Else
             For i As Integer = 0 To LstCliente.Count - 1
                 If Not LstCliente(i).IsAtivo Then
                     LstCliente(i).Nome += " (INATIVO)"
                 End If
             Next
+            ComboCliente.ForeColor = Color.Black
             ComboCliente.BeginUpdate()
             ComboCliente.Items.AddRange(LstCliente.ToArray)
             ComboCliente.DisplayMember = "Nome"
@@ -147,8 +154,11 @@ Public Class Frm_Pedido
         LstCliente = DAOPedido.GetCliente(True, resposta)
 
         If Not LstCliente.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            ComboCliente.ForeColor = Color.Red
+            ComboCliente.Text = "NENHUM CLIENTE ENCONTRADO. CADASTRE UM CLIENTE PARA PODER EFETUAR UM PEDIDO."
+            ComboCliente.Enabled = False
         Else
+            ComboCliente.ForeColor = Color.Black
             LstCliente.RemoveAll(Function(c) c.IsAtivo = False)
             ComboCliente.BeginUpdate()
             ComboCliente.Items.AddRange(LstCliente.ToArray)
@@ -167,10 +177,14 @@ Public Class Frm_Pedido
         LstProduto = DAOPedido.GetProdutos(resposta)
 
         If Not LstProduto.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, "A busca por produtos não encontrou resultados.", "Erro")
+            ComboProduto.Text = "NENHUM PRODUTO ENCONTRADO."
+            ComboProduto.Enabled = False
+            ComboProduto.ForeColor = Color.Red
             Exit Sub
         End If
 
+        ComboProduto.Enabled = True
+        ComboProduto.ForeColor = Color.Black
         ComboProduto.BeginUpdate()
         ComboProduto.Items.AddRange(LstProduto.ToArray)
         ComboProduto.DisplayMember = "Nome"
@@ -212,10 +226,14 @@ Public Class Frm_Pedido
         LstCategoria = DAOPedido.GetCategoriasProduto(resposta)
 
         If Not LstCategoria.Count > 0 Then
-            MsgBoxHelper.Alerta(Me, resposta, "Erro")
+            ComboCategoria.Text = "NENHUMA CATEGORIA DE PRODUTO FOI ENCONTRADA."
+            ComboCategoria.Enabled = False
+            ComboCategoria.ForeColor = Color.Red
             Exit Sub
         End If
 
+        ComboCategoria.Enabled = True
+        ComboCategoria.ForeColor = Color.Black
         ComboCategoria.BeginUpdate()
         For I As Integer = 0 To LstCategoria.Count - 1
             ComboCategoria.Items.Add(LstCategoria(I))
@@ -291,8 +309,7 @@ Public Class Frm_Pedido
 
             item.Tag = prod
         Next
-        
-        LstProd.Sorting = SortOrder.Descending
+
     End Sub
 
     Private Sub ComboCategoria_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles ComboCategoria.SelectedIndexChanged
@@ -426,7 +443,6 @@ Public Class Frm_Pedido
         pedido.Observacao = TxtObs.Text
 
         pedido.LstProduto.AddRange(LstItens.ToArray)
-        pedido.LoginCriacao = loginusuario
         pedido.ValorTotal = Decimal.Parse(TxtValorTotal.Text.Replace("R$", String.Empty))
 
         Dim resposta As String = ""
@@ -435,8 +451,8 @@ Public Class Frm_Pedido
             Return False
         End If
 
-        pedido.CodPedido = DateTime.Now.Year.ToString + DateTime.Now.Month.ToString + DateTime.Now.Day.ToString + "PED" + _
-            pedido.CodCliente.ToString + pedido.CodVendedor.ToString + pedido.LstProduto.First.CodProduto.ToString
+        pedido.CodPedido = DateTime.Now.Month.ToString + DateTime.Now.Day.ToString + "PED" + _
+            pedido.CodCliente.ToString + pedido.CodVendedor.ToString + DateTime.Today.Hour.ToString + DateTime.Today.Second.ToString
 
         If LstPedidoItem Is Nothing Then
             LstPedidoItem = New List(Of PedidoItem)
@@ -451,7 +467,7 @@ Public Class Frm_Pedido
 
         Next
 
-        If Not DAOPedido.InserePedido(pedido, LstPedidoItem, resposta) Then
+        If Not DAOPedido.InserePedido(pedido, LstPedidoItem, codusuario, resposta) Then
             MsgBoxHelper.Erro(Me, resposta, "Erro")
             Return False
         End If
@@ -778,8 +794,7 @@ Public Class Frm_Pedido
     End Sub
 
     Private Sub TextBox1_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtQtd.KeyPress
-        If Char.IsLetter(e.KeyChar) Or Char.IsSeparator(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or _
-            e.KeyChar = "-" Then
+        If Not Char.IsNumber(e.KeyChar) Or Not Char.IsControl(e.KeyChar) Then
             e.KeyChar = ""
         End If
     End Sub
@@ -852,6 +867,8 @@ Public Class Frm_Pedido
             '
         ElseIf Integer.Parse(TxtQtdInsere.Text) <= 0 Then
             MsgBoxHelper.Alerta(Me, "Informe a quantidade desejada.", "Quantidade insuficiente")
+        ElseIf Integer.Parse(TxtQtdInsere.Text) > objProdSelecionado.Quantidade Then
+            MsgBoxHelper.Alerta(Me, "A quantidade informada é maior do que a disponível em estoque.", "Estoque Insuficiente")
         Else
             If LstItens.Any(Function(p As Produto) p.CodProduto = objProdSelecionado.CodProduto) Then
                 MsgBoxHelper.Alerta(Me, "Produto já foi adicionado ao carrinho.", "Produto repetido")
@@ -862,6 +879,8 @@ Public Class Frm_Pedido
             InsereCarrinho(TxtQtdInsere.Text)
             If MsgBoxHelper.MsgTemCerteza(Me, "Item adicionado! Deseja ir para o carrinho?", "Continuar") Then
                 TCPedido.SelectTab("TabItens")
+                LstCarrinho.Focus()
+                LstCarrinho.Items(objProdSelecionado.CodProduto).Selected = True
             End If
             LimpaInformacoesProduto()
         End If
@@ -1143,8 +1162,7 @@ Public Class Frm_Pedido
     End Sub
 
     Private Sub TxtQtdInsere_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtQtdInsere.KeyPress
-        If Char.IsLetter(e.KeyChar) Or Char.IsSeparator(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or _
-            e.KeyChar = "-" Then
+        If Not Char.IsNumber(e.KeyChar) Or Not Char.IsControl(e.KeyChar) Then
             e.KeyChar = ""
         End If
     End Sub
@@ -1172,8 +1190,9 @@ Public Class Frm_Pedido
     End Sub
 
     Private Sub TxtNum_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtNum.KeyPress
-        If Char.IsLetter(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or Char.IsSeparator(e.KeyChar) Then
+        If Not RegexValidation.NumEnderecoCaracteres(e.KeyChar.ToString) Or Not Char.IsControl(e.KeyChar) Then
             e.KeyChar = ""
         End If
     End Sub
+
 End Class

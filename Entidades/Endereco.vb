@@ -1,7 +1,7 @@
 ﻿Imports Entidades
 Public Class Endereco
     Private _CEP As String
-    Private _Numero As Int16
+    Private _Numero As String
     Private _Bairro As String
     Private _Cidade As String
     Private _UF As String
@@ -34,11 +34,11 @@ Public Class Endereco
         End Set
     End Property
 
-    Public Property NumeroEndereco()
+    Public Property NumeroEndereco() As String
         Get
             Return _Numero
         End Get
-        Set(value)
+        Set(value As String)
             _Numero = value
         End Set
     End Property
@@ -80,12 +80,14 @@ Public Class Endereco
     End Property
 
     Public Sub New(ByVal objFromJson As EnderecoJson)
-        If Not String.IsNullOrWhiteSpace(objFromJson.logradouro) Then
-            Me.ObjEnderecoJson = objFromJson
-            Me.Cidade = ObjEnderecoJson.localidade
-            Me.Bairro = ObjEnderecoJson.bairro
-            Me.UF = ObjEnderecoJson.uf
-            Me.Logradouro = ObjEnderecoJson.logradouro
+        If objFromJson IsNot Nothing Then
+            If Not String.IsNullOrWhiteSpace(objFromJson.logradouro) Then
+                Me.ObjEnderecoJson = objFromJson
+                Me.Cidade = ObjEnderecoJson.localidade
+                Me.Bairro = ObjEnderecoJson.bairro
+                Me.UF = ObjEnderecoJson.uf
+                Me.Logradouro = ObjEnderecoJson.logradouro
+            End If
         End If
     End Sub
 
@@ -102,8 +104,8 @@ Public Class Endereco
             str = "Bairro não pode ser vazio."
         ElseIf UF.ToString.Length <> 2 Then
             str = "Estado não pode ser vazio."
-        ElseIf NumeroEndereco.ToString = String.Empty Then
-            str = "Número não pode ser vazio"
+        ElseIf NumeroEndereco = String.Empty Then
+            str = "Número não pode ser vazio."
         ElseIf Cidade.ToString = String.Empty Then
             str = "Cidade não pode ser vazia."
         End If
@@ -115,7 +117,7 @@ Public Class Endereco
         Me.UF = row.Field(Of String)("uf_estado")
         Me.Bairro = row.Field(Of String)("de_bairro")
         Me.Cidade = row.Field(Of String)("de_cidade")
-        Me.NumeroEndereco = row.Field(Of Int16)("nu_numero")
+        Me.NumeroEndereco = row.Field(Of String)("nu_numero")
         Me.CEP = row.Field(Of String)("nu_cep")
         Me.Complemento = row.Field(Of String)("de_complemento")
         Me.Logradouro = row.Field(Of String)("de_logradouro")
