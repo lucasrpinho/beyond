@@ -170,11 +170,11 @@ Partial Class Frm_Cliente
         '
         Me.DtPckNasc.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DtPckNasc.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DtPckNasc.Location = New System.Drawing.Point(832, 93)
+        Me.DtPckNasc.Location = New System.Drawing.Point(816, 93)
         Me.DtPckNasc.MaxDate = New Date(2200, 12, 31, 0, 0, 0, 0)
         Me.DtPckNasc.MinDate = New Date(1922, 1, 1, 0, 0, 0, 0)
         Me.DtPckNasc.Name = "DtPckNasc"
-        Me.DtPckNasc.Size = New System.Drawing.Size(118, 24)
+        Me.DtPckNasc.Size = New System.Drawing.Size(132, 24)
         Me.DtPckNasc.TabIndex = 3
         '
         'TxtCelular
@@ -211,12 +211,12 @@ Partial Class Frm_Cliente
         '
         Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(829, 73)
+        Me.Label11.Location = New System.Drawing.Point(813, 72)
         Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(127, 17)
+        Me.Label11.Size = New System.Drawing.Size(149, 17)
         Me.Label11.TabIndex = 38
-        Me.Label11.Text = "Data Nascimento"
+        Me.Label11.Text = "Data de Nascimento"
         '
         'TxtEmail
         '
@@ -263,7 +263,7 @@ Partial Class Frm_Cliente
         Me.ComboNome.Location = New System.Drawing.Point(7, 93)
         Me.ComboNome.MaxLength = 300
         Me.ComboNome.Name = "ComboNome"
-        Me.ComboNome.Size = New System.Drawing.Size(803, 24)
+        Me.ComboNome.Size = New System.Drawing.Size(783, 24)
         Me.ComboNome.TabIndex = 2
         '
         'Label1

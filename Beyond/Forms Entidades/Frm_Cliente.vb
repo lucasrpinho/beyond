@@ -390,7 +390,6 @@ Public Class Frm_Cliente
         If ComboCargo.Enabled Then
             If ComboCargo.Text <> String.Empty Then
                 If DAOCliente.ChecaCargoCliente(LstCargos(ComboCargo.SelectedIndex).CodCargo, existe) Then
-                    MsgBoxHelper.CustomTooltip(ComboCargo, ComboCargo, "Outro cliente já possui esse cargo.", "Alerta")
                     BtnConsCargo.Visible = True
                 Else
                     BtnConsCargo.Visible = False
@@ -448,43 +447,42 @@ Public Class Frm_Cliente
     Private Function ValidaCampos() As Boolean
 
         If ComboNome.Text = String.Empty Then
-            Uteis.MsgBoxHelper.CustomTooltip(ComboNome, ComboNome, "Nome precisa ser preenchido.", "Alerta de preenchimento")
+            MsgBoxHelper.Alerta(Me, "Nome precisa ser preenchido.", "Alerta", ComboNome)
             Return False
-
         ElseIf DtPckNasc.Value >= DateTime.Today Then
-            Uteis.MsgBoxHelper.CustomTooltip(DtPckNasc, DtPckNasc, "Data de nascimento inválida.", "Alerta de preenchimento")
+            MsgBoxHelper.Alerta(Me, "Data de Nascimento inválida.", "Alerta", DtPckNasc)
             Return False
 
         ElseIf Not Uteis.RegexValidation.IsTelefoneValid(StringHelper.NumericOnly(TxtCelular.Text)) Then
-            Uteis.MsgBoxHelper.CustomTooltip(TxtCelular, TxtCelular, "Telefone inválido.", "Alerta de preenchimento")
+            MsgBoxHelper.Alerta(Me, "Telefone inválido.", "Alerta", TxtCelular)
             Return False
 
         ElseIf Not Uteis.RegexValidation.IsEmailValid(TxtEmail.Text) Then
-            Uteis.MsgBoxHelper.CustomTooltip(TxtEmail, TxtEmail, "E-mail inválido.", "Alerta de preenchimento")
+            MsgBoxHelper.Alerta(Me, "E-mail inválido.", "Alerta", TxtEmail)
             Return False
 
         ElseIf Not TxtCEP.MaskCompleted Then
-            Uteis.MsgBoxHelper.CustomTooltip(TxtCEP, TxtCEP, "CEP inválido.", "Alerta de preenchimento")
+            MsgBoxHelper.Alerta(Me, "CEP inválido.", "Alerta", TxtCEP)
             Return False
 
         ElseIf TxtLogradouro.Text = String.Empty Then
-            Uteis.MsgBoxHelper.CustomTooltip(TxtLogradouro, TxtLogradouro, "Logradouro precisa ser preenchido.", "Alerta de preenchimento")
+            MsgBoxHelper.Alerta(Me, "Logradouro precisa ser preenchido.", "Alerta", TxtLogradouro)
             Return False
 
         ElseIf TxtNum.Text = String.Empty Then
-            Uteis.MsgBoxHelper.CustomTooltip(TxtNum, TxtNum, "Número precisa ter um valor.", "Alerta de preenchimento")
+            MsgBoxHelper.Alerta(Me, "Número precisa ser preenchido.", "Alerta", TxtNum)
             Return False
 
         ElseIf TxtBairro.Text = String.Empty Then
-            Uteis.MsgBoxHelper.CustomTooltip(TxtBairro, TxtBairro, "É necessário digitar o bairro.", "Alerta de preenchimento")
+            MsgBoxHelper.Alerta(Me, "Bairro precisa ser preenchido.", "Alerta", TxtBairro)
             Return False
 
         ElseIf TxtCidade.Text = String.Empty Then
-            Uteis.MsgBoxHelper.CustomTooltip(TxtCidade, TxtCidade, "Cidade precisa ter um valor.", "Alerta de preenchimento")
+            MsgBoxHelper.Alerta(Me, "Cidade precisa ser preenchida.", "Alerta", TxtCidade)
             Return False
 
         ElseIf ComboEstado.SelectedIndex = -1 Then
-            Uteis.MsgBoxHelper.CustomTooltip(ComboEstado, ComboEstado, "Selecione um estado.", "Alerta de preenchimento")
+            MsgBoxHelper.Alerta(Me, "Estado precisa ser preenchido.", "Alerta", ComboEstado)
             Return False
 
         End If

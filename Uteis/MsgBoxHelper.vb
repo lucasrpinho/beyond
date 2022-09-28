@@ -26,8 +26,11 @@ Public Class MsgBoxHelper
 
 
     ' Alerta Msg
-    Public Shared Sub Alerta(ByVal frm As Form, ByVal Msg As String, ByVal Titulo As String)
+    Public Shared Sub Alerta(ByVal frm As Form, ByVal Msg As String, ByVal Titulo As String, Optional ByVal ctrl As Control = Nothing)
         MessageBox.Show(frm, Msg, Titulo, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        If ctrl IsNot Nothing Then
+            ctrl.Focus()
+        End If
     End Sub
 
 

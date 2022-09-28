@@ -85,7 +85,7 @@ Public Class Frm_Vendedor
 
     Private Function Insere() As Boolean
 
-        If Not ValidaEndereco() Then
+        If Not ValidaCampos() Then
             Return False
         End If
 
@@ -396,7 +396,7 @@ Public Class Frm_Vendedor
 
     Private Function ObjVendedorFromList() As Vendedor
 
-        If Not ValidaEndereco() Then
+        If Not ValidaCampos() Then
             Return Nothing
         End If
 
@@ -461,36 +461,56 @@ Public Class Frm_Vendedor
         CarregaImagem()
     End Sub
 
-    Private Function ValidaEndereco() As Boolean
-        If ComboCargo.Text = String.Empty Then
-            Uteis.MsgBoxHelper.CustomTooltip(ComboCargo, ComboCargo, "Vendedor precisa ter um cargo.", _
-                                                "Preenchimento incompleto")
-            Return False
+    Private Function ValidaCampos() As Boolean
+        Dim ctrl As Control
+
+        If ComboNome.Text = String.Empty Then
+            MsgBoxHelper.Alerta(Me, "Nome precisa ser preenchido.", "Alerta", ComboNome)
+            ctrl = ComboNome
+
+        ElseIf ComboCargo.Text = String.Empty Then
+            MsgBoxHelper.Alerta(Me, "Cargo precisa ser preenchido.", "Alerta", ComboCargo)
+            ctrl = ComboCargo
+
+        ElseIf ComboCargo.SelectedIndex = -1 Then
+            MsgBoxHelper.Alerta(Me, "Cargo precisa ser preenchido.", "Alerta", ComboCargo)
+            ctrl = ComboCargo
 
         ElseIf Not LstCargos(ComboCargo.SelectedIndex).IsAtivo Then
-            Uteis.MsgBoxHelper.CustomTooltip(ComboCargo, ComboCargo, "O cargo selecionado está inativo.", _
-                                                "Preenchimento inválido")
-            Return False
+            MsgBoxHelper.Alerta(Me, "Cargos inativos não podem ser usados no cadastro de vendedores.", "Alerta", ComboCargo)
+            ctrl = ComboCargo
 
         ElseIf PicBoxFoto.Image Is Nothing Then
-            Uteis.MsgBoxHelper.CustomTooltip(PicBoxFoto, PicBoxFoto, "Vendedor precisa ter uma foto no cadastro.", _
-                                                "Preenchimento incompleto")
-            Return False
-
-        ElseIf TxtNum.Text = String.Empty Then
-            Uteis.MsgBoxHelper.CustomTooltip(TxtNum, TxtNum, "Número vazio.", "Alerta de preenchimento")
-            Return False
+            MsgBoxHelper.Alerta(Me, "É necessário inserir uma foto para o vendedor.", "Alerta")
+            ctrl = PicBoxFoto
 
         ElseIf Not TxtCEP.MaskCompleted Then
-            Uteis.MsgBoxHelper.CustomTooltip(TxtCEP, TxtCEP, "CEP inválido.", "Alerta de preenchimento")
-            Return False
+            MsgBoxHelper.Alerta(Me, "CEP inválido.", "Alerta", TxtCEP)
+            ctrl = TxtCEP
+
+        ElseIf TxtLogradouro.Text = String.Empty Then
+            MsgBoxHelper.Alerta(Me, "Logradouro precisa ser preenchido.", "Alerta", TxtLogradouro)
+            ctrl = TxtLogradouro
+
+        ElseIf TxtNum.Text = String.Empty Then
+            MsgBoxHelper.Alerta(Me, "Número precisa ser preenchido.", "Alerta", TxtNum)
+            ctrl = TxtNum
+
+        ElseIf TxtBairro.Text = String.Empty Then
+            MsgBoxHelper.Alerta(Me, "Bairro precisa ser preenchido.", "Alerta", TxtBairro)
+            ctrl = TxtBairro
+
+        ElseIf TxtCidade.Text = String.Empty Then
+            MsgBoxHelper.Alerta(Me, "Cidade precisa ser preenchida.", "Alerta", TxtCidade)
+            ctrl = TxtCidade
 
         ElseIf ComboEstado.SelectedIndex = -1 Then
-            Uteis.MsgBoxHelper.CustomTooltip(ComboEstado, ComboEstado, "Selecione um estado.", "Alerta de preenchimento")
-            Return False
+            MsgBoxHelper.Alerta(Me, "Estado precisa ser preenchido.", "Alerta", ComboEstado)
+            ComboEstado.DroppedDown = True
+            ctrl = ComboEstado
         End If
 
-        Return True
+        Return IsNothing(ctrl)
     End Function
 
     Private Sub BtnInsereImagem_Click(sender As System.Object, e As System.EventArgs) Handles BtnInsereImagem.Click

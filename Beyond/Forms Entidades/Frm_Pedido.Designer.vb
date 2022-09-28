@@ -545,6 +545,7 @@ Partial Class Frm_Pedido
         Me.TxtQtdInsere.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtQtdInsere.Enabled = False
         Me.TxtQtdInsere.Location = New System.Drawing.Point(633, 498)
+        Me.TxtQtdInsere.MaxLength = 7
         Me.TxtQtdInsere.Name = "TxtQtdInsere"
         Me.TxtQtdInsere.Size = New System.Drawing.Size(54, 24)
         Me.TxtQtdInsere.TabIndex = 5
@@ -790,6 +791,7 @@ Partial Class Frm_Pedido
         Me.TxtQtd.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtQtd.Enabled = False
         Me.TxtQtd.Location = New System.Drawing.Point(799, 297)
+        Me.TxtQtd.MaxLength = 7
         Me.TxtQtd.Name = "TxtQtd"
         Me.TxtQtd.Size = New System.Drawing.Size(65, 24)
         Me.TxtQtd.TabIndex = 1

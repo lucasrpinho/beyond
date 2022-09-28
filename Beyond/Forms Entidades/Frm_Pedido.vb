@@ -794,8 +794,8 @@ Public Class Frm_Pedido
     End Sub
 
     Private Sub TextBox1_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtQtd.KeyPress
-        If Not Char.IsNumber(e.KeyChar) Or Not Char.IsControl(e.KeyChar) Then
-            e.KeyChar = ""
+        If Char.IsPunctuation(e.KeyChar) Or Char.IsLetter(e.KeyChar) Or Char.IsSymbol(e.KeyChar) Or Char.IsSeparator(e.KeyChar) Then
+            e.Handled = True
         End If
     End Sub
 
@@ -880,7 +880,7 @@ Public Class Frm_Pedido
             If MsgBoxHelper.MsgTemCerteza(Me, "Item adicionado! Deseja ir para o carrinho?", "Continuar") Then
                 TCPedido.SelectTab("TabItens")
                 LstCarrinho.Focus()
-                LstCarrinho.Items(objProdSelecionado.CodProduto).Selected = True
+                LstCarrinho.Items(LstItens.Last.CodProduto.ToString).Selected = True
             End If
             LimpaInformacoesProduto()
         End If
@@ -923,78 +923,67 @@ Public Class Frm_Pedido
     End Sub
 
     Private Function ValidaPreenchimento() As Boolean
-        If ComboCliente.Text = String.Empty Then
+        Dim ctrl As Control
+        If (ComboCliente.Text = String.Empty) Or (ComboCliente.Text <> "" AndAlso ComboCliente.SelectedIndex = -1) Then
             TCPedido.SelectTab(TabDados)
-            MsgBoxHelper.CustomTooltip(ComboCliente, ComboCliente, "Necessário selecionar um cliente.", _
-                                       "Preenchimento incompleto")
-            ComboCliente.Focus()
-            Return False
+            MsgBoxHelper.Alerta(Me, "É necessário selecionar um cliente válido.", "Alerta", ComboCliente)
+            ctrl = ComboCliente
 
-        ElseIf ComboCliente.Text <> "" AndAlso ComboCliente.SelectedIndex = -1 Then
+        ElseIf Not LstCliente(ComboCliente.SelectedIndex).IsAtivo Then
             TCPedido.SelectTab(TabDados)
-            MsgBoxHelper.CustomTooltip(ComboCliente, ComboCliente, "Necessário selecionar um cliente.", _
-                                           "Preenchimento incompleto")
-            ComboCliente.Focus()
-            Return False
+            MsgBoxHelper.Alerta(Me, "É necessário selecionar um cliente ativo.", "Alerta", ComboCliente)
+            ctrl = ComboCliente
 
-        ElseIf (ComboCliente.Text <> "" AndAlso ComboCliente.SelectedIndex = -1) AndAlso _
-                Not LstCliente(ComboCliente.SelectedIndex).IsAtivo Then
+        ElseIf (ComboVendedor.Text = String.Empty) Or (ComboVendedor.Text <> "" AndAlso ComboVendedor.SelectedIndex = -1) Then
             TCPedido.SelectTab(TabDados)
-            MsgBoxHelper.CustomTooltip(ComboCliente, ComboCliente, "Clientes inativos não podem ser usados no cadastro de novos pedidos.", _
-                                           "Preenchimento inválido")
-            ComboCliente.Focus()
-            Return False
+            MsgBoxHelper.Alerta(Me, "É necessário selecionar um vendedor.", "Alerta", ComboVendedor)
+            ctrl = ComboVendedor
 
-        ElseIf ComboVendedor.Text = String.Empty Then
+        ElseIf Not LstVendedor(ComboVendedor.SelectedIndex).IsAtivo Then
             TCPedido.SelectTab(TabDados)
-            MsgBoxHelper.CustomTooltip(ComboVendedor, ComboVendedor, "Necessário selecionar um vendedor.", _
-                                       "Preenchimento incompleto")
-            ComboVendedor.Focus()
-            Return False
-
-        ElseIf ComboVendedor.Text <> "" AndAlso ComboVendedor.SelectedIndex = -1 Then
-            MsgBoxHelper.CustomTooltip(ComboVendedor, ComboVendedor, "Necessário selecionar um vendedor.", _
-                                           "Preenchimento incompleto")
-            ComboVendedor.Focus()
-            Return False
-
-        ElseIf (ComboVendedor.Text <> String.Empty AndAlso ComboVendedor.SelectedIndex <> -1) AndAlso _
-            Not LstVendedor(ComboVendedor.SelectedIndex).IsAtivo Then
-                TCPedido.SelectTab(TabDados)
-                MsgBoxHelper.CustomTooltip(ComboVendedor, ComboVendedor, "Vendedores inativos não podem ser usados no cadastro de novos pedidos.", _
-                                           "Preenchimento inválido", ToolTipIcon.Error)
-                ComboVendedor.Focus()
-                Return False
+            MsgBoxHelper.Alerta(Me, "É necessário selecionar um vendedor ativo.", "Alerta", ComboVendedor)
+            ctrl = ComboVendedor
 
         ElseIf TxtDestinatario.Text = String.Empty Then
             TCPedido.SelectTab(TabDados)
-            MsgBoxHelper.CustomTooltip(TxtDestinatario, TxtDestinatario, "Necessário informar um destinatário.", _
-                                        "Preenchimento incompleto")
+            MsgBoxHelper.Alerta(Me, "Destinatário do pedido precisa ser preenchido.", "Alerta", TxtDestinatario)
+            ctrl = TxtDestinatario
             TxtDestinatario.Focus()
             Return False
 
         ElseIf Not TxtCEP.MaskCompleted Then
-            TCPedido.SelectTab(TabDados)
-            MsgBoxHelper.CustomTooltip(TxtCEP, TxtCEP, "Necessário informar um CEP.", _
-                                       "Preenchimento incompleto")
-            TxtCEP.Focus()
-            Return False
+            MsgBoxHelper.Alerta(Me, "CEP inválido.", "Alerta", TxtCEP)
+            ctrl = TxtCEP
 
-        ElseIf TxtCEP.MaskCompleted AndAlso TxtNum.Text = String.Empty Then
-            TCPedido.SelectTab(TabDados)
-            MsgBoxHelper.CustomTooltip(TxtNum, TxtNum, "Necessário informar o número do endereço.", _
-                                       "Preenchimento incompleto")
-            TxtNum.Focus()
-            Return False
+        ElseIf TxtLogradouro.Text = String.Empty Then
+            MsgBoxHelper.Alerta(Me, "Logradouro precisa ser preenchido.", "Alerta", TxtLogradouro)
+            ctrl = TxtLogradouro
+
+        ElseIf TxtNum.Text = String.Empty Then
+            MsgBoxHelper.Alerta(Me, "Número precisa ser preenchido.", "Alerta", TxtNum)
+            ctrl = TxtNum
+
+        ElseIf TxtBairro.Text = String.Empty Then
+            MsgBoxHelper.Alerta(Me, "Bairro precisa ser preenchido.", "Alerta", TxtBairro)
+            ctrl = TxtBairro
+
+        ElseIf TxtCidade.Text = String.Empty Then
+            MsgBoxHelper.Alerta(Me, "Cidade precisa ser preenchida.", "Alerta", TxtCidade)
+            ctrl = TxtCidade
+
+        ElseIf ComboEstado.SelectedIndex = -1 Then
+            MsgBoxHelper.Alerta(Me, "Estado precisa ser preenchido.", "Alerta", ComboEstado)
+            ComboEstado.DroppedDown = True
+            ctrl = ComboEstado
 
         ElseIf LstCarrinho.Items.Count = 0 Then
+            TCPedido.SelectTab(TabProduto)
             MsgBoxHelper.Alerta(Me, "O pedido está sem itens. Necessário adicionar algum produto ao carrinho.",
-                                "Carrinho vazio")
-            Return False
-
+                                "Carrinho vazio".ToUpper, ComboProduto)
+            ctrl = ComboProduto
         End If
 
-            Return True
+        Return IsNothing(ctrl)
     End Function
 
     Private Sub ChkDestinatario_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChkDestinatario.CheckedChanged
@@ -1162,8 +1151,8 @@ Public Class Frm_Pedido
     End Sub
 
     Private Sub TxtQtdInsere_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtQtdInsere.KeyPress
-        If Not Char.IsNumber(e.KeyChar) Or Not Char.IsControl(e.KeyChar) Then
-            e.KeyChar = ""
+        If Char.IsPunctuation(e.KeyChar) Or Char.IsLetter(e.KeyChar) Or Char.IsSymbol(e.KeyChar) Or Char.IsSeparator(e.KeyChar) Then
+            e.Handled = True
         End If
     End Sub
 

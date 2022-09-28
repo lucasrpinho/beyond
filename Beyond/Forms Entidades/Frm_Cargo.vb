@@ -33,9 +33,13 @@ Public Class Frm_Cargo
     End Sub
 
     Private Function InsereCargo() As Boolean
+        If ComboNome.Text = String.Empty Then
+            MsgBoxHelper.Alerta(Me, "Nome do cargo precisa ser preenchido", "Alerta", ComboNome)
+        End If
+
         Dim cargo As New Cargo
-        cargo.Nome = Me.ComboNome.Text
-        cargo.Descricao = Me.TxtDesc.Text.ToUpper
+        cargo.Nome = LTrim(RTrim(Me.ComboNome.Text))
+        cargo.Descricao = RTrim(Me.TxtDesc.Text.ToUpper)
         cargo.IsAtivo = Me.ChkBoxAtivo.Checked
         cargo.IsVendedor = Me.ChkVendedor.Checked
 
