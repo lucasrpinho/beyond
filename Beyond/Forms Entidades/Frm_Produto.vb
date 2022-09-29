@@ -150,64 +150,70 @@ Public Class Frm_Produto
                     toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = True
                 End If
             Else
-                If Not DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, codusuario) Then
-                    toolStrip.ToolbarItemsState("", False)
-                    MsgBoxHelper.Alerta(Me, resposta, "Erro")
+                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
+                    If Not DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, codusuario) Then
+                        toolStrip.ToolbarItemsState("", False)
+                        MsgBoxHelper.Alerta(Me, resposta, "Erro")
+                    Else
+                        LimpaCampos_AtivaControles()
+                        Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
+                        toolStrip.AfterSuccessfulUpdate()
+                    End If
                 Else
-                    LimpaCampos_AtivaControles()
-                    Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
-                    toolStrip.AfterSuccessfulUpdate()
+                    toolStrip.ToolbarItemsState("", False, True)
                 End If
             End If
 
 
         ElseIf MyModo.UniqueModo = "ALTERAR" Then
-            ModoAlterar()
+                ModoAlterar()
 
 
         ElseIf MyModo.UniqueModo = "NOVO" Then
-            CarregaCategoria()
-            LimpaCampos_AtivaControles()
-            toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = True
-            ClearImg()
-            ComboCategoria.Focus()
+                CarregaCategoria()
+                LimpaCampos_AtivaControles()
+                toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = True
+                ClearImg()
+                ComboCategoria.Focus()
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
-            toolStrip.BtnPesquisar.Enabled = True
-            If MyModo.UniqueModoAnterior = "REVERTER" Then
-                ModoPesquisaPreenchido()
-                Exit Sub
-            End If
-            ModoPesquisa()
+                toolStrip.BtnPesquisar.Enabled = True
+                If MyModo.UniqueModoAnterior = "REVERTER" Then
+                    ModoPesquisaPreenchido()
+                    Exit Sub
+                End If
+                ModoPesquisa()
 
 
         ElseIf MyModo.UniqueModo = "REVERTER" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
-                ToolStrip_ItemClicked()
-            Else
-                Exit Sub
-            End If
+                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
+                    ToolStrip_ItemClicked()
+                Else
+                    Exit Sub
+                End If
 
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
-                If DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, codusuario, True) Then
-                    LimpaCampos_AtivaControles()
-                    Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
-                    toolStrip.AfterSuccessfulDelete()
-                End If
-                MsgBoxHelper.Msg(Me, resposta, "Informação")
+                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
+                    If DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, codusuario, True) Then
+                        LimpaCampos_AtivaControles()
+                        Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
+                        toolStrip.AfterSuccessfulDelete()
+                    End If
+                    MsgBoxHelper.Msg(Me, resposta, "Informação")
             Else
+                toolStrip.ToolbarItemsState("", False, True)
+                toolStrip.BtnPesquisar.Enabled = True
                 Exit Sub
-            End If
+                End If
 
         ElseIf MyModo.UniqueModo = "IMAGEM" Then
-            CarregaImagem()
+                CarregaImagem()
 
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
-            LimpaCampos_AtivaControles()
-            toolStrip.PagAberta_HabilitarBotoes()
-            Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
+                LimpaCampos_AtivaControles()
+                toolStrip.PagAberta_HabilitarBotoes()
+                Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
         End If
 
     End Sub

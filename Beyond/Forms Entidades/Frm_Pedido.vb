@@ -567,6 +567,10 @@ Public Class Frm_Pedido
                     MsgBoxHelper.Erro(Me, resposta + vbNewLine + vbNewLine + "Contate a equipe responsável e informe o problema.", "Erro")
                 End If
             Else
+                toolStrip.ToolbarItemsState("", False, True)
+                toolStrip.BtnPesquisar.Enabled = True
+                toolStrip.BtnAnterior.Enabled = False
+                toolStrip.BtnSeguinte.Enabled = False
                 Exit Sub
             End If
 
@@ -589,6 +593,10 @@ Public Class Frm_Pedido
     End Sub
 
     Private Sub LimpaCampos_Desativa()
+        If objProdSelecionado IsNot Nothing Then
+            objProdSelecionado = Nothing
+        End If
+        ClearLists()
         ControlsHelper.SetControlsDisabled(TabItens.Controls)
         ControlsHelper.SetControlsDisabled(GrpBoxEndereco.Controls)
         ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
@@ -988,27 +996,6 @@ Public Class Frm_Pedido
         End If
     End Sub
 
-    Private Sub BtnDeletaItem_Click(sender As System.Object, e As System.EventArgs)
-        'If objProdSelecionado Is Nothing Then
-        '    MsgBoxHelper.Alerta(Me, "Selecione o item que deseja remover do carrinho.", "Selecionar item")
-        '    Exit Sub
-        'End If
-
-        'If MessageBox.Show("Deseja remover o item selecionado?", "Remoção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-        '    TabItens.Text = TabItens.Text.Replace(LstCarrinho.Items.Count.ToString, (LstCarrinho.Items.Count - 1).ToString)
-        '    If MyModo.UniqueModo = "ALTERAR" Then
-        '        LstItens.First(Function(o) o.CodProduto = objProdSelecionado.CodProduto).Quantidade = 0
-        '    Else
-        '        LstItens.Remove(LstItens.First(Function(p) p.CodProduto = objProdSelecionado.CodProduto))
-        '    End If
-        '    LstCarrinho.Items.RemoveByKey(objProdSelecionado.CodProduto)
-        '    TxtQtd.Text = "0"
-        '    AtualizaValorTotalDoPedido()
-        'Else
-        '    Exit Sub
-        'End If
-    End Sub
-
     Private Sub ComboProduto_TextChanged(sender As System.Object, e As System.EventArgs) Handles ComboProduto.TextChanged
         If ComboProduto.Text <> String.Empty Then
             Dim lstProduto As New List(Of Produto)
@@ -1166,6 +1153,7 @@ Public Class Frm_Pedido
         If Not LstCarrinho.Items.Count > 0 Then
             Exit Sub
         End If
+
         If objProdSelecionado Is Nothing Then
             MsgBoxHelper.Msg(Me, "Selecione um produto da lista.", "Produto indefinido")
             Exit Sub
