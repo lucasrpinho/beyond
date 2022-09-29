@@ -36,12 +36,14 @@ Partial Class Frm_ConsProduto
         Me.ChkDesc = New System.Windows.Forms.CheckBox()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.BtnConfirmar = New System.Windows.Forms.Button()
+        Me.ColAtivo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColCategoria = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SuspendLayout()
         '
         'ListView1
         '
         Me.ListView1.Activation = System.Windows.Forms.ItemActivation.OneClick
-        Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColNome, Me.ColPreco, Me.ColQtd})
+        Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColCategoria, Me.ColNome, Me.ColPreco, Me.ColQtd, Me.ColAtivo})
         Me.ListView1.FullRowSelect = True
         Me.ListView1.GridLines = True
         Me.ListView1.HotTracking = True
@@ -50,7 +52,7 @@ Partial Class Frm_ConsProduto
         Me.ListView1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ListView1.MultiSelect = False
         Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(700, 202)
+        Me.ListView1.Size = New System.Drawing.Size(860, 202)
         Me.ListView1.TabIndex = 0
         Me.ListView1.UseCompatibleStateImageBehavior = False
         Me.ListView1.View = System.Windows.Forms.View.Details
@@ -70,17 +72,19 @@ Partial Class Frm_ConsProduto
         '
         Me.ColQtd.Text = "Quantidade"
         Me.ColQtd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.ColQtd.Width = 96
+        Me.ColQtd.Width = 132
         '
         'ComboCateg
         '
+        Me.ComboCateg.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboCateg.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboCateg.Enabled = False
         Me.ComboCateg.FormattingEnabled = True
         Me.ComboCateg.Location = New System.Drawing.Point(18, 38)
         Me.ComboCateg.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ComboCateg.MaxLength = 60
         Me.ComboCateg.Name = "ComboCateg"
-        Me.ComboCateg.Size = New System.Drawing.Size(491, 22)
+        Me.ComboCateg.Size = New System.Drawing.Size(839, 22)
         Me.ComboCateg.TabIndex = 1
         '
         'Label1
@@ -103,19 +107,21 @@ Partial Class Frm_ConsProduto
         '
         'ComboNome
         '
+        Me.ComboNome.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboNome.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboNome.Enabled = False
         Me.ComboNome.FormattingEnabled = True
         Me.ComboNome.Location = New System.Drawing.Point(18, 89)
         Me.ComboNome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ComboNome.MaxLength = 60
         Me.ComboNome.Name = "ComboNome"
-        Me.ComboNome.Size = New System.Drawing.Size(491, 22)
+        Me.ComboNome.Size = New System.Drawing.Size(839, 22)
         Me.ComboNome.TabIndex = 5
         '
         'ChkCateg
         '
         Me.ChkCateg.AutoSize = True
-        Me.ChkCateg.Location = New System.Drawing.Point(515, 42)
+        Me.ChkCateg.Location = New System.Drawing.Point(863, 42)
         Me.ChkCateg.Name = "ChkCateg"
         Me.ChkCateg.Size = New System.Drawing.Size(15, 14)
         Me.ChkCateg.TabIndex = 7
@@ -124,7 +130,7 @@ Partial Class Frm_ConsProduto
         'ChkDesc
         '
         Me.ChkDesc.AutoSize = True
-        Me.ChkDesc.Location = New System.Drawing.Point(515, 93)
+        Me.ChkDesc.Location = New System.Drawing.Point(863, 93)
         Me.ChkDesc.Name = "ChkDesc"
         Me.ChkDesc.Size = New System.Drawing.Size(15, 14)
         Me.ChkDesc.TabIndex = 8
@@ -144,7 +150,7 @@ Partial Class Frm_ConsProduto
         Me.BtnConfirmar.FlatAppearance.BorderColor = System.Drawing.SystemColors.Window
         Me.BtnConfirmar.Image = Global.Beyond.My.Resources.Resources.confirm
         Me.BtnConfirmar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BtnConfirmar.Location = New System.Drawing.Point(619, 337)
+        Me.BtnConfirmar.Location = New System.Drawing.Point(779, 337)
         Me.BtnConfirmar.Name = "BtnConfirmar"
         Me.BtnConfirmar.Size = New System.Drawing.Size(99, 32)
         Me.BtnConfirmar.TabIndex = 45
@@ -152,12 +158,23 @@ Partial Class Frm_ConsProduto
         Me.BtnConfirmar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BtnConfirmar.UseVisualStyleBackColor = True
         '
+        'ColAtivo
+        '
+        Me.ColAtivo.Text = "Ativo"
+        Me.ColAtivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ColAtivo.Width = 124
+        '
+        'ColCategoria
+        '
+        Me.ColCategoria.Text = "Categoria"
+        Me.ColCategoria.Width = 160
+        '
         'Frm_ConsProduto
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Menu
-        Me.ClientSize = New System.Drawing.Size(730, 373)
+        Me.ClientSize = New System.Drawing.Size(894, 373)
         Me.Controls.Add(Me.BtnConfirmar)
         Me.Controls.Add(Me.ChkDesc)
         Me.Controls.Add(Me.ChkCateg)
@@ -191,4 +208,6 @@ Partial Class Frm_ConsProduto
     Friend WithEvents ChkDesc As System.Windows.Forms.CheckBox
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
     Friend WithEvents BtnConfirmar As System.Windows.Forms.Button
+    Friend WithEvents ColAtivo As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColCategoria As System.Windows.Forms.ColumnHeader
 End Class

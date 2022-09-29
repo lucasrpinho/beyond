@@ -112,15 +112,34 @@ Public Class Frm_ConsProduto
             Dim subItemEstoque = item.SubItems.Add(prod.Quantidade.ToString)
             subItemEstoque.Name = "ESTOQUE"
 
+            Dim ativo = If(prod.IsAtivo, "Ativo", "Inativo")
+            Dim subItemAtivo = item.SubItems.Add(ativo)
+            subItemAtivo.Name = "ATIVO"
+            subItemAtivo.ForeColor = If(prod.IsAtivo, Color.Black, Color.Red)
+
             item.Tag = prod
             Exit Sub
         End If
         ListView1.Items.Clear()
 
         For Each p As Produto In lst
-            Dim lstViewItem As New ListViewItem(New String() {p.Nome, p.Preco.ToString("C"), p.Quantidade.ToString})
+            Dim lstViewItem As New ListViewItem(p.Categoria)
+            Dim item = ListView1.Items.Add(lstViewItem)
+            item.Name = p.CodProduto.ToString
+
+            Dim subItemNome = item.SubItems.Add(p.Nome)
+            subItemNome.Name = "NOME"
+
+            Dim subItemPreco = item.SubItems.Add(p.Preco.ToString("C"))
+            subItemPreco.Name = "PREÇO"
+
+            Dim subItemEstoque = item.SubItems.Add(p.Quantidade.ToString)
+            subItemEstoque.Name = "ESTOQUE"
+
+            Dim ativo = If(p.IsAtivo, "Ativo", "Inativo")
+            Dim subItemAtivo = item.SubItems.Add(ativo)
+            subItemAtivo.Name = "ATIVO"
             lstViewItem.Tag = p
-            ListView1.Items.Add(lstViewItem)
         Next
     End Sub
 

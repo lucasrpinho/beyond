@@ -9,6 +9,7 @@ Public Class Frm_Produto
     Private MyModo As New UC_Toolstrip.UniqueModo
     Friend objProduto As Produto
     Private LstCategoria As List(Of String)
+    Private toolStrip As UC_Toolstrip
 
 
     Public Sub New(ByVal frm As Frm_Principal_MDI)
@@ -19,22 +20,23 @@ Public Class Frm_Produto
         ' Add any initialization after the InitializeComponent() call.
 
         Me.frmPrincipal = frm
+        Me.toolStrip = frmPrincipal.UC_Toolstrip1
     End Sub
 
     Private Sub Frm_Produto_EnabledChanged(sender As Object, e As System.EventArgs) Handles Me.EnabledChanged
         If Me.Enabled Then
-            frmPrincipal.UC_Toolstrip1.ToolbarItemsState(MyModo.UniqueModo)
+            toolStrip.ToolbarItemsState(MyModo.UniqueModo)
         End If
     End Sub
 
     Private Sub Frm_Produto_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = False
-        RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
+        toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = False
+        RemoveHandler toolStrip.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
     Private Sub Frm_Produto_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
-        AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
+        AddHandler toolStrip.itemclick, AddressOf Me.ToolStrip_ItemClicked
         MyModo.UniqueModo = "PADRÃO"
         PicBoxFoto.Image = Nothing
         CarregaCategoria()
@@ -113,7 +115,7 @@ Public Class Frm_Produto
         End If
 
         If Not DAOProd.InsereProduto(prod, resposta, codusuario) Then
-            Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
+            Uteis.MsgBoxHelper.Alerta(Me, resposta, "Erro")
             Return False
         End If
 
@@ -131,29 +133,30 @@ Public Class Frm_Produto
 
         Dim resposta As String = ""
 
+        MyModo.UniqueModoAnterior = UC_Toolstrip.ModoAnterior
         MyModo.UniqueModo = UC_Toolstrip.Modo
 
         If MyModo.UniqueModo = "SALVAR" Then
-            If UC_Toolstrip.ModoAnterior = "NOVO" Then
+            If MyModo.UniqueModoAnterior = "NOVO" Then
                 If Insere() Then
                     LimpaCampos_AtivaControles()
                     If objProduto IsNot Nothing Then
                         objProduto = Nothing
                     End If
                     Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
-                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
+                    toolStrip.AfterSuccessfulInsert()
                 Else
-                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                    frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
+                    toolStrip.ToolbarItemsState("", False)
+                    toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = True
                 End If
             Else
                 If Not DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, codusuario) Then
-                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                    MsgBoxHelper.Erro(Me, resposta, "Erro")
+                    toolStrip.ToolbarItemsState("", False)
+                    MsgBoxHelper.Alerta(Me, resposta, "Erro")
                 Else
                     LimpaCampos_AtivaControles()
                     Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
-                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
+                    toolStrip.AfterSuccessfulUpdate()
                 End If
             End If
 
@@ -165,13 +168,13 @@ Public Class Frm_Produto
         ElseIf MyModo.UniqueModo = "NOVO" Then
             CarregaCategoria()
             LimpaCampos_AtivaControles()
-            frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
+            toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = True
             ClearImg()
             ComboCategoria.Focus()
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
-            frmPrincipal.UC_Toolstrip1.BtnPesquisar.Enabled = True
-            If UC_Toolstrip.ModoAnterior = "REVERTER" Then
+            toolStrip.BtnPesquisar.Enabled = True
+            If MyModo.UniqueModoAnterior = "REVERTER" Then
                 ModoPesquisaPreenchido()
                 Exit Sub
             End If
@@ -191,7 +194,7 @@ Public Class Frm_Produto
                 If DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, codusuario, True) Then
                     LimpaCampos_AtivaControles()
                     Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
-                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
+                    toolStrip.AfterSuccessfulDelete()
                 End If
                 MsgBoxHelper.Msg(Me, resposta, "Informação")
             Else
@@ -203,7 +206,7 @@ Public Class Frm_Produto
 
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
             LimpaCampos_AtivaControles()
-            frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
+            toolStrip.PagAberta_HabilitarBotoes()
             Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
         End If
 
@@ -301,11 +304,11 @@ Public Class Frm_Produto
         frmCons.ShowDialog()
         If objProduto IsNot Nothing Then
             PreencheCampos(objProduto)
-            frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
-            frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnAnterior").Enabled = False
-            frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnSeguinte").Enabled = False
+            toolStrip.EstadoAlterarExcluir(True)
+            toolStrip.ToolStrip1.Items("BtnAnterior").Enabled = False
+            toolStrip.ToolStrip1.Items("BtnSeguinte").Enabled = False
         Else
-            frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
+            toolStrip.PagAberta_HabilitarBotoes()
         End If
     End Sub
 
@@ -313,9 +316,9 @@ Public Class Frm_Produto
         LimpaCampos_AtivaControles()
         Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
         PreencheCampos(objProduto)
-        frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
-        frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnAnterior").Enabled = False
-        frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnSeguinte").Enabled = False
+        toolStrip.EstadoAlterarExcluir(True)
+        toolStrip.ToolStrip1.Items("BtnAnterior").Enabled = False
+        toolStrip.ToolStrip1.Items("BtnSeguinte").Enabled = False
     End Sub
 
     Private Sub PicBoxFoto_Click(sender As System.Object, e As System.EventArgs) Handles PicBoxFoto.Click

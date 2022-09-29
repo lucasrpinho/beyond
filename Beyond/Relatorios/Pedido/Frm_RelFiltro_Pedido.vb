@@ -51,7 +51,8 @@ Public Class Frm_RelFiltro_Pedido
         LstClientes = DAOFiltroRelCliente.GetCliente(True, "", True)
 
         If LstClientes.Count = 0 Then
-            MsgBoxHelper.Alerta(Me, "A busca por clientes não retornou resultados. Não utilize o filtro de cliente.", "Sem resultados")
+            MsgBoxHelper.Msg(Me, "Não será possível gerar o relatório, pois a busca não encontrou clientes cadastrados no sistema.", "Sem resultados")
+            Me.Close()
         Else
             ComboCliente.BeginUpdate()
             ComboCliente.Items.AddRange(LstClientes.ToArray)
@@ -63,7 +64,8 @@ Public Class Frm_RelFiltro_Pedido
         LstVendedores = DAOFiltroRelCliente.GetVendedor(True, "", True)
 
         If LstVendedores.Count = 0 Then
-            MsgBoxHelper.Alerta(Me, "A busca por vendedores não retornou resultados. Não utilize o filtro de vendedor.", "Sem resultados")
+            MsgBoxHelper.Msg(Me, "Não será possível gerar o relatório, pois a busca não encontrou vendedores cadastrados no sistema.", "Sem resultados")
+            Me.Close()
         Else
             ComboVendedor.BeginUpdate()
             ComboVendedor.Items.AddRange(LstVendedores.ToArray)

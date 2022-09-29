@@ -98,15 +98,15 @@ Public Class Endereco
     Public Function IsEnderecoValid(ByRef str As String) As Boolean
         If CEP.ToString.Length <> 8 Then
             str = "CEP inválido."
-        ElseIf Logradouro.ToString = String.Empty Then
+        ElseIf String.IsNullOrWhiteSpace(Logradouro) Then
             str = "Logradouro não pode ser vazio."
-        ElseIf Bairro.ToString = String.Empty Then
+        ElseIf String.IsNullOrWhiteSpace(Bairro) Then
             str = "Bairro não pode ser vazio."
         ElseIf UF.ToString.Length <> 2 Then
             str = "Estado não pode ser vazio."
-        ElseIf NumeroEndereco = String.Empty Then
+        ElseIf String.IsNullOrWhiteSpace(NumeroEndereco) Then
             str = "Número não pode ser vazio."
-        ElseIf Cidade.ToString = String.Empty Then
+        ElseIf String.IsNullOrWhiteSpace(Cidade) Then
             str = "Cidade não pode ser vazia."
         End If
 

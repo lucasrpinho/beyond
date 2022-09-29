@@ -10,6 +10,7 @@ Public Class Frm_Usuario
     Private DAOUsuario As New DAO.DAO
     Private MostrarSenha As Boolean = True
     Private objUsuario As Usuario
+    Private toolStrip As UC_Toolstrip
 
     Public Sub New(frm As Frm_Principal_MDI)
 
@@ -17,6 +18,7 @@ Public Class Frm_Usuario
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
         frmPrincipal = frm
+        toolStrip = frmPrincipal.UC_Toolstrip1
     End Sub
 
     Private Sub Desativa_Campos()
@@ -26,18 +28,16 @@ Public Class Frm_Usuario
 
     Private Sub Frm_Usuario_Load(sender As System.Object, e As System.EventArgs) Handles Me.Load
         Desativa_Campos()
-        AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
+        AddHandler toolStrip.itemclick, AddressOf Me.ToolStrip_ItemClicked
         MyModo.UniqueModo = "PADRÃO"
     End Sub
 
     Private Sub Frm_Usuario_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
+        RemoveHandler toolStrip.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
     Private Function InsereUsuario() As Boolean
-        If TxtSenha.Text <> TxtSenhaConfirmar.Text Then
-            Uteis.MsgBoxHelper.Erro(Me, "As senhas estão diferentes.", "Preenchimento inválido")
-            TxtSenhaConfirmar.Focus()
+        If Not ValidaPreenchimento() Then
             Return False
         End If
 
@@ -83,26 +83,27 @@ Public Class Frm_Usuario
 
         Dim resposta As String = ""
 
+        MyModo.UniqueModoAnterior = UC_Toolstrip.ModoAnterior
         MyModo.UniqueModo = UC_Toolstrip.Modo
 
         If MyModo.UniqueModo = "SALVAR" Then
-            If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso UC_Toolstrip.ModoAnterior = "NOVO" Then
+            If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso MyModo.UniqueModoAnterior = "NOVO" Then
                 If InsereUsuario() Then
                     LimpaCampos_AtivaControles()
                     Desativa_Campos()
-                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
+                    toolStrip.AfterSuccessfulInsert()
                 Else
-                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                    toolStrip.ToolbarItemsState("", False)
                 End If
             Else
                 If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
                     If Not DAOUsuario.AtualizaUsuario(GetUsuarioForOperation, resposta) Then
-                        frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                        toolStrip.ToolbarItemsState("", False)
                         Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
                     Else
                         LimpaCampos_AtivaControles()
                         Desativa_Campos()
-                        frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
+                        toolStrip.AfterSuccessfulUpdate()
                     End If
                 End If
             End If
@@ -119,7 +120,7 @@ Public Class Frm_Usuario
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
             ModoProcurar()
-            If UC_Toolstrip.ModoAnterior = "REVERTER" Then
+            If MyModo.UniqueModoAnterior = "REVERTER" Then
                 ComboNome.SelectedIndex = LstUsuario.FindIndex(Function(u As Usuario) u.CodUsuario = objUsuario.CodUsuario)
             End If
 
@@ -143,11 +144,11 @@ Public Class Frm_Usuario
 
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
             LimpaCampos_AtivaControles()
-            frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
+            toolStrip.PagAberta_HabilitarBotoes()
             Desativa_Campos()
         End If
 
-        frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnExcluir").Enabled = False
+        toolStrip.ToolStrip1.Items("BtnExcluir").Enabled = False
     End Sub
 
     Private Sub BuscaUsuarioPorCodigo(ByVal codusuario As String)
@@ -160,8 +161,8 @@ Public Class Frm_Usuario
         End If
 
         objUsuario = usuario
-        frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
-        frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnExcluir").Enabled = False
+        toolStrip.EstadoAlterarExcluir(True)
+        toolStrip.ToolStrip1.Items("BtnExcluir").Enabled = False
         PreencheCampos(usuario)
     End Sub
 
@@ -222,7 +223,7 @@ Public Class Frm_Usuario
         Else
             Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
             Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxCredenciais.Controls)
-            frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(False)
+            toolStrip.EstadoAlterarExcluir(False)
         End If
     End Sub
 
@@ -288,7 +289,7 @@ Public Class Frm_Usuario
 
     Private Sub Frm_Usuario_EnabledChanged(sender As System.Object, e As System.EventArgs) Handles MyBase.EnabledChanged
         If Me.Enabled Then
-            frmPrincipal.UC_Toolstrip1.ToolbarItemsState(MyModo.UniqueModo)
+            toolStrip.ToolbarItemsState(MyModo.UniqueModo)
         End If
     End Sub
 
@@ -370,4 +371,28 @@ Public Class Frm_Usuario
     '        ComboNome.SelectedItem = ComboNome.FindStringExact(ComboNome.Text)
     '    End If
     'End Sub
+
+    Private Function ValidaPreenchimento() As Boolean
+        Dim ctrl As Control
+        If String.IsNullOrWhiteSpace(ComboNome.Text) Then
+            Uteis.MsgBoxHelper.Alerta(Me, "Nome do usuário precisa ser preenchido.", "Preenchimento incompleto", ComboNome)
+            ctrl = ComboNome
+        ElseIf String.IsNullOrWhiteSpace(TxtEmail.Text) Then
+            Uteis.MsgBoxHelper.Alerta(Me, "E-mail precisa ser preenchido.", "Preenchimento incompleto", TxtEmail)
+            ctrl = TxtEmail
+        ElseIf String.IsNullOrWhiteSpace(TxtLogin.Text) Then
+            Uteis.MsgBoxHelper.Alerta(Me, "Login precisa ser preenchido.", "Preenchimento incompleto", TxtLogin)
+            ctrl = TxtLogin
+        ElseIf String.IsNullOrWhiteSpace(TxtSenha.Text) Then
+            Uteis.MsgBoxHelper.Alerta(Me, "Senha precisa ser preenchida.", "Preenchimento incompleto", TxtSenha)
+            ctrl = TxtSenha
+        ElseIf String.IsNullOrWhiteSpace(TxtSenhaConfirmar.Text) Then
+            Uteis.MsgBoxHelper.Alerta(Me, "É necessário confirmar a senha.", "Preenchimento incompleto", TxtSenhaConfirmar)
+            ctrl = TxtSenhaConfirmar
+        ElseIf LTrim(RTrim(TxtSenha.Text)) <> LTrim(RTrim(TxtSenhaConfirmar.Text)) Then
+            Uteis.MsgBoxHelper.Alerta(Me, "As senhas não podem ser diferentes.", "Preenchimento incompleto", TxtSenhaConfirmar)
+            ctrl = TxtSenhaConfirmar
+        End If
+        Return IsNothing(ctrl)
+    End Function
 End Class

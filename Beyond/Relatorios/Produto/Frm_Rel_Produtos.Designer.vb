@@ -28,13 +28,14 @@ Partial Class Frm_Rel_Produtos
         '
         'CrystalReportViewer1
         '
-        Me.CrystalReportViewer1.ActiveViewIndex = -1
+        Me.CrystalReportViewer1.ActiveViewIndex = 0
         Me.CrystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CrystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default
         Me.CrystalReportViewer1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CrystalReportViewer1.Location = New System.Drawing.Point(0, 0)
         Me.CrystalReportViewer1.Name = "CrystalReportViewer1"
         Me.CrystalReportViewer1.ReportSource = Me.Rpt_Produto1
+        Me.CrystalReportViewer1.ShowGroupTreeButton = False
         Me.CrystalReportViewer1.Size = New System.Drawing.Size(1003, 486)
         Me.CrystalReportViewer1.TabIndex = 0
         '

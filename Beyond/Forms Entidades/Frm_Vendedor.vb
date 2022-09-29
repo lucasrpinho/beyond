@@ -12,6 +12,7 @@ Public Class Frm_Vendedor
     Private StrFotoPath As String
     Private DAOVendedor As New DAO.DAO
     Private objVendedor As Vendedor
+    Private toolStrip As UC_Toolstrip
 
     Public Sub New(frm As Frm_Principal_MDI)
 
@@ -20,22 +21,23 @@ Public Class Frm_Vendedor
 
         ' Add any initialization after the InitializeComponent() call.
         frmPrincipal = frm
+        toolStrip = frmPrincipal.UC_Toolstrip1
     End Sub
 
     Private Sub Frm_Vendedor_EnabledChanged(sender As Object, e As System.EventArgs) Handles Me.EnabledChanged
         If Me.Enabled Then
-            frmPrincipal.UC_Toolstrip1.ToolbarItemsState(MyModo.UniqueModo, , ComboNome.Text <> String.Empty)
+            toolStrip.ToolbarItemsState(MyModo.UniqueModo, , ComboNome.Text <> String.Empty)
         End If
     End Sub
 
     Private Sub Frm_Vendedor_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = False
-        RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
+        toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = False
+        RemoveHandler toolStrip.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
     Private Sub Frm_Vendedor_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         DesativaCampos()
-        AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
+        AddHandler toolStrip.itemclick, AddressOf Me.ToolStrip_ItemClicked
         CarregaEstados()
         MyModo.UniqueModo = "PADRÃO"
     End Sub
@@ -44,6 +46,7 @@ Public Class Frm_Vendedor
         If MyModo.UniqueModo = "PESQUISAR" Then
             ComboNome.DropDownStyle = ComboBoxStyle.DropDown
             ComboNome.AutoCompleteMode = AutoCompleteMode.Suggest
+            ComboNome.Focus()
         ElseIf MyModo.UniqueModo = "NOVO" Then
             ComboNome.DropDownStyle = ComboBoxStyle.Simple
             ComboNome.AutoCompleteMode = AutoCompleteMode.None
@@ -59,7 +62,7 @@ Public Class Frm_Vendedor
         Else
             Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxEndereco.Controls)
             Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
-            frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(False)
+            toolStrip.EstadoAlterarExcluir(False)
             PicBoxFoto.Image = Nothing
         End If
     End Sub
@@ -79,7 +82,7 @@ Public Class Frm_Vendedor
         Uteis.ControlsHelper.SetControlsDisabled(Me.GrpBoxInfo.Controls)
         ChkBoxAtivo.Checked = True
         GroupBox1.Enabled = True
-        frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = False
+        toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = False
         ClearImage()
     End Sub
 
@@ -232,29 +235,34 @@ Public Class Frm_Vendedor
 
         Dim resposta As String = ""
 
+        MyModo.UniqueModoAnterior = UC_Toolstrip.ModoAnterior
         MyModo.UniqueModo = UC_Toolstrip.Modo
 
         If MyModo.UniqueModo = "SALVAR" Then
-            If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso Not UC_Toolstrip.ModoAnterior = "ALTERAR" Then
+            If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso Not MyModo.UniqueModoAnterior = "ALTERAR" Then
                 If Insere() Then
                     LimpaCampos_Desativa()
-                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
+                    toolStrip.AfterSuccessfulInsert()
                 Else
-                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                    frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
+                    toolStrip.ToolbarItemsState("", False)
+                    toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = True
                 End If
             Else
-                Dim vendedor = ObjVendedorFromList()
-                If vendedor Is Nothing Then
-                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                    Exit Sub
-                End If
-                If Not DAOVendedor.AtualizaVendedor(ObjVendedorFromList, resposta, False, codusuario) Then
-                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                    MsgBoxHelper.Erro(Me, resposta, "Erro")
+                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
+                    Dim vendedor = ObjVendedorFromList()
+                    If vendedor Is Nothing Then
+                        toolStrip.ToolbarItemsState("", False)
+                        Exit Sub
+                    End If
+                    If Not DAOVendedor.AtualizaVendedor(ObjVendedorFromList, resposta, False, codusuario) Then
+                        toolStrip.ToolbarItemsState("", False)
+                        MsgBoxHelper.Erro(Me, resposta, "Erro")
+                    Else
+                        LimpaCampos_Desativa()
+                        toolStrip.AfterSuccessfulUpdate()
+                    End If
                 Else
-                    LimpaCampos_Desativa()
-                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
+                    toolStrip.ToolbarItemsState("", False, True)
                 End If
             End If
 
@@ -263,7 +271,7 @@ Public Class Frm_Vendedor
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
             ModoPesquisa()
-            If UC_Toolstrip.ModoAnterior = "REVERTER" Then
+            If MyModo.UniqueModoAnterior = "REVERTER" Then
                 ComboNome.SelectedIndex = LstVendedor.FindIndex(Function(v As Vendedor) v.CodVendedor = objVendedor.CodVendedor)
             End If
 
@@ -292,17 +300,18 @@ Public Class Frm_Vendedor
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
             If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Deseja excluir o item?", "Exclusão") Then
                 If DAOVendedor.AtualizaVendedor(ObjVendedorFromList, resposta, True, codusuario) Then
-                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
+                    toolStrip.AfterSuccessfulDelete()
                     LimpaCampos_Desativa()
                 End If
                 MsgBoxHelper.Msg(Me, resposta, "Exclusão")
             Else
+                toolStrip.ToolbarItemsState("", False, True)
                 Exit Sub
             End If
 
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
             LimpaCampos_AtivaControles()
-            frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
+            toolStrip.PagAberta_HabilitarBotoes()
             DesativaCampos()
 
         ElseIf MyModo.UniqueModo = "IMAGEM" Then
@@ -320,7 +329,7 @@ Public Class Frm_Vendedor
         End If
 
         objVendedor = vendedor
-        frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
+        toolStrip.EstadoAlterarExcluir(True)
         PreencheCampos(vendedor)
     End Sub
 
@@ -412,7 +421,7 @@ Public Class Frm_Vendedor
         vendedor.ObjEndereco.Cidade = TxtCidade.Text.ToUpper
         vendedor.ObjEndereco.UF = LstEstados.Item(ComboEstado.SelectedIndex).UF
         vendedor.ObjEndereco.Complemento = TxtComplemento.Text.ToUpper
-        vendedor.ObjEndereco.NumeroEndereco = Convert.ToInt16(TxtNum.Text)
+        vendedor.ObjEndereco.NumeroEndereco = TxtNum.Text
         vendedor.Observacao = TxtObs.Text
         vendedor.IsAtivo = ChkBoxAtivo.Checked
 
@@ -434,7 +443,7 @@ Public Class Frm_Vendedor
         ControlsHelper.SetControlsEnabled(GrpBoxInfo.Controls)
         ControlsHelper.SetTextsEmpty(GrpBoxInfo.Controls)
         ControlsHelper.SetTextsEmpty(GrpBoxEndereco.Controls)
-        frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
+        toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = True
         BtnInsereImagem.Enabled = True
         CarregaCargos()
         AlternarControle()

@@ -30,6 +30,9 @@ Public Class MsgBoxHelper
         MessageBox.Show(frm, Msg, Titulo, MessageBoxButtons.OK, MessageBoxIcon.Warning)
         If ctrl IsNot Nothing Then
             ctrl.Focus()
+            If TypeOf (ctrl) Is ComboBox Then
+                CType(ctrl, ComboBox).DroppedDown = True
+            End If
         End If
     End Sub
 

@@ -8,6 +8,7 @@
 
     Public Class UniqueModo
         Private _UniqueModo As String
+        Public UniqueModoAnterior As String
         Public PesquisaItemPreenchido As Boolean = False
 
         Property UniqueModo As String
@@ -98,6 +99,10 @@
 
         If Not succ Then
             Modo = ModoAnterior
+            If ModoAnterior = "ALTERAR" Or ModoAnterior = "ANTERIOR" Or ModoAnterior = "SEGUINTE" Then
+                Modo = "PESQUISAR"
+                haviaItemPesquisado = Modo = "PESQUISAR"
+            End If
         End If
 
         ' Personaliza estado dos botões de acordo com o botão clicado

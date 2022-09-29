@@ -51,21 +51,11 @@ Public Class Vendedor
             strError = "Cargo precisa ser preenchido."
         ElseIf Me.NomeCompleto = "" Then
             strError = "Nome precisa estar preenchido."
-        ElseIf Me.ObjEndereco.CEP = "" Or Me.ObjEndereco.CEP.ToString.Length <> 8 Then
-            strError = "CEP está inválido."
-        ElseIf Me.ObjEndereco.Bairro = "" Then
-            strError = "Bairro precisa ser preenchido."
-        ElseIf Me.ObjEndereco.Cidade = "" Then
-            strError = "Cidade precisa ser preenchida."
-        ElseIf Me.ObjEndereco.UF = "" Or Me.ObjEndereco.UF.ToString.Length > 2 Then
-            strError = "Estado precisa ser preenchido e deve conter no máximo dois caracteres (UF)."
-        ElseIf Me.ObjEndereco.Logradouro = "" Then
-            strError = "Logradouro precisa ser preenchido."
-        ElseIf Me.ObjEndereco.NumeroEndereco = 0 Then
-            strError = "Número do endereço precisa ser preenchido."
         ElseIf Me.Foto = "" Then
             strError = "Vendedor precisa ter uma foto no seu cadastro."
         End If
+
+        Me.ObjEndereco.IsEnderecoValid(strError)
         Return String.IsNullOrWhiteSpace(strError)
     End Function
 

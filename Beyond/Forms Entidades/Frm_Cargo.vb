@@ -7,6 +7,7 @@ Public Class Frm_Cargo
     Private MyModo As New UC_Toolstrip.UniqueModo
     Private DAOCargo As New DAO.DAO
     Private objCargo As Cargo
+    Private toolStrip As UC_Toolstrip
 
     Public Sub New(frm As Frm_Principal_MDI)
 
@@ -14,21 +15,22 @@ Public Class Frm_Cargo
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
         frmPrincipal = frm
+        toolStrip = frmPrincipal.UC_Toolstrip1
     End Sub
 
     Private Sub Frm_Cargo_EnabledChanged(sender As System.Object, e As System.EventArgs) Handles Me.EnabledChanged
         If Me.Enabled Then
-            frmPrincipal.UC_Toolstrip1.ToolbarItemsState(MyModo.UniqueModo)
+            toolStrip.ToolbarItemsState(MyModo.UniqueModo)
         End If
     End Sub
 
     Private Sub Frm_Cargo_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
+        RemoveHandler toolStrip.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
     Private Sub Frm_Cargo_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         Desativa_Campos()
-        AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
+        AddHandler toolStrip.itemclick, AddressOf Me.ToolStrip_ItemClicked
         MyModo.UniqueModo = "PADRÃO"
     End Sub
 
@@ -51,7 +53,7 @@ Public Class Frm_Cargo
         End If
 
         If Not DAOCargo.InsereCargo(cargo, str, codusuario) Then
-            Uteis.MsgBoxHelper.Erro(Me, str, "Erro")
+            Uteis.MsgBoxHelper.Alerta(Me, str, "Erro")
             Return False
         End If
 
@@ -103,6 +105,7 @@ Public Class Frm_Cargo
 
         Dim resposta As String = ""
 
+        MyModo.UniqueModoAnterior = UC_Toolstrip.ModoAnterior
         MyModo.UniqueModo = UC_Toolstrip.Modo
 
         If MyModo.UniqueModo = "NOVO" Then
@@ -111,23 +114,23 @@ Public Class Frm_Cargo
 
 
         ElseIf MyModo.UniqueModo = "SALVAR" Then
-            If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso UC_Toolstrip.ModoAnterior = "NOVO" Then
+            If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso MyModo.UniqueModoAnterior = "NOVO" Then
                 If InsereCargo() Then
                     LimpaCampos()
                     Desativa_Campos()
-                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
+                    toolStrip.AfterSuccessfulInsert()
                 Else
-                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
+                    toolStrip.ToolbarItemsState("", False)
                 End If
             Else
                 If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
                     If Not DAOCargo.AtualizaCargo(CargoObjForUpdate, resposta, False, codusuario) Then
-                        frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                        MsgBoxHelper.Erro(Me, resposta, "Erro")
+                        toolStrip.ToolbarItemsState("", False)
+                        MsgBoxHelper.Alerta(Me, resposta, "Erro")
                     Else
                         LimpaCampos()
                         Desativa_Campos()
-                        frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
+                        toolStrip.AfterSuccessfulUpdate()
                     End If
                 End If
             End If
@@ -135,7 +138,7 @@ Public Class Frm_Cargo
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
             ModoPesquisar()
-            If UC_Toolstrip.ModoAnterior = "REVERTER" Then
+            If MyModo.UniqueModoAnterior = "REVERTER" Then
                 ComboNome.SelectedIndex = LstCargo.FindIndex(Function(c As Cargo) c.CodCargo = objCargo.CodCargo)
             End If
 
@@ -166,7 +169,7 @@ Public Class Frm_Cargo
                 If DAOCargo.AtualizaCargo(CargoObjForUpdate, resposta, True, codusuario) Then
                     LimpaCampos()
                     Desativa_Campos()
-                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
+                    toolStrip.AfterSuccessfulDelete()
                 End If
                 MsgBoxHelper.Msg(Me, resposta, "Informação")
             Else
@@ -175,7 +178,7 @@ Public Class Frm_Cargo
 
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
             LimpaCampos_Ativa()
-            frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
+            toolStrip.PagAberta_HabilitarBotoes()
             Desativa_Campos()
         End If
     End Sub
@@ -207,7 +210,7 @@ Public Class Frm_Cargo
             End If
             BuscaCargoPorCodigo(LstCargo(ComboNome.SelectedIndex).CodCargo)
         Else
-            frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(False)
+            toolStrip.EstadoAlterarExcluir(False)
             LimpaCampos()
         End If
     End Sub
@@ -221,7 +224,7 @@ Public Class Frm_Cargo
             Exit Sub
         End If
 
-        frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
+        toolStrip.EstadoAlterarExcluir(True)
         objCargo = cargo
         PreencheCampos(cargo)
     End Sub

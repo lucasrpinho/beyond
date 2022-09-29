@@ -7,7 +7,7 @@ Public Class RegexValidation
     End Function
 
     Public Shared Function NumEnderecoCaracteres(ByVal txt As String) As Boolean
-        Dim reg As New Regex("^([a-zA-Z0-9])*$")
+        Dim reg As New Regex("^[a-zA-Z0-9////]*$")
         Return reg.IsMatch(txt)
     End Function
 

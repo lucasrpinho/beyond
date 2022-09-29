@@ -244,7 +244,7 @@ Partial Class Frm_Vendedor
         Me.TxtNum.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TxtNum.Location = New System.Drawing.Point(643, 61)
         Me.TxtNum.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtNum.MaxLength = 20
+        Me.TxtNum.MaxLength = 6
         Me.TxtNum.Name = "TxtNum"
         Me.TxtNum.Size = New System.Drawing.Size(212, 24)
         Me.TxtNum.TabIndex = 8

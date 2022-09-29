@@ -11,6 +11,7 @@ Public Class Frm_Cliente
     Private DAOCliente As New DAO.DAO
     Private MyModo As New UC_Toolstrip.UniqueModo
     Private objCliente As Cliente
+    Private toolStrip As UC_Toolstrip
 
 
     Public Sub New(frm As Frm_Principal_MDI)
@@ -20,21 +21,22 @@ Public Class Frm_Cliente
 
         ' Add any initialization after the InitializeComponent() call.
         frmPrincipal = frm
+        toolStrip = frmPrincipal.UC_Toolstrip1
     End Sub
 
     Private Sub Frm_Cliente_EnabledChanged(sender As Object, e As System.EventArgs) Handles Me.EnabledChanged
         If Me.Enabled Then
-            frmPrincipal.UC_Toolstrip1.ToolbarItemsState(MyModo.UniqueModo)
+            toolStrip.ToolbarItemsState(MyModo.UniqueModo)
         End If
     End Sub
 
     Private Sub Frm_Cliente_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        RemoveHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
+        RemoveHandler toolStrip.itemclick, AddressOf Me.ToolStrip_ItemClicked
     End Sub
 
     Private Sub Frm_Cliente_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         Desativa_Campos()
-        AddHandler frmPrincipal.UC_Toolstrip1.itemclick, AddressOf Me.ToolStrip_ItemClicked
+        AddHandler toolStrip.itemclick, AddressOf Me.ToolStrip_ItemClicked
         CarregaEstados()
         MyModo.UniqueModo = "PADRÃO"
     End Sub
@@ -56,7 +58,7 @@ Public Class Frm_Cliente
             End If
             BuscaClientePorCodigo(LstCliente(ComboNome.SelectedIndex).CodCliente)
         Else
-            frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(False)
+            toolStrip.EstadoAlterarExcluir(False)
             Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxEndereco.Controls)
             Uteis.ControlsHelper.SetTextsEmpty(Me.GrpBoxInfo.Controls)
         End If
@@ -118,7 +120,7 @@ Public Class Frm_Cliente
         Dim resposta As String = ""
 
         If Not DAOCliente.InsereCliente(cliente, resposta, codusuario) Then
-            Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
+            Uteis.MsgBoxHelper.Alerta(Me, resposta, "Erro")
             Return False
         End If
 
@@ -195,32 +197,37 @@ Public Class Frm_Cliente
 
         Dim resposta As String = ""
 
+        MyModo.UniqueModoAnterior = UC_Toolstrip.ModoAnterior
         MyModo.UniqueModo = UC_Toolstrip.Modo
 
         If MyModo.UniqueModo = "SALVAR" Then
-            If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso Not UC_Toolstrip.ModoAnterior = "ALTERAR" Then
+            If ComboNome.DropDownStyle = ComboBoxStyle.Simple AndAlso Not MyModo.UniqueModoAnterior = "ALTERAR" Then
                 If Insere() Then
                     LimpaCampos_AtivaControles()
                     Desativa_Campos()
-                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulInsert()
+                    toolStrip.AfterSuccessfulInsert()
                 Else
-                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                    frmPrincipal.UC_Toolstrip1.ToolStrip1.Items("BtnInsereImagem").Enabled = True
+                    toolStrip.ToolbarItemsState("", False)
+                    toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = True
                 End If
             Else
-                Dim cli = GetClienteForOperation()
-                If cli Is Nothing Then
-                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                    Exit Sub
-                End If
-                If Not DAOCliente.AtualizaCliente(GetClienteForOperation, resposta, False, codusuario) Then
-                    frmPrincipal.UC_Toolstrip1.ToolbarItemsState("", False)
-                    MsgBoxHelper.Erro(Me, resposta, "Erro")
+                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
+                    Dim cli = GetClienteForOperation()
+                    If cli Is Nothing Then
+                        toolStrip.ToolbarItemsState("", False)
+                        Exit Sub
+                    End If
+                    If Not DAOCliente.AtualizaCliente(GetClienteForOperation, resposta, False, codusuario) Then
+                        toolStrip.ToolbarItemsState("", False)
+                        MsgBoxHelper.Alerta(Me, resposta, "Erro")
+                    Else
+                        MsgBoxHelper.Msg(Me, "Cliente atualizado com sucesso.", "Informação")
+                        LimpaCampos_AtivaControles()
+                        Desativa_Campos()
+                        toolStrip.AfterSuccessfulUpdate()
+                    End If
                 Else
-                    MsgBoxHelper.Msg(Me, "Cliente atualizado com sucesso.", "Informação")
-                    LimpaCampos_AtivaControles()
-                    Desativa_Campos()
-                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulUpdate()
+                    toolStrip.ToolbarItemsState("", False)
                 End If
             End If
 
@@ -239,7 +246,7 @@ Public Class Frm_Cliente
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
             ModoPesquisa()
-            If UC_Toolstrip.ModoAnterior = "REVERTER" Then
+            If MyModo.UniqueModoAnterior = "REVERTER" Then
                 ComboNome.SelectedIndex = LstCliente.FindIndex(Function(c As Cliente) c.CodCliente = objCliente.CodCliente)
             End If
 
@@ -267,17 +274,19 @@ Public Class Frm_Cliente
                 If DAOCliente.AtualizaCliente(GetClienteForOperation, resposta, True, codusuario) Then
                     LimpaCampos_AtivaControles()
                     Desativa_Campos()
-                    frmPrincipal.UC_Toolstrip1.AfterSuccessfulDelete()
+                    toolStrip.AfterSuccessfulDelete()
                     objCliente = Nothing
                 End If
                 MsgBoxHelper.Msg(Me, resposta, "Exclusão")
             Else
+                toolStrip.ToolbarItemsState("", False)
+                toolStrip.EstadoAlterarExcluir(True)
                 Exit Sub
             End If
 
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
             LimpaCampos_AtivaControles()
-            frmPrincipal.UC_Toolstrip1.PagAberta_HabilitarBotoes()
+            toolStrip.PagAberta_HabilitarBotoes()
             Desativa_Campos()
         End If
 
@@ -293,7 +302,7 @@ Public Class Frm_Cliente
         End If
 
         objCliente = cliente
-        frmPrincipal.UC_Toolstrip1.EstadoAlterarExcluir(True)
+        toolStrip.EstadoAlterarExcluir(True)
         PreencheCampos(cliente)
     End Sub
 
@@ -446,7 +455,7 @@ Public Class Frm_Cliente
 
     Private Function ValidaCampos() As Boolean
 
-        If ComboNome.Text = String.Empty Then
+        If String.IsNullOrWhiteSpace(ComboNome.Text) Then
             MsgBoxHelper.Alerta(Me, "Nome precisa ser preenchido.", "Alerta", ComboNome)
             Return False
         ElseIf DtPckNasc.Value >= DateTime.Today Then
@@ -461,28 +470,34 @@ Public Class Frm_Cliente
             MsgBoxHelper.Alerta(Me, "E-mail inválido.", "Alerta", TxtEmail)
             Return False
 
+        ElseIf Not String.IsNullOrWhiteSpace(ComboCargo.Text) AndAlso ComboCargo.SelectedItem Is Nothing Then
+            MsgBoxHelper.Alerta(Me, "O cargo selecionado é inválido. É necessário selecionar um cargo da lista.", "Alerta", ComboCargo)
+            ComboCargo.DroppedDown = True
+            Return False
+
         ElseIf Not TxtCEP.MaskCompleted Then
             MsgBoxHelper.Alerta(Me, "CEP inválido.", "Alerta", TxtCEP)
             Return False
 
-        ElseIf TxtLogradouro.Text = String.Empty Then
+        ElseIf String.IsNullOrWhiteSpace(TxtLogradouro.Text) Then
             MsgBoxHelper.Alerta(Me, "Logradouro precisa ser preenchido.", "Alerta", TxtLogradouro)
             Return False
 
-        ElseIf TxtNum.Text = String.Empty Then
+        ElseIf String.IsNullOrWhiteSpace(TxtNum.Text) Then
             MsgBoxHelper.Alerta(Me, "Número precisa ser preenchido.", "Alerta", TxtNum)
             Return False
 
-        ElseIf TxtBairro.Text = String.Empty Then
+        ElseIf String.IsNullOrWhiteSpace(TxtBairro.Text) Then
             MsgBoxHelper.Alerta(Me, "Bairro precisa ser preenchido.", "Alerta", TxtBairro)
             Return False
 
-        ElseIf TxtCidade.Text = String.Empty Then
+        ElseIf String.IsNullOrWhiteSpace(TxtCidade.Text) Then
             MsgBoxHelper.Alerta(Me, "Cidade precisa ser preenchida.", "Alerta", TxtCidade)
             Return False
 
         ElseIf ComboEstado.SelectedIndex = -1 Then
             MsgBoxHelper.Alerta(Me, "Estado precisa ser preenchido.", "Alerta", ComboEstado)
+            ComboEstado.DroppedDown = True
             Return False
 
         End If
