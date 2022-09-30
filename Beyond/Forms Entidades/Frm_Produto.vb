@@ -102,6 +102,11 @@ Public Class Frm_Produto
         prod.Nome = TxtNome.Text.ToUpper
         prod.Descricao = TxtDesc.Text.ToUpper
         prod.Categoria = ComboCategoria.Text.ToUpper
+
+        If Not TxtPreco.Text.Contains("R$") Then
+            TxtPreco_Leave(Nothing, Nothing)
+        End If
+
         prod.Preco = Convert.ToDecimal(StringHelper.CurrencyType(TxtPreco.Text))
         prod.Quantidade = Convert.ToInt32(TxtQtd.Text)
         prod.IsAtivo = ChkAtivo.Checked
@@ -167,54 +172,54 @@ Public Class Frm_Produto
 
 
         ElseIf MyModo.UniqueModo = "ALTERAR" Then
-                ModoAlterar()
+            ModoAlterar()
 
 
         ElseIf MyModo.UniqueModo = "NOVO" Then
-                CarregaCategoria()
-                LimpaCampos_AtivaControles()
-                toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = True
-                ClearImg()
-                ComboCategoria.Focus()
+            CarregaCategoria()
+            LimpaCampos_AtivaControles()
+            toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = True
+            ClearImg()
+            ComboCategoria.Focus()
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
-                toolStrip.BtnPesquisar.Enabled = True
-                If MyModo.UniqueModoAnterior = "REVERTER" Then
-                    ModoPesquisaPreenchido()
-                    Exit Sub
-                End If
-                ModoPesquisa()
+            toolStrip.BtnPesquisar.Enabled = True
+            If MyModo.UniqueModoAnterior = "REVERTER" Then
+                ModoPesquisaPreenchido()
+                Exit Sub
+            End If
+            ModoPesquisa()
 
 
         ElseIf MyModo.UniqueModo = "REVERTER" Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
-                    ToolStrip_ItemClicked()
-                Else
-                    Exit Sub
-                End If
+            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
+                ToolStrip_ItemClicked()
+            Else
+                Exit Sub
+            End If
 
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
-                    If DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, codusuario, True) Then
-                        LimpaCampos_AtivaControles()
-                        Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
-                        toolStrip.AfterSuccessfulDelete()
-                    End If
-                    MsgBoxHelper.Msg(Me, resposta, "Informação")
+            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
+                If DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, codusuario, True) Then
+                    LimpaCampos_AtivaControles()
+                    Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
+                    toolStrip.AfterSuccessfulDelete()
+                End If
+                MsgBoxHelper.Msg(Me, resposta, "Informação")
             Else
                 toolStrip.ToolbarItemsState("", False, True)
                 toolStrip.BtnPesquisar.Enabled = True
                 Exit Sub
-                End If
+            End If
 
         ElseIf MyModo.UniqueModo = "IMAGEM" Then
-                CarregaImagem()
+            CarregaImagem()
 
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
-                LimpaCampos_AtivaControles()
-                toolStrip.PagAberta_HabilitarBotoes()
-                Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
+            LimpaCampos_AtivaControles()
+            toolStrip.PagAberta_HabilitarBotoes()
+            Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
         End If
 
     End Sub
@@ -233,15 +238,20 @@ Public Class Frm_Produto
         End If
     End Sub
 
+    Private Sub TxtPreco_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles TxtPreco.KeyDown
+        If e.Control Then
+            e.SuppressKeyPress = True
+        End If
+    End Sub
+
     Private Sub TxtPreco_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtPreco.KeyPress
         If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) AndAlso Not e.KeyChar = "," Then
-            e.Handled = True
+            e.KeyChar = ""
         End If
     End Sub
 
     Private Sub TxtQtd_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TxtQtd.KeyPress
-        If Char.IsLetter(e.KeyChar) Or Char.IsSymbol(e.KeyChar) Or Char.IsPunctuation(e.KeyChar) Or Char.IsSeparator(e.KeyChar) _
-            Or e.KeyChar = "," Then
+        If Not Char.IsNumber(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
             e.KeyChar = ""
         End If
     End Sub
@@ -289,6 +299,11 @@ Public Class Frm_Produto
 
         prod.Categoria = ComboCategoria.Text
         prod.Nome = TxtNome.Text
+
+        If Not TxtPreco.Text.Contains("R$") Then
+            TxtPreco_Leave(Nothing, Nothing)
+        End If
+
         prod.Preco = Convert.ToDecimal(StringHelper.CurrencyType(TxtPreco.Text))
         prod.Descricao = TxtDesc.Text
         prod.Quantidade = TxtQtd.Text
@@ -342,6 +357,12 @@ Public Class Frm_Produto
             e.Handled = True
         Else
             e.KeyChar = Char.ToUpper(e.KeyChar)
+        End If
+    End Sub
+
+    Private Sub TxtQtd_KeyDown(sender As System.Object, e As System.Windows.Forms.KeyEventArgs) Handles TxtQtd.KeyDown
+        If e.Control Then
+            e.SuppressKeyPress = True
         End If
     End Sub
 End Class

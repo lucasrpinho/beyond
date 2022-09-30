@@ -96,6 +96,11 @@ Public Class Frm_Usuario
                     toolStrip.ToolbarItemsState("", False)
                 End If
             Else
+                If String.IsNullOrWhiteSpace(TxtEmail.Text) Or Uteis.RegexValidation.IsEmailValid(TxtEmail.Text) Then
+                    Uteis.MsgBoxHelper.Alerta(Me, "Campo de e-mail não pode ser vazio.", "Preenchimento incompleto", TxtEmail)
+                    toolStrip.ToolbarItemsState("", False)
+                    Exit Sub
+                End If
                 If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
                     If Not DAOUsuario.AtualizaUsuario(GetUsuarioForOperation, resposta) Then
                         toolStrip.ToolbarItemsState("", False)
@@ -105,6 +110,8 @@ Public Class Frm_Usuario
                         Desativa_Campos()
                         toolStrip.AfterSuccessfulUpdate()
                     End If
+                Else
+                    toolStrip.ToolbarItemsState("", False)
                 End If
             End If
 

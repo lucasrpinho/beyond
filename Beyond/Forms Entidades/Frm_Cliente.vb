@@ -140,6 +140,8 @@ Public Class Frm_Cliente
             Exit Sub
         End If
 
+        LstCargos.RemoveAll(Function(crg) crg.IsVendedor = True)
+
         ComboCargo.BeginUpdate()
         ComboCargo.Items.AddRange(LstCargos.ToArray)
         ComboCargo.DisplayMember = "Nome"

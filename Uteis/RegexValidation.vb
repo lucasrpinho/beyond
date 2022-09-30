@@ -1,4 +1,5 @@
 ﻿Imports System.Text.RegularExpressions
+Imports System.Net.Mail
 
 Public Class RegexValidation
     Public Shared Function IsOnlyLetter(ByVal Texto As String) As Boolean
@@ -17,8 +18,12 @@ Public Class RegexValidation
     End Function
 
     Public Shared Function IsEmailValid(ByVal email As String) As Boolean
-        Dim Reg As New Regex("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
-        Return Reg.IsMatch(email)
+        Try
+            Dim emailValido = New MailAddress(email)
+            Return Not IsNothing(emailValido)
+        Catch ex As Exception
+            Return False
+        End Try
     End Function
 
     Public Shared Function IsTelefoneValid(ByVal telefone As String) As Boolean

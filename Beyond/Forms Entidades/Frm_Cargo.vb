@@ -132,6 +132,8 @@ Public Class Frm_Cargo
                         Desativa_Campos()
                         toolStrip.AfterSuccessfulUpdate()
                     End If
+                Else
+                    toolStrip.ToolbarItemsState("", False)
                 End If
             End If
 
@@ -173,7 +175,7 @@ Public Class Frm_Cargo
                 End If
                 MsgBoxHelper.Msg(Me, resposta, "Informação")
             Else
-                Exit Sub
+                toolStrip.ToolbarItemsState("", False, True)
             End If
 
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
