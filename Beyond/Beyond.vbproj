@@ -145,6 +145,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>VendedoresDS.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Forms Entidades\Frm_Pedido_Concluido.Designer.vb">
+      <DependentUpon>Frm_Pedido_Concluido.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms Entidades\Frm_Pedido_Concluido.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms Iniciais\UC_Login.Designer.vb">
+      <DependentUpon>UC_Login.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms Iniciais\UC_Login.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -303,6 +315,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms Entidades\Frm_Pedido_Concluido.resx">
+      <DependentUpon>Frm_Pedido_Concluido.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms Iniciais\UC_Login.resx">
+      <DependentUpon>UC_Login.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Relatorios\Pedido\Frm_RelFiltro_Pedido.resx">
       <DependentUpon>Frm_RelFiltro_Pedido.vb</DependentUpon>
     </EmbeddedResource>
@@ -467,6 +485,7 @@
     <None Include="Imagens\beyondImagem.png" />
     <Content Include="beyondICO.ico" />
     <None Include="Icons Toolstrip\update.ico" />
+    <None Include="Imagens\lockin.png" />
     <Content Include="Imagens\login.png" />
   </ItemGroup>
   <ItemGroup>

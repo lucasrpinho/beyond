@@ -24,12 +24,12 @@ Public Class Frm_Sobre
         If Application.OpenForms.Count > APENAS_FORM_PRINCIPAL_E_FORM_SOBRE Then
             e.Cancel = False
         Else
-            Dim FLogin As New Frm_Login
-            FLogin.Show()
+            Dim frmPrincipal As New Frm_Principal_MDI
+            frmPrincipal.Show()
         End If
     End Sub
 
-    Private Sub BtnOK_Click(sender As System.Object, e As System.EventArgs) Handles BtnOK.Click
+    Private Sub BtnOK_Click(sender As System.Object, e As System.EventArgs)
         Me.Close()
     End Sub
 End Class

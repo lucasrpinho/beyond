@@ -49,15 +49,14 @@ Partial Class Frm_Principal_MDI
         Me.TSL_Hora = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TimerClock = New System.Windows.Forms.Timer(Me.components)
         Me.SplitC1 = New System.Windows.Forms.SplitContainer()
-        Me.BtnExpandir = New System.Windows.Forms.Button()
-        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.UC_Login1 = New Beyond.UC_Login()
         Me.TCPrincipal = New System.Windows.Forms.TabControl()
+        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.LblOla = New System.Windows.Forms.Label()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.FecharUmaCtxMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.FecharTodasCtxMenu = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BtnUnPin = New System.Windows.Forms.Button()
         Me.UC_Toolstrip1 = New Beyond.UC_Toolstrip()
         Me.MnStrip_Principal.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -72,6 +71,7 @@ Partial Class Frm_Principal_MDI
         'MnStrip_Principal
         '
         Me.MnStrip_Principal.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.MnStrip_Principal.Enabled = False
         Me.MnStrip_Principal.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AçõesToolStripMenuItem, Me.UsuáriosToolStripMenuItem, Me.ConsultasToolStripMenuItem, Me.AjudaToolStripMenuItem})
         Me.MnStrip_Principal.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         Me.MnStrip_Principal.Location = New System.Drawing.Point(0, 0)
@@ -251,7 +251,7 @@ Partial Class Frm_Principal_MDI
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SplitC1.BackColor = System.Drawing.SystemColors.Desktop
         Me.SplitC1.IsSplitterFixed = True
-        Me.SplitC1.Location = New System.Drawing.Point(18, 49)
+        Me.SplitC1.Location = New System.Drawing.Point(0, 49)
         Me.SplitC1.Name = "SplitC1"
         '
         'SplitC1.Panel1
@@ -261,38 +261,44 @@ Partial Class Frm_Principal_MDI
         Me.SplitC1.Panel1.BackColor = System.Drawing.SystemColors.Window
         Me.SplitC1.Panel1.BackgroundImage = CType(resources.GetObject("SplitC1.Panel1.BackgroundImage"), System.Drawing.Image)
         Me.SplitC1.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.SplitC1.Panel1.Controls.Add(Me.BtnExpandir)
+        Me.SplitC1.Panel1.Controls.Add(Me.UC_Login1)
         Me.SplitC1.Panel1MinSize = 50
         '
         'SplitC1.Panel2
         '
         Me.SplitC1.Panel2.BackColor = System.Drawing.Color.LightSteelBlue
         Me.SplitC1.Panel2.Controls.Add(Me.TCPrincipal)
+        Me.SplitC1.Panel2.Controls.Add(Me.Label1)
         Me.SplitC1.Panel2.Controls.Add(Me.PictureBox1)
-        Me.SplitC1.Panel2.Controls.Add(Me.LblOla)
-        Me.SplitC1.Size = New System.Drawing.Size(737, 402)
-        Me.SplitC1.SplitterDistance = 151
+        Me.SplitC1.Size = New System.Drawing.Size(755, 402)
+        Me.SplitC1.SplitterDistance = 180
         Me.SplitC1.SplitterWidth = 1
         Me.SplitC1.TabIndex = 10
         '
-        'BtnExpandir
+        'UC_Login1
         '
-        Me.BtnExpandir.BackColor = System.Drawing.SystemColors.Window
-        Me.BtnExpandir.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BtnExpandir.Dock = System.Windows.Forms.DockStyle.Right
-        Me.BtnExpandir.FlatAppearance.BorderSize = 0
-        Me.BtnExpandir.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnExpandir.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnExpandir.ForeColor = System.Drawing.SystemColors.Window
-        Me.BtnExpandir.ImageKey = "pinmenu.png"
-        Me.BtnExpandir.ImageList = Me.ImageList1
-        Me.BtnExpandir.Location = New System.Drawing.Point(131, 0)
-        Me.BtnExpandir.MinimumSize = New System.Drawing.Size(20, 402)
-        Me.BtnExpandir.Name = "BtnExpandir"
-        Me.BtnExpandir.Size = New System.Drawing.Size(20, 402)
-        Me.BtnExpandir.TabIndex = 0
-        Me.BtnExpandir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.BtnExpandir.UseVisualStyleBackColor = False
+        Me.UC_Login1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.UC_Login1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UC_Login1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.UC_Login1.Location = New System.Drawing.Point(0, 0)
+        Me.UC_Login1.Name = "UC_Login1"
+        Me.UC_Login1.Size = New System.Drawing.Size(180, 402)
+        Me.UC_Login1.TabIndex = 0
+        '
+        'TCPrincipal
+        '
+        Me.TCPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TCPrincipal.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed
+        Me.TCPrincipal.ImageList = Me.ImageList1
+        Me.TCPrincipal.ItemSize = New System.Drawing.Size(30, 30)
+        Me.TCPrincipal.Location = New System.Drawing.Point(0, 0)
+        Me.TCPrincipal.Margin = New System.Windows.Forms.Padding(3, 15, 3, 3)
+        Me.TCPrincipal.Name = "TCPrincipal"
+        Me.TCPrincipal.Padding = New System.Drawing.Point(25, 4)
+        Me.TCPrincipal.SelectedIndex = 0
+        Me.TCPrincipal.Size = New System.Drawing.Size(574, 402)
+        Me.TCPrincipal.TabIndex = 2
+        Me.TCPrincipal.Visible = False
         '
         'ImageList1
         '
@@ -308,20 +314,16 @@ Partial Class Frm_Principal_MDI
         Me.ImageList1.Images.SetKeyName(7, "unpinmenu.png")
         Me.ImageList1.Images.SetKeyName(8, "pinmenu.png")
         '
-        'TCPrincipal
+        'Label1
         '
-        Me.TCPrincipal.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCPrincipal.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed
-        Me.TCPrincipal.ImageList = Me.ImageList1
-        Me.TCPrincipal.ItemSize = New System.Drawing.Size(30, 30)
-        Me.TCPrincipal.Location = New System.Drawing.Point(0, 0)
-        Me.TCPrincipal.Margin = New System.Windows.Forms.Padding(3, 15, 3, 3)
-        Me.TCPrincipal.Name = "TCPrincipal"
-        Me.TCPrincipal.Padding = New System.Drawing.Point(25, 4)
-        Me.TCPrincipal.SelectedIndex = 0
-        Me.TCPrincipal.Size = New System.Drawing.Size(585, 402)
-        Me.TCPrincipal.TabIndex = 2
-        Me.TCPrincipal.Visible = False
+        Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Label1.Font = New System.Drawing.Font("Georgia", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(116, 323)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(375, 34)
+        Me.Label1.TabIndex = 4
+        Me.Label1.Text = "lucas.pinho@sofis.com.br"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PictureBox1
         '
@@ -333,19 +335,6 @@ Partial Class Frm_Principal_MDI
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PictureBox1.TabIndex = 3
         Me.PictureBox1.TabStop = False
-        '
-        'LblOla
-        '
-        Me.LblOla.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.LblOla.AutoEllipsis = True
-        Me.LblOla.AutoSize = True
-        Me.LblOla.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblOla.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.LblOla.Location = New System.Drawing.Point(5, 362)
-        Me.LblOla.Name = "LblOla"
-        Me.LblOla.Size = New System.Drawing.Size(73, 23)
-        Me.LblOla.TabIndex = 1
-        Me.LblOla.Text = "Label1"
         '
         'ContextMenuStrip1
         '
@@ -366,28 +355,10 @@ Partial Class Frm_Principal_MDI
         Me.FecharTodasCtxMenu.Size = New System.Drawing.Size(175, 22)
         Me.FecharTodasCtxMenu.Text = "Fechar Todas"
         '
-        'BtnUnPin
-        '
-        Me.BtnUnPin.BackColor = System.Drawing.SystemColors.Window
-        Me.BtnUnPin.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BtnUnPin.Dock = System.Windows.Forms.DockStyle.Left
-        Me.BtnUnPin.FlatAppearance.BorderSize = 0
-        Me.BtnUnPin.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnUnPin.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnUnPin.ForeColor = System.Drawing.SystemColors.Window
-        Me.BtnUnPin.ImageKey = "(none)"
-        Me.BtnUnPin.ImageList = Me.ImageList1
-        Me.BtnUnPin.Location = New System.Drawing.Point(0, 49)
-        Me.BtnUnPin.MinimumSize = New System.Drawing.Size(20, 402)
-        Me.BtnUnPin.Name = "BtnUnPin"
-        Me.BtnUnPin.Size = New System.Drawing.Size(20, 402)
-        Me.BtnUnPin.TabIndex = 16
-        Me.BtnUnPin.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.BtnUnPin.UseVisualStyleBackColor = False
-        '
         'UC_Toolstrip1
         '
         Me.UC_Toolstrip1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.UC_Toolstrip1.Enabled = False
         Me.UC_Toolstrip1.Location = New System.Drawing.Point(0, 24)
         Me.UC_Toolstrip1.Margin = New System.Windows.Forms.Padding(4)
         Me.UC_Toolstrip1.Name = "UC_Toolstrip1"
@@ -401,7 +372,6 @@ Partial Class Frm_Principal_MDI
         Me.BackColor = System.Drawing.Color.LightSteelBlue
         Me.ClientSize = New System.Drawing.Size(755, 471)
         Me.Controls.Add(Me.SplitC1)
-        Me.Controls.Add(Me.BtnUnPin)
         Me.Controls.Add(Me.UC_Toolstrip1)
         Me.Controls.Add(Me.MnStrip_Principal)
         Me.Controls.Add(Me.StatusStrip1)
@@ -420,7 +390,6 @@ Partial Class Frm_Principal_MDI
         Me.StatusStrip1.PerformLayout()
         Me.SplitC1.Panel1.ResumeLayout(False)
         Me.SplitC1.Panel2.ResumeLayout(False)
-        Me.SplitC1.Panel2.PerformLayout()
         CType(Me.SplitC1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitC1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -449,7 +418,6 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents FecharSelecionadaMenu As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents FecharTodasMenu As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SplitC1 As System.Windows.Forms.SplitContainer
-    Friend WithEvents LblOla As System.Windows.Forms.Label
     Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents FecharUmaCtxMenu As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents FecharTodasCtxMenu As System.Windows.Forms.ToolStripMenuItem
@@ -461,7 +429,7 @@ Partial Class Frm_Principal_MDI
     Friend WithEvents PedidoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents VendedoresToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ProdutosToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents BtnExpandir As System.Windows.Forms.Button
-    Friend WithEvents BtnUnPin As System.Windows.Forms.Button
+    Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents UC_Login1 As Beyond.UC_Login
 End Class

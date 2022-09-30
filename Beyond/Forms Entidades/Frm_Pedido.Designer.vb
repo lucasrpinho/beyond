@@ -490,10 +490,10 @@ Partial Class Frm_Pedido
         Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "confirm.png")
-        Me.ImageList1.Images.SetKeyName(1, "delete.png")
-        Me.ImageList1.Images.SetKeyName(2, "close.png")
-        Me.ImageList1.Images.SetKeyName(3, "maisICO.ico")
-        Me.ImageList1.Images.SetKeyName(4, "minus.ico")
+        Me.ImageList1.Images.SetKeyName(1, "close.png")
+        Me.ImageList1.Images.SetKeyName(2, "maisICO.ico")
+        Me.ImageList1.Images.SetKeyName(3, "minus.ico")
+        Me.ImageList1.Images.SetKeyName(4, "delete.png")
         '
         'TxtDesc
         '

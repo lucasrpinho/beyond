@@ -4,7 +4,7 @@ Public Class Frm_Principal_MDI
 
     Private usuario As Usuario
     Public Modo As String
-    Public StateTransaction As Boolean = True
+    Public TentativasLoginEsgotadas As Boolean = False
 
     Public Sub New()
 
@@ -25,14 +25,19 @@ Public Class Frm_Principal_MDI
         codusuario = usuario.CodUsuario
     End Sub
 
+    Public Sub SetUsuarioLogado(ByVal userLogado As Usuario)
+        Me.usuario = userLogado
+        codusuario = usuario.CodUsuario
+    End Sub
+
     Private Sub Frm_Principal_MDI_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         Application.Exit()
     End Sub
 
     Private Sub Frm_Principal_MDI_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        TSL_Login.Text = usuario.NomeCompleto
+        'TSL_Login.Text = usuario.NomeCompleto
         TSL_Data.Text = DateTime.Now.ToLongDateString
-        LblOla.Text = "Olá, " + usuario.NomeCompleto
+        'LblOla.Text = "Olá, " + usuario.NomeCompleto
     End Sub
 
     Private Sub TimerClock_Tick(sender As System.Object, e As System.EventArgs) Handles TimerClock.Tick
@@ -51,19 +56,25 @@ Public Class Frm_Principal_MDI
     End Sub
 
     Private Sub Frm_Principal_MDI_FormClosing(sender As System.Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
+        If TentativasLoginEsgotadas Then
+            Cursor.Current = Cursors.WaitCursor
+            System.Threading.Thread.Sleep(2000)
+            e.Cancel = False
+            Exit Sub
+        End If
         If Uteis.MsgBoxHelper.MsgTemCerteza(Me) Then
             Cursor.Current = Cursors.WaitCursor
             System.Threading.Thread.Sleep(2000)
             e.Cancel = False
-            Else
-                e.Cancel = True
-                Exit Sub
-            End If
-            'If e.CloseReason = CloseReason.ApplicationExitCall Then
-            '    e.Cancel = False
-            'ElseIf e.CloseReason = CloseReason.UserClosing Then
-            '    e.Cancel = False
-            'End If
+        Else
+            e.Cancel = True
+            Exit Sub
+        End If
+        'If e.CloseReason = CloseReason.ApplicationExitCall Then
+        '    e.Cancel = False
+        'ElseIf e.CloseReason = CloseReason.UserClosing Then
+        '    e.Cancel = False
+        'End If
     End Sub
 
     Private Sub FecharSelecionadaToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles FecharSelecionadaMenu.Click
@@ -352,16 +363,6 @@ Public Class Frm_Principal_MDI
 
     Private Sub PedidoToolStripMenuItem2_Click(sender As System.Object, e As System.EventArgs) Handles PedidoToolStripMenuItem2.Click
         AbrePedidoPag()
-    End Sub
-
-    Private Sub BtnExpandir_Click(sender As System.Object, e As System.EventArgs) Handles BtnExpandir.Click
-        SplitC1.Panel1Collapsed = True
-        BtnUnPin.ImageKey = "unpinmenu.png"
-    End Sub
-
-    Private Sub BtnUnPin_Click(sender As System.Object, e As System.EventArgs) Handles BtnUnPin.Click
-        SplitC1.Panel1Collapsed = False
-        BtnUnPin.ImageKey = ""
     End Sub
 
     Private Sub VendedoresToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles VendedoresToolStripMenuItem.Click
