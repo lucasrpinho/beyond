@@ -248,7 +248,7 @@ Public Class Frm_Vendedor
                     toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = True
                 End If
             Else
-                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
+                If ValidaCampos() AndAlso Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
                     Dim vendedor = ObjVendedorFromList()
                     If vendedor Is Nothing Then
                         toolStrip.ToolbarItemsState("", False)
@@ -262,60 +262,61 @@ Public Class Frm_Vendedor
                         toolStrip.AfterSuccessfulUpdate()
                     End If
                 Else
-                    toolStrip.ToolbarItemsState("", False, True)
+                    toolStrip.ToolbarItemsState("", False)
                 End If
             End If
 
         ElseIf MyModo.UniqueModo = "NOVO" Then
-            ModoNovo()
+                ModoNovo()
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
-            ModoPesquisa()
             If MyModo.UniqueModoAnterior = "REVERTER" Then
-                ComboNome.SelectedIndex = LstVendedor.FindIndex(Function(v As Vendedor) v.CodVendedor = objVendedor.CodVendedor)
+                ModoPesquisaPreenchido()
+                Exit Sub
             End If
+            ModoPesquisa()
 
         ElseIf MyModo.UniqueModo = "ANTERIOR" Then
-            If ComboNome.SelectedIndex - 1 >= 0 Then
-                ComboNome.SelectedIndex -= 1
-            End If
+                If ComboNome.SelectedIndex - 1 >= 0 Then
+                    ComboNome.SelectedIndex -= 1
+                End If
 
         ElseIf MyModo.UniqueModo = "SEGUINTE" Then
-            If ComboNome.SelectedIndex + 1 <> ComboNome.Items.Count Then
-                ComboNome.SelectedIndex += 1
-            End If
+                If ComboNome.SelectedIndex + 1 <> ComboNome.Items.Count Then
+                    ComboNome.SelectedIndex += 1
+                End If
 
 
         ElseIf MyModo.UniqueModo = "ALTERAR" Then
-            CarregaVendedores()
-            ModoAlterar()
+                CarregaVendedores()
+                ModoAlterar()
 
         ElseIf MyModo.UniqueModo = "REVERTER" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
-                ToolStrip_ItemClicked()
-            Else
-                Exit Sub
-            End If
+                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
+                    ToolStrip_ItemClicked()
+                Else
+                    Exit Sub
+                End If
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Deseja excluir o item?", "Exclusão") Then
-                If DAOVendedor.AtualizaVendedor(ObjVendedorFromList, resposta, True, codusuario) Then
-                    toolStrip.AfterSuccessfulDelete()
-                    LimpaCampos_Desativa()
+                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Deseja excluir o item?", "Exclusão") Then
+                    If DAOVendedor.AtualizaVendedor(ObjVendedorFromList, resposta, True, codusuario) Then
+                        toolStrip.AfterSuccessfulDelete()
+                        LimpaCampos_Desativa()
+                    End If
+                    MsgBoxHelper.Msg(Me, resposta, "Exclusão")
+                Else
+                    toolStrip.ToolbarItemsState("", False, True)
+                    Exit Sub
                 End If
-                MsgBoxHelper.Msg(Me, resposta, "Exclusão")
-            Else
-                toolStrip.ToolbarItemsState("", False, True)
-                Exit Sub
-            End If
 
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
-            LimpaCampos_AtivaControles()
-            toolStrip.PagAberta_HabilitarBotoes()
-            DesativaCampos()
+                LimpaCampos_AtivaControles()
+                toolStrip.PagAberta_HabilitarBotoes()
+                DesativaCampos()
 
         ElseIf MyModo.UniqueModo = "IMAGEM" Then
-            CarregaImagem()
+                CarregaImagem()
         End If
     End Sub
 
@@ -529,4 +530,14 @@ Public Class Frm_Vendedor
     Private Sub ComboCargo_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles ComboCargo.KeyPress
         e.KeyChar = Char.ToUpper(e.KeyChar)
     End Sub
+
+    Private Sub ModoPesquisaPreenchido()
+        PreencheCampos(objVendedor)
+        GrpBoxInfo.Enabled = True
+        ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
+        ControlsHelper.SetControlsDisabled(GrpBoxEndereco.Controls)
+        ComboNome.Enabled = True
+        toolStrip.EstadoAlterarExcluir(True)
+    End Sub
+
 End Class

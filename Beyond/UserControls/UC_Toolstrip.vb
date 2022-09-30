@@ -99,7 +99,7 @@
 
         If Not succ Then
             Modo = ModoAnterior
-            If ModoAnterior = "ALTERAR" Or ModoAnterior = "ANTERIOR" Or ModoAnterior = "SEGUINTE" Then
+            If ModoAnterior = "ANTERIOR" Or ModoAnterior = "SEGUINTE" Then
                 Modo = "PESQUISAR"
                 haviaItemPesquisado = Modo = "PESQUISAR"
             End If

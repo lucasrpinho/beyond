@@ -713,14 +713,13 @@ Partial Class Frm_Pedido
         'TxtValorTotal
         '
         Me.TxtValorTotal.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TxtValorTotal.AutoSize = True
         Me.TxtValorTotal.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TxtValorTotal.Location = New System.Drawing.Point(800, 274)
+        Me.TxtValorTotal.Location = New System.Drawing.Point(674, 274)
         Me.TxtValorTotal.Name = "TxtValorTotal"
-        Me.TxtValorTotal.Size = New System.Drawing.Size(92, 21)
+        Me.TxtValorTotal.Size = New System.Drawing.Size(218, 21)
         Me.TxtValorTotal.TabIndex = 26
         Me.TxtValorTotal.Text = "Valor Total"
-        Me.TxtValorTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.TxtValorTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label15
         '

@@ -161,6 +161,7 @@ Public Class Frm_Produto
                     End If
                 Else
                     toolStrip.ToolbarItemsState("", False, True)
+                    toolStrip.BtnPesquisar.Enabled = True
                 End If
             End If
 

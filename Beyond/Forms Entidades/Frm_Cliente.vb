@@ -105,7 +105,7 @@ Public Class Frm_Cliente
         cliente.ObjEndereco.Cidade = TxtCidade.Text.ToUpper
         cliente.ObjEndereco.UF = LstEstados.Item(ComboEstado.SelectedIndex).UF
         cliente.ObjEndereco.Complemento = TxtComplemento.Text.ToUpper
-        cliente.ObjEndereco.NumeroEndereco = StringHelper.NumericOnly(TxtNum.Text)
+        cliente.ObjEndereco.NumeroEndereco = TxtNum.Text
 
         cliente.Descricao = TxtObs.Text.ToUpper
         cliente.IsAtivo = ChkBoxAtivo.Checked
@@ -193,8 +193,6 @@ Public Class Frm_Cliente
             Exit Sub
         End If
 
-        MyModo.UniqueModo = MyModo.UniqueModo
-
         Dim resposta As String = ""
 
         MyModo.UniqueModoAnterior = UC_Toolstrip.ModoAnterior
@@ -208,10 +206,9 @@ Public Class Frm_Cliente
                     toolStrip.AfterSuccessfulInsert()
                 Else
                     toolStrip.ToolbarItemsState("", False)
-                    toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = True
                 End If
             Else
-                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
+                If ValidaCampos() AndAlso Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
                     Dim cli = GetClienteForOperation()
                     If cli Is Nothing Then
                         toolStrip.ToolbarItemsState("", False)
@@ -232,63 +229,64 @@ Public Class Frm_Cliente
             End If
 
         ElseIf MyModo.UniqueModo = "ALTERAR" Then
-            ModoAlterar()
+                ModoAlterar()
 
 
         ElseIf MyModo.UniqueModo = "NOVO" Then
-            LimpaCampos_AtivaControles()
-            CarregaCargos()
-            AlternarControle()
-            If objCliente IsNot Nothing Then
-                objCliente = Nothing
-            End If
-            ComboNome.Focus()
+                LimpaCampos_AtivaControles()
+                CarregaCargos()
+                AlternarControle()
+                If objCliente IsNot Nothing Then
+                    objCliente = Nothing
+                End If
+                ComboNome.Focus()
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
-            ModoPesquisa()
-            If MyModo.UniqueModoAnterior = "REVERTER" Then
-                ComboNome.SelectedIndex = LstCliente.FindIndex(Function(c As Cliente) c.CodCliente = objCliente.CodCliente)
-            End If
+                If MyModo.UniqueModoAnterior = "REVERTER" Then
+                    ModoPesquisaPreenchido()
+                    Exit Sub
+                End If
+                ModoPesquisa()
 
         ElseIf MyModo.UniqueModo = "ANTERIOR" Then
-            If ComboNome.SelectedIndex - 1 >= 0 Then
-                ComboNome.SelectedIndex -= 1
-            End If
+                If ComboNome.SelectedIndex - 1 >= 0 Then
+                    ComboNome.SelectedIndex -= 1
+                End If
 
         ElseIf MyModo.UniqueModo = "SEGUINTE" Then
-            If ComboNome.SelectedIndex + 1 <> ComboNome.Items.Count Then
-                ComboNome.SelectedIndex += 1
-            End If
+                If ComboNome.SelectedIndex + 1 <> ComboNome.Items.Count Then
+                    ComboNome.SelectedIndex += 1
+                End If
 
 
         ElseIf MyModo.UniqueModo = "REVERTER" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
-                ToolStrip_ItemClicked()
-            Else
-                Exit Sub
-            End If
+                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
+                    ToolStrip_ItemClicked()
+                Else
+                    Exit Sub
+                End If
 
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Deseja excluir o item?", "Exclusão") Then
-                If DAOCliente.AtualizaCliente(GetClienteForOperation, resposta, True, codusuario) Then
-                    LimpaCampos_AtivaControles()
-                    Desativa_Campos()
-                    toolStrip.AfterSuccessfulDelete()
-                    objCliente = Nothing
+                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Deseja excluir o item?", "Exclusão") Then
+                    If DAOCliente.AtualizaCliente(GetClienteForOperation, resposta, True, codusuario) Then
+                        LimpaCampos_AtivaControles()
+                        Desativa_Campos()
+                        toolStrip.AfterSuccessfulDelete()
+                        objCliente = Nothing
+                    End If
+                    MsgBoxHelper.Msg(Me, resposta, "Exclusão")
+                Else
+                    toolStrip.ToolbarItemsState("", False)
+                    toolStrip.EstadoAlterarExcluir(True)
+                    Exit Sub
                 End If
-                MsgBoxHelper.Msg(Me, resposta, "Exclusão")
-            Else
-                toolStrip.ToolbarItemsState("", False)
-                toolStrip.EstadoAlterarExcluir(True)
-                Exit Sub
-            End If
 
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
-            LimpaCampos_AtivaControles()
-            toolStrip.PagAberta_HabilitarBotoes()
-            Desativa_Campos()
-        End If
+                LimpaCampos_AtivaControles()
+                toolStrip.PagAberta_HabilitarBotoes()
+                Desativa_Campos()
+            End If
 
     End Sub
 
@@ -315,6 +313,7 @@ Public Class Frm_Cliente
         TxtLogradouro.Text = cliente.ObjEndereco.Logradouro
         TxtNum.Text = cliente.ObjEndereco.NumeroEndereco
         TxtObs.Text = cliente.Descricao
+        TxtBairro.Text = cliente.ObjEndereco.Bairro
         ComboEstado.SelectedItem = estado
         ComboEstado.Text = estado.Nome
         Dim cargo = LstCargos.Find(Function(c) c.CodCargo = cliente.CodCargo)
@@ -432,7 +431,7 @@ Public Class Frm_Cliente
         cliente.ObjEndereco.Cidade = TxtCidade.Text.ToUpper
         cliente.ObjEndereco.UF = LstEstados.Item(ComboEstado.SelectedIndex).UF
         cliente.ObjEndereco.Complemento = TxtComplemento.Text.ToUpper
-        cliente.ObjEndereco.NumeroEndereco = Convert.ToInt16(TxtNum.Text)
+        cliente.ObjEndereco.NumeroEndereco = TxtNum.Text
         cliente.IsAtivo = ChkBoxAtivo.Checked
         Return cliente
     End Function
@@ -513,4 +512,13 @@ Public Class Frm_Cliente
             BtnConsCargo.Visible = False
         End If
     End Sub
+
+    Private Sub ModoPesquisaPreenchido()
+        PreencheCampos(objCliente)
+        ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
+        ControlsHelper.SetControlsDisabled(GrpBoxEndereco.Controls)
+        ComboNome.Enabled = True
+        toolStrip.EstadoAlterarExcluir(True)
+    End Sub
+
 End Class
