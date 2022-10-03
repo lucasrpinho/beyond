@@ -20,6 +20,7 @@ Public Class Frm_Pedido
     Private flagImprimir As Boolean = False
     Private toolStrip As UC_Toolstrip
     Private LstTodosProdutos As New List(Of Produto)
+    Private IsThereAnyProdPesquisado As Boolean = False
 
     Public Sub New(frm As Frm_Principal_MDI)
 
@@ -32,8 +33,16 @@ Public Class Frm_Pedido
     End Sub
 
     Private Sub Frm_Pedido_EnabledChanged(sender As Object, e As System.EventArgs) Handles Me.EnabledChanged
+        IsThereAnyProdPesquisado = Not IsNothing(objPedido)
         If Me.Enabled Then
-            toolStrip.ToolbarItemsState(MyModo.UniqueModo, Not IsNothing(objPedido))
+            toolStrip.ToolbarItemsState(MyModo.UniqueModo, IsThereAnyProdPesquisado)
+            toolStrip.BtnAnterior.Enabled = False
+            toolStrip.BtnSeguinte.Enabled = False
+            toolStrip.BtnPesquisar.Enabled = True
+            If MyModo.UniqueModo = "ALTERAR" Then
+                toolStrip.BtnPesquisar.Enabled = False
+                toolStrip.BtnVisualizarRel.Enabled = True
+            End If
         End If
     End Sub
 
@@ -547,13 +556,14 @@ Public Class Frm_Pedido
                     Exit Sub
                 End If
                 GetLstItensForOperation(ped.LstProduto)
-                If Not DAOPedido.AtualizaPedido(ped, LstPedidoItem, resposta, False) Then
-                    toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, False)
+                If Not DAOPedido.AtualizaPedido(ped, LstPedidoItem, resposta, codusuario) Then
+                    toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, True)
                     MsgBoxHelper.Erro(Me, resposta, "Erro")
                 Else
                     TCPedido.SelectTab(TabDados)
                     DesabilitaPages()
                     ControlsHelper.SetControlsEnabled(TCPedido.Controls)
+                    LimpaCampos_Desativa()
                     toolStrip.AfterSuccessfulUpdate()
                 End If
             End If
@@ -583,7 +593,7 @@ Public Class Frm_Pedido
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
             If DAOPedido.AtualizaPedido(GetPedidoForOperation, LstPedidoItem _
-                                        , resposta, True) Then
+                                        , resposta, codusuario, True) Then
                 MsgBoxHelper.Msg(Me, "O pedido foi excluído com sucesso e os itens foram estornados.", "Sucesso")
                 AposSalvarComSucesso()
                 toolStrip.AfterSuccessfulDelete()
@@ -670,6 +680,7 @@ Public Class Frm_Pedido
             PopulateCarrinho()
             toolStrip.BtnVisualizarRel.Enabled = True
             ChkDestinatario.Enabled = False
+            ComboProduto.Enabled = False
         Else
             toolStrip.PagAberta_HabilitarBotoes()
         End If
@@ -1188,6 +1199,10 @@ Public Class Frm_Pedido
         LblPrecoTotal.Text = "Preço Total: " + (Integer.Parse(TxtQtdInsere.Text) * objProdSelecionado.Preco).ToString("C")
     End Sub
 
+    Private Sub TxtQtd_Resize(sender As Object, e As System.EventArgs) Handles TxtQtd.Resize
+
+    End Sub
+
     Private Sub TxtQtd_TextChanged(sender As System.Object, e As System.EventArgs) Handles TxtQtd.TextChanged
         If Not LstCarrinho.Items.Count > 0 Then
             Exit Sub
@@ -1204,7 +1219,15 @@ Public Class Frm_Pedido
 
         Dim obj As New Produto(LstTodosProdutos.First(Function(p As Produto) objProdSelecionado.CodProduto = p.CodProduto))
 
-        If Integer.Parse(TxtQtd.Text) > obj.Quantidade Then
+        If MyModo.UniqueModo = "ALTERAR" Then
+            Dim qtdComprada = LstPedidoItem.First(Function(p) p.CodProduto = obj.CodProduto).Quantidade
+            Dim estoqueMaisQtdComprada = LstProduto.First(Function(p) p.CodProduto = obj.CodProduto).Quantidade + qtdComprada
+            If Integer.Parse(TxtQtd.Text) > estoqueMaisQtdComprada Then
+                MsgBoxHelper.Alerta(Me, "A quantidade desejada é maior do que a disponível em estoque.", "Estoque insuficiente")
+                TxtQtd.Text = estoqueMaisQtdComprada.ToString
+                Exit Sub
+            End If
+        ElseIf Integer.Parse(TxtQtd.Text) > obj.Quantidade Then
             MsgBoxHelper.Alerta(Me, "A quantidade desejada é maior do que a disponível em estoque.", "Estoque insuficiente")
             TxtQtd.Text = obj.Quantidade.ToString
             Exit Sub

@@ -65,9 +65,8 @@
                                                     .TCPrincipal.SelectedTab.Controls.OfType(Of Form).First, "Deseja salvar as alterações?", "Alteração") Then
                     Exit Sub
                 End If
-            Else
-                Modo = "SALVAR"
             End If
+            Modo = "SALVAR"
             ElseIf e.ClickedItem Is BtnAlterar Then
                 Modo = "ALTERAR"
             ElseIf e.ClickedItem Is BtnExcluir Then

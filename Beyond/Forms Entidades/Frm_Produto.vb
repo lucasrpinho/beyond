@@ -10,6 +10,7 @@ Public Class Frm_Produto
     Friend objProduto As Produto
     Private LstCategoria As List(Of String)
     Private toolStrip As UC_Toolstrip
+    Private IsThereAnyProdPesquisado As Boolean = False
 
 
     Public Sub New(ByVal frm As Frm_Principal_MDI)
@@ -24,8 +25,15 @@ Public Class Frm_Produto
     End Sub
 
     Private Sub Frm_Produto_EnabledChanged(sender As Object, e As System.EventArgs) Handles Me.EnabledChanged
+        IsThereAnyProdPesquisado = Not IsNothing(objProduto)
         If Me.Enabled Then
-            toolStrip.ToolbarItemsState(MyModo.UniqueModo, Not IsNothing(objProduto))
+            toolStrip.ToolbarItemsState(MyModo.UniqueModo, IsThereAnyProdPesquisado)
+            toolStrip.BtnAnterior.Enabled = False
+            toolStrip.BtnSeguinte.Enabled = False
+            toolStrip.BtnPesquisar.Enabled = True
+            If MyModo.UniqueModo = "ALTERAR" Then
+                toolStrip.BtnPesquisar.Enabled = False
+            End If
         End If
     End Sub
 
