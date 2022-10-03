@@ -20,7 +20,7 @@ Public Class Frm_Cargo
 
     Private Sub Frm_Cargo_EnabledChanged(sender As System.Object, e As System.EventArgs) Handles Me.EnabledChanged
         If Me.Enabled Then
-            toolStrip.ToolbarItemsState(MyModo.UniqueModo)
+            toolStrip.ToolbarItemsState(MyModo.UniqueModo, Not IsNothing(objCargo))
         End If
     End Sub
 
@@ -36,7 +36,7 @@ Public Class Frm_Cargo
 
     Private Function InsereCargo() As Boolean
         If ComboNome.Text = String.Empty Then
-            MsgBoxHelper.Alerta(Me, "Nome do cargo precisa ser preenchido", "Alerta", ComboNome)
+            MsgBoxHelper.Alerta(Me, "Nome do cargo precisa ser preenchido.", "Alerta", ComboNome)
             Return False
         End If
 
@@ -120,21 +120,15 @@ Public Class Frm_Cargo
                     LimpaCampos()
                     Desativa_Campos()
                     toolStrip.AfterSuccessfulInsert()
-                Else
-                    toolStrip.ToolbarItemsState("", False)
                 End If
             Else
-                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
-                    If Not DAOCargo.AtualizaCargo(CargoObjForUpdate, resposta, False, codusuario) Then
-                        toolStrip.ToolbarItemsState("", False)
-                        MsgBoxHelper.Alerta(Me, resposta, "Erro")
-                    Else
-                        LimpaCampos()
-                        Desativa_Campos()
-                        toolStrip.AfterSuccessfulUpdate()
-                    End If
+                If Not DAOCargo.AtualizaCargo(CargoObjForUpdate, resposta, False, codusuario) Then
+                    toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, False)
+                    MsgBoxHelper.Alerta(Me, resposta, "Erro")
                 Else
-                    toolStrip.ToolbarItemsState("", False)
+                    LimpaCampos()
+                    Desativa_Campos()
+                    toolStrip.AfterSuccessfulUpdate()
                 End If
             End If
 
@@ -143,6 +137,7 @@ Public Class Frm_Cargo
             ModoPesquisar()
             If MyModo.UniqueModoAnterior = "REVERTER" Then
                 ComboNome.SelectedIndex = LstCargo.FindIndex(Function(c As Cargo) c.CodCargo = objCargo.CodCargo)
+                toolStrip.EstadoAlterarExcluir(True)
             End If
 
         ElseIf MyModo.UniqueModo = "ANTERIOR" Then
@@ -160,24 +155,20 @@ Public Class Frm_Cargo
             ModoAlterar()
 
 
-        ElseIf MyModo.UniqueModo = "REVERTER" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
-                ToolStrip_ItemClicked()
-            Else
-                Exit Sub
-            End If
+            'ElseIf MyModo.UniqueModo = "REVERTER" Then
+            '    If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
+            '        ToolStrip_ItemClicked()
+            '    Else
+            '        Exit Sub
+            '    End If
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
-                If DAOCargo.AtualizaCargo(CargoObjForUpdate, resposta, True, codusuario) Then
-                    LimpaCampos()
-                    Desativa_Campos()
-                    toolStrip.AfterSuccessfulDelete()
-                End If
-                MsgBoxHelper.Msg(Me, resposta, "Informação")
-            Else
-                toolStrip.ToolbarItemsState("", False, True)
+            If DAOCargo.AtualizaCargo(CargoObjForUpdate, resposta, True, codusuario) Then
+                LimpaCampos()
+                Desativa_Campos()
+                toolStrip.AfterSuccessfulDelete()
             End If
+            MsgBoxHelper.Msg(Me, resposta, "Informação")
 
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
             LimpaCampos_Ativa()

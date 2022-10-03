@@ -33,7 +33,7 @@ Public Class Frm_Pedido
 
     Private Sub Frm_Pedido_EnabledChanged(sender As Object, e As System.EventArgs) Handles Me.EnabledChanged
         If Me.Enabled Then
-            toolStrip.ToolbarItemsState(MyModo.UniqueModo, , TxtCod.Text <> String.Empty)
+            toolStrip.ToolbarItemsState(MyModo.UniqueModo, Not IsNothing(objPedido))
         End If
     End Sub
 
@@ -537,29 +537,24 @@ Public Class Frm_Pedido
                     LimpaInformacoesProduto()
                     toolStrip.AfterSuccessfulInsert()
                 Else
-                    toolStrip.ToolbarItemsState("", False)
+                    toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, False)
                     toolStrip.BtnPesquisar.Enabled = True
                 End If
             Else
-                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
-                    Dim ped = GetPedidoForOperation()
-                    If ped Is Nothing Then
-                        toolStrip.ToolbarItemsState("", False)
-                        Exit Sub
-                    End If
-                    GetLstItensForOperation(ped.LstProduto)
-                    If Not DAOPedido.AtualizaPedido(ped, LstPedidoItem, resposta, False) Then
-                        toolStrip.ToolbarItemsState("", False)
-                        MsgBoxHelper.Erro(Me, resposta, "Erro")
-                    Else
-                        TCPedido.SelectTab(TabDados)
-                        DesabilitaPages()
-                        ControlsHelper.SetControlsEnabled(TCPedido.Controls)
-                        toolStrip.AfterSuccessfulUpdate()
-                    End If
+                Dim ped = GetPedidoForOperation()
+                If ped Is Nothing Then
+                    toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, False)
+                    Exit Sub
+                End If
+                GetLstItensForOperation(ped.LstProduto)
+                If Not DAOPedido.AtualizaPedido(ped, LstPedidoItem, resposta, False) Then
+                    toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, False)
+                    MsgBoxHelper.Erro(Me, resposta, "Erro")
                 Else
-                    toolStrip.ToolbarItemsState("", False, True)
-                    toolStrip.BtnPesquisar.Enabled = True
+                    TCPedido.SelectTab(TabDados)
+                    DesabilitaPages()
+                    ControlsHelper.SetControlsEnabled(TCPedido.Controls)
+                    toolStrip.AfterSuccessfulUpdate()
                 End If
             End If
 
@@ -578,30 +573,22 @@ Public Class Frm_Pedido
             End If
             ModoPesquisa()
 
-        ElseIf MyModo.UniqueModo = "REVERTER" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
-                ToolStrip_ItemClicked()
-            Else
-                Exit Sub
-            End If
+            'ElseIf MyModo.UniqueModo = "REVERTER" Then
+            '    If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
+            '        ToolStrip_ItemClicked()
+            '    Else
+            '        Exit Sub
+            '    End If
 
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
-                If DAOPedido.AtualizaPedido(GetPedidoForOperation, LstPedidoItem _
-                                            , resposta, True) Then
-                    MsgBoxHelper.Msg(Me, "O pedido foi excluído com sucesso e os itens foram estornados.", "Sucesso")
-                    AposSalvarComSucesso()
-                    toolStrip.AfterSuccessfulDelete()
-                Else
-                    MsgBoxHelper.Erro(Me, resposta + vbNewLine + vbNewLine + "Contate a equipe responsável e informe o problema.", "Erro")
-                End If
+            If DAOPedido.AtualizaPedido(GetPedidoForOperation, LstPedidoItem _
+                                        , resposta, True) Then
+                MsgBoxHelper.Msg(Me, "O pedido foi excluído com sucesso e os itens foram estornados.", "Sucesso")
+                AposSalvarComSucesso()
+                toolStrip.AfterSuccessfulDelete()
             Else
-                toolStrip.ToolbarItemsState("", False, True)
-                toolStrip.BtnPesquisar.Enabled = True
-                toolStrip.BtnAnterior.Enabled = False
-                toolStrip.BtnSeguinte.Enabled = False
-                Exit Sub
+                MsgBoxHelper.Erro(Me, resposta + vbNewLine + vbNewLine + "Contate a equipe responsável e informe o problema.", "Erro")
             End If
 
         ElseIf MyModo.UniqueModo = "RELATORIO" Then
@@ -659,6 +646,7 @@ Public Class Frm_Pedido
         TxtQtd.Text = "0"
         TxtQtdInsere.Text = "0"
         TxtValorTotal.Text = 0.ToString("C")
+        TabItens.Text = "Carrinho (0)"
     End Sub
 
     Private Sub ModoPesquisa()
@@ -1237,7 +1225,9 @@ Public Class Frm_Pedido
         If LstCarrinho.GetItemAt(e.X, e.Y) IsNot Nothing Then
             Dim itemByLocation As ListViewItem = LstCarrinho.GetItemAt(e.X, e.Y)
             If itemByLocation.GetSubItemAt(e.X, e.Y).Text = "" Then
-                RemoveItemDoCarrinho(itemByLocation.Tag)
+                LstCarrinho.SelectedItems(itemByLocation.Name).Selected = True
+                objProdSelecionado = LstCarrinho.SelectedItems(0).Tag
+                RemoveItemDoCarrinho(objProdSelecionado)
                 Exit Sub
             End If
         End If
@@ -1275,4 +1265,9 @@ Public Class Frm_Pedido
     End Sub
 
 
+    Private Sub ComboCategoria_TextUpdate(sender As Object, e As System.EventArgs) Handles ComboCategoria.TextUpdate
+        If ComboCategoria.Text = String.Empty Then
+            CarregaProdutos()
+        End If
+    End Sub
 End Class

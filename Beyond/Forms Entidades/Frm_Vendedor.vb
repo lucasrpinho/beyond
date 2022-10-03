@@ -26,7 +26,7 @@ Public Class Frm_Vendedor
 
     Private Sub Frm_Vendedor_EnabledChanged(sender As Object, e As System.EventArgs) Handles Me.EnabledChanged
         If Me.Enabled Then
-            toolStrip.ToolbarItemsState(MyModo.UniqueModo, , ComboNome.Text <> String.Empty)
+            toolStrip.ToolbarItemsState(MyModo.UniqueModo, Not IsNothing(objVendedor))
         End If
     End Sub
 
@@ -244,25 +244,26 @@ Public Class Frm_Vendedor
                     LimpaCampos_Desativa()
                     toolStrip.AfterSuccessfulInsert()
                 Else
-                    toolStrip.ToolbarItemsState("", False)
+                    toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, False)
                     toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = True
                 End If
             Else
-                If ValidaCampos() AndAlso Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
+                If ValidaCampos() Then
                     Dim vendedor = ObjVendedorFromList()
                     If vendedor Is Nothing Then
-                        toolStrip.ToolbarItemsState("", False)
+                        toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, False)
                         Exit Sub
                     End If
                     If Not DAOVendedor.AtualizaVendedor(ObjVendedorFromList, resposta, False, codusuario) Then
-                        toolStrip.ToolbarItemsState("", False)
+                        toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, False)
                         MsgBoxHelper.Erro(Me, resposta, "Erro")
                     Else
                         LimpaCampos_Desativa()
                         toolStrip.AfterSuccessfulUpdate()
                     End If
                 Else
-                    toolStrip.ToolbarItemsState("", False)
+                    MyModo.UniqueModo = MyModo.UniqueModoAnterior
+                    toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, Not IsNothing(objVendedor))
                 End If
             End If
 
@@ -291,32 +292,22 @@ Public Class Frm_Vendedor
                 CarregaVendedores()
                 ModoAlterar()
 
-        ElseIf MyModo.UniqueModo = "REVERTER" Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
-                    ToolStrip_ItemClicked()
-                Else
-                    Exit Sub
-                End If
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Deseja excluir o item?", "Exclusão") Then
-                    If DAOVendedor.AtualizaVendedor(ObjVendedorFromList, resposta, True, codusuario) Then
-                        toolStrip.AfterSuccessfulDelete()
-                        LimpaCampos_Desativa()
-                    End If
-                    MsgBoxHelper.Msg(Me, resposta, "Exclusão")
-                Else
-                    toolStrip.ToolbarItemsState("", False, True)
-                    Exit Sub
-                End If
+            If DAOVendedor.AtualizaVendedor(ObjVendedorFromList, resposta, True, codusuario) Then
+                toolStrip.AfterSuccessfulDelete()
+                LimpaCampos_Desativa()
+            End If
+            MsgBoxHelper.Msg(Me, resposta, "Exclusão")
+
 
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
-                LimpaCampos_AtivaControles()
-                toolStrip.PagAberta_HabilitarBotoes()
-                DesativaCampos()
+            LimpaCampos_AtivaControles()
+            toolStrip.PagAberta_HabilitarBotoes()
+            DesativaCampos()
 
         ElseIf MyModo.UniqueModo = "IMAGEM" Then
-                CarregaImagem()
+            CarregaImagem()
         End If
     End Sub
 

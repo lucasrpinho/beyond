@@ -37,10 +37,10 @@
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Modo = "PADRÃO"
     End Sub
 
     Public Sub PagAberta_HabilitarBotoes()
+        Modo = "PADRÃO"
         Me.ToolStrip1.Enabled = True
         For Each item As ToolStripItem In ToolStrip1.Items
             If (item Is BtnNovo) Or (item Is BtnPesquisar) Then
@@ -60,27 +60,47 @@
         If e.ClickedItem Is BtnNovo Then
             Modo = "NOVO"
         ElseIf e.ClickedItem Is BtnSalvar Then
-            Modo = "SALVAR"
-        ElseIf e.ClickedItem Is BtnAlterar Then
-            Modo = "ALTERAR"
-        ElseIf e.ClickedItem Is BtnExcluir Then
-            Modo = "EXCLUIR"
-        ElseIf e.ClickedItem Is BtnPesquisar Then
-            Modo = "PESQUISAR"
-        ElseIf e.ClickedItem Is BtnSeguinte Then
-            Modo = "SEGUINTE"
-        ElseIf e.ClickedItem Is BtnAnterior Then
-            Modo = "ANTERIOR"
-        ElseIf e.ClickedItem Is BtnReverter Then
-            Modo = "REVERTER"
-        ElseIf e.ClickedItem Is BtnInsereImagem Then
-            Modo = "IMAGEM"
-        ElseIf e.ClickedItem Is BtnVisualizarRel Then
-            Modo = "RELATORIO"
-            'ElseIf e.ClickedItem Is BtnEscuro Then
-            '    AlternaCores()
-        End If
-        ToolbarItemsState()
+            If ModoAnterior = "ALTERAR" Then
+                If Not Uteis.MsgBoxHelper.MsgTemCerteza(Application.OpenForms.OfType(Of Frm_Principal_MDI).First _
+                                                    .TCPrincipal.SelectedTab.Controls.OfType(Of Form).First, "Deseja salvar as alterações?", "Alteração") Then
+                    Exit Sub
+                End If
+            Else
+                Modo = "SALVAR"
+            End If
+            ElseIf e.ClickedItem Is BtnAlterar Then
+                Modo = "ALTERAR"
+            ElseIf e.ClickedItem Is BtnExcluir Then
+                If Uteis.MsgBoxHelper.MsgTemCerteza(Application.OpenForms.OfType(Of Frm_Principal_MDI).First _
+                                                    .TCPrincipal.SelectedTab.Controls.OfType(Of Form).First, "Deseja excluir o registro?", "Exclusão") Then
+                    Modo = "EXCLUIR"
+                Else
+                    ToolbarItemsState(ModoAnterior)
+                    ModoAnterior = "REVERTER"
+                    Exit Sub
+                End If
+            ElseIf e.ClickedItem Is BtnPesquisar Then
+                Modo = "PESQUISAR"
+            ElseIf e.ClickedItem Is BtnSeguinte Then
+                Modo = "SEGUINTE"
+            ElseIf e.ClickedItem Is BtnAnterior Then
+                Modo = "ANTERIOR"
+            ElseIf e.ClickedItem Is BtnReverter Then
+                If Uteis.MsgBoxHelper.MsgTemCerteza(Application.OpenForms.OfType(Of Frm_Principal_MDI).First _
+                                                    .TCPrincipal.SelectedTab.Controls.OfType(Of Form).First, "Deseja reverter as mudanças?", "Reverter") Then
+                    Modo = "REVERTER"
+                    ToolbarItemsState(Modo)
+                Else
+                    Exit Sub
+                End If
+            ElseIf e.ClickedItem Is BtnInsereImagem Then
+                Modo = "IMAGEM"
+            ElseIf e.ClickedItem Is BtnVisualizarRel Then
+                Modo = "RELATORIO"
+                'ElseIf e.ClickedItem Is BtnEscuro Then
+                '    AlternaCores()
+            End If
+            ToolbarItemsState()
     End Sub
 
 
@@ -89,17 +109,12 @@
         RaiseEvent itemclick()
     End Sub
 
-    Public Sub ToolbarItemsState(Optional ByVal modoAposAtivarPagina As String = "", Optional succ As Boolean = True, _
-                                 Optional ByVal haviaItemPesquisado As Boolean = False)
+    Public Sub ToolbarItemsState(Optional ByVal modoAtualParaAnterior As String = "", Optional ByVal haviaItemPesquisado As Boolean = False)
 
         ' Toolstrip captura o MODO em que a página estava quando perdeu o foco, e retoma o estado dos itens de acordo com o respectivo modo
-        If Not String.IsNullOrWhiteSpace(modoAposAtivarPagina) Then
-            Modo = modoAposAtivarPagina
-        End If
-
-        If Not succ Then
-            Modo = ModoAnterior
-            If ModoAnterior = "ANTERIOR" Or ModoAnterior = "SEGUINTE" Then
+        If Not String.IsNullOrWhiteSpace(modoAtualParaAnterior) Then
+            Modo = modoAtualParaAnterior
+            If Modo = "ANTERIOR" Or Modo = "SEGUINTE" Then
                 Modo = "PESQUISAR"
                 haviaItemPesquisado = Modo = "PESQUISAR"
             End If
@@ -127,7 +142,7 @@
             BtnExcluir.Enabled = haviaItemPesquisado
         ElseIf Modo = "SALVAR" Then
             For Each item As ToolStripItem In ToolStrip1.Items
-                If item IsNot BtnReverter AndAlso item IsNot BtnNovo AndAlso item IsNot BtnPesquisar Then
+                If item IsNot BtnNovo AndAlso item IsNot BtnPesquisar Then
                     item.Enabled = False
                 Else
                     item.Enabled = True
@@ -143,7 +158,7 @@
             Next
         ElseIf Modo = "EXCLUIR" Then
             For Each item As ToolStripItem In ToolStrip1.Items
-                If item IsNot BtnNovo AndAlso item IsNot BtnPesquisar AndAlso item IsNot BtnReverter Then
+                If item IsNot BtnNovo AndAlso item IsNot BtnPesquisar Then
                     item.Enabled = False
                 Else
                     item.Enabled = True
@@ -206,6 +221,7 @@
                 item.Enabled = True
             End If
         Next
+        Modo = "PADRÃO"
     End Sub
 
     Public Sub EstadoAlterarExcluir(ByVal estado As Boolean)

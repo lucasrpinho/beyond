@@ -18,10 +18,10 @@ Public Class UC_Login
 
     Private Function ValidaCampos() As Boolean
         If StringHelper.IsNull(TxtLogin.Text) Then
-            MsgBoxHelper.CustomTooltip(TxtLogin, TxtLogin, "Campo de login precisa ser preenchido.", "Login", ToolTipIcon.Info)
+            MsgBoxHelper.Alerta(Me.ParentForm, "Campo de login precisa ser preenchido.", "Preenchimento Incompleto", TxtLogin)
             TxtLogin.Focus()
         ElseIf StringHelper.IsNull(TxtSenha.Text) Then
-            MsgBoxHelper.CustomTooltip(TxtSenha, TxtSenha, "Campo de senha precisa ser preenchido.", "Senha", ToolTipIcon.Info)
+            MsgBoxHelper.Alerta(Me.ParentForm, "Campo de senha precisa ser preenchido.,", "Preenchimento Incompleto", TxtSenha)
             TxtSenha.Focus()
         Else
             Return True

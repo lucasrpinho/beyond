@@ -26,7 +26,7 @@ Public Class Frm_Cliente
 
     Private Sub Frm_Cliente_EnabledChanged(sender As Object, e As System.EventArgs) Handles Me.EnabledChanged
         If Me.Enabled Then
-            toolStrip.ToolbarItemsState(MyModo.UniqueModo)
+            toolStrip.ToolbarItemsState(MyModo.UniqueModo, Not IsNothing(objCliente))
         End If
     End Sub
 
@@ -207,17 +207,17 @@ Public Class Frm_Cliente
                     Desativa_Campos()
                     toolStrip.AfterSuccessfulInsert()
                 Else
-                    toolStrip.ToolbarItemsState("", False)
+                    toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, False)
                 End If
             Else
-                If ValidaCampos() AndAlso Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
+                If ValidaCampos() Then
                     Dim cli = GetClienteForOperation()
                     If cli Is Nothing Then
-                        toolStrip.ToolbarItemsState("", False)
+                        toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, False)
                         Exit Sub
                     End If
                     If Not DAOCliente.AtualizaCliente(GetClienteForOperation, resposta, False, codusuario) Then
-                        toolStrip.ToolbarItemsState("", False)
+                        toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, False)
                         MsgBoxHelper.Alerta(Me, resposta, "Erro")
                     Else
                         MsgBoxHelper.Msg(Me, "Cliente atualizado com sucesso.", "Informação")
@@ -226,63 +226,58 @@ Public Class Frm_Cliente
                         toolStrip.AfterSuccessfulUpdate()
                     End If
                 Else
-                    toolStrip.ToolbarItemsState("", False)
+                    MyModo.UniqueModo = MyModo.UniqueModoAnterior
+                    toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, True)
                 End If
             End If
 
         ElseIf MyModo.UniqueModo = "ALTERAR" Then
-                ModoAlterar()
+            ModoAlterar()
 
 
         ElseIf MyModo.UniqueModo = "NOVO" Then
-                LimpaCampos_AtivaControles()
-                CarregaCargos()
-                AlternarControle()
-                If objCliente IsNot Nothing Then
-                    objCliente = Nothing
-                End If
-                ComboNome.Focus()
+            LimpaCampos_AtivaControles()
+            CarregaCargos()
+            AlternarControle()
+            If objCliente IsNot Nothing Then
+                objCliente = Nothing
+            End If
+            ComboNome.Focus()
 
         ElseIf MyModo.UniqueModo = "PESQUISAR" Then
-                If MyModo.UniqueModoAnterior = "REVERTER" Then
-                    ModoPesquisaPreenchido()
-                    Exit Sub
-                End If
-                ModoPesquisa()
+            If MyModo.UniqueModoAnterior = "REVERTER" Then
+                ModoPesquisaPreenchido()
+                Exit Sub
+            End If
+            ModoPesquisa()
 
         ElseIf MyModo.UniqueModo = "ANTERIOR" Then
-                If ComboNome.SelectedIndex - 1 >= 0 Then
-                    ComboNome.SelectedIndex -= 1
-                End If
+            If ComboNome.SelectedIndex - 1 >= 0 Then
+                ComboNome.SelectedIndex -= 1
+            End If
 
         ElseIf MyModo.UniqueModo = "SEGUINTE" Then
-                If ComboNome.SelectedIndex + 1 <> ComboNome.Items.Count Then
-                    ComboNome.SelectedIndex += 1
-                End If
+            If ComboNome.SelectedIndex + 1 <> ComboNome.Items.Count Then
+                ComboNome.SelectedIndex += 1
+            End If
 
 
-        ElseIf MyModo.UniqueModo = "REVERTER" Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
-                    ToolStrip_ItemClicked()
-                Else
-                    Exit Sub
-                End If
+            'ElseIf MyModo.UniqueModo = "REVERTER" Then
+            '    If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
+            '        ToolStrip_ItemClicked()
+            '    Else
+            '        Exit Sub
+            '    End If
 
 
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
-                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Deseja excluir o item?", "Exclusão") Then
-                    If DAOCliente.AtualizaCliente(GetClienteForOperation, resposta, True, codusuario) Then
-                        LimpaCampos_AtivaControles()
-                        Desativa_Campos()
-                        toolStrip.AfterSuccessfulDelete()
-                        objCliente = Nothing
-                    End If
-                    MsgBoxHelper.Msg(Me, resposta, "Exclusão")
-                Else
-                    toolStrip.ToolbarItemsState("", False)
-                    toolStrip.EstadoAlterarExcluir(True)
-                    Exit Sub
-                End If
+            If DAOCliente.AtualizaCliente(GetClienteForOperation, resposta, True, codusuario) Then
+                LimpaCampos_AtivaControles()
+                Desativa_Campos()
+                toolStrip.AfterSuccessfulDelete()
+                objCliente = Nothing
+            End If
+            MsgBoxHelper.Msg(Me, resposta, "Exclusão")
 
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
                 LimpaCampos_AtivaControles()

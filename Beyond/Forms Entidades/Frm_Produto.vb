@@ -25,7 +25,7 @@ Public Class Frm_Produto
 
     Private Sub Frm_Produto_EnabledChanged(sender As Object, e As System.EventArgs) Handles Me.EnabledChanged
         If Me.Enabled Then
-            toolStrip.ToolbarItemsState(MyModo.UniqueModo)
+            toolStrip.ToolbarItemsState(MyModo.UniqueModo, Not IsNothing(objProduto))
         End If
     End Sub
 
@@ -94,8 +94,7 @@ Public Class Frm_Produto
         Dim controlNaoPreenchido = ChecaPreenchimento()
 
         If controlNaoPreenchido IsNot Nothing Then
-            MsgBoxHelper.CustomTooltip(controlNaoPreenchido, controlNaoPreenchido, "Campo não pode ser vazio.", "Preenchimento incompleto")
-            controlNaoPreenchido.Focus()
+            MsgBoxHelper.Alerta(Me, "Campo não pode ser vazio.", "Preenchimento incompleto", controlNaoPreenchido)
             Return False
         End If
 
@@ -151,22 +150,17 @@ Public Class Frm_Produto
                     Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
                     toolStrip.AfterSuccessfulInsert()
                 Else
-                    toolStrip.ToolbarItemsState("", False)
+                    toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, False)
                     toolStrip.ToolStrip1.Items("BtnInsereImagem").Enabled = True
                 End If
             Else
-                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
-                    If Not DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, codusuario) Then
-                        toolStrip.ToolbarItemsState("", False)
-                        MsgBoxHelper.Alerta(Me, resposta, "Erro")
-                    Else
-                        LimpaCampos_AtivaControles()
-                        Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
-                        toolStrip.AfterSuccessfulUpdate()
-                    End If
+                If Not DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, codusuario) Then
+                    toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, False)
+                    MsgBoxHelper.Alerta(Me, resposta, "Erro")
                 Else
-                    toolStrip.ToolbarItemsState("", False, True)
-                    toolStrip.BtnPesquisar.Enabled = True
+                    LimpaCampos_AtivaControles()
+                    Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
+                    toolStrip.AfterSuccessfulUpdate()
                 End If
             End If
 
@@ -191,27 +185,13 @@ Public Class Frm_Produto
             ModoPesquisa()
 
 
-        ElseIf MyModo.UniqueModo = "REVERTER" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
-                ToolStrip_ItemClicked()
-            Else
-                Exit Sub
-            End If
-
-
         ElseIf MyModo.UniqueModo = "EXCLUIR" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja excluir o item?", "Exclusão") Then
-                If DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, codusuario, True) Then
-                    LimpaCampos_AtivaControles()
-                    Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
-                    toolStrip.AfterSuccessfulDelete()
-                End If
-                MsgBoxHelper.Msg(Me, resposta, "Informação")
-            Else
-                toolStrip.ToolbarItemsState("", False, True)
-                toolStrip.BtnPesquisar.Enabled = True
-                Exit Sub
+            If DAOProd.AtualizaProduto(GetProdutoForOperation, resposta, codusuario, True) Then
+                LimpaCampos_AtivaControles()
+                Uteis.ControlsHelper.SetControlsDisabled(GrpBoxInfo.Controls)
+                toolStrip.AfterSuccessfulDelete()
             End If
+            MsgBoxHelper.Msg(Me, resposta, "Informação")
 
         ElseIf MyModo.UniqueModo = "IMAGEM" Then
             CarregaImagem()

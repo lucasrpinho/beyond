@@ -93,25 +93,21 @@ Public Class Frm_Usuario
                     Desativa_Campos()
                     toolStrip.AfterSuccessfulInsert()
                 Else
-                    toolStrip.ToolbarItemsState("", False)
+                    toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, False)
                 End If
             Else
                 If String.IsNullOrWhiteSpace(TxtEmail.Text) Or Not Uteis.RegexValidation.IsEmailValid(TxtEmail.Text) Then
                     Uteis.MsgBoxHelper.Alerta(Me, "Campo de e-mail não pode ser vazio.", "Preenchimento incompleto", TxtEmail)
-                    toolStrip.ToolbarItemsState("", False)
+                    toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, False)
                     Exit Sub
                 End If
-                If Uteis.MsgBoxHelper.MsgTemCerteza(Me, "Tem certeza que deseja modificar o registro?", "Alteração") Then
-                    If Not DAOUsuario.AtualizaUsuario(GetUsuarioForOperation, resposta) Then
-                        toolStrip.ToolbarItemsState("", False)
-                        Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
-                    Else
-                        LimpaCampos_AtivaControles()
-                        Desativa_Campos()
-                        toolStrip.AfterSuccessfulUpdate()
-                    End If
+                If Not DAOUsuario.AtualizaUsuario(GetUsuarioForOperation, resposta) Then
+                    toolStrip.ToolbarItemsState(MyModo.UniqueModoAnterior, False)
+                    Uteis.MsgBoxHelper.Erro(Me, resposta, "Erro")
                 Else
-                    toolStrip.ToolbarItemsState("", False)
+                    LimpaCampos_AtivaControles()
+                    Desativa_Campos()
+                    toolStrip.AfterSuccessfulUpdate()
                 End If
             End If
 
@@ -141,13 +137,6 @@ Public Class Frm_Usuario
                 ComboNome.SelectedIndex += 1
             End If
 
-
-        ElseIf MyModo.UniqueModo = "REVERTER" Then
-            If Uteis.MsgBoxHelper.MsgTemCerteza(frmPrincipal, "Deseja desfazer as mudanças?", "Reverter") Then
-                ToolStrip_ItemClicked()
-            Else
-                Exit Sub
-            End If
 
         ElseIf MyModo.UniqueModo = "PADRÃO" Then
             LimpaCampos_AtivaControles()
@@ -296,7 +285,7 @@ Public Class Frm_Usuario
 
     Private Sub Frm_Usuario_EnabledChanged(sender As System.Object, e As System.EventArgs) Handles MyBase.EnabledChanged
         If Me.Enabled Then
-            toolStrip.ToolbarItemsState(MyModo.UniqueModo)
+            toolStrip.ToolbarItemsState(MyModo.UniqueModo, Not IsNothing(objUsuario))
         End If
     End Sub
 
@@ -387,7 +376,7 @@ Public Class Frm_Usuario
         ElseIf String.IsNullOrWhiteSpace(TxtEmail.Text) Then
             Uteis.MsgBoxHelper.Alerta(Me, "E-mail precisa ser preenchido.", "Preenchimento incompleto", TxtEmail)
             ctrl = TxtEmail
-        ElseIf Uteis.RegexValidation.IsEmailValid(TxtEmail.Text) Then
+        ElseIf Not Uteis.RegexValidation.IsEmailValid(TxtEmail.Text) Then
             Uteis.MsgBoxHelper.Alerta(Me, "Formato de e-mail inválido.", "Preenchimento Inválido", TxtEmail)
             ctrl = TxtEmail
         ElseIf String.IsNullOrWhiteSpace(TxtLogin.Text) Then

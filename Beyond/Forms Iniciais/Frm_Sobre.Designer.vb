@@ -152,7 +152,7 @@ Partial Class Frm_Sobre
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.MenuBar
+        Me.BackColor = System.Drawing.Color.LightGray
         Me.ClientSize = New System.Drawing.Size(553, 447)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label1)
