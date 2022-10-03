@@ -37,6 +37,7 @@ Public Class Frm_Cargo
     Private Function InsereCargo() As Boolean
         If ComboNome.Text = String.Empty Then
             MsgBoxHelper.Alerta(Me, "Nome do cargo precisa ser preenchido", "Alerta", ComboNome)
+            Return False
         End If
 
         Dim cargo As New Cargo

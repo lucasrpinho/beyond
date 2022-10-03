@@ -43,7 +43,6 @@ Public Class Frm_Pedido
     End Sub
 
     Private Sub Frm_Pedido_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        DesabilitaPages()
         AddHandler toolStrip.itemclick, AddressOf Me.ToolStrip_ItemClicked
         CarregaVendedoresModoNovo()
         CarregaEstados()
@@ -52,6 +51,7 @@ Public Class Frm_Pedido
         CarregaProdutos()
         CarregaTodosProdutos()
         MyModo.UniqueModo = "PADRÃO"
+        LimpaCampos_Desativa()
     End Sub
 
     Private Sub CarregaEstados()
@@ -1249,6 +1249,7 @@ Public Class Frm_Pedido
         If LstCarrinho.SelectedItems.Count > 0 Then
             objProdSelecionado = LstCarrinho.SelectedItems(0).Tag
             TxtQtd.Text = LstCarrinho.SelectedItems(0).SubItems("QTD").Text
+            TxtQtd.Enabled = True
         End If
     End Sub
 
@@ -1272,4 +1273,6 @@ Public Class Frm_Pedido
             Exit Sub
         End If
     End Sub
+
+
 End Class

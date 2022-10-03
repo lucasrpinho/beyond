@@ -55,7 +55,7 @@ Public Class Frm_Usuario
         End If
 
         If Not Uteis.RegexValidation.IsEmailValid(TxtEmail.Text) Then
-            Uteis.MsgBoxHelper.CustomTooltip(TxtEmail, TxtEmail, "E-mail inválido.", "Erro de preenchimento")
+            Uteis.MsgBoxHelper.Alerta(Me, "E-mail inválido.", "Erro de preenchimento", TxtEmail)
             Return False
         End If
 
@@ -96,7 +96,7 @@ Public Class Frm_Usuario
                     toolStrip.ToolbarItemsState("", False)
                 End If
             Else
-                If String.IsNullOrWhiteSpace(TxtEmail.Text) Or Uteis.RegexValidation.IsEmailValid(TxtEmail.Text) Then
+                If String.IsNullOrWhiteSpace(TxtEmail.Text) Or Not Uteis.RegexValidation.IsEmailValid(TxtEmail.Text) Then
                     Uteis.MsgBoxHelper.Alerta(Me, "Campo de e-mail não pode ser vazio.", "Preenchimento incompleto", TxtEmail)
                     toolStrip.ToolbarItemsState("", False)
                     Exit Sub
@@ -386,6 +386,9 @@ Public Class Frm_Usuario
             ctrl = ComboNome
         ElseIf String.IsNullOrWhiteSpace(TxtEmail.Text) Then
             Uteis.MsgBoxHelper.Alerta(Me, "E-mail precisa ser preenchido.", "Preenchimento incompleto", TxtEmail)
+            ctrl = TxtEmail
+        ElseIf Uteis.RegexValidation.IsEmailValid(TxtEmail.Text) Then
+            Uteis.MsgBoxHelper.Alerta(Me, "Formato de e-mail inválido.", "Preenchimento Inválido", TxtEmail)
             ctrl = TxtEmail
         ElseIf String.IsNullOrWhiteSpace(TxtLogin.Text) Then
             Uteis.MsgBoxHelper.Alerta(Me, "Login precisa ser preenchido.", "Preenchimento incompleto", TxtLogin)
